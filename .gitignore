@@ -67,7 +67,7 @@ dist/
 docs/
 
 # editor directory
-.vscode/**
+.vscode/
 
 # idea directory
 .idea/**
