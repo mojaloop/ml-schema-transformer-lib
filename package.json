@@ -1,27 +1,27 @@
 {
-  "name": "@mojaloop/repo-name",
+  "name": "@mojaloop/ml-schema-transformer-lib",
   "version": "0.1.0",
-  "description": "Typescript Mojaloop project template",
+  "description": "Shared component for ML schemas translation",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mojaloop/<repo-name>.git"
+    "url": "git+https://github.com/mojaloop/ml-schema-transformer-lib.git"
   },
   "keywords": [
     "mojaloop",
-    "services",
-    "<repo-name>"
+    "library",
+    "ml-schema-transformer-lib"
   ],
-  "author": "lewisdaly",
+  "author": "Steven Oderayi (oderayi)",
   "contributors": [
-    "Lewis Daly <lewis@vesselstech.com>",
-    "Miguel de Barros <miguel.debarros@modusbox.com>"
+    "Steven Oderayi <steven.oderayi@infitx.com>"
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/mojaloop/<repo-name>/issues"
+    "url": "https://github.com/mojaloop/ml-schema-transformer-lib/issues"
   },
-  "homepage": "https://github.com/mojaloop/<repo-name>#readme",
+  "homepage": "https://github.com/mojaloop/ml-schema-transformer-lib#readme",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -34,8 +34,8 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint ./src/**/*.ts ./test/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsup",
+    "docs": "typedoc",
     "start": "npm run start:no-build",
     "start:no-build": "node dist/index.js",
     "start:build": "npm run build && npm run start:no-build",
@@ -48,35 +48,38 @@
     "test:int": "jest --testMatch='**/test/integration/**/*.test.ts'",
     "test:functional": "echo \"ACTION: Add functional test here, or remove this script. Also check CI configs to comment out the necessary job'\"",
     "warn-pre-commit": "echo \"pre commit tasks running. build and test\"",
-    "audit:resolve": "npx resolve-audit --production",
-    "audit:check": "npx check-audit --production",
+    "audit:resolve": "npm audit fix",
+    "audit:check": "npx audit-ci --config ./audit-ci.jsonc",
     "dep:check": "npx --no-install ncu -e 2",
     "dep:update": "npx --no-install ncu -u",
     "release": "npx standard-version --no-verify --releaseCommitMessageFormat 'ci(release): {{currentTag}} [skip ci]'",
     "snapshot": "npx standard-version --no-verify --skip.changelog --prerelease snapshot --releaseCommitMessageFormat 'ci(snapshot): {{currentTag}}'"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.1",
-    "@typescript-eslint/eslint-plugin": "7.12.0",
-    "@typescript-eslint/parser": "7.12.0",
-    "eslint": "8.56.0",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.0",
+    "@typescript-eslint/eslint-plugin": "8.7.0",
+    "@typescript-eslint/parser": "8.7.0",
+    "audit-ci": "^7.1.0",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "2.29.1",
-    "husky": "^9.0.11",
+    "eslint-plugin-import": "2.30.0",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
-    "lint-staged": "^15.2.5",
-    "npm-audit-resolver": "3.0.0-RC.0",
-    "npm-check-updates": "16.14.20",
-    "prettier": "3.3.0",
+    "lint-staged": "^15.2.10",
+    "npm-check-updates": "17.1.3",
+    "prettier": "3.3.3",
     "replace": "^1.2.2",
     "standard-version": "^9.5.0",
-    "ts-jest": "29.1.4",
+    "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
-    "typescript": "5.4.5"
+    "tsup": "^8.2.4",
+    "typedoc": "^0.26.6",
+    "typedoc-theme-hierarchy": "^5.0.3",
+    "typescript": "5.6.2"
   },
   "standard-version": {
     "scripts": {
