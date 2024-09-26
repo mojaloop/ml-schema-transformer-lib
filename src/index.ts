@@ -20,22 +20,3 @@
 
  --------------
  ******/
-
-// import mapTransform from 'map-transform';
-
-// let mapTransform: any;
-// import('map-transform').then(({ default: _mapTransform }) => {
-//     mapTransform = _mapTransform;
-//     console.log(mapTransform);
-// })
-
-// await import('map-transform')
-
-// import { createTransformer } from './lib/transformer.js';
-
-async function main() {
-  // const transformer = await createTransformer();
-  // console.log(transformer.transform('hello world'));
-}
-
-main();
