@@ -1,4 +1,4 @@
-// FSPIOP to FSPIOP ISO2022 mapping
+// FSPIOP to FSPIOP ISO2022 mappings
 
 export const quotes = {
   post: `{
@@ -28,7 +28,20 @@ export const quotes = {
     "TermsRequest_FIToFICustomerCreditProposal.GrpHdr.PmtInstrXpryDtTm": "expiration",
     "TermsRequest_FIToFICustomerCreditProposal.GroupHeader129.CdtTrfTxInf.Purp": "transactionType.scenario"
   }`,
-  putById: ``,
-  putErrorById: ``
+  put: `{
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.InstdAmt.Ccy": "transferAmount.currency",
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount": "transferAmount.amount",
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "payeeReceiveAmount.currency",
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "payeeReceiveAmount.amount",
+    "TermsResponse_FIToFICustomerCreditConfirmation.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.Ccy": "payeeFspCommission.currency",
+    "TermsResponse_FIToFICustomerCreditConfirmation.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "payeeFspCommission.amount",
+    "TermsResponse_FIToFICustomerCreditConfirmation.GrpHdr.PmtInstrXpryDtTm": "expiration",
+    "TermsResponse_FIToFICustomerCreditConfirmation.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "ilpPacket",
+    "TermsResponse_FIToFICustomerCreditConfirmation.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "condition"
+  }`,
+  putError: `{
+    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts": "errorInformation.errorCode",
+    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.StsRsnInf.AddtInf": "errorInformation.errorDescription"
+  }`
 }
 

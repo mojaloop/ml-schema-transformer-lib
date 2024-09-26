@@ -13,19 +13,18 @@ export const Fspiop20022TransformFacade = {
   configure: ({ logger }: { logger: ContextLogger }) => {
     log = logger;
   },
-  discovery: {
-    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.post, log),
-    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.putById, log),
-    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.putErrorById, log)
+  parties: {
+    put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.put, log),
+    putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.putError, log)
   },
   quotes: {
     post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.post, log),
-    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putById, log),
-    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putErrorById, log)
+    put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.put, log),
+    putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putError, log)
   },
   transfers: {
     post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.post, log),
-    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putById, log),
-    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putErrorById, log)
+    put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.put, log),
+    putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putError, log)
   }
 }
