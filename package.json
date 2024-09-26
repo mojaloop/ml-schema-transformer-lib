@@ -51,6 +51,7 @@
     "snapshot": "npx standard-version --no-verify --skip.changelog --prerelease snapshot --releaseCommitMessageFormat 'ci(snapshot): {{currentTag}}'"
   },
   "dependencies": {
+    "@mojaloop/central-services-logger": "^11.5.1",
     "@perpk/json-xform": "^1.3.0",
     "json-mapify": "^1.0.4",
     "map-transform": "^1.5.3",

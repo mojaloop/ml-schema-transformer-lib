@@ -1,27 +1,31 @@
-import { TransformDefinition } from 'src/types/map-transform';
-import { createTransformer } from '../lib/transformer';
+import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { discovery, quotes, transfers } from '../mappings/fspiop';
+import { OverrideMapping } from 'src/types';
+import { logger as defaultLogger } from '../lib/logger';
+import { transformFn } from '../lib/transformer'
 
-const transform = async (source: unknown, mappingStr: string) => {
-  const mapping = JSON.parse(mappingStr) as TransformDefinition;
-  const transformer = await createTransformer({ mapping });
-  return transformer.transform(source);
-}
+let log = defaultLogger;
 
+/**
+ * Facades for transforming FSPIOP payloads to FSPIOP 20022 payloads
+ */
 export const FspiopTransformFacade = {
+  configure: ({ logger }: { logger: ContextLogger }) => {
+    log = logger;
+  },
   discovery: {
-    post: async (payload: unknown) => transform(payload, discovery.post),
-    putById: async (payload: unknown) => transform(payload, discovery.putById),
-    putErrorById: async (payload: unknown) => transform(payload, discovery.putErrorById)
+    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.post, log),
+    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.putById, log),
+    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || discovery.putErrorById, log)
   },
   quotes: {
-    post: async (payload: unknown) => transform(payload, quotes.post),
-    putById: async (payload: unknown) => transform(payload, quotes.putById),
-    putErrorById: async (payload: unknown) => transform(payload, quotes.putErrorById)
+    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.post, log),
+    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putById, log),
+    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putErrorById, log)
   },
   transfers: {
-    post: async (payload: unknown) => transform(payload, transfers.post),
-    putById: async (payload: unknown) => transform(payload, transfers.putById),
-    putErrorById: async (payload: unknown) => transform(payload, transfers.putErrorById)
+    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.post, log),
+    putById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putById, log),
+    putErrorById: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putErrorById, log)
   }
 }

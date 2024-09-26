@@ -20,3 +20,5 @@
 
  --------------
  ******/
+export * from './facades';
+export * from './lib/transformer';
