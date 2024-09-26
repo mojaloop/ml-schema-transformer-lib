@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="2" failures="0" errors="0" time="0.147">
+    <testsuite name="test/unit/index.test.ts" timestamp="2024-09-26T10:57:09.868Z" hostname="Stevens-MacBook-Pro.local" tests="1" failures="0" errors="0" skipped="0" time="0.01223875">
+        <testcase classname="test/unit/index.test.ts" name="Unit Tests --&gt; &gt; dummy unit test" time="0.011753334">
+            <system-out>
+[Module: null prototype] {
+  alt: [36m[Function: alt][39m,
+  apply: [36m[Function: apply][39m,
+  concat: [36m[Function: concat][39m,
+  concatRev: [36m[Function: concatRev][39m,
+  default: [36m[Function: mapTransform][39m,
+  divide: [36m[Function: divide][39m,
+  filter: [36m[Function: filter][39m,
+  fwd: [36m[Function: fwd][39m,
+  get: [36m[Function: get][39m,
+  ifelse: [36m[Function: default][39m,
+  iterate: [36m[Function: iterate][39m,
+  lookdown: [36m[Function: lookdown][39m,
+  lookup: [36m[Function: lookup][39m,
+  merge: [36m[Function: merge][39m,
+  modify: [36m[Function: modify][39m,
+  pathGetter: [36m[Function: pathGetter][39m,
+  pathSetter: [36m[Function: pathSetter][39m,
+  plug: [36m[Function: plug][39m,
+  rev: [36m[Function: rev][39m,
+  root: [36m[Function: default][39m,
+  set: [36m[Function: set][39m,
+  transform: [36m[Function: transform][39m,
+  transformers: {
+    bucket: [36m[Function: bucket][39m,
+    compare: [36m[Function: compare][39m,
+    explode: [36m[Function (anonymous)][39m,
+    fixed: [36m[Function: fixed][39m,
+    flatten: [36m[Function: flatten][39m,
+    get: [36m[Function: get][39m,
+    implode: [36m[Function (anonymous)][39m,
+    index: [36m[Function: index][39m,
+    logical: [36m[Function: logical][39m,
+    map: [36m[Function: map][39m,
+    merge: [36m[Function: merge][39m,
+    mergeRev: [36m[Function: mergeRev][39m,
+    not: [36m[Function: not][39m,
+    project: [36m[Function: bucket][39m,
+    sort: [36m[Function: sort][39m,
+    value: [36m[Function: value][39m
+  }
+}
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="test/unit/map-transform.test.ts" timestamp="2024-09-26T10:57:09.869Z" hostname="Stevens-MacBook-Pro.local" tests="1" failures="0" errors="0" skipped="0" time="0.001169333">
+        <testcase classname="test/unit/map-transform.test.ts" name="Unit Tests --&gt; &gt; dummy unit test" time="0.000694084">
+        </testcase>
+    </testsuite>
+</testsuites>

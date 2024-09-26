@@ -6,10 +6,10 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
-    "lib": ["esNext"],
-    "target": "esNext",
-    "module": "nodeNext",
-    "moduleResolution": "nodeNext",
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
@@ -19,5 +19,5 @@
     "declarationMap": true
   },
   "include": ["./src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

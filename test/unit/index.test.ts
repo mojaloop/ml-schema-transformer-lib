@@ -21,8 +21,11 @@
  --------------
  ******/
 
+ import { createTransformer } from '../../src/lib/transformer';
+
 describe ('Unit Tests -->', () => {
-  test('dummy unit test', () => {
+  test('dummy unit test', async () => {
+    const transformer = await createTransformer();
     expect(true).toBe(true);
   });
 });
