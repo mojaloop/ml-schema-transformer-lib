@@ -1,12 +1,11 @@
-import { fspiop } from './fixtures';
 import { FspiopTransformFacade } from '../../src/facades/fspiop';
+import { fspiop, fspiop_iso20022 } from './fixtures';
 
-const source = fspiop.quotes.post;
 
 describe('Transformer test -->', () => {
   test('should transform FSPIOP quotes payload to FSPIOP 20022 quotes payload', async () => {
+    const source = fspiop.quotes.post;
     const target = await FspiopTransformFacade.quotes.post(source);
-    expect(target).toBeDefined();
-    console.log(target);
+    expect(target).toEqual(fspiop_iso20022.quotes.post);
   });
 });
