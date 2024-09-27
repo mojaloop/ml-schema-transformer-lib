@@ -39,7 +39,7 @@ export const fxQuotes = {
     "conversionTerms.expiration": "FxRequest_FICreditTransferProposal.GrpHdr.PmtInstrXpryDtTm"
   }`,
   put: `{
-    condition: "FxResponse_FICreditTransferProposal.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "condition": "FxResponse_FICreditTransferProposal.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
     "conversionTerms.conversionId": "FxResponse_FICreditTransferProposal.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId",
     "conversionTerms.determiningTransferId": "FxResponse_FICreditTransferProposal.CdtTrfTxInf.PmtId.TxId",
     "conversionTerms.initiatingFsp": "FxResponse_FICreditTransferProposal.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",

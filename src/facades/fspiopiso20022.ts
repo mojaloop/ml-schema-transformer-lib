@@ -53,11 +53,13 @@ export const FspiopIso20022TransformFacade = {
   },
   transfers: {
     post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.post, log),
+    patch: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.patch, log),
     put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.put, log),
     putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putError, log)
   },
   fxTransfers: {
     post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.post, log),
+    patch: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.patch, log),
     put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.put, log),
     putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.putError, log)
   }

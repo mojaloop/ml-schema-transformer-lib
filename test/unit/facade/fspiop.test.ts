@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { FspiopTransformFacade } from '../../../src/facades/fspiop';
+import { FspiopTransformFacade } from '../../../src/facades';
 import { fspiop, fspiop_iso20022, mockLogger } from '../../fixtures';
 
 describe('FSPIOPTransformFacade tests', () => {

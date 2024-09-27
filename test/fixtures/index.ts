@@ -376,44 +376,95 @@ export const fspiop = {
 };
 
 export const fspiop_iso20022 = {
+  parties: {
+    put: {
+      GetParties_IdentificationVerificationReportV03: {
+        Rpt: {
+          UpdtdPtyAndAcctId: {
+            Pty: {
+              Id: {
+                OrgId: {
+                  Othr: {
+                    SchmeNm: {
+                      Prtry: "MSISDN"
+                    },
+                    Id: "16135551212"
+                  }
+                },
+                PrvtId: {
+                  DtAndPlcOfBirth: {}
+                }
+              },
+              Nm: "string"
+            },
+            CashAccount40: {
+              Ccy: [
+                "AED"
+              ]
+            }
+          }
+        },
+        Assgnmt: {
+          Assgne: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    putError: {
+      GetPartiesError_IdentificationVerificationReportV03: {
+        Rpt: {
+          Rsn: {
+            Cd: "5100"
+          }
+        }
+      }
+    }
+  },
   quotes: {
     post: {
       TermsRequest_FIToFICustomerCreditProposal: {
         CdtTrfTxInf: {
           PmtId: {
-            TxId: '12345678',
-            EndToEndId: '2345678',
-            InstrId: '3456789'
+            TxId: "12345678",
+            EndToEndId: "2345678",
+            InstrId: "3456789"
           },
           Cdtr: {
             Id: {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: 'MSISDN'
+                    Cd: "MSISDN"
                   },
-                  Id: '4567890'
+                  Id: "4567890"
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: '1980-01-01'
+                  BirthDt: "1980-01-01"
                 }
               }
             },
-            Name: 'Payee Name'
+            Name: "Payee Name"
           },
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: '4321'
+                Id: "4321"
               }
             }
           },
           CdtrAcct: {
             Ccy: [
-              'XTS',
-              'XDT'
+              "XTS",
+              "XDT"
             ]
           },
           Dbtr: {
@@ -421,52 +472,327 @@ export const fspiop_iso20022 = {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: 'MSISDN'
+                    Cd: "MSISDN"
                   },
-                  Id: '987654321'
+                  Id: "987654321"
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: '1970-01-01'
+                  BirthDt: "1970-01-01"
                 }
               }
             },
-            Name: 'Payer Name',
+            Name: "Payer Name",
             Acct: {
               Ccy: [
-                'XXX',
-                'XXY'
+                "XXX",
+                "XXY"
               ]
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: 'dfsp2'
+                Id: "dfsp2"
               }
             }
           },
-          ChrgBr: 'SEND',
+          ChrgBr: "SEND",
           IntrBkSttlmAmt: {
             ChrgsInf: {
               Amt: {
-                Ccy: 'USD',
+                Ccy: "USD",
                 ActiveOrHistoricCurrencyAndAmount: 5
               }
             }
           },
           InstdAmt: {},
           InstrForNxtAgt: {
-            InstrInf: 'Test note'
+            InstrInf: "Test note"
           }
         },
         GrpHdr: {
-          PmtInstrXpryDtTm: '2020-01-01T00:00:00Z'
+          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z"
         },
         GroupHeader129: {
           CdtTrfTxInf: {
-            Purp: 'DEPOSIT'
+            Purp: "DEPOSIT"
+          }
+        }
+      }
+    },
+    put: {
+      TermsRequest_FIToFICustomerCreditProposal: {
+        CdtTrfTxInf: {
+          InstdAmt: {
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
+          }
+        }
+      },
+      TermsResponse_FIToFICustomerCreditConfirmation: {
+        CdtTrfTxInf: {
+          IntrBkSttlmAmt: {
+            ChrgsInf: {
+              Amt: {
+                Ccy: "AED",
+                ActiveOrHistoricCurrencyAndAmount: "123.45"
+              }
+            }
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: {
+              condition: "_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh"
+            }
+          }
+        },
+        GrpHdr: {
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        }
+      }
+    },
+    putError: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          TxSts: "5100",
+          StsRsnInf: {
+            AddtInf: "string"
+          }
+        }
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      FxRequest_FICreditTransferProposal: {
+        CdtTrfTxInf: {
+          PmtId: {
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          ChrgBr: "RECEIVE",
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "AED",
+              ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+          }
+        },
+        GrpHdr: {
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        }
+      }
+    },
+    put: {
+      FxResponse_FICreditTransferProposal: {
+        CdtTrfTxInf: {
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1",
+            PmtId: {
+              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            }
+          },
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          ChrgBr: "RECEIVE",
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "AED",
+              ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+          }
+        },
+        GrpHdr: {
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        }
+      }
+    },
+    putError: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          TxSts: "5100",
+          StsRsnInf: {
+            AddtInf: "string"
+          }
+        }
+      }
+    }
+  },
+  transfers: {
+    post: {
+      Execute_FIToFICustomerCreditTransferV13: {
+        CdtTrfTxInf: {
+          PmtId: {
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA"
+          }
+        },
+        GrpHdr: {
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        }
+      }
+    },
+    patch: {
+      "PacsStatus_FIToFIPaymentStatusReportV15": {
+        "TxInfAndSts": {
+          "PrcgDt": {
+            "DtTm": "2016-05-24T08:38:08.699-04:00"
+          },
+          "TxSts": "RESERVED"
+        }
+      }
+    },
+    put: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESERVED"
+        }
+      }
+    },
+    putError: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          TxSts: "5100",
+          StsRsnInf: {
+            AddtInf: "string"
+          }
+        }
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      Fxecute_FinancialInstitutionCreditTransferV12: {
+        CdtTrfTxInf: {
+          PmtId: {
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "string"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "AED",
+              ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: "123.45"
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+          }
+        },
+        GrpHdr: {
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        }
+      }
+    },
+    patch: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          }
+        }
+      }
+    },
+    put: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          }
+        }
+      }
+    },
+    putError: {
+      PacsStatus_FIToFIPaymentStatusReportV15: {
+        TxInfAndSts: {
+          TxSts: "5100",
+          StsRsnInf: {
+            AddtInf: "string"
           }
         }
       }
