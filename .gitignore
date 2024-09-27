@@ -81,3 +81,5 @@ devspace*
 *IGNORE*
 *ignore*
 test/reports
+
+.DS_Store

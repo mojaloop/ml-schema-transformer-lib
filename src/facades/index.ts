@@ -22,5 +22,5 @@
  --------------
  ******/
 
-export * from './fspiop'
-export * from './fspiopIso20022'
+export * from './fspiop';
+export * from './fspiopIso20022';

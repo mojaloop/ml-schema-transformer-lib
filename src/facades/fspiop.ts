@@ -26,7 +26,7 @@ import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogg
 import { discovery, quotes, transfers } from '../mappings/fspiop';
 import { OverrideMapping } from '../types';
 import { logger as defaultLogger } from '../lib/logger';
-import { transformFn } from '../lib/transformer'
+import { transformFn } from '../lib/transformer';
 
 let log = defaultLogger;
 
@@ -51,4 +51,4 @@ export const FspiopTransformFacade = {
     put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.put, log),
     putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putError, log)
   }
-}
+};

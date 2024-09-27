@@ -29,7 +29,7 @@ import { ITransformer } from '../types';
 export const createTransformer = async ({ mapping, options = undefined }: { mapping: TransformDefinition, options?: Options }) => {
   const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
   return new Transformer(mapTransform(mapping, options));
-}
+};
 
 export const transformFn = async (source: unknown, mappingStr: string, logger: ContextLogger) => {
   try {
@@ -40,7 +40,7 @@ export const transformFn = async (source: unknown, mappingStr: string, logger: C
     logger.error('Error transforming payload with supplied mapping', { error, source, mappingStr });
     throw error;
   }
-}
+};
 
 class Transformer implements ITransformer {
   mapper: DataMapper;
