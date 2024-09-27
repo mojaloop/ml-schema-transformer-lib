@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -17,7 +17,8 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "types": ["vitest/globals"]
   },
-  "include": ["./src"],
+  "include": ["./src", "./test"],
   "exclude": ["node_modules"]
 }
