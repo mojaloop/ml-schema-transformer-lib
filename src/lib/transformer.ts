@@ -35,7 +35,9 @@ export const transformFn = async (source: unknown, mappingStr: string, logger: C
   try {
     const mapping = JSON.parse(mappingStr) as TransformDefinition;
     const transformer = await createTransformer({ mapping });
-    return transformer.transform(source);
+    const target = await transformer.transform(source);
+    if (!target) throw new Error('Failed to transform payload');
+    return target;
   } catch (error) {
     logger.error('Error transforming payload with supplied mapping', { error, source, mappingStr });
     throw error;

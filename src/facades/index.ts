@@ -23,4 +23,4 @@
  ******/
 
 export * from './fspiop';
-export * from './fspiopIso20022';
+export * from './fspiopiso20022';

@@ -24,7 +24,7 @@
 
 // FSPIOP to FSPIOP ISO2022 mappings
 
-export const transfers = {
+export const fxTransfers = {
   post: `{
     "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.PmtId.EndToEndId": "commitRequestId",
     "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.PmtId.TxId": "determiningTransferId",

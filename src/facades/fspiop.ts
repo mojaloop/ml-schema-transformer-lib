@@ -23,7 +23,7 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { discovery, quotes, transfers } from '../mappings/fspiop';
+import { discovery, quotes, fxQuotes, transfers, fxTransfers } from '../mappings/fspiop';
 import { OverrideMapping } from '../types';
 import { logger as defaultLogger } from '../lib/logger';
 import { transformFn } from '../lib/transformer';
@@ -46,9 +46,19 @@ export const FspiopTransformFacade = {
     put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.put, log),
     putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || quotes.putError, log)
   },
+  fxQuotes: {
+    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxQuotes.post, log),
+    put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxQuotes.put, log),
+    putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxQuotes.putError, log)
+  },
   transfers: {
     post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.post, log),
     put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.put, log),
     putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || transfers.putError, log)
+  },
+  fxTransfers: {
+    post: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.post, log),
+    put: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.put, log),
+    putError: async (payload: unknown, mapping: OverrideMapping = undefined) => transformFn(payload, mapping || fxTransfers.putError, log)
   }
 };
