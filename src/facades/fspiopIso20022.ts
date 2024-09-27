@@ -1,5 +1,5 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { discovery, quotes, transfers } from '../mappings/fspiop_iso20022';
+import { discovery, quotes, transfers } from '../mappings/fspiopiso20022';
 import { logger as defaultLogger } from '../lib/logger';
 import { transformFn } from '../lib/transformer'
 import { OverrideMapping } from 'src/types';
