@@ -37,16 +37,6 @@ export const fspiop = {
         scenario: "DEPOSIT"
       },
       expiration: "2020-01-01T00:00:00Z",
-      currencyConversion: {
-        sourceAmount: {
-          currency: "USD",
-          amount: "100"
-        },
-        targetAmount: {
-          currency: "USD",
-          amount: "100"
-        }
-      },
       note: "Test note"
     }
   }
@@ -133,10 +123,7 @@ export const fspiop_iso20022 = {
               }
             }
           },
-          InstdAmt: {
-            Ccy: "USD",
-            ActiveCurrencyAndAmount: "100"
-          },
+          InstdAmt: {},
           InstrForNxtAgt: {
             InstrInf: "Test note"
           }

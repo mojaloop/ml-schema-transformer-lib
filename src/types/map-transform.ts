@@ -1,3 +1,4 @@
+// @todo Remove after resolving ES module types import issue with map-transform
 // Dictionary types
 
 export type DictionaryValue = string | number | boolean | null | undefined

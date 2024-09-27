@@ -1,5 +1,6 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { DataMapper, Options, State, TransformDefinition } from 'src/types/map-transform';
+
 class Transformer {
   mapper: DataMapper;
   

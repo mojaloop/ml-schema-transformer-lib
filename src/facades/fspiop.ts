@@ -7,7 +7,7 @@ import { transformFn } from '../lib/transformer'
 let log = defaultLogger;
 
 /**
- * Facades for transforming FSPIOP payloads to FSPIOP 20022 payloads
+ * Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
  */
 export const FspiopTransformFacade = {
   configure: ({ logger }: { logger: ContextLogger }) => {
