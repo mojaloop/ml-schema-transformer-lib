@@ -46,8 +46,8 @@ export const quotes = {
     "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "fees.amount",
     "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.InstdAmt.Ccy": "currencyConversion.sourceAmount.currency",
     "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount": "currencyConversion.sourceAmount.amount",
-    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "{ $alt: [ 'amount.currency', { $value: 'currencyConversion.targetAmount.currency' } }",
-    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "{ $alt: [ 'amount.amount', { $value: 'currencyConversion.targetAmount.amount' } }",
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "amount.currency",
+    "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "amount.amount",
     "TermsRequest_FIToFICustomerCreditProposal.CdtTrfTxInf.InstrForNxtAgt.InstrInf": "note",
     "TermsRequest_FIToFICustomerCreditProposal.GrpHdr.PmtInstrXpryDtTm": "expiration",
     "TermsRequest_FIToFICustomerCreditProposal.GroupHeader129.CdtTrfTxInf.Purp": "transactionType.scenario"

@@ -49,7 +49,33 @@ export const fspiop = {
             lastName: 'Karlsson'
           },
           dateOfBirth: '1966-06-16',
-          kycInformation: '{\n    "metadata": {\n        "format": "JSON",\n        "version": "1.0",\n        "description": "Data containing KYC Information"\n    },\n    "data": {\n        "name": "John Doe",\n        "dob": "1980-05-15",\n        "gender": "Male",\n        "address": "123 Main Street, Anytown, USA",\n        "email": "johndoe@example.com",\n        "phone": "+1 555-123-4567",\n        "nationality": "US",\n        "passport_number": "AB1234567",\n        "issue_date": "2010-02-20",\n        "expiry_date": "2025-02-20",\n        "bank_account_number": "1234567890",\n        "bank_name": "Example Bank",\n        "employer": "ABC Company",\n        "occupation": "Software Engineer",\n        "income": "$80,000 per year",\n        "marital_status": "Single",\n        "dependents": 0,\n        "risk_level": "Low"\n    }\n}'
+          kycInformation: `{
+            "metadata": {
+              "format": "JSON",
+              "version": "1.0",
+              "description": "Data containing KYC Information"
+            },
+            "data": {
+              "name": "John Doe",
+              "dob": "1980-05-15",
+              "gender": "Male",
+              "address": "123 Main Street, Anytown, USA",
+              "email": "johndoe@example.com",
+              "phone": "+1 555-123-4567",
+              "nationality": "US",
+              "passport_number": "AB1234567",
+              "issue_date": "2010-02-20",
+              "expiry_date": "2025-02-20",
+              "bank_account_number": "1234567890",
+              "bank_name": "Example Bank",
+              "employer": "ABC Company",
+              "occupation": "Software Engineer",
+              "income": "$80,000 per year",
+              "marital_status": "Single",
+              "dependents": 0,
+              "risk_level": "Low"
+            }
+          }`
         },
         supportedCurrencies: [
           'AED'
@@ -375,7 +401,7 @@ export const fspiop = {
   }
 };
 
-export const fspiop_iso20022 = {
+export const fspiopIso20022 = {
   parties: {
     put: {
       GetParties_IdentificationVerificationReportV03: {
@@ -432,39 +458,39 @@ export const fspiop_iso20022 = {
       TermsRequest_FIToFICustomerCreditProposal: {
         CdtTrfTxInf: {
           PmtId: {
-            TxId: '12345678',
-            EndToEndId: '2345678',
-            InstrId: '3456789'
+            TxId: "12345678",
+            EndToEndId: "2345678",
+            InstrId: "3456789"
           },
           Cdtr: {
             Id: {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: 'MSISDN'
+                    Cd: "MSISDN"
                   },
-                  Id: '4567890'
+                  Id: "4567890"
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: '1980-01-01'
+                  BirthDt: "1980-01-01"
                 }
               }
             },
-            Name: 'Payee Name'
+            Name: "Payee Name"
           },
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: '4321'
+                Id: "4321"
               }
             }
           },
           CdtrAcct: {
             Ccy: [
-              'XTS',
-              'XDT'
+              "XTS",
+              "XDT"
             ]
           },
           Dbtr: {
@@ -472,52 +498,54 @@ export const fspiop_iso20022 = {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: 'MSISDN'
+                    Cd: "MSISDN"
                   },
-                  Id: '987654321'
+                  Id: "987654321"
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: '1970-01-01'
+                  BirthDt: "1970-01-01"
                 }
               }
             },
-            Name: 'Payer Name',
+            Name: "Payer Name",
             Acct: {
               Ccy: [
-                'XXX',
-                'XXY'
+                "XXX",
+                "XXY"
               ]
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: 'dfsp2'
+                Id: "dfsp2"
               }
             }
           },
-          ChrgBr: 'SEND',
+          ChrgBr: "SEND",
           IntrBkSttlmAmt: {
             ChrgsInf: {
               Amt: {
-                Ccy: 'USD',
+                Ccy: "USD",
                 ActiveOrHistoricCurrencyAndAmount: 5
               }
-            }
+            },
+            Ccy: "USD",
+            ActiveCurrencyAndAmount: "100"
           },
           InstdAmt: {},
           InstrForNxtAgt: {
-            InstrInf: 'Test note'
+            InstrInf: "Test note"
           }
         },
         GrpHdr: {
-          PmtInstrXpryDtTm: '2020-01-01T00:00:00Z'
+          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z"
         },
         GroupHeader129: {
           CdtTrfTxInf: {
-            Purp: 'DEPOSIT'
+            Purp: "DEPOSIT"
           }
         }
       }
