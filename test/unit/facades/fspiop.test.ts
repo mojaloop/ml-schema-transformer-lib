@@ -22,8 +22,10 @@
  --------------
  ******/
 
-import { FspiopTransformFacade } from '../../../src/facades';
+import { TransformFacades } from '../../../src';
 import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
+
+const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
 describe('FSPIOPTransformFacade tests', () => {
   FspiopTransformFacade.configure({ logger: mockLogger });

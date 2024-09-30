@@ -23,8 +23,10 @@
  ******/
 
 import { TransformFacadeFunction } from 'src/types';
-import { FspiopIso20022TransformFacade } from '../../../src/facades';
-import { fspiopIso20022 } from '../../fixtures';
+import { TransformFacades } from '../../../src';
+import { fspiopIso20022, mockLogger } from '../../fixtures';
+
+const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 
 const expectedFspiop = {
   parties: {
@@ -238,6 +240,7 @@ const expectedFspiop = {
    }
    describe('Parties', () => {
      test('should transform PUT parties payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+       FspiopIso20022TransformFacade.configure({ logger: mockLogger });
        await testCase(fspiopIso20022.parties.put, FspiopIso20022TransformFacade.parties.put, expectedFspiop.parties.put)();
      });
      test('should transform PUT parties error payload from FSPIOP ISO 20022 to FSPIOP', async () => {

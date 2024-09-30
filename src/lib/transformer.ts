@@ -27,7 +27,7 @@ import { DataMapper, Options, State, TransformDefinition } from '../types/map-tr
 import { ITransformer, JsonString } from '../types';
 
 
-export const createTransformer = async (mapping: TransformDefinition, { mapTransformOptions }: { mapTransformOptions?: Options } = {}) => {
+export const createTransformer = async (mapping: TransformDefinition, { mapTransformOptions }: { mapTransformOptions?: Options } = {}): Promise<ITransformer> => {
   const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
   return new Transformer(mapTransform(mapping, mapTransformOptions));
 };
@@ -36,9 +36,7 @@ export const transformFn = async (source: unknown, { mapping, mapperOptions, log
   try {
     const mappingObj = JSON.parse(mapping) as TransformDefinition;
     const transformer = await createTransformer(mappingObj);
-    const target = await transformer.transform(source, { mapperOptions });
-    if (!target) throw new Error('Failed to transform payload');
-    return target;
+    return transformer.transform(source, { mapperOptions });
   } catch (error) {
     logger.error('Error transforming payload with supplied mapping', { error, source, mapping });
     throw error;
