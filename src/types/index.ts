@@ -22,7 +22,6 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { State } from './map-transform';
 
 export interface ITransformer {
