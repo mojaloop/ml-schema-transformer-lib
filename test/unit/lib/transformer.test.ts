@@ -18,11 +18,97 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
+  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
- describe ('Unit Tests -->', () => {
-  test('dummy unit test', async () => {
-    expect(true).toBe(true);
+import { createTransformer, transformFn, Transformer } from '../../../src/lib/transformer';
+import { mockLogger } from 'test/fixtures';
+
+describe.skip('Transformer tests', () => {
+  describe('createTransformer', () => {
+    test('should create a new Transformer instance', async () => {
+      const mapping = {
+        source: {
+          party: 'partyIdInfo.partyIdType',
+        },
+        target: {
+          partyIdType: 'party.partyIdInfo.partyIdType',
+        },
+      };
+      const transformer = await createTransformer(mapping);
+      expect(transformer).toBeInstanceOf(Transformer);
+    });
+  })
+
+  describe('transformFn', () => {
+    test('should transform source payload using supplied mapping', async () => {
+      const source = {
+        party: 'MSISDN',
+      };
+      const mapping = JSON.stringify({
+        source: {
+          party: 'partyIdInfo.partyIdType',
+        },
+        target: {
+          partyIdType: 'party.partyIdInfo.partyIdType',
+        },
+      });
+      const target = await transformFn(source, { mapping, logger: mockLogger });
+      expect(target).toEqual({
+        party: {
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+          },
+        },
+      });
+    });
+
+    test('should throw an error if transformation fails', async () => {
+      const source = {
+        party: 'MSISDN',
+      };
+      const mapping = JSON.stringify({
+        source: {
+          party: 'partyIdInfo.partyIdType',
+        },
+        target: {
+          partyIdType: 'party.partyIdInfo.partyIdType',
+        },
+      });
+      try {
+        await transformFn(source, { mapping: 'invalid mapping', logger: mockLogger });
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
+    });
+  });
+
+  describe('Transformer', () => {
+    describe('transform', () => {
+      test('should transform source payload using supplied mapping', async () => {
+        const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
+        const mapping = {
+          source: {
+            party: 'partyIdInfo.partyIdType',
+          },
+          target: {
+            partyIdType: 'party.partyIdInfo.partyIdType',
+          },
+        };
+        const transformer = new Transformer(mapTransform(mapping));
+        const source = {
+          party: 'MSISDN',
+        };
+        const target = await transformer.transform(source);
+        expect(target).toEqual({
+          party: {
+            partyIdInfo: {
+              partyIdType: 'MSISDN',
+            },
+          },
+        });
+      });
+    });
   });
 });

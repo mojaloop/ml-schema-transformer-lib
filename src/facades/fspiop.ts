@@ -23,11 +23,13 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { discovery, quotes, fxQuotes, transfers, fxTransfers } from '../mappings/fspiop';
+import { FSPIO20022PMappings } from '../mappings';
 import { JsonString } from '../types';
 import { logger as defaultLogger } from '../lib/logger';
 import { transformFn } from '../lib/transformer';
 import { State } from 'src/types/map-transform';
+
+const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 let log = defaultLogger;
 
