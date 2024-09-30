@@ -22,20 +22,22 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { DataMapper, Options, State, TransformDefinition } from '../types/map-transform';
-import { ITransformer, JsonString } from '../types';
+import { DataMapper, State, TransformDefinition } from '../types/map-transform';
+import { CreateTransformerOptions, ITransformer, TransformFunctionOptions } from '../types';
+import { CustomTransforms } from './transforms'
 
-
-export const createTransformer = async (mapping: TransformDefinition, { mapTransformOptions }: { mapTransformOptions?: Options } = {}): Promise<ITransformer> => {
+export const createTransformer = async (mapping: TransformDefinition, options: CreateTransformerOptions = {}): Promise<ITransformer> => {
   const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
-  return new Transformer(mapTransform(mapping, mapTransformOptions));
+  const { mapTransformOptions } = options;
+  const mergedOptions = { ...mapTransformOptions, transformers: { ...mapTransformOptions?.transformers, ...CustomTransforms } };
+  return new Transformer(mapTransform(mapping, mergedOptions));
 };
 
-export const transformFn = async (source: unknown, { mapping, mapperOptions, logger }: { mapping: JsonString, mapperOptions?: State, logger: ContextLogger }) => {
+export const transformFn = async (source: unknown, options: TransformFunctionOptions) => {
+  const { mapping, mapTransformOptions, mapperOptions, logger } = options;
   try {
     const mappingObj = JSON.parse(mapping) as TransformDefinition;
-    const transformer = await createTransformer(mappingObj);
+    const transformer = await createTransformer(mappingObj, { mapTransformOptions });
     return transformer.transform(source, { mapperOptions });
   } catch (error) {
     logger.error('Error transforming payload with supplied mapping', { error, source, mapping });

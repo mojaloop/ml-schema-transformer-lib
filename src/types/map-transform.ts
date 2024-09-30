@@ -1,4 +1,4 @@
-// @todo Remove after resolving ES module types import issue with map-transform
+// REMOVE AFTER RESOLVING ES MODULE TYPES IMPORT ISSUE WITH MAP-TRANSFORM
 // Dictionary types
 
 export type DictionaryValue = string | number | boolean | null | undefined

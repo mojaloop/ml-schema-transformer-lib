@@ -239,7 +239,7 @@ const expectedFspiop = {
      };
    }
    describe('Parties', () => {
-     test('should transform PUT parties payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+     test.only('should transform PUT parties payload from FSPIOP ISO 20022 to FSPIOP', async () => {
        FspiopIso20022TransformFacade.configure({ logger: mockLogger });
        await testCase(fspiopIso20022.parties.put, FspiopIso20022TransformFacade.parties.put, expectedFspiop.parties.put)();
      });

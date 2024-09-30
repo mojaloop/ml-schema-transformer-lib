@@ -22,13 +22,17 @@
  --------------
  ******/
 
-import { State } from './map-transform';
+import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
+import { State, Options } from './map-transform';
 
 export interface ITransformer {
   transform(source: unknown, { mapperOptions }: { mapperOptions?: State }): Promise<unknown>;
 }
 
-export type TransformFacadeFunction = (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }) => Promise<unknown>;
+export type TransformFacadeOptions = { overrideMapping?: JsonString, mapTransformOptions?: Options, mapperOptions?: State };
+export type TransformFacadeFunction = (source: unknown, options: TransformFacadeOptions) => Promise<unknown>;
+export type TransformFunctionOptions = { mapping: JsonString, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
+export type CreateTransformerOptions = { mapTransformOptions?: Options };
 
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };
 export interface GenericObject {
