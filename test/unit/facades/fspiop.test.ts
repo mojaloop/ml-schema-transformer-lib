@@ -26,6 +26,8 @@ import { FspiopTransformFacade } from '../../../src/facades';
 import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
 
 describe('FSPIOPTransformFacade tests', () => {
+  FspiopTransformFacade.configure({ logger: mockLogger });
+  
   const testCase = (source: unknown, transformerFn: Function, expectedTarget: unknown = null) => {
     return async () => {
       const target = await transformerFn(source);

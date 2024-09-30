@@ -22,72 +22,276 @@
  --------------
  ******/
 
- import { FspiopIso20022TransformFacade } from '../../../src/facades';
- import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
+import { TransformFacadeFunction } from 'src/types';
+import { FspiopIso20022TransformFacade } from '../../../src/facades';
+import { fspiopIso20022 } from '../../fixtures';
+
+const expectedFspiop = {
+  parties: {
+    put: {
+      party: {
+        partyIdInfo: {
+          partyIdType: "MSISDN",
+          partyIdentifier: "16135551212",
+          fspId: "string"
+        },
+        name: "string",
+        supportedCurrencies: [
+          "AED"
+        ]
+      }
+    },
+    putError: {
+      errorInformation: {
+        errorCode: "5100"
+      }
+    }
+  },
+  quotes: {
+    post: {
+      quoteId: "12345678",
+      transactionId: "2345678",
+      transactionRequestId: "3456789",
+      payee: {
+        partyIdInfo: {
+          partyIdType: "MSISDN",
+          partyIdentifier: "4567890",
+          dateOfBirth: "1980-01-01"
+        },
+        merchantClassificationCode: "4321",
+        name: "Payee Name",
+        supportedCurrencies: [
+          "XTS",
+          "XDT"
+        ]
+      },
+      payer: {
+        partyIdInfo: {
+          partyIdType: "MSISDN",
+          partyIdentifier: "987654321",
+          fspId: "dfsp2",
+          dateOfBirth: "1970-01-01"
+        },
+        name: "Payer Name",
+        supportedCurrencies: [
+          "XXX",
+          "XXY"
+        ]
+      },
+      amountType: "SEND",
+      fees: {
+        currency: "USD",
+        amount: 5
+      },
+      currencyConversion: {
+        sourceAmount: {}
+      },
+      amount: {
+        currency: "USD",
+        amount: "100"
+      },
+      note: "Test note",
+      expiration: "2020-01-01T00:00:00Z",
+      transactionType: {
+        scenario: "DEPOSIT"
+      }
+    },
+    put: {
+      transferAmount: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      payeeReceiveAmount: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      payeeFspCommission: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      expiration: "2016-05-24T08:38:08.699-04:00",
+      ilpPacket: {
+        condition: "_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh"
+      },
+      condition: "_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh"
+    },
+    putError: {
+      errorInformation: {
+        errorCode: "5100",
+        errorDescription: "string"
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      conversionRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+      conversionTerms: {
+        conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        initiatingFsp: "string",
+        counterPartyFsp: "string",
+        amountType: "RECEIVE",
+        sourceAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        targetAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        expiration: "2016-05-24T08:38:08.699-04:00"
+      }
+    },
+    put: {
+      condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1",
+      conversionTerms: {
+        conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        initiatingFsp: "string",
+        counterPartyFsp: "string",
+        amountType: "RECEIVE",
+        sourceAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        targetAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        expiration: "2016-05-24T08:38:08.699-04:00"
+      }
+    },
+    putError: {
+      errorInformation: {
+        errorCode: "5100",
+        errorDescription: "string"
+      }
+    }
+  },
+  transfers: {
+    post: {
+      transferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+      payeeFsp: "string",
+      payerFsp: "string",
+      amount: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      ilpPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA",
+      expiration: "2016-05-24T08:38:08.699-04:00"
+    },
+    patch: {
+      completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+      transferState: "RESERVED"
+    },
+    put: {
+      fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+      completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+      transferState: "RESERVED"
+    },
+    putError: {
+      errorInformation: {
+        errorCode: "5100",
+        errorDescription: "string"
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      commitRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+      determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+      initiatingFsp: "string",
+      counterPartyFsp: "string",
+      sourceAmount: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      targetAmount: {
+        currency: "AED",
+        amount: "123.45"
+      },
+      condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz",
+      expiration: "2016-05-24T08:38:08.699-04:00"
+    },
+    patch: {
+      completedTimestamp: "2016-05-24T08:38:08.699-04:00"
+    },
+    put: {
+      fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+      completedTimestamp: "2016-05-24T08:38:08.699-04:00"
+    },
+    putError: {
+      errorInformation: {
+        errorCode: "5100",
+        errorDescription: "string"
+      }
+    }
+  }
+}
  
  describe('FSPIOPISO20022TransformFacade tests', () => {
-   const testCase = (source: unknown, transformerFn: Function, expectedTarget: unknown = null) => {
+   const testCase = (source: unknown, transformerFn: TransformFacadeFunction, expectedTarget: unknown = null) => {
      return async () => {
-       const target = await transformerFn(source);
+       const target = await transformerFn(source, {});
        if (expectedTarget !== null) expect(target).toEqual(expectedTarget);
      };
    }
    describe('Parties', () => {
      test('should transform PUT parties payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.parties.put, FspiopIso20022TransformFacade.parties.put)();
+       await testCase(fspiopIso20022.parties.put, FspiopIso20022TransformFacade.parties.put, expectedFspiop.parties.put)();
      });
      test('should transform PUT parties error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.parties.putError, FspiopIso20022TransformFacade.parties.putError)();
+       await testCase(fspiopIso20022.parties.putError, FspiopIso20022TransformFacade.parties.putError, expectedFspiop.parties.putError)();
      });
    })
    describe('Quotes', () => {
      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post)();
+       await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post, expectedFspiop.quotes.post)();
      });
      test('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.quotes.put, FspiopIso20022TransformFacade.quotes.put)();
+       await testCase(fspiopIso20022.quotes.put, FspiopIso20022TransformFacade.quotes.put, expectedFspiop.quotes.put)();
      });
      test('should transform PUT quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.quotes.putError, FspiopIso20022TransformFacade.quotes.putError)();
+       await testCase(fspiopIso20022.quotes.putError, FspiopIso20022TransformFacade.quotes.putError, expectedFspiop.quotes.putError)();
      });
    })
    describe('FXQuotes', () => {
      test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxQuotes.post, FspiopIso20022TransformFacade.fxQuotes.post)();
+       await testCase(fspiopIso20022.fxQuotes.post, FspiopIso20022TransformFacade.fxQuotes.post, expectedFspiop.fxQuotes.post)();
      })
      test('should transform PUT FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxQuotes.put, FspiopIso20022TransformFacade.fxQuotes.put)();
+       await testCase(fspiopIso20022.fxQuotes.put, FspiopIso20022TransformFacade.fxQuotes.put, expectedFspiop.fxQuotes.put)();
      })
      test('should transform PUT FX quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError)();
+       await testCase(fspiopIso20022.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError, expectedFspiop.fxQuotes.putError)();
      })
    })
    describe('Transfers', () => {
      test('should transform POST transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.transfers.post, FspiopIso20022TransformFacade.transfers.post)();
+       await testCase(fspiopIso20022.transfers.post, FspiopIso20022TransformFacade.transfers.post, expectedFspiop.transfers.post)();
      })
      test('should transform PATCH transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.transfers.patch, FspiopIso20022TransformFacade.transfers.patch)();
+       await testCase(fspiopIso20022.transfers.patch, FspiopIso20022TransformFacade.transfers.patch, expectedFspiop.transfers.patch)();
      })
      test('should transform PUT transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.transfers.put, FspiopIso20022TransformFacade.transfers.put)();
+       await testCase(fspiopIso20022.transfers.put, FspiopIso20022TransformFacade.transfers.put, expectedFspiop.transfers.put)();
      })
      test('should transform PUT transfers error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.transfers.putError, FspiopIso20022TransformFacade.transfers.putError)();
+       await testCase(fspiopIso20022.transfers.putError, FspiopIso20022TransformFacade.transfers.putError, expectedFspiop.transfers.putError)();
      })
    })
    describe('FXTransfers', () => {
      test('should transform POST FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxTransfers.post, FspiopIso20022TransformFacade.fxTransfers.post)();
+       await testCase(fspiopIso20022.fxTransfers.post, FspiopIso20022TransformFacade.fxTransfers.post, expectedFspiop.fxTransfers.post)();
      })
      test('should transform PATCH FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxTransfers.patch, FspiopIso20022TransformFacade.fxTransfers.patch)();
+       await testCase(fspiopIso20022.fxTransfers.patch, FspiopIso20022TransformFacade.fxTransfers.patch, expectedFspiop.fxTransfers.patch)();
      })
      test('should transform PUT FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxTransfers.put, FspiopIso20022TransformFacade.fxTransfers.put)();
+       await testCase(fspiopIso20022.fxTransfers.put, FspiopIso20022TransformFacade.fxTransfers.put, expectedFspiop.fxTransfers.put)();
      })
      test('should transform PUT FX transfers error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-       await testCase(fspiopIso20022.fxTransfers.putError, FspiopIso20022TransformFacade.fxTransfers.putError)();
+       await testCase(fspiopIso20022.fxTransfers.putError, FspiopIso20022TransformFacade.fxTransfers.putError, expectedFspiop.fxTransfers.putError)();
      })
    })
  });
