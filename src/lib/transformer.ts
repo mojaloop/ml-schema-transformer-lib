@@ -44,7 +44,7 @@ export const transformFn = async (source: unknown, mappingStr: string, logger: C
   }
 };
 
-class Transformer implements ITransformer {
+export class Transformer implements ITransformer {
   mapper: DataMapper;
   
   constructor(mapper: DataMapper) {

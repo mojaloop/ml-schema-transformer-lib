@@ -22,7 +22,7 @@
  --------------
  ******/
 
-// FSPIOP ISO2022 to FSPIOP mappings
+// FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxTransfers = {
   post: `{

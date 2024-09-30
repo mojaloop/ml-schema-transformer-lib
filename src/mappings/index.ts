@@ -23,4 +23,4 @@
  ******/
 
 export * as FSPIOPMappings from './fspiop';
-export * as FSPIOPISO2022Mappings from './fspiopiso20022';
+export * as FSPIOPISO20022Mappings from './fspiopiso20022';

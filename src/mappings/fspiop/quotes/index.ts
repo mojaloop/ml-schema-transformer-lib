@@ -22,7 +22,7 @@
  --------------
  ******/
 
-// FSPIOP to FSPIOP ISO2022 mappings
+// FSPIOP to FSPIOP ISO20022 mappings
 
 export const quotes = {
   post: `{
