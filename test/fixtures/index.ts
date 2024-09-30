@@ -458,39 +458,39 @@ export const fspiopIso20022 = {
       TermsRequest_FIToFICustomerCreditProposal: {
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "12345678",
-            EndToEndId: "2345678",
-            InstrId: "3456789"
+            TxId: '12345678',
+            EndToEndId: '2345678',
+            InstrId: '3456789'
           },
           Cdtr: {
             Id: {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: "MSISDN"
+                    Cd: 'MSISDN'
                   },
-                  Id: "4567890"
+                  Id: '4567890'
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: "1980-01-01"
+                  BirthDt: '1980-01-01'
                 }
               }
             },
-            Name: "Payee Name"
+            Name: 'Payee Name'
           },
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "4321"
+                Id: '4321'
               }
             }
           },
           CdtrAcct: {
             Ccy: [
-              "XTS",
-              "XDT"
+              'XTS',
+              'XDT'
             ]
           },
           Dbtr: {
@@ -498,54 +498,54 @@ export const fspiopIso20022 = {
               OrgId: {
                 Othr: {
                   SchmeNm: {
-                    Cd: "MSISDN"
+                    Cd: 'MSISDN'
                   },
-                  Id: "987654321"
+                  Id: '987654321'
                 }
               },
               PrvtId: {
                 DtAndPlcOfBirth: {
-                  BirthDt: "1970-01-01"
+                  BirthDt: '1970-01-01'
                 }
               }
             },
-            Name: "Payer Name",
+            Name: 'Payer Name',
             Acct: {
               Ccy: [
-                "XXX",
-                "XXY"
+                'XXX',
+                'XXY'
               ]
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "dfsp2"
+                Id: 'dfsp2'
               }
             }
           },
-          ChrgBr: "SEND",
+          ChrgBr: 'SEND',
           IntrBkSttlmAmt: {
             ChrgsInf: {
               Amt: {
-                Ccy: "USD",
+                Ccy: 'USD',
                 ActiveOrHistoricCurrencyAndAmount: 5
               }
             },
-            Ccy: "USD",
-            ActiveCurrencyAndAmount: "100"
+            Ccy: 'USD',
+            ActiveCurrencyAndAmount: '100'
           },
           InstdAmt: {},
           InstrForNxtAgt: {
-            InstrInf: "Test note"
+            InstrInf: 'Test note'
           }
         },
         GrpHdr: {
-          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z"
+          PmtInstrXpryDtTm: '2020-01-01T00:00:00Z'
         },
         GroupHeader129: {
           CdtTrfTxInf: {
-            Purp: "DEPOSIT"
+            Purp: 'DEPOSIT'
           }
         }
       }
