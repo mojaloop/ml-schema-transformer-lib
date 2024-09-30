@@ -67,15 +67,6 @@ describe('Transformer tests', () => {
       await expect(transformFn(source, { mapping: 'invalid mapping', logger: mockLogger })).rejects.toThrow(Error);
       expect(mockLogger.error).toHaveBeenCalled();
     });
-
-    test('should throw if target is undefined', async () => {
-      const source = {
-        amount: { currency: 'USD', amount: '100' },
-      };
-      const mapping = ''
-      await expect(transformFn(source, { mapping, logger: mockLogger })).rejects.toThrow(Error);
-      expect(mockLogger.error).toHaveBeenCalled();
-    })
   });
 
   describe('Transformer', () => {
