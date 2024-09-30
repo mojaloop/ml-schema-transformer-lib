@@ -23,15 +23,8 @@
  ******/
 
 import { DataMapper, State, TransformDefinition } from '../types/map-transform';
-import { CreateTransformerOptions, ITransformer, TransformFunctionOptions } from '../types';
-import { CustomTransforms } from './transforms';
-
-export const createTransformer = async (mapping: TransformDefinition, options: CreateTransformerOptions = {}): Promise<ITransformer> => {
-  const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
-  const { mapTransformOptions } = options;
-  const mergedOptions = { ...mapTransformOptions, transformers: { ...mapTransformOptions?.transformers, ...CustomTransforms } };
-  return new Transformer(mapTransform(mapping, mergedOptions));
-};
+import { ITransformer, TransformFunctionOptions } from '../types';
+import { createTransformer } from './createTransformer';
 
 export const transformFn = async (source: unknown, options: TransformFunctionOptions) => {
   const { mapping, mapTransformOptions, mapperOptions, logger } = options;

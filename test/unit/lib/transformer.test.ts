@@ -23,7 +23,8 @@
  ******/
 
 import { State } from 'src/types/map-transform';
-import { createTransformer, transformFn, Transformer } from '../../../src/lib/transformer';
+import { createTransformer } from '../../../src/lib/createTransformer';
+import { transformFn, Transformer } from '../../../src/lib/transformer';
 import { mockLogger } from 'test/fixtures';
 
 describe('Transformer tests', () => {
@@ -36,6 +37,28 @@ describe('Transformer tests', () => {
       const transformer = await createTransformer(mapping);
       expect(transformer).toBeInstanceOf(Transformer);
     });
+
+    test('should use custom transform functions if supplied', async () => {
+      const source = {
+        partyIdInfo: {
+          partyIdType: 'MSISDN',
+          partyIdentifier: '1234567890',
+        }
+      }
+      const mappingStr = `{
+        "partyType": "partyIdInfo.partyIdType",
+        "partyIdentifier": ["partyIdInfo.partyIdentifier", { "$transform": "padLeft" }]
+      }`;
+      const mapping = JSON.parse(mappingStr);
+      const padLeft = (options: any) => () => (value: any) => value.padStart(20, '0');
+      const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers: {  padLeft } } });
+      const target = await transformer.transform(source, {});
+      expect(target).toEqual({
+        partyType: source.partyIdInfo.partyIdType,
+        partyIdentifier: '00000000001234567890',
+      });
+      expect(transformer).toBeInstanceOf(Transformer);
+    })
   })
 
   describe('transformFn', () => {

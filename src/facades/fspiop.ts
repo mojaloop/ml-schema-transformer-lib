@@ -37,8 +37,8 @@ let log: ContextLogger = defaultLogger;
  * Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
  */
 export const FspiopTransformFacade = {
-  configure: ({ logger }: { logger?: ContextLogger }) => {
-    log = logger || defaultLogger;
+  configure: ({ logger }: { logger: ContextLogger }) => {
+    log = logger;
   },
   parties: {
     put: async (source: unknown, options: TransformFacadeOptions = {}) =>

@@ -24,6 +24,7 @@
 
 import { TransformFacades } from '../../../src';
 import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
+import * as createTransformerLib from '../../../src/lib/createTransformer';
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
@@ -36,6 +37,18 @@ describe('FSPIOPTransformFacade tests', () => {
       if (expectedTarget !== null) expect(target).toEqual(expectedTarget);
     };
   }
+  describe('configure', () => {
+    test('should configure logger', async () => {
+      const logger = mockLogger;
+      FspiopTransformFacade.configure({ logger });
+      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(async () => { 
+        throw new Error('Test error')
+      });
+      const promise = FspiopTransformFacade.parties.put(fspiop.parties.put);
+      await expect(promise).rejects.toThrow();
+      expect(logger.error).toBeCalled();
+    });
+  })
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiop.parties.put, FspiopTransformFacade.parties.put)();
