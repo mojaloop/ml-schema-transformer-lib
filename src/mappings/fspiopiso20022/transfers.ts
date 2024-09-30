@@ -22,29 +22,29 @@
  --------------
  ******/
 
-// FSPIOP to FSPIOP ISO20022 mappings
+// FSPIOP ISO220022 to FSPIOP mappings
 
 export const transfers = {
   post: `{
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.PmtId.EndToEndId": "transferId",
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "payeeFsp",
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "payerFsp",
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "amount.currency",
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "amount.amount",
-    "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "ilpPacket",
-    "Execute_FIToFICustomerCreditTransferV13.GrpHdr.PmtInstrXpryDtTm": "expiration"
+    "transferId": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.PmtId.EndToEndId",
+    "payeeFsp": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
+    "payerFsp": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
+    "amount.currency": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+    "amount.amount": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+    "ilpPacket": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "expiration": "Execute_FIToFICustomerCreditTransferV13.GrpHdr.PmtInstrXpryDtTm"
   }`,
   patch: `{
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm": "completedTimestamp",
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts": "transferState"
+    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
+    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
   }`,
   put: `{
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.ExctnConf": "fulfilment",
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm": "completedTimestamp",
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts": "transferState"
+    "fulfilment": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.ExctnConf",
+    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
+    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
   }`,
   putError: `{
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts": "errorInformation.errorCode",
-    "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.StsRsnInf.AddtInf": "errorInformation.errorDescription"
+    "errorInformation.errorCode": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts",
+    "errorInformation.errorDescription": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.StsRsnInf.AddtInf"
   }`
 }

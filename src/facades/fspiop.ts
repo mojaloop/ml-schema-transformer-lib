@@ -41,29 +41,29 @@ export const FspiopTransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State } = {}) => transformFn(source, { mapping: overrideMapping || discovery.parties.put, mapperOptions, logger: log }),
-    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State } = {}) => transformFn(source, { mapping: overrideMapping || discovery.parties.putError, mapperOptions, logger: log }),
+    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || discovery.parties.put, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || discovery.parties.putError, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
   },
   quotes: {
-    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State } = {}) => transformFn(source, { mapping: overrideMapping || quotes.post, mapperOptions, logger: log }),
-    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || quotes.put, mapperOptions, logger: log }),
-    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || quotes.putError, mapperOptions, logger: log }),
+    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || quotes.post, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || quotes.put, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || quotes.putError, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
   },
   fxQuotes: {
-    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.post, mapperOptions, logger: log }),
-    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.put, mapperOptions, logger: log }),
-    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.putError, mapperOptions, logger: log }),
+    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.post, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.put, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxQuotes.putError, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
   },
   transfers: {
-    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.post, mapperOptions, logger: log }),
-    patch: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.patch, mapperOptions, logger: log }),
-    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.put, mapperOptions, logger: log }),
-    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.putError, mapperOptions, logger: log }),
+    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.post, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    patch: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.patch, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.put, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || transfers.putError, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
   },
   fxTransfers: {
-    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.post, mapperOptions, logger: log }),
-    patch: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.patch, mapperOptions, logger: log }),
-    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.put, mapperOptions, logger: log }),
-    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.putError, mapperOptions, logger: log }),
+    post: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.post, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    patch: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.patch, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    put: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.put, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
+    putError: async (source: unknown, { overrideMapping, mapperOptions }: { overrideMapping?: JsonString, mapperOptions?: State }  = {}) => transformFn(source, { mapping: overrideMapping || fxTransfers.putError, mapperOptions: { ...mapperOptions, rev: true } as State, logger: log }),
   }
 };
