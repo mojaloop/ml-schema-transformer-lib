@@ -22,8 +22,4 @@
  --------------
  ******/
 
- /**
-  * Here we define the custom transform functions which are recognized by the transform library.
-  */
-
  export * as CustomTransforms from './custom-transforms';

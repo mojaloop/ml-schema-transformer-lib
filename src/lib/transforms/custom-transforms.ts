@@ -41,4 +41,16 @@
  *  }
  */
 
-export const CustomTransforms = {};
+/**
+ * Here we define the custom transform functions which are recognized by the transform library.
+ */
+
+/**
+export const fn1 = (options: any) => () => (data: unknown, state: State) => {
+  return // process data here;
+}
+
+export const fn2 = (options: any) => () => (data: unknown, state: State) => {
+  return // process data here;
+}
+*/
