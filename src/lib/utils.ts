@@ -22,39 +22,16 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { Options, State } from './map-transform';
+const idGenerator = require('@mojaloop/central-services-shared').Util.id;
+import { GenericObject, ID_GENERATOR_TYPE } from '../types';
 
-export interface ITransformer {
-  transform(source: unknown, { mapperOptions }: { mapperOptions?: State }): Promise<unknown>;
+export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}) => {
+  switch (idGenType) {
+    case ID_GENERATOR_TYPE.ulid:
+      return idGenerator({ type: idGenType, ...config })();
+    case ID_GENERATOR_TYPE.uuid:
+      return idGenerator({ type: idGenType, ...config })();
+    default:
+      return idGenerator({ type: ID_GENERATOR_TYPE.ulid, ...config })();
+  }
 }
-
-export type TransformFacadeOptions = { overrideMapping?: JsonString, mapTransformOptions?: Options, mapperOptions?: State };
-export type TransformFacadeFunction = (source: unknown, options: TransformFacadeOptions) => Promise<unknown>;
-export type TransformFunctionOptions = { mapping: JsonString, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
-export type CreateTransformerOptions = { mapTransformOptions?: Options };
-
-export enum ID_GENERATOR_TYPE {
-  ulid = 'ulid',
-  uuid = 'uuid'
-}
-
-export type GenericObject = { [key: string]: string | number | boolean | GenericObject | GenericObject[] };
-
-export type Json = string | number | boolean | Json[] | { [key: string]: Json };
-export type JsonString = string;
-export type LogContext = Json | string | null;
-export const logLevelsMap = {
-  error: 'error',
-  warn: 'warn',
-  info: 'info',
-  verbose: 'verbose',
-  debug: 'debug',
-  silly: 'silly',
-  audit: 'audit',
-  trace: 'trace',
-  perf: 'perf',
-} as const;
-
-export const logLevelValues = Object.values(logLevelsMap);
-export type LogLevel = (typeof logLevelValues)[number];
