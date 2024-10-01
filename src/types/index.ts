@@ -23,7 +23,7 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { State, Options } from './map-transform';
+import { Options, State } from './map-transform';
 
 export interface ITransformer {
   transform(source: unknown, { mapperOptions }: { mapperOptions?: State }): Promise<unknown>;
@@ -35,14 +35,8 @@ export type TransformFunctionOptions = { mapping: JsonString, mapperOptions?: St
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
 
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };
-export interface GenericObject {
-  [key: string]: unknown;
-}
-
 export type JsonString = string;
-
 export type LogContext = Json | string | null;
-
 export const logLevelsMap = {
   error: 'error',
   warn: 'warn',
@@ -56,5 +50,4 @@ export const logLevelsMap = {
 } as const;
 
 export const logLevelValues = Object.values(logLevelsMap);
-
 export type LogLevel = (typeof logLevelValues)[number];

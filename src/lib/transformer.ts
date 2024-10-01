@@ -22,8 +22,8 @@
  --------------
  ******/
 
-import { DataMapper, State, TransformDefinition } from '../types/map-transform';
 import { ITransformer, TransformFunctionOptions } from '../types';
+import { DataMapper, State, TransformDefinition } from '../types/map-transform';
 import { createTransformer } from './createTransformer';
 
 export const transformFn = async (source: unknown, options: TransformFunctionOptions) => {

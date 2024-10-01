@@ -24,8 +24,8 @@
 
 import { TransformFacadeFunction } from 'src/types';
 import { TransformFacades } from '../../../src';
-import { fspiopIso20022, mockLogger } from '../../fixtures';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
+import { fspiopIso20022, mockLogger } from '../../fixtures';
 
 const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 

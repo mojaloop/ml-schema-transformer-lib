@@ -23,8 +23,8 @@
  ******/
 
 import { TransformFacades } from '../../../src';
-import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
+import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 

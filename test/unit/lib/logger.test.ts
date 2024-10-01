@@ -21,8 +21,16 @@
  --------------
  ******/
 
- describe ('Unit Tests -->', () => {
-  test('dummy unit test', async () => {
-    expect(true).toBe(true);
+import { createLogger } from 'src/lib';
+
+describe('Logger', () => {
+  it('should create a logger', () => {
+    // Arrange
+    const logLevel = 'info';
+    const context = 'MLST';
+    // Act
+    const logger = createLogger(context, logLevel);
+    // Assert
+    expect(logger).toBeDefined();
   });
 });
