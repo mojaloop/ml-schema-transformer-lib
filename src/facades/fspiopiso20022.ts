@@ -24,8 +24,7 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { FSPIO20022PMappings } from '../mappings';
-import { logger as defaultLogger } from '../lib/logger';
-import { transformFn } from '../lib/transformer';
+import { logger as defaultLogger, transformFn } from '../lib';
 import { TransformFacadeOptions } from 'src/types';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
