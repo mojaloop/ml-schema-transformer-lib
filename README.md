@@ -1,78 +1,120 @@
-# Typescript Project Template
+# ML Schema Transformer (MLST)
 
-<!-- ACTION: REPLACE <repo-name> placeholders in this document -->
-[![Git Commit](https://img.shields.io/github/last-commit/mojaloop/<repo-name>.svg?style=flat)](https://github.com/mojaloop/<repo-name>/commits/master)
-[![Git Releases](https://img.shields.io/github/release/mojaloop/<repo-name>.svg?style=flat)](https://github.com/mojaloop/<repo-name>/releases)
-[![Npm Version](https://img.shields.io/npm/v/@mojaloop/<repo-name>.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/<repo-name>)
-[![NPM Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@mojaloop/<repo-name>.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/<repo-name>)
-[![CircleCI](https://circleci.com/gh/mojaloop/<repo-name>.svg?style=svg)](https://circleci.com/gh/mojaloop/<repo-name>)
+[![Git Commit](https://img.shields.io/github/last-commit/mojaloop/ml-schema-transformer-lib.svg?style=flat)](https://github.com/mojaloop/ml-schema-transformer-lib/commits/master)
+[![Git Releases](https://img.shields.io/github/release/mojaloop/ml-schema-transformer-lib.svg?style=flat)](https://github.com/mojaloop/ml-schema-transformer-lib/releases)
+[![Npm Version](https://img.shields.io/npm/v/@mojaloop/ml-schema-transformer-lib.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/ml-schema-transformer-lib)
+[![CircleCI](https://circleci.com/gh/mojaloop/ml-schema-transformer-lib.svg?style=svg)](https://circleci.com/gh/mojaloop/ml-schema-transformer-lib)
 
-A project template for new mojaloop services and libraries that uses Typescript.
+A shared component for transforming mojaloop payloads from one schema to another.
 
 ## Contributing
 
 Refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to contribute, committing changes, releases and snapshots.
 
-<!-- ACTION: REPLACE THIS SECTION START -->
-## Template Setup \<REMOVE SECTION\>
+## Getting Started
 
-This project provides a decent starting point for a new mojaloop library using typescript.
+### Installing
 
-<!-- NOTE: setup steps for this repo -->
-1. Go to <https://github.com/new> to create a new repo
-2. Select the "mojaloop/template-typescript-public" template
-3. Find and replace all instances of `<repo-name>` globally across the whole project with your new project's name
-4. Update the package name and version to match in `package.json`:
-
-    ```json
-      "name": "@mojaloop/repo-name",
-      "version": "0.1.0", 
-      ...
-    ```
-
-5. Copy the necessary circle ci config from the templates.
-
-    ```bash
-    cp ./.circleci/config.example.yml ./.circleci/config.yml
-    rm -f ./.circleci/config.example.*
-    ```
-
-    If the project is a **Library**:
-
-    Make sure to read comments and replace the applicable `publish` & `publish-snapshot` jobs with the NPM Publish job variants.
-
-<!-- ACTION: REPLACE THIS SECTION END -->
-
-## Pre-requisites
-
-### Install dependencies
-
-```bash
-npm install
+```
+npm i @mojaloop/ml-schema-transformer-lib
 ```
 
-## Build
+### Usage
 
-Command to transpile Typescript into JS:
+MLST can be used via the exported facades or the creator function.
 
-```bash
+**Facades**
+
+```
+// ESM
+import { TransformFacades } from '@mojaloop/ml-schema-transformer-lib';
+// CJS
+const { TransformFacades } = require('@mojaloop/ml-schema-transformer-lib')
+
+// source is an FSPIOP POST /quotes payload 
+const source = {
+  quoteId: 'random quote id',
+  ...
+};
+// target is an FSPIOP ISO 20022 Post /quotes payload
+const target = await TransformFacades.FSPIOP.quotes.post(source);
+```
+The facade functions work with built-in mappings which are located in `src/mappings` directory.
+The facade functions take optional second parameter of type `TransformFacadeOptions` for controlling certain aspects of the function.
+
+For example:
+ - To override the mapping used in the function, pass in `{ overrideMapping: 'your mapping JSOn string' }`
+ - To pass in additional options for the instantiation of [MapTransform](https://github.com/integreat-io/map-transform) (the underlying transformation library), pass in `{ mapTransformOptions: { ...additionalMapTransformOptions } }`.
+ - To pass in additional options for the MapTransform mapper call, pass in `{ mapperOptions: { ...additionalMapperOptions } }`
+
+**Creator Function**
+
+```
+// ESM
+import { createTransformer } from ' @mojaloop/ml-schema-transformer-lib';
+// CJS
+const { createTransformer } = require('@mojaloop/ml-schema-transformer-lib')
+
+const mapping = { "quoteId": "CdtTrfTxInf.PmtId.TxId", ... }
+
+const transformer = await createTransformer(mapping);
+const transformer = createTransformer(mapping)
+
+const source = { quoteId: 'random quote id', ... };
+const target = transformer.transform(source);
+```
+
+The `createTransform` function takes an optional second parameter of type `CreateTransformerOptions` for controlling the instantiation of the `MapTransform` object.
+
+For example:
+- To pass in additional options for the instantiation of `MapTransform`, pass in { mapTransformOptions: { ...additionalMapTransformOptions } } 
+
+### Custom Transform Functions
+
+Custom transform functions are special functions which are embedded in field mappings and are executed during transformation of those fields. 
+To provide custom transform functions (for both Facades and `createTransformer` use cases):
+
+```
+  const fn1 = (options) => () => (data, state) => {
+    const modified = // apply custom transformation to `data`;
+    return modified;
+  }
+  const fn2 = (options) => () => (data, state) => {
+    const modified = // apply custom transformation to `data`;
+    return modified;
+  }
+  const options = { 
+    mapTransformOptions: {
+      transformers: {  
+        fn1,
+        fn2,
+        ...
+      }
+    } 
+  }
+```
+
+Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/transforms/index.ts` or [here](https://github.com/integreat-io/map-transform?tab=readme-ov-file#operations) for more on authoring and using custom transform functions in mappings.
+
+## Development
+
+### Install Depednencies
+
+```
+npm i
+```
+
+### Run Tests
+```
+npm test
+```
+
+### Build
+```
 npm run build
 ```
 
-Command to LIVE transpile Typescript into JS live when any changes are made to the code-base:
 
-```bash
-npm run watch
-```
 
-## Run
 
-```bash
-npm start
-```
 
-## Tests
-
-```bash
-npm test
-```

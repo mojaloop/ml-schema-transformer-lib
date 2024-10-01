@@ -22,6 +22,7 @@
  --------------
  ******/
 
+ export const CustomTransforms = {}
 
  /**
  * We define default custom transforms here.
@@ -71,13 +72,15 @@
  */
 
 /**
-export const fn1 = (options: any) => () => (data: unknown, state: State) => {
+const fn1 = (options: any) => () => (data: unknown, state: State) => {
   return // process data here;
 }
 
-export const fn2 = (options: any) => () => (data: unknown, state: State) => {
+const fn2 = (options: any) => () => (data: unknown, state: State) => {
   return // process data here;
 }
+
+CustomTransforms['fn1'] = fn1;
+CustomTransforms['fn2'] = fn2;
 */
 
-export const CustomTransforms = {}
