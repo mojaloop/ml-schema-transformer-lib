@@ -27,7 +27,6 @@ import { Source, Target, TransformFacadeOptions } from 'src/types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings, FSPIOPMappings } from '../mappings';
 import { State } from 'src/types/map-transform';
-import { fspiopIso20022Utils } from 'src/lib/utils';
 
 const { quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 const { discovery_reverse } = FSPIOPMappings;

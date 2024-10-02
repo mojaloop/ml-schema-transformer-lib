@@ -27,30 +27,30 @@ export const fspiop = {
     put: {
       body: {
         party: {
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '16135551212',
-          partySubIdOrType: 'PARTY-SUBID-OR-TYPE',
-          fspId: 'FSPID',
-          extensionList: {
-            extension: [
-              {
-                key: 'ext-key',
-                value: 'ext-val'
-              }
-            ]
-          }
-        },
-        merchantClassificationCode: '8',
-        name: 'party-name',
-        personalInfo: {
-          complexName: {
-            firstName: 'Henrik',
-            middleName: 'Johannes',
-            lastName: 'Karlsson'
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '16135551212',
+            partySubIdOrType: 'PARTY-SUBID-OR-TYPE',
+            fspId: 'FSPID',
+            extensionList: {
+              extension: [
+                {
+                  key: 'ext-key',
+                  value: 'ext-val'
+                }
+              ]
+            }
           },
-          dateOfBirth: '1966-06-16',
-          kycInformation: `{
+          merchantClassificationCode: '8',
+          name: 'party-name',
+          personalInfo: {
+            complexName: {
+              firstName: 'Henrik',
+              middleName: 'Johannes',
+              lastName: 'Karlsson'
+            },
+            dateOfBirth: '1966-06-16',
+            kycInformation: `{
             "metadata": {
               "format": "JSON",
               "version": "1.0",
@@ -77,10 +77,10 @@ export const fspiop = {
               "risk_level": "Low"
             }
           }`
-        },
-        supportedCurrencies: [
-          'AED'
-        ]
+          },
+          supportedCurrencies: [
+            'AED'
+          ]
         }
       },
       headers: {
@@ -444,13 +444,13 @@ export const fspiopIso20022 = {
     put: {
       body: {
         Assgnmt: {
-          MsgId: "01J96JDSGWE1EJV7JZVG957GNX",
-          CreDtTm: "2024-10-02T12:14:07.902Z",
+          MsgId: '01J96JDSGWE1EJV7JZVG957GNX',
+          CreDtTm: '2024-10-02T12:14:07.902Z',
           Assgnr: {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "source"
+                  Id: 'source'
                 }
               }
             }
@@ -459,14 +459,14 @@ export const fspiopIso20022 = {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "destination"
+                  Id: 'destination'
                 }
               }
             }
           }
         },
         Rpt: {
-          OrgnlId: "subId",
+          OrgnlId: 'subId',
           Vrfctn: true,
           UpdtdPtyAndAcctId: {
             Pty: {
@@ -474,24 +474,24 @@ export const fspiopIso20022 = {
                 PrvId: {
                   Othr: {
                     SchmeNm: {
-                      Prtry: "MSISDN"
+                      Prtry: 'MSISDN'
                     },
-                    Id: "16135551212"
+                    Id: '16135551212'
                   }
                 }
               },
-              Nm: "party-name"
+              Nm: 'party-name'
             },
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "FSPID"
+                  Id: 'FSPID'
                 }
               }
             },
             Acct: {
               Ccy: [
-                "AED"
+                'AED'
               ]
             }
           }
@@ -502,19 +502,19 @@ export const fspiopIso20022 = {
       body: {
         Rpt: {
           Rsn: {
-            Cd: "3100"
+            Cd: '3100'
           },
-          OrgnlId: "subId",
+          OrgnlId: 'subId',
           Vrfctn: false
         },
         Assgnmt: {
-          MsgId: "01J96K505K7NDQFSBG9P743BF3",
-          CreDtTm: "2024-10-02T12:26:48.372Z",
+          MsgId: '01J96K505K7NDQFSBG9P743BF3',
+          CreDtTm: '2024-10-02T12:26:48.372Z',
           Assgnr: {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "source"
+                  Id: 'source'
                 }
               }
             }
@@ -523,7 +523,7 @@ export const fspiopIso20022 = {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "destination"
+                  Id: 'destination'
                 }
               }
             }

@@ -22,7 +22,7 @@
  --------------
  ******/
 
-// FSPIOP ISO20022 to FSPIOP mappings
+// FSPIOP ISO 20022 to FSPIOP mappings
 
 export const quotes = {
   post: `{
@@ -68,3 +68,48 @@ export const quotes = {
     "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
   }`
 }
+
+// export const quotes = {
+//   post: `{
+//     "body.quoteId": "body.CdtTrfTxInf.PmtId.TxId",
+//     "body.transactionId": "body.CdtTrfTxInf.PmtId.EndToEndId",
+//     "body.transactionRequestId": "body.CdtTrfTxInf.PmtId.InstrId",
+//     "body.payee.partyIdInfo.partyIdType": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Cd",
+//     "body.payee.partyIdInfo.partyIdentifier": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id",
+//     "body.payee.merchantClassificationCode": "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
+//     "body.payee.name": "body.CdtTrfTxInf.Cdtr.Name",
+//     "body.payee.partyIdInfo.dateOfBirth": "body.CdtTrfTxInf.Cdtr.Id.PrvtId.DtAndPlcOfBirth.BirthDt",
+//     "body.payee.supportedCurrencies": "body.CdtTrfTxInf.CdtrAcct.Ccy",
+//     "body.payer.partyIdInfo.partyIdType": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Cd",
+//     "body.payer.partyIdInfo.partyIdentifier": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id",
+//     "body.payer.partyIdInfo.fspId": "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
+//     "body.payer.name": "body.CdtTrfTxInf.Dbtr.Name",
+//     "body.payer.partyIdInfo.dateOfBirth": "body.CdtTrfTxInf.Dbtr.Id.PrvtId.DtAndPlcOfBirth.BirthDt",
+//     "body.payer.supportedCurrencies": "body.CdtTrfTxInf.Dbtr.Acct.Ccy",
+//     "body.amountType": "body.CdtTrfTxInf.ChrgBr",
+//     "body.fees.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.Ccy",
+//     "body.fees.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
+//     "body.currencyConversion.sourceAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
+//     "body.currencyConversion.sourceAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
+//     "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+//     "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+//     "body.note": "body.CdtTrfTxInf.InstrForNxtAgt.InstrInf",
+//     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+//     "body.transactionType.scenario": "body.GroupHeader129.CdtTrfTxInf.Purp"
+//   }`,
+//   put: `{
+//     "body.transferAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
+//     "body.transferAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
+//     "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+//     "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+//     "body.payeeFspCommission.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.Ccy",
+//     "body.payeeFspCommission.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
+//     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+//     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+//     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
+//   }`,
+//   putError: `{
+//     "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
+//     "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
+//   }`
+// }

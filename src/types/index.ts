@@ -52,6 +52,7 @@ export type Source = {
 export type Target = Source;
 
 // Temp type def for types that need more concrete type def when/if possible
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export type GenericObject =  Record<string, any>;
 
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };

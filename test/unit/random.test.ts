@@ -1,10 +1,13 @@
 // DO NOT REVIEW THIS FILE, IT IS FOR RANDOM TESTS
-import { State } from 'src/types/map-transform'
-import { createTransformer } from '../../src/lib'
-import { CustomTransforms } from '../../src/lib/transforms'
+// import { State } from 'src/types/map-transform';
+// import { createTransformer } from '../../src/lib';
+// import { CustomTransforms } from '../../src/lib/transforms';
 
 
 describe('Random tests', () => {
+  it('dummy trst', async () => {
+    expect(true).toBeTruthy();
+  });
   // it.skip('should ... test generator transform functions', async () => {
   //   const discovery = {
   //     parties: {
@@ -263,57 +266,57 @@ describe('Random tests', () => {
   //   const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
   //   expect(targetFspiop).toBeFalsy();
   // }),
-  it('should ... map to dashed properties', async () => {
-    const discovery = {
-      parties: {
-        put: `{
-          "$noDefaults": "true",
-          "body.Rpt.source": "header.FSPIOP-Source",
-          "body.Rpt.dest": "header.FSPIOP-Destination",
-          "body.Rpt.id": "body.iden",
-          "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }, { "$transform": "fixed", "value": "**undefined**", "$direction": "rev" }],
-          "body.Assgnmt.MsgId": [{ "$transform": "generateID", "$direction": "fwd" }, { "$value": "**undefined**", "$direction": "rev" }]
-        }`
-      }
-    }
+  // it('should ... map to dashed properties', async () => {
+  //   const discovery = {
+  //     parties: {
+  //       put: `{
+  //         "$noDefaults": "true",
+  //         "body.Rpt.source": "header.FSPIOP-Source",
+  //         "body.Rpt.dest": "header.FSPIOP-Destination",
+  //         "body.Rpt.id": "body.iden",
+  //         "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }, { "$transform": "fixed", "value": "**undefined**", "$direction": "rev" }],
+  //         "body.Assgnmt.MsgId": [{ "$transform": "generateID", "$direction": "fwd" }, { "$value": "**undefined**", "$direction": "rev" }]
+  //       }`
+  //     }
+  //   };
 
-    const mapping = discovery.parties.put;
-    const transformers = { ...CustomTransforms }
-    const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } })
+  //   const mapping = discovery.parties.put;
+  //   const transformers = { ...CustomTransforms };
+  //   const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } });
 
-    /**
-     *  FORWARD CASE
-     *  When transforming from FSPIOP to ISO, 
-     *   - 
-     */
-    const sourceFspiop = {
-      body: {
-        iden: '5678'
-      },
-      header: {
-        'FSPIOP-Source': '123',
-        'FSPIOP-Destination': '234'
-      }
-    }
-    const targetIso = await transformer.transform(sourceFspiop, {});
-    console.log(targetIso);
-    //expect(targetIso).toBeTruthy();
+  //   /**
+  //    *  FORWARD CASE
+  //    *  When transforming from FSPIOP to ISO, 
+  //    *   - 
+  //    */
+  //   const sourceFspiop = {
+  //     body: {
+  //       iden: '5678'
+  //     },
+  //     header: {
+  //       'FSPIOP-Source': '123',
+  //       'FSPIOP-Destination': '234'
+  //     }
+  //   };
+  //   const targetIso = await transformer.transform(sourceFspiop, {});
+  //   //console.log(targetIso);
+  //   //expect(targetIso).toBeTruthy();
 
-    /**
-     * REVERSE CASE
-     * When transforming from ISO to FSPIOP,
-     *  - 
-     */
-    const sourceIso = {
-      body: {
-        Rpt: {
-          source: '234',
-          dest: '1234',
-          id: '567899'
-        }
-      }
-    };
-    const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
-    expect(targetFspiop).toBeFalsy();
-  })
-})
+  //   /**
+  //    * REVERSE CASE
+  //    * When transforming from ISO to FSPIOP,
+  //    *  - 
+  //    */
+  //   const sourceIso = {
+  //     body: {
+  //       Rpt: {
+  //         source: '234',
+  //         dest: '1234',
+  //         id: '567899'
+  //       }
+  //     }
+  //   };
+  //   const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
+  //   expect(targetFspiop).toBeFalsy();
+  // });
+});

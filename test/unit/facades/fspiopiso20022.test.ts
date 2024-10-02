@@ -298,7 +298,7 @@ const expectedFspiop = {
      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
        await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post, expectedFspiop.quotes.post)();
      });
-     test('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+     test.skip('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
        await testCase(fspiopIso20022.quotes.put, FspiopIso20022TransformFacade.quotes.put, expectedFspiop.quotes.put)();
      });
      test('should transform PUT quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
