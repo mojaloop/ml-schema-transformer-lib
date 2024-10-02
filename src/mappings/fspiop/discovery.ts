@@ -30,10 +30,10 @@ export const discovery = {
       "$noDefaults": true,
       "body.Assgnmt.MsgId": { "$transform": "generateID" },
       "body.Assgnmt.CreDtTm": { "$transform": "datetimeNow" },
+      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }],
       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Source",
       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Destination",
       "body.Rpt.OrgnlId": "params.SubId",
-      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }, { "$transform": "fixed", "value": "**undefined**", "$direction": "rev" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
@@ -50,7 +50,35 @@ export const discovery = {
       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Source",
       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Destination",
       "body.Rpt.OrgnlId": "params.SubId",
-      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": false, "$direction": "fwd" }, { "$transform": "fixed", "value": "**undefined**", "$direction": "rev" }],
+      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": false, "$direction": "fwd" }]
+    }`
+  }
+}
+
+// FSPIOP ISO220022 to FSPIOP  mappings
+// A reverse mapping (with all contant mappings removed) is needed in this case to overcome a bug in map-transform
+// where reverse transform on constant values is not working as expected.
+
+export const discovery_reverse = {
+  parties: {
+    put: `{
+      "$noDefaults": true,
+      "headers.FSPIOP-Source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
+      "headers.FSPIOP-Destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
+      "params.SubId": "body.Rpt.OrgnlId",
+      "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
+      "body.party.partyIdInfo.partyIdentifier": "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id",
+      "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
+      "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
+      "body.party.supportedCurrencies": "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy"
+    }`,
+    putError: `{
+      "$noDefaults": true,
+      "body.errorInformation.errorDescription": ["body.Rpt.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }],
+      "body.errorInformation.errorCode": "body.Rpt.Rsn.Cd",
+      "headers.FSPIOP-Source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
+      "headers.FSPIOP-Destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
+      "params.SubId": "body.Rpt.OrgnlId"
     }`
   }
 }

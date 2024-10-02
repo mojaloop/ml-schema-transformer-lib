@@ -22,6 +22,7 @@
  --------------
  ******/
 
+import { Source, Target } from 'src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
@@ -31,7 +32,7 @@ const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 describe('FSPIOPTransformFacade tests', () => {
   FspiopTransformFacade.configure({ logger: mockLogger });
   
-  const testCase = (source: unknown, transformerFn: Function, expectedTarget: unknown = null) => {
+  const testCase = (source: Source, transformerFn: Function, expectedTarget: Target | null = null) => {
     return async () => {
       const target = await transformerFn(source);
       if (expectedTarget !== null) expect(target).toEqual(expectedTarget);

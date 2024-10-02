@@ -22,24 +22,31 @@
  --------------
  ******/
 
-import { TransformFacadeFunction } from 'src/types';
+import { Source, Target, TransformFacadeFunction } from 'src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
-import { fspiopIso20022, mockLogger } from '../../fixtures';
+import { fspiopIso20022, fspiop, mockLogger } from '../../fixtures';
 
 const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 
 const expectedFspiop = {
   parties: {
     put: {
+      headers: {
+        "FSPIOP-Source": "source",
+        "FSPIOP-Destination": "destination"
+      },
+      params: {
+        SubId: "subId"
+      },
       body: {
         party: {
           partyIdInfo: {
             partyIdType: "MSISDN",
             partyIdentifier: "16135551212",
-            fspId: "string"
+            fspId: "FSPID"
           },
-          name: "string",
+          name: "party-name",
           supportedCurrencies: [
             "AED"
           ]
@@ -47,11 +54,7 @@ const expectedFspiop = {
       }
     },
     putError: {
-      body: {
-        errorInformation: {
-          errorCode: "5100"
-        }
-      }
+      ...fspiop.parties.putError
     }
   },
   quotes: {
@@ -129,7 +132,7 @@ const expectedFspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: "5100",
+          errorCode: "3100",
           errorDescription: "string"
         }
       }
@@ -181,7 +184,7 @@ const expectedFspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: "5100",
+          errorCode: "3100",
           errorDescription: "string"
         }
       }
@@ -217,7 +220,7 @@ const expectedFspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: "5100",
+          errorCode: "3100",
           errorDescription: "string"
         }
       }
@@ -256,7 +259,7 @@ const expectedFspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: "5100",
+          errorCode: "3100",
           errorDescription: "string"
         }
       }
@@ -265,7 +268,7 @@ const expectedFspiop = {
 }
  
  describe('FSPIOPISO20022TransformFacade tests', () => {
-   const testCase = (source: unknown, transformerFn: TransformFacadeFunction, expectedTarget: unknown = null) => {
+   const testCase = (source: Source, transformerFn: TransformFacadeFunction, expectedTarget: Target | null = null) => {
      return async () => {
        const target = await transformerFn(source, {});
        if (expectedTarget !== null) expect(target).toEqual(expectedTarget);

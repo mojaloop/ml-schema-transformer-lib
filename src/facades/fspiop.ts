@@ -26,7 +26,7 @@ import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogg
 import { State } from 'src/types/map-transform';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings, FSPIOPMappings } from '../mappings';
-import { Source, Target, TransformFacadeOptions } from '../types';
+import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
 
 const { quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 const { discovery } = FSPIOPMappings;
@@ -41,7 +41,7 @@ export const FspiopTransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target>  => {
+    put: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target>  => {
       const target = await transformFn(source, {
         mapping: options.overrideMapping || discovery.parties.put,
         mapTransformOptions: options.mapTransformOptions,

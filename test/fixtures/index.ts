@@ -30,19 +30,19 @@ export const fspiop = {
         partyIdInfo: {
           partyIdType: 'MSISDN',
           partyIdentifier: '16135551212',
-          partySubIdOrType: 'string',
-          fspId: 'string',
+          partySubIdOrType: 'PARTY-SUBID-OR-TYPE',
+          fspId: 'FSPID',
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'ext-key',
+                value: 'ext-val'
               }
             ]
           }
         },
         merchantClassificationCode: '8',
-        name: 'string',
+        name: 'party-name',
         personalInfo: {
           complexName: {
             firstName: 'Henrik',
@@ -82,22 +82,28 @@ export const fspiop = {
           'AED'
         ]
         }
+      },
+      headers: {
+        'FSPIOP-Source': 'source',
+        'FSPIOP-Destination': 'destination'
+      },
+      params: {
+        SubId: 'subId'
       }
     },
     putError: {
       body: {
         errorInformation: {
-          errorCode: '5100',
-          errorDescription: 'string',
-          extensionList: {
-            extension: [
-              {
-                key: 'string',
-                value: 'string'
-              }
-            ]
-          }
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
         }
+      },
+      headers: {
+        'FSPIOP-Source': 'source',
+        'FSPIOP-Destination': 'destination'
+      },
+      params: {
+        SubId: 'subId'
       }
     }
   },
@@ -181,7 +187,7 @@ export const fspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: '5100',
+          errorCode: '3100',
           errorDescription: 'string',
           extensionList: {
             extension: [
@@ -283,7 +289,7 @@ export const fspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: '5100',
+          errorCode: '3100',
           errorDescription: 'string',
           extensionList: {
             extension: [
@@ -352,7 +358,7 @@ export const fspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: '5100',
+          errorCode: '3100',
           errorDescription: 'string',
           extensionList: {
             extension: [
@@ -417,7 +423,7 @@ export const fspiop = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: '5100',
+          errorCode: '3100',
           errorDescription: 'string',
           extensionList: {
             extension: [
@@ -436,50 +442,91 @@ export const fspiop = {
 export const fspiopIso20022 = {
   parties: {
     put: {
-      GetParties_IdentificationVerificationReportV03: {
-        Rpt: {
-          UpdtdPtyAndAcctId: {
-            Pty: {
-              Id: {
-                OrgId: {
-                  Othr: {
-                    SchmeNm: {
-                      Prtry: 'MSISDN'
-                    },
-                    Id: '16135551212'
-                  }
-                },
-                PrvtId: {
-                  DtAndPlcOfBirth: {}
-                }
-              },
-              Nm: 'string'
-            },
-            CashAccount40: {
-              Ccy: [
-                'AED'
-              ]
-            }
-          }
-        },
+      body: {
         Assgnmt: {
+          MsgId: "01J96JDSGWE1EJV7JZVG957GNX",
+          CreDtTm: "2024-10-02T12:14:07.902Z",
+          Assgnr: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "source"
+                }
+              }
+            }
+          },
           Assgne: {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: 'string'
+                  Id: "destination"
                 }
               }
+            }
+          }
+        },
+        Rpt: {
+          OrgnlId: "subId",
+          Vrfctn: true,
+          UpdtdPtyAndAcctId: {
+            Pty: {
+              Id: {
+                PrvId: {
+                  Othr: {
+                    SchmeNm: {
+                      Prtry: "MSISDN"
+                    },
+                    Id: "16135551212"
+                  }
+                }
+              },
+              Nm: "party-name"
+            },
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "FSPID"
+                }
+              }
+            },
+            Acct: {
+              Ccy: [
+                "AED"
+              ]
             }
           }
         }
       }
     },
     putError: {
-      GetPartiesError_IdentificationVerificationReportV03: {
+      body: {
         Rpt: {
           Rsn: {
-            Cd: '5100'
+            Cd: "3100"
+          },
+          OrgnlId: "subId",
+          Vrfctn: false
+        },
+        Assgnmt: {
+          MsgId: "01J96K505K7NDQFSBG9P743BF3",
+          CreDtTm: "2024-10-02T12:26:48.372Z",
+          Assgnr: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "source"
+                }
+              }
+            }
+          },
+          Assgne: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "destination"
+                }
+              }
+            }
           }
         }
       }
@@ -487,7 +534,7 @@ export const fspiopIso20022 = {
   },
   quotes: {
     post: {
-      TermsRequest_FIToFICustomerCreditProposal: {
+      body: {
         CdtTrfTxInf: {
           PmtId: {
             TxId: '12345678',
@@ -583,7 +630,7 @@ export const fspiopIso20022 = {
       }
     },
     put: {
-      TermsRequest_FIToFICustomerCreditProposal: {
+      body: {
         CdtTrfTxInf: {
           InstdAmt: {
             Ccy: 'AED',
@@ -617,9 +664,9 @@ export const fspiopIso20022 = {
       }
     },
     putError: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
-          TxSts: '5100',
+          TxSts: '3100',
           StsRsnInf: {
             AddtInf: 'string'
           }
@@ -629,7 +676,7 @@ export const fspiopIso20022 = {
   },
   fxQuotes: {
     post: {
-      FxRequest_FICreditTransferProposal: {
+      body: {
         CdtTrfTxInf: {
           PmtId: {
             EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -668,7 +715,7 @@ export const fspiopIso20022 = {
       }
     },
     put: {
-      FxResponse_FICreditTransferProposal: {
+      body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
             IlpV4PrepPacket: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
@@ -711,9 +758,9 @@ export const fspiopIso20022 = {
       }
     },
     putError: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
-          TxSts: '5100',
+          TxSts: '3100',
           StsRsnInf: {
             AddtInf: 'string'
           }
@@ -723,7 +770,7 @@ export const fspiopIso20022 = {
   },
   transfers: {
     post: {
-      Execute_FIToFICustomerCreditTransferV13: {
+      body: {
         CdtTrfTxInf: {
           PmtId: {
             EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
@@ -756,7 +803,7 @@ export const fspiopIso20022 = {
       }
     },
     patch: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
@@ -766,7 +813,7 @@ export const fspiopIso20022 = {
       }
     },
     put: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
           ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
@@ -777,9 +824,9 @@ export const fspiopIso20022 = {
       }
     },
     putError: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
-          TxSts: '5100',
+          TxSts: '3100',
           StsRsnInf: {
             AddtInf: 'string'
           }
@@ -789,7 +836,7 @@ export const fspiopIso20022 = {
   },
   fxTransfers: {
     post: {
-      Fxecute_FinancialInstitutionCreditTransferV12: {
+      body: {
         CdtTrfTxInf: {
           PmtId: {
             EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -829,7 +876,7 @@ export const fspiopIso20022 = {
       }
     },
     patch: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
@@ -838,7 +885,7 @@ export const fspiopIso20022 = {
       }
     },
     put: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
           ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
@@ -848,9 +895,9 @@ export const fspiopIso20022 = {
       }
     },
     putError: {
-      PacsStatus_FIToFIPaymentStatusReportV15: {
+      body: {
         TxInfAndSts: {
-          TxSts: '5100',
+          TxSts: '3100',
           StsRsnInf: {
             AddtInf: 'string'
           }

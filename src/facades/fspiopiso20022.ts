@@ -23,14 +23,14 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { GenericObject, Source, TransformFacadeOptions } from 'src/types';
+import { Source, Target, TransformFacadeOptions } from 'src/types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings, FSPIOPMappings } from '../mappings';
 import { State } from 'src/types/map-transform';
 import { fspiopIso20022Utils } from 'src/lib/utils';
 
 const { quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
-const { discovery } = FSPIOPMappings;
+const { discovery_reverse } = FSPIOPMappings;
 
 let log = defaultLogger;
 
@@ -44,32 +44,32 @@ export const FspiopIso20022TransformFacade = {
   parties: {
     put: async (source: Source, options: TransformFacadeOptions = {}) => {
       const target = await transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.put,
+        mapping: options.overrideMapping || discovery_reverse.parties.put,
         mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions, rev: true } as State, // reversing mapping since we're using FSPIOP mappings for discovery
+        mapperOptions: { ...options.mapperOptions } as State,
         logger: log,
-      }) as GenericObject;
+      }) as Target;
 
       /**
        * Mutate the target object here if necessary e.g scenarios that cannot be mapped with the mapping, 
        * fields that are undefined in one schema but required in the other
        */
-      // Coalesce Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id
-      if (source.body.Rpt?.UpdtdPtyAndAcctId?.Pty?.PrvtId?.Othr?.Id && !target.body.party.partyIdInfo.partyIdentifier) {
-        target.body.party.partyIdInfo.partyIdentifier = source.body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id;
-      }
-      // set errorDescription from Rpt.Rsn.Cd
-      if (source.body.Rpt?.Rsn?.Cd && !target.body.errorInformation.errorDescription) {
-        target.body.errorInformation.errorDescription = fspiopIso20022Utils.getDescrFromErrCode(source.body.Rpt.Rsn.Cd);
-      }
+      // // Coalesce Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id
+      // if (source.body.Rpt?.UpdtdPtyAndAcctId?.Pty?.PrvtId?.Othr?.Id && !target.body.party.partyIdInfo.partyIdentifier) {
+      //   target.body.party.partyIdInfo.partyIdentifier = source.body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id;
+      // }
+      // // set errorDescription from Rpt.Rsn.Cd
+      // if (source.body.Rpt?.Rsn?.Cd && !target.body.errorInformation.errorDescription) {
+      //   target.body.errorInformation.errorDescription = fspiopIso20022Utils.getDescrFromErrCode(source.body.Rpt.Rsn.Cd);
+      // }
 
       return target;
     },
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.putError,
+        mapping: options.overrideMapping || discovery_reverse.parties.putError,
         mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions, rev: true } as State, // reversing mapping since we're using FSPIOP mappings for discovery
+        mapperOptions: { ...options.mapperOptions } as State, 
         logger: log,
       }),
   },

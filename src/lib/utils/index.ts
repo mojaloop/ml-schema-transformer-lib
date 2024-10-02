@@ -36,7 +36,7 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
   }
 }
 
-export const isPersonPartyIdType = (partyIdType: string) =>  partyIdType && ['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
+export const isPersonPartyIdType = (partyIdType: string) =>  partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
 
 export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;

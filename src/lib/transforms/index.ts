@@ -25,6 +25,7 @@
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
 import { generateID as genID, isEmptyObject, isPersonPartyIdType } from '../utils';
+import { getDescrFromErrCode } from '../utils/fspiop20022.utils';
 
 /**
 * We define default custom transforms here.
@@ -105,5 +106,9 @@ export const CustomTransforms: ICustomTransforms = {
 
   isNotEmpty: (options: Options) => () => (data: unknown, state: State) => {
     return data && !isEmptyObject(data);
+  },
+
+  fspiopErrorDescrForCode: (options: Options) => () => (data: unknown, state: State) => {
+    return getDescrFromErrCode(data as string);
   }
 }
