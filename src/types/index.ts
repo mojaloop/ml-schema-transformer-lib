@@ -23,15 +23,15 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { Options, State } from './map-transform';
+import { AsyncTransformer, Options, State, TransformDefinition, Transformer } from './map-transform';
 
 export interface ITransformer {
-  transform(source: unknown, { mapperOptions }: { mapperOptions?: State }): Promise<unknown>;
+  transform(source: Source, { mapperOptions }: { mapperOptions?: State }): Promise<Target>;
 }
 
-export type TransformFacadeOptions = { overrideMapping?: JsonString, mapTransformOptions?: Options, mapperOptions?: State };
-export type TransformFacadeFunction = (source: unknown, options: TransformFacadeOptions) => Promise<unknown>;
-export type TransformFunctionOptions = { mapping: JsonString, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
+export type TransformFacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
+export type TransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<Target>;
+export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
 
 export enum ID_GENERATOR_TYPE {
@@ -39,10 +39,22 @@ export enum ID_GENERATOR_TYPE {
   uuid = 'uuid'
 }
 
-export type GenericObject = { [key: string]: string | number | boolean | GenericObject | GenericObject[] };
+export interface ICustomTransforms {
+  [key: string | symbol]: Transformer | AsyncTransformer
+}
+
+export type Source = {
+  body: GenericObject;
+  headers?: GenericObject;
+  params?: GenericObject;
+}
+
+export type Target = Source;
+
+// Temp type def for types that need more concrete type def when/if possible
+export type GenericObject =  Record<string, any>;
 
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };
-export type JsonString = string;
 export type LogContext = Json | string | null;
 export const logLevelsMap = {
   error: 'error',

@@ -25,7 +25,8 @@ export const mockLogger = {
 export const fspiop = {
   parties: {
     put: {
-      party: {
+      body: {
+        party: {
         partyIdInfo: {
           partyIdType: 'MSISDN',
           partyIdentifier: '16135551212',
@@ -80,100 +81,93 @@ export const fspiop = {
         supportedCurrencies: [
           'AED'
         ]
+        }
       }
     },
     putError: {
-      errorInformation: {
-        errorCode: '5100',
-        errorDescription: 'string',
-        extensionList: {
-          extension: [
-            {
-              key: 'string',
-              value: 'string'
-            }
-          ]
+      body: {
+        errorInformation: {
+          errorCode: '5100',
+          errorDescription: 'string',
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     }
   },
   quotes: {
     post: {
-      quoteId: '12345678',
-      transactionId: '2345678',
-      transactionRequestId: '3456789',
-      payee: {
-        name: 'Payee Name',
-        merchantClassificationCode: '4321',
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '4567890',
-          dateOfBirth: '1980-01-01'
+      body: {
+        quoteId: '12345678',
+        transactionId: '2345678',
+        transactionRequestId: '3456789',
+        payee: {
+          name: 'Payee Name',
+          merchantClassificationCode: '4321',
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '4567890',
+            dateOfBirth: '1980-01-01'
+          },
+          supportedCurrencies: ['XTS', 'XDT']
         },
-        supportedCurrencies: ['XTS', 'XDT']
-      },
-      payer: {
-        name: 'Payer Name',
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '987654321',
-          fspId: 'dfsp2',
-          dateOfBirth: '1970-01-01'
+        payer: {
+          name: 'Payer Name',
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '987654321',
+            fspId: 'dfsp2',
+            dateOfBirth: '1970-01-01'
+          },
+          supportedCurrencies: ['XXX', 'XXY']
         },
-        supportedCurrencies: ['XXX', 'XXY']
-      },
-      amountType: 'SEND',
-      amount: {
-        currency: 'USD',
-        amount: '100'
-      },
-      fees: {
-        currency: 'USD',
-        amount: 5
-      },
-      transactionType: {
-        scenario: 'DEPOSIT'
-      },
-      expiration: '2020-01-01T00:00:00Z',
-      note: 'Test note'
-    },
-    put: {
-      transferAmount: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      payeeReceiveAmount: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      payeeFspFee: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      payeeFspCommission: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      expiration: '2016-05-24T08:38:08.699-04:00',
-      geoCode: {
-        latitude: '+45.4215',
-        longitude: '+75.6972'
-      },
-      ilpPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA',
-      condition: '_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
+        amountType: 'SEND',
+        amount: {
+          currency: 'USD',
+          amount: '100'
+        },
+        fees: {
+          currency: 'USD',
+          amount: 5
+        },
+        transactionType: {
+          scenario: 'DEPOSIT'
+        },
+        expiration: '2020-01-01T00:00:00Z',
+        note: 'Test note'
       }
     },
-    putError: {
-      errorInformation: {
-        errorCode: '5100',
-        errorDescription: 'string',
+    put: {
+      body: {
+        transferAmount: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        payeeReceiveAmount: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        payeeFspFee: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        payeeFspCommission: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        expiration: '2016-05-24T08:38:08.699-04:00',
+        geoCode: {
+          latitude: '+45.4215',
+          longitude: '+75.6972'
+        },
+        ilpPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA',
+        condition: '_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh',
         extensionList: {
           extension: [
             {
@@ -181,156 +175,141 @@ export const fspiop = {
               value: 'string'
             }
           ]
+        }
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: '5100',
+          errorDescription: 'string',
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     }
   },
   fxQuotes: {
     post: {
-      conversionRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-      conversionTerms: {
-        conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        initiatingFsp: 'string',
-        counterPartyFsp: 'string',
-        amountType: 'RECEIVE',
-        sourceAmount: {
-          currency: 'AED',
-          amount: '123.45'
-        },
-        targetAmount: {
-          currency: 'AED',
-          amount: '123.45'
-        },
-        expiration: '2016-05-24T08:38:08.699-04:00',
-        charges: [
-          {
-            chargeType: 'string',
-            sourceAmount: {
-              currency: 'AED',
-              amount: '123.45'
-            },
-            targetAmount: {
-              currency: 'AED',
-              amount: '123.45'
-            }
-          }
-        ],
-        extensionList: {
-          extension: [
+      body: {
+        conversionRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        conversionTerms: {
+          conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          initiatingFsp: 'string',
+          counterPartyFsp: 'string',
+          amountType: 'RECEIVE',
+          sourceAmount: {
+            currency: 'AED',
+            amount: '123.45'
+          },
+          targetAmount: {
+            currency: 'AED',
+            amount: '123.45'
+          },
+          expiration: '2016-05-24T08:38:08.699-04:00',
+          charges: [
             {
-              key: 'string',
-              value: 'string'
+              chargeType: 'string',
+              sourceAmount: {
+                currency: 'AED',
+                amount: '123.45'
+              },
+              targetAmount: {
+                currency: 'AED',
+                amount: '123.45'
+              }
             }
-          ]
+          ],
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     },
     put: {
-      condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
-      conversionTerms: {
-        conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        initiatingFsp: 'string',
-        counterPartyFsp: 'string',
-        amountType: 'RECEIVE',
-        sourceAmount: {
-          currency: 'AED',
-          amount: '123.45'
-        },
-        targetAmount: {
-          currency: 'AED',
-          amount: '123.45'
-        },
-        expiration: '2016-05-24T08:38:08.699-04:00',
-        charges: [
-          {
-            chargeType: 'string',
-            sourceAmount: {
-              currency: 'AED',
-              amount: '123.45'
-            },
-            targetAmount: {
-              currency: 'AED',
-              amount: '123.45'
-            }
-          }
-        ],
-        extensionList: {
-          extension: [
+      body: {
+        condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
+        conversionTerms: {
+          conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          initiatingFsp: 'string',
+          counterPartyFsp: 'string',
+          amountType: 'RECEIVE',
+          sourceAmount: {
+            currency: 'AED',
+            amount: '123.45'
+          },
+          targetAmount: {
+            currency: 'AED',
+            amount: '123.45'
+          },
+          expiration: '2016-05-24T08:38:08.699-04:00',
+          charges: [
             {
-              key: 'string',
-              value: 'string'
+              chargeType: 'string',
+              sourceAmount: {
+                currency: 'AED',
+                amount: '123.45'
+              },
+              targetAmount: {
+                currency: 'AED',
+                amount: '123.45'
+              }
             }
-          ]
+          ],
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     },
     putError: {
-      errorInformation: {
-        errorCode: '5100',
-        errorDescription: 'string',
-        extensionList: {
-          extension: [
-            {
-              key: 'string',
-              value: 'string'
-            }
-          ]
+      body: {
+        errorInformation: {
+          errorCode: '5100',
+          errorDescription: 'string',
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     }
   },
   transfers: {
     post: {
-      transferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-      payeeFsp: 'string',
-      payerFsp: 'string',
-      amount: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      ilpPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA',
-      condition: 'TYBsJ3FzHWSHwbtrCTjCKADWoeYJLRNvAzzuRd13lJM',
-      expiration: '2016-05-24T08:38:08.699-04:00',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
-      }
-    },
-    patch: {
-      completedTimestamp: '2016-05-24T08:38:08.699-04:00',
-      transferState: 'RESERVED',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
-      }
-    },
-    put: {
-      fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
-      completedTimestamp: '2016-05-24T08:38:08.699-04:00',
-      transferState: 'RESERVED',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
-      }
-    },
-    putError: {
-      errorInformation: {
-        errorCode: '5100',
-        errorDescription: 'string',
+      body: {
+        transferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        payeeFsp: 'string',
+        payerFsp: 'string',
+        amount: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        ilpPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA',
+        condition: 'TYBsJ3FzHWSHwbtrCTjCKADWoeYJLRNvAzzuRd13lJM',
+        expiration: '2016-05-24T08:38:08.699-04:00',
         extensionList: {
           extension: [
             {
@@ -340,54 +319,11 @@ export const fspiop = {
           ]
         }
       }
-    }
-  },
-  fxTransfers: {
-    post: {
-      commitRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-      determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-      initiatingFsp: 'string',
-      counterPartyFsp: 'string',
-      sourceAmount: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      targetAmount: {
-        currency: 'AED',
-        amount: '123.45'
-      },
-      condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz',
-      expiration: '2016-05-24T08:38:08.699-04:00'
     },
     patch: {
-      completedTimestamp: '2016-05-24T08:38:08.699-04:00',
-      conversionState: 'RESERVED',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
-      }
-    },
-    put: {
-      fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
-      completedTimestamp: '2016-05-24T08:38:08.699-04:00',
-      conversionState: 'RESERVED',
-      extensionList: {
-        extension: [
-          {
-            key: 'string',
-            value: 'string'
-          }
-        ]
-      }
-    },
-    putError: {
-      errorInformation: {
-        errorCode: '5100',
-        errorDescription: 'string',
+      body: {
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        transferState: 'RESERVED',
         extensionList: {
           extension: [
             {
@@ -395,6 +331,102 @@ export const fspiop = {
               value: 'string'
             }
           ]
+        }
+      }
+    },
+    put: {
+      body: {
+        fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        transferState: 'RESERVED',
+        extensionList: {
+          extension: [
+            {
+              key: 'string',
+              value: 'string'
+            }
+          ]
+        }
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: '5100',
+          errorDescription: 'string',
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      body: {
+        commitRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        initiatingFsp: 'string',
+        counterPartyFsp: 'string',
+        sourceAmount: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        targetAmount: {
+          currency: 'AED',
+          amount: '123.45'
+        },
+        condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz',
+        expiration: '2016-05-24T08:38:08.699-04:00'
+      }
+    },
+    patch: {
+      body: {
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        conversionState: 'RESERVED',
+        extensionList: {
+          extension: [
+            {
+              key: 'string',
+              value: 'string'
+            }
+          ]
+        }
+      }
+    },
+    put: {
+      body: {
+        fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        conversionState: 'RESERVED',
+        extensionList: {
+          extension: [
+            {
+              key: 'string',
+              value: 'string'
+            }
+          ]
+        }
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: '5100',
+          errorDescription: 'string',
+          extensionList: {
+            extension: [
+              {
+                key: 'string',
+                value: 'string'
+              }
+            ]
+          }
         }
       }
     }

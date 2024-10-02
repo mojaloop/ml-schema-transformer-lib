@@ -23,9 +23,9 @@
  ******/
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
-import { GenericObject, ID_GENERATOR_TYPE } from '../types';
+import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
-export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}) => {
+export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}): string => {
   switch (idGenType) {
     case ID_GENERATOR_TYPE.ulid:
       return idGenerator({ type: idGenType, ...config })();
@@ -35,3 +35,11 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
       return idGenerator({ type: ID_GENERATOR_TYPE.ulid, ...config })();
   }
 }
+
+export const isPersonPartyIdType = (partyIdType: string) =>  partyIdType && ['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
+
+export const isEmptyObject = (data: unknown) => {
+  return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
+}
+
+export * as fspiopIso20022Utils from './fspiop20022.utils';

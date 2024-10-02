@@ -33,8 +33,12 @@ const { TransformFacades } = require('@mojaloop/ml-schema-transformer-lib')
 
 // source is an FSPIOP POST /quotes payload 
 const source = {
-  quoteId: 'random quote id',
-  ...
+  body: {
+    quoteId: 'random quote id',
+    ...,
+  },
+  headers: { ... },
+  params: { ... }
 };
 // target is an FSPIOP ISO 20022 Post /quotes payload
 const target = await TransformFacades.FSPIOP.quotes.post(source);
@@ -60,7 +64,7 @@ const mapping = { "quoteId": "CdtTrfTxInf.PmtId.TxId", ... }
 const transformer = await createTransformer(mapping);
 const transformer = createTransformer(mapping)
 
-const source = { quoteId: 'random quote id', ... };
+const source = { body: { quoteId: 'random quote id', ... }, ... };
 const target = transformer.transform(source);
 ```
 

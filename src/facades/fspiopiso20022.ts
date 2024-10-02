@@ -23,11 +23,14 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { TransformFacadeOptions } from 'src/types';
+import { GenericObject, Source, TransformFacadeOptions } from 'src/types';
 import { logger as defaultLogger, transformFn } from '../lib';
-import { FSPIO20022PMappings } from '../mappings';
+import { FSPIO20022PMappings, FSPIOPMappings } from '../mappings';
+import { State } from 'src/types/map-transform';
+import { fspiopIso20022Utils } from 'src/lib/utils';
 
-const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
+const { quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
+const { discovery } = FSPIOPMappings;
 
 let log = defaultLogger;
 
@@ -39,37 +42,53 @@ export const FspiopIso20022TransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: unknown, options: TransformFacadeOptions = {}) =>
-      transformFn(source, {
+    put: async (source: Source, options: TransformFacadeOptions = {}) => {
+      const target = await transformFn(source, {
         mapping: options.overrideMapping || discovery.parties.put,
         mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        mapperOptions: { ...options.mapperOptions, rev: true } as State, // reversing mapping since we're using FSPIOP mappings for discovery
         logger: log,
-      }),
-    putError: async (source: unknown, options: TransformFacadeOptions = {}) =>
+      }) as GenericObject;
+
+      /**
+       * Mutate the target object here if necessary e.g scenarios that cannot be mapped with the mapping, 
+       * fields that are undefined in one schema but required in the other
+       */
+      // Coalesce Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id
+      if (source.body.Rpt?.UpdtdPtyAndAcctId?.Pty?.PrvtId?.Othr?.Id && !target.body.party.partyIdInfo.partyIdentifier) {
+        target.body.party.partyIdInfo.partyIdentifier = source.body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id;
+      }
+      // set errorDescription from Rpt.Rsn.Cd
+      if (source.body.Rpt?.Rsn?.Cd && !target.body.errorInformation.errorDescription) {
+        target.body.errorInformation.errorDescription = fspiopIso20022Utils.getDescrFromErrCode(source.body.Rpt.Rsn.Cd);
+      }
+
+      return target;
+    },
+    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || discovery.parties.putError,
         mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        mapperOptions: { ...options.mapperOptions, rev: true } as State, // reversing mapping since we're using FSPIOP mappings for discovery
         logger: log,
       }),
   },
   quotes: {
-    post: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || quotes.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    put: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || quotes.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    putError: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || quotes.putError,
         mapTransformOptions: options.mapTransformOptions,
@@ -78,21 +97,21 @@ export const FspiopIso20022TransformFacade = {
       }),
   },
   fxQuotes: {
-    post: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxQuotes.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    put: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxQuotes.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    putError: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxQuotes.putError,
         mapTransformOptions: options.mapTransformOptions,
@@ -101,28 +120,28 @@ export const FspiopIso20022TransformFacade = {
       }),
   },
   transfers: {
-    post: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || transfers.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    patch: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    patch: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || transfers.patch,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    put: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || transfers.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    putError: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || transfers.putError,
         mapTransformOptions: options.mapTransformOptions,
@@ -131,28 +150,28 @@ export const FspiopIso20022TransformFacade = {
       }),
   },
   fxTransfers: {
-    post: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxTransfers.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    patch: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    patch: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxTransfers.patch,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    put: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxTransfers.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
       }),
-    putError: async (source: unknown, options: TransformFacadeOptions = {}) =>
+    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || fxTransfers.putError,
         mapTransformOptions: options.mapTransformOptions,

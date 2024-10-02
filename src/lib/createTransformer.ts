@@ -31,5 +31,6 @@ export const createTransformer = async (mapping: TransformDefinition, options: C
   const { default: mapTransform } = await import('map-transform'); // `map-transform` is an ESM-only module, so we need to use dynamic import
   const { mapTransformOptions } = options;
   const mergedOptions = { ...mapTransformOptions, transformers: { ...mapTransformOptions?.transformers, ...CustomTransforms } };
+  mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
   return new Transformer(mapTransform(mapping, mergedOptions));
 };

@@ -22,14 +22,9 @@
  --------------
  ******/
 
-import { AsyncTransformer, Options, State, Transformer } from 'src/types/map-transform';
-import { generateID as genID } from '../utils';
-
-type ICustomTransforms = {
-  [key: string | symbol]: Transformer | AsyncTransformer
-}
-
-export const CustomTransforms: ICustomTransforms = {};
+import { ICustomTransforms } from '../../types';
+import { Options, State } from '../../types/map-transform';
+import { generateID as genID, isEmptyObject, isPersonPartyIdType } from '../utils';
 
 /**
 * We define default custom transforms here.
@@ -91,13 +86,24 @@ CustomTransforms['fn1'] = fn1;
 CustomTransforms['fn2'] = fn2;
 */
 
-const generateID = (options: Options) => () => (data: unknown, state: State) => {
-  return genID();
-}
+export const CustomTransforms: ICustomTransforms = {
+  generateID: (options: Options) => () => (data: unknown, state: State) => {
+    return genID();
+  },
 
-const datetimeNow = (options: Options) => () => (data: unknown, state: State) => {
-  return new Date().toISOString();
-}
+  datetimeNow: (options: Options) => () => (data: unknown, state: State) => {
+    return new Date().toISOString(); // Not sure if this is the correct format
+  },
 
-CustomTransforms.generateID = generateID;
-CustomTransforms.datetimeNow = datetimeNow;
+  isPersonParty: (options: Options) => () => (data: unknown, state: State) => {
+    return isPersonPartyIdType(data as string);
+  },
+
+  isNotPersonParty: (options: Options) => () => (data: unknown, state: State) => {
+    return !isPersonPartyIdType(data as string);
+  },
+
+  isNotEmpty: (options: Options) => () => (data: unknown, state: State) => {
+    return data && !isEmptyObject(data);
+  }
+}

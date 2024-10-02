@@ -22,14 +22,14 @@
  --------------
  ******/
 
-import { ITransformer, TransformFunctionOptions } from '../types';
+import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
 import { DataMapper, State, TransformDefinition } from '../types/map-transform';
 import { createTransformer } from './createTransformer';
 
-export const transformFn = async (source: unknown, options: TransformFunctionOptions) => {
+export const transformFn = async (source: Source, options: TransformFunctionOptions) => {
   const { mapping, mapTransformOptions, mapperOptions, logger } = options;
   try {
-    const mappingObj = JSON.parse(mapping) as TransformDefinition;
+    const mappingObj = typeof mapping == 'string' ? JSON.parse(mapping) as TransformDefinition : mapping; 
     const transformer = await createTransformer(mappingObj, { mapTransformOptions });
     return transformer.transform(source, { mapperOptions });
   } catch (error) {
@@ -45,7 +45,7 @@ export class Transformer implements ITransformer {
     this.mapper = mapper;
   }
 
-  async transform(source: unknown, { mapperOptions }: { mapperOptions?: State } = {}): Promise<unknown> {
-    return this.mapper(source, mapperOptions);
+  async transform(source: Source, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Target> {
+    return this.mapper(source, mapperOptions) as Promise<Target>;
   }
 }

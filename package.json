@@ -50,6 +50,7 @@
     "snapshot": "npx standard-version --no-verify --skip.changelog --prerelease snapshot --releaseCommitMessageFormat 'ci(snapshot): {{currentTag}}'"
   },
   "dependencies": {
+    "@mojaloop/central-services-error-handling": "^13.0.1",
     "@mojaloop/central-services-logger": "^11.5.1",
     "@mojaloop/central-services-shared": "^18.9.0",
     "map-transform": "^1.5.3"

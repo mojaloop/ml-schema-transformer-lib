@@ -26,28 +26,28 @@
 
 export const fxTransfers = {
   post: `{
-    "commitRequestId": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.PmtId.EndToEndId",
-    "determiningTransferId": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.PmtId.TxId",
-    "initiatingFsp": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
-    "counterPartyFsp": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "sourceAmount.currency": "Fxecute_FinancialInstitutionCreditTransferV12..CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "sourceAmount.amount": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
-    "targetAmount.currency": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "targetAmount.amount": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
-    "condition": "Fxecute_FinancialInstitutionCreditTransferV12.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "expiration": "Fxecute_FinancialInstitutionCreditTransferV12.GrpHdr.PmtInstrXpryDtTm"
+    "body.commitRequestId": "body.CdtTrfTxInf.PmtId.EndToEndId",
+    "body.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
+    "body.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
+    "body.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
+    "body.sourceAmount.currency": "body..CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
+    "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
+    "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+    "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
+    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   }`,
   patch: `{
-    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
-    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
+    "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
+    "body.transferState": "body.TxInfAndSts.TxSts"
   }`,
   put: `{
-    "fulfilment": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.ExctnConf",
-    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
-    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
+    "body.fulfilment": "body.TxInfAndSts.ExctnConf",
+    "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
+    "body.transferState": "body.TxInfAndSts.TxSts"
   }`,
   putError: `{
-    "errorInformation.errorCode": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts",
-    "errorInformation.errorDescription": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.StsRsnInf.AddtInf"
+    "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
+    "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
   }`
 }

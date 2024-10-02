@@ -26,25 +26,25 @@
 
 export const transfers = {
   post: `{
-    "transferId": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.PmtId.EndToEndId",
-    "payeeFsp": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
-    "payerFsp": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
-    "amount.currency": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "amount.amount": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "ilpPacket": "Execute_FIToFICustomerCreditTransferV13.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "expiration": "Execute_FIToFICustomerCreditTransferV13.GrpHdr.PmtInstrXpryDtTm"
+    "body.transferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
+    "body.payeeFsp": "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
+    "body.payerFsp": "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
+    "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+    "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+    "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   }`,
   patch: `{
-    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
-    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
+    "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
+    "body.transferState": "body.TxInfAndSts.TxSts"
   }`,
   put: `{
-    "fulfilment": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.ExctnConf",
-    "completedTimestamp": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.PrcgDt.DtTm",
-    "transferState": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts"
+    "body.fulfilment": "body.TxInfAndSts.ExctnConf",
+    "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
+    "body.transferState": "body.TxInfAndSts.TxSts"
   }`,
   putError: `{
-    "errorInformation.errorCode": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.TxSts",
-    "errorInformation.errorDescription": "PacsStatus_FIToFIPaymentStatusReportV15.TxInfAndSts.StsRsnInf.AddtInf"
+    "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
+    "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
   }`
 }
