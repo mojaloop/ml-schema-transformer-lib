@@ -69,6 +69,10 @@ export const quotes = {
   }`
 }
 
+export const quotes_reverse = {
+  
+}
+
 // export const quotes = {
 //   post: `{
 //     "body.quoteId": "body.CdtTrfTxInf.PmtId.TxId",

@@ -24,4 +24,4 @@
 
 // FSPIOP to FSPIOP  ISO 20022 mappings
 
-export * from './discovery'
+// export * from './discovery'

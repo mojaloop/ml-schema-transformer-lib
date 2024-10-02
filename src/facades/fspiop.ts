@@ -25,11 +25,10 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { State } from 'src/types/map-transform';
 import { logger as defaultLogger, transformFn } from '../lib';
-import { FSPIO20022PMappings, FSPIOPMappings } from '../mappings';
+import { FSPIO20022PMappings } from '../mappings';
 import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
 
-const { quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
-const { discovery } = FSPIOPMappings;
+const { discovery_reverse, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
 
@@ -41,25 +40,16 @@ export const FspiopTransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target>  => {
-      const target = await transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.put,
+    put: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> => 
+      transformFn(source, {
+        mapping: options.overrideMapping || discovery_reverse.parties.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: { ...options.mapperOptions } as State,
         logger: log,
-      }) as Target;
-
-      /**
-       * Mutate the target object here if necessary e.g scenarios that cannot be mapped with the mapping,
-       * fields that are undefined in one schema but required in the other
-       */
-     
-
-      return target;
-    },
+      }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.putError,
+        mapping: options.overrideMapping || discovery_reverse.parties.putError,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: { ...options.mapperOptions } as State,
         logger: log,

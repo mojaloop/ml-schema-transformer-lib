@@ -24,6 +24,7 @@
 
 // FSPIOP ISO 20022 to FSPIOP mappings
 
+export * from './discovery'
 export * from './quotes'
 export * from './fxQuotes'
 export * from './transfers'
