@@ -33,8 +33,8 @@ const expectedFspiop = {
   parties: {
     put: {
       headers: {
-        "FSPIOP-Source": "source",
-        "FSPIOP-Destination": "destination"
+        "fspiop-source": "source",
+        "fspiop-destination": "destination"
       },
       params: {
         SubId: "subId"

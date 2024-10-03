@@ -69,8 +69,45 @@ export const quotes = {
   }`
 }
 
+// FSPIOP ISO 20022 to FSPIOP mappings
+
 export const quotes_reverse = {
-  
+  post: `{
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GprHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.CdtTrfTxInf.PmtId.TxId": "body.quoteId",
+    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.transactionId",
+    "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionRequestId",
+    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry": ["body.payee.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }], 
+    "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.SchmeNm.Prtry": ["body.payee.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
+    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": ["body.payee.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
+    "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.Id": ["body.payee.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
+    "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payee.partyIdInfo.fspId",
+    "body.CdtTrfTxInf.Cdtr.Name": "body.payee.name",
+    "body.CdtTrfTxInf.CdtrAcct.Ccy": "body.payee.supportedCurrencies",
+    "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtry": ["body.payer.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
+    "body.CdtTrfTxInf.Dbtr.Id.PrvId.Othr.SchmeNm.Prtry": ["body.payer.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
+    "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": ["body.payer.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
+    "body.CdtTrfTxInf.Dbtr.Id.PrvId.Othr.Id": ["body.payer.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
+    "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "body.payer.partyIdInfo.fspId",
+    "body.CdtTrfTxInf.Dbtr.Name": "body.payer.name",
+    "body.CdtTrfTxInf.Dbtr.Acct.Ccy": "body.payer.supportedCurrencies",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
+    
+    "body.CdtTrfTxInf.ChrgBr": ["body.amountType", { "$if": "body.amountType=='SEND'", "then": "CRED", "else": "DEBT" }],
+
+    "body.GrpHdr.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
+    "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId",
+    "body.CdtTrfTxInf.InstrForCdtrAgt.Cd": ["body.transactionType.refundInfo.refundReason", { "$if": "body.transactionType.refundInfo", "then": "REFD", "else": "**undefined**" }
+    "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf": "body.transactionType.refundInfo.reeason",
+
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
+  }`
 }
 
 // export const quotes = {

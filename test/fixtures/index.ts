@@ -84,8 +84,8 @@ export const fspiop = {
         }
       },
       headers: {
-        'FSPIOP-Source': 'source',
-        'FSPIOP-Destination': 'destination'
+        'fspiop-source': 'source',
+        'fspiop-destination': 'destination'
       },
       params: {
         SubId: 'subId'
@@ -99,8 +99,8 @@ export const fspiop = {
         }
       },
       headers: {
-        'FSPIOP-Source': 'source',
-        'FSPIOP-Destination': 'destination'
+        'fspiop-source': 'source',
+        'fspiop-destination': 'destination'
       },
       params: {
         SubId: 'subId'

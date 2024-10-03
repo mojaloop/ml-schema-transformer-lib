@@ -3,6 +3,9 @@
 // import { createTransformer } from '../../src/lib';
 // import { CustomTransforms } from '../../src/lib/transforms';
 
+import { CustomTransforms, createTransformer } from 'src/lib';
+import { State } from 'src/types/map-transform';
+
 
 describe('Random tests', () => {
   it('dummy trst', async () => {
@@ -224,8 +227,8 @@ describe('Random tests', () => {
   //     parties: {
   //       put: `{
   //         "$noDefaults": "true",
-  //         "Rpt.source": "header.FSPIOP-Source",
-  //         "Rpt.dest": "header.FSPIOP-Destination"
+  //         "Rpt.source": "header.fspiop-source",
+  //         "Rpt.dest": "header.fspiop-destination"
   //       }`
   //     }
   //   }
@@ -242,8 +245,8 @@ describe('Random tests', () => {
   //   const sourceFspiop = {
   //     body: {},
   //     header: {
-  //       'FSPIOP-Source': '123',
-  //       'FSPIOP-Destination': '234'
+  //       'fspiop-source': '123',
+  //       'fspiop-destination': '234'
   //     }
   //   }
   //   const targetIso = await transformer.transform(sourceFspiop, {});
@@ -271,8 +274,8 @@ describe('Random tests', () => {
   //     parties: {
   //       put: `{
   //         "$noDefaults": "true",
-  //         "body.Rpt.source": "header.FSPIOP-Source",
-  //         "body.Rpt.dest": "header.FSPIOP-Destination",
+  //         "body.Rpt.source": "header.fspiop-source",
+  //         "body.Rpt.dest": "header.fspiop-destination",
   //         "body.Rpt.id": "body.iden",
   //         "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }, { "$transform": "fixed", "value": "**undefined**", "$direction": "rev" }],
   //         "body.Assgnmt.MsgId": [{ "$transform": "generateID", "$direction": "fwd" }, { "$value": "**undefined**", "$direction": "rev" }]
@@ -294,8 +297,8 @@ describe('Random tests', () => {
   //       iden: '5678'
   //     },
   //     header: {
-  //       'FSPIOP-Source': '123',
-  //       'FSPIOP-Destination': '234'
+  //       'fspiop-source': '123',
+  //       'fspiop-destination': '234'
   //     }
   //   };
   //   const targetIso = await transformer.transform(sourceFspiop, {});
@@ -319,4 +322,101 @@ describe('Random tests', () => {
   //   const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
   //   expect(targetFspiop).toBeFalsy();
   // });
+  it.skip("should ... test if-then-else", async () => {
+    const mapTransform = await import('map-transform');
+    const { ifelse , set} = mapTransform;
+    // const discovery = {
+    //   parties: {
+    //     put: `{
+    //       "$noDefaults": "true",
+    //       "Rpt.source": "header.fspiop-source",
+    //       "Rpt.dest": "header.fspiop-destination",
+    //       "Rpt.id": { "$if": "body.map", "then": "123", "else": "456" }
+    //     }`
+    //   }
+    // }
+
+    const isMap2 = (value: any) => {
+      return value?.body?.map ? true : false;
+    }
+
+    const isMap = (options: any) => () => (value: any) => {
+      return value?.body?.map ? true : false;
+    }
+
+    CustomTransforms.isMap = isMap;
+    CustomTransforms.isMap2 = isMap2 as any;
+
+    const discovery = {
+      parties: {
+        put: {
+          $noDefaults: true,
+          "Rpt.source": "header.fspiop-source",
+          "Rpt.dest": "header.fspiop-destination",
+          "Rpt.id": { ifelse: "isMap", then: "123", else: "456" }
+        }
+      }
+    }
+
+    const mapping = [
+      'body',
+      {
+        'Rpt.source': 'header.fspiop-source',
+        'Rpt.dest': 'header.fspiop-destination'
+      },
+      {
+        $if: 'isMap2',
+        then: { $value: '123' },
+        else: { $value: '456' }
+      }
+    ]
+
+    // const mapping = [
+    //   'body',
+    //   {
+    //     'Rpt.source': 'header.fspiop-source',
+    //     'Rpt.dest': 'header.fspiop-destination'
+    //   },
+    //   ifelse(isMap2 as any, set('Rpt.id'), set('Rpt.id2'))
+    // ]
+
+    // const mapping = discovery.parties.put;
+    const transformers = { ...CustomTransforms }
+    const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } })
+
+    /**
+     *  FORWARD CASE
+     *  When transforming from FSPIOP to ISO, 
+     *   - 
+     */
+    const sourceFspiop = {
+      body: {
+        iden: '5678',
+        map: true
+      },
+      header: {
+        'fspiop-source': '123',
+        'fspiop-destination': '234'
+      }
+    }
+    const targetIso = await transformer.transform(sourceFspiop, {});
+    console.log(targetIso);
+    //expect(targetIso).toBeTruthy();
+
+    /**
+     * REVERSE CASE
+     * When transforming from ISO to FSPIOP,
+     *  - 
+     */
+    const sourceIso = {
+      body: {
+        Rpt: {
+          source: '234',
+          dest: '1234'
+        }
+      }
+    };
+    const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
+    expect(targetFspiop).toBeFalsy();
+  })
 });

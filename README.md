@@ -118,6 +118,40 @@ npm test
 npm run build
 ```
 
+## Known Issues
+
+A note on using `ml-schema-transformer-lib` (MLST) in CJS projects
+
+If you're seeing any of the following errors while running tests with Jest
+
+1. `You need to run with a version of node that supports ES Modules in the VM API. See https://jestjs.io/docs/ecmascript-modules` or
+2. ` TypeError: A dynamic import callback was invoked without --experimental-vm-modules`
+
+**Workarounds**
+
+To resolve (1), upgrade to latest Node LTS (v20.17.0)
+To resolve (2), update your test command to pass in the `--experimental-vm-modules` NODE_OPTION e.g NODE_OPTIONS='--experimental-vm-modules' npx jest
+
+**The why?**
+
+This is happening due to an open bug in Jest (https://github.com/jestjs/jest/issues/9430). Basically, Jest uses experimental features for its ESM-related support
+like dynamic imports etc.
+
+MLST uses `MapTransform`, an ES-only module, as its underlying schema transformer. The only way to import `MapTransform` into MLST is via dynamic import.
+
+In developing MLST, Jest had to be replaced with Vitest (https://vitest.dev/) due to this bug. Vitest supports modern ESM features out-of-the-box, it's fast (maybe faster) and has API compatibility with Jest (shallow learning curve).
+
+**Long Term Solutions**
+
+1. Enable CJS compatibility in `MapTransform`
+  I have an open PR (https://github.com/integreat-io/map-transform/pull/133) on `MapTransform` to support CJS distribution. We do not have control over this if the PR is not accepted. CJS is now regarded as the past in favour of ESM. So this might not happen.
+  We may also fork `MapTransform`, update and publish in npm under mojaloop with CJS support (if the license of `MapTransform` supports this)
+2. Replace `MapTransform` with a CJS compatible library with similar features. I am yet to find such library. Please recommend if you find one.
+
+
+
+
+
 
 
 

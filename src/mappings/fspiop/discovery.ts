@@ -31,8 +31,8 @@
 //       "body.Assgnmt.MsgId": { "$transform": "generateID" },
 //       "body.Assgnmt.CreDtTm": { "$transform": "datetimeNow" },
 //       "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }],
-//       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Source",
-//       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Destination",
+//       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.fspiop-source",
+//       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.fspiop-destination",
 //       "body.Rpt.OrgnlId": "params.SubId",
 //       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
 //       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
@@ -47,8 +47,8 @@
 //       "body.Rpt.Rsn.Cd": "body.errorInformation.errorCode",
 //       "body.Assgnmt.MsgId": { "$transform": "generateID" },
 //       "body.Assgnmt.CreDtTm": { "$transform": "datetimeNow" },
-//       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Source",
-//       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.FSPIOP-Destination",
+//       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.fspiop-source",
+//       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.fspiop-destination",
 //       "body.Rpt.OrgnlId": "params.SubId",
 //       "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": false, "$direction": "fwd" }]
 //     }`
@@ -63,8 +63,8 @@
 //   parties: {
 //     put: `{
 //       "$noDefaults": true,
-//       "headers.FSPIOP-Source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
-//       "headers.FSPIOP-Destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
+//       "headers.fspiop-source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
+//       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
 //       "params.SubId": "body.Rpt.OrgnlId",
 //       "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
 //       "body.party.partyIdInfo.partyIdentifier": "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id",
@@ -76,8 +76,8 @@
 //       "$noDefaults": true,
 //       "body.errorInformation.errorDescription": ["body.Rpt.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }],
 //       "body.errorInformation.errorCode": "body.Rpt.Rsn.Cd",
-//       "headers.FSPIOP-Source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
-//       "headers.FSPIOP-Destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
+//       "headers.fspiop-source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
+//       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
 //       "params.SubId": "body.Rpt.OrgnlId"
 //     }`
 //   }

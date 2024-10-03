@@ -26,7 +26,7 @@ import { ITransformer, Source, Target, TransformFunctionOptions } from '../types
 import { DataMapper, State, TransformDefinition } from '../types/map-transform';
 import { createTransformer } from './createTransformer';
 
-export const transformFn = async (source: Source, options: TransformFunctionOptions) => {
+export const transformFn = async (source: Source, options: TransformFunctionOptions): Promise<Target> => {
   const { mapping, mapTransformOptions, mapperOptions, logger } = options;
   try {
     const mappingObj = typeof mapping == 'string' ? JSON.parse(mapping) as TransformDefinition : mapping; 
