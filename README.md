@@ -147,6 +147,7 @@ In developing MLST, Jest had to be replaced with Vitest (https://vitest.dev/) du
   I have an open PR (https://github.com/integreat-io/map-transform/pull/133) on `MapTransform` to support CJS distribution. We do not have control over this if the PR is not accepted. CJS is now regarded as the past in favour of ESM. So this might not happen.
   We may also fork `MapTransform`, update and publish in npm under mojaloop with CJS support (if the license of `MapTransform` supports this)
 2. Replace `MapTransform` with a CJS compatible library with similar features. I am yet to find such library. Please recommend if you find one.
+3. Migrate to Vitest. I believe that Jest is beginning to show its age.
 
 
 

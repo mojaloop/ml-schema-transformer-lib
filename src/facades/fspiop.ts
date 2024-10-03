@@ -27,6 +27,8 @@ import { State } from 'src/types/map-transform';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
+import { getProp, setProp } from 'src/lib/utils';
+import { quotes_reverse } from 'src/mappings/fspiopiso20022';
 
 const { discovery_reverse, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
@@ -40,14 +42,14 @@ export const FspiopTransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> => 
+    put: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> => 
       transformFn(source, {
         mapping: options.overrideMapping || discovery_reverse.parties.put,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: { ...options.mapperOptions } as State,
         logger: log,
       }),
-    putError: async (source: Source, options: TransformFacadeOptions = {}) =>
+    putError: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         mapping: options.overrideMapping || discovery_reverse.parties.putError,
         mapTransformOptions: options.mapTransformOptions,
@@ -56,13 +58,31 @@ export const FspiopTransformFacade = {
       }),
   },
   quotes: {
-    post: async (source: Source, options: TransformFacadeOptions = {}) =>
-      transformFn(source, {
-        mapping: options.overrideMapping || quotes.post,
+    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+      const target = await transformFn(source, {
+        mapping: options.overrideMapping || quotes_reverse.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: { ...options.mapperOptions, rev: true } as State,
         logger: log,
-      }),
+      });
+
+      /**
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
+       */
+
+      // source.body.amountType -> target.body.CdtTrfTxInf.ChrgBr 
+      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
+
+      // source.body.transactionType.refundInfo -> target.body.CdtTrfTxInf.InstrForCdtrAgt.Cd
+      // source.body.transactionType.refundInfo.reason -> target.body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf
+      if (getProp(source, 'body.transactionType.refundInfo')) {
+        setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd','REFD');
+        setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
+      }
+
+      return target;
+    },
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || quotes.put,

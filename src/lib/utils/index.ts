@@ -25,6 +25,12 @@
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
+/**
+ * Generate a unique ID
+ * @param idGenType ID generator type
+ * @param config Configuration object
+ * @returns Unique ID
+ */
 export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}): string => {
   switch (idGenType) {
     case ID_GENERATOR_TYPE.ulid:
@@ -36,10 +42,44 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
   }
 }
 
-export const isPersonPartyIdType = (partyIdType: string) =>  partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
+export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
 
 export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
+}
+
+// Set nested property in an object
+export const setProp = (obj: GenericObject, path: string, value: unknown) => {
+  const pathParts = path.split('.');
+  let current = obj;
+
+  for (let i = 0; i < pathParts.length - 1; i++) {
+    const part = pathParts[i] as string;
+
+    if (!current[part]) {
+      current[part] = {};
+    }
+
+    current = current[part];
+  }
+
+  current[pathParts[pathParts.length - 1] as string] = value;
+}
+
+// Get nested property in an object
+export function getProp(obj: GenericObject, path: string): unknown {
+  const pathParts = path.split('.');
+  let current = obj;
+
+  for (const part of pathParts) {
+    if (typeof current === 'object' && current !== null && part in current) {
+      current = (current as GenericObject)[part];
+    } else {
+      return undefined;
+    }
+  }
+
+  return current;
 }
 
 export * as fspiopIso20022Utils from './fspiop20022.utils';

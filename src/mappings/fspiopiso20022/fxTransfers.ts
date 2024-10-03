@@ -30,7 +30,7 @@ export const fxTransfers = {
     "body.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.sourceAmount.currency": "body..CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
+    "body.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
     "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",

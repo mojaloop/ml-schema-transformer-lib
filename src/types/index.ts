@@ -49,7 +49,11 @@ export type Source = {
   params?: GenericObject;
 }
 
-export type Target = Source;
+export type Target = {
+  body: GenericObject;
+  headers?: GenericObject;
+  params?: GenericObject;
+};
 
 // Temp type def for types that need more concrete type def when/if possible
 /* eslint-disable  @typescript-eslint/no-explicit-any */

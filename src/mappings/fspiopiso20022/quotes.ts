@@ -26,31 +26,25 @@
 
 export const quotes = {
   post: `{
+    "$noDefaults": "true",
     "body.quoteId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.transactionId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.transactionRequestId": "body.CdtTrfTxInf.PmtId.InstrId",
-    "body.payee.partyIdInfo.partyIdType": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Cd",
-    "body.payee.partyIdInfo.partyIdentifier": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id",
-    "body.payee.merchantClassificationCode": "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
+    "body.payee.partyIdInfo.partyIdType": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.SchmeNm.Prtry" ] }
+    "body.payee.partyIdInfo.partyIdentifier": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.Id" ] },
+    "body.payee.partyIdInfo.fspId": "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
     "body.payee.name": "body.CdtTrfTxInf.Cdtr.Name",
-    "body.payee.partyIdInfo.dateOfBirth": "body.CdtTrfTxInf.Cdtr.Id.PrvtId.DtAndPlcOfBirth.BirthDt",
     "body.payee.supportedCurrencies": "body.CdtTrfTxInf.CdtrAcct.Ccy",
-    "body.payer.partyIdInfo.partyIdType": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Cd",
-    "body.payer.partyIdInfo.partyIdentifier": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id",
+    "body.payer.partyIdInfo.partyIdType": { "$alt": [ "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtry", "body.CdtTrfTxInf.Dbtr.Id.PrvId.Othr.SchmeNm.Prtry" ] },
+    "body.payer.partyIdInfo.partyIdentifier": { "$alt": [ "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id", "body.CdtTrfTxInf.Dbtr.Id.PrvId.Othr.Id" ] },
     "body.payer.partyIdInfo.fspId": "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
     "body.payer.name": "body.CdtTrfTxInf.Dbtr.Name",
-    "body.payer.partyIdInfo.dateOfBirth": "body.CdtTrfTxInf.Dbtr.Id.PrvtId.DtAndPlcOfBirth.BirthDt",
     "body.payer.supportedCurrencies": "body.CdtTrfTxInf.Dbtr.Acct.Ccy",
-    "body.amountType": "body.CdtTrfTxInf.ChrgBr",
-    "body.fees.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.Ccy",
-    "body.fees.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
-    "body.currencyConversion.sourceAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
-    "body.currencyConversion.sourceAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
     "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.note": "body.CdtTrfTxInf.InstrForNxtAgt.InstrInf",
-    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
-    "body.transactionType.scenario": "body.GroupHeader129.CdtTrfTxInf.Purp"
+    "body.transactionType.scenario": "body.GrpHdr.CdtTrfTxInf.Purp.Prtry",
+    "body.transactionType.refundInfo.originalTransactionId": "body.CdtTrfTxInf.PmtId.InstrId",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   }`,
   put: `{
     "body.transferAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
@@ -69,7 +63,7 @@ export const quotes = {
   }`
 }
 
-// FSPIOP ISO 20022 to FSPIOP mappings
+// FSPIOP to FSPIOP ISO 20022 mappings
 
 export const quotes_reverse = {
   post: `{
@@ -77,7 +71,6 @@ export const quotes_reverse = {
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.GprHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.CdtTrfTxInf.PmtId.TxId": "body.quoteId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.transactionId",
@@ -98,16 +91,14 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.Dbtr.Acct.Ccy": "body.payer.supportedCurrencies",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
-    
-    "body.CdtTrfTxInf.ChrgBr": ["body.amountType", { "$if": "body.amountType=='SEND'", "then": "CRED", "else": "DEBT" }],
-
     "body.GrpHdr.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId",
-    "body.CdtTrfTxInf.InstrForCdtrAgt.Cd": ["body.transactionType.refundInfo.refundReason", { "$if": "body.transactionType.refundInfo", "then": "REFD", "else": "**undefined**" }
-    "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf": "body.transactionType.refundInfo.reeason",
-
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
-  }`
+  }`,
+  put: `{
+
+  }`,
+  putError: `{}`
 }
 
 // export const quotes = {

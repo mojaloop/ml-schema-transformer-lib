@@ -27,6 +27,7 @@ import { Source, TransformFacadeOptions } from 'src/types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { State } from 'src/types/map-transform';
+import { getProp, setProp } from 'src/lib/utils';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
@@ -56,13 +57,29 @@ export const FspiopIso20022TransformFacade = {
       }),
   },
   quotes: {
-    post: async (source: Source, options: TransformFacadeOptions = {}) =>
-      transformFn(source, {
+    post: async (source: Source, options: TransformFacadeOptions = {}) => {
+      const target = await transformFn(source, {
         mapping: options.overrideMapping || quotes.post,
         mapTransformOptions: options.mapTransformOptions,
         mapperOptions: options.mapperOptions,
         logger: log,
-      }),
+      });
+
+      /**
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
+       */
+      
+     // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
+      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+
+      // source.body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf -> target.body.transactionType.refundInfo.reason
+      if (getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd') === 'REFD') {
+        setProp(target, 'body.transactionType.refundInfo.reason', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf'));
+      }
+
+      return target;
+    },
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
         mapping: options.overrideMapping || quotes.put,
