@@ -59,7 +59,7 @@ export const quotes = {
     "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketCondition" }] 
   }`,
   putError: `{
-    
+
     "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
     "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
   }`
@@ -112,7 +112,9 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFsFee.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
   }`,
-  putError: `{}`
+  putError: `{
+    
+  }`
 }
 
 // export const quotes = {

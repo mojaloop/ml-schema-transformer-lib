@@ -85,7 +85,8 @@ export function getProp(obj: GenericObject, path: string): unknown {
 }
 
 // Get the ILP packet condition from an ILP packet
-export const getIlpPacketCondition = (ilpPacket: GenericObject): GenericObject => {
+export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
+  // @todo These params should be passed in via a config/options
   const ILP_SECRET = process.env.ILP_SECRET;
   const ILP_VERSION = process.env.ILP_VERSION;
 
