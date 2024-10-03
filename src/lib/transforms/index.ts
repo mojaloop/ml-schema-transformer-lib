@@ -113,6 +113,6 @@ export const CustomTransforms: ICustomTransforms = {
   },
 
   ilpPacketCondition: (options: Options) => () => (data: unknown, state: State) => {
-    return getIlpPacketCondition(data);
+    return getIlpPacketCondition(data as string);
   }
 }

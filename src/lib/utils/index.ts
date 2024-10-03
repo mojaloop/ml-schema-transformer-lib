@@ -23,6 +23,8 @@
  ******/
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
+const Ilp = require('@mojaloop/sdk-standard-components').Ilp;
+import { logger } from '../../lib';
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
 /**
@@ -83,8 +85,16 @@ export function getProp(obj: GenericObject, path: string): unknown {
 }
 
 // Get the ILP packet condition from an ILP packet
-export const getIlpPacketCondition = (ilpPacket: string): string => {
-  return ilpPacket; // @todo implement
+export const getIlpPacketCondition = (ilpPacket: GenericObject): GenericObject => {
+  const ILP_SECRET = process.env.ILP_SECRET;
+  const ILP_VERSION = process.env.ILP_VERSION;
+
+  if (!ILP_SECRET || !ILP_VERSION) {
+    throw new Error('ILP_SECRET and ILP_VERSION environment variables must be set');
+  }
+  const ilp = Ilp.ilpFactory(ILP_VERSION, { secret: ILP_SECRET, logger });
+  const decoded = ilp.decodeIlpPacket(ilpPacket);
+  return decoded?.executionCondition?.toString();
 }
 
 export * as fspiopIso20022Utils from './fspiop20022.utils';
