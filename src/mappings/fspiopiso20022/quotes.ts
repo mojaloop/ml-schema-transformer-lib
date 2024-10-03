@@ -28,6 +28,7 @@ export const quotes = {
   post: `{
     "$noDefaults": "true",
     "body.quoteId": "body.CdtTrfTxInf.PmtId.TxId",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.transactionId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.transactionRequestId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.payee.partyIdInfo.partyIdType": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.SchmeNm.Prtry" ] }
@@ -43,21 +44,22 @@ export const quotes = {
     "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.transactionType.scenario": "body.GrpHdr.CdtTrfTxInf.Purp.Prtry",
-    "body.transactionType.refundInfo.originalTransactionId": "body.CdtTrfTxInf.PmtId.InstrId",
-    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.transactionType.refundInfo.originalTransactionId": "body.CdtTrfTxInf.PmtId.InstrId"
   }`,
   put: `{
-    "body.transferAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
-    "body.transferAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
-    "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.payeeFspCommission.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.Ccy",
-    "body.payeeFspCommission.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
+    "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "body.transferAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
+    "body.transferAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+    "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
+    "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
+    "body.payeeFspFee.currency": "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy",
+    "body.payeeFsFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
+    "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketCondition" }] 
   }`,
   putError: `{
+    
     "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
     "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
   }`
@@ -71,6 +73,7 @@ export const quotes_reverse = {
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.GprHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.CdtTrfTxInf.PmtId.TxId": "body.quoteId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.transactionId",
@@ -92,11 +95,22 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
     "body.GrpHdr.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
-    "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
+    "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId"
   }`,
   put: `{
-
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GprHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.transferAmount.currency",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.transferAmount.amount",
+    "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",
+    "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount": "body.payeeReceiveAmount.amount",
+    "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
+    "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFsFee.amount",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
   }`,
   putError: `{}`
 }

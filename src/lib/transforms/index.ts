@@ -24,7 +24,7 @@
 
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
-import { generateID as genID, isEmptyObject, isPersonPartyIdType } from '../utils';
+import { generateID as genID, isEmptyObject, isPersonPartyIdType, getIlpPacketCondition } from '../utils';
 import { getDescrFromErrCode } from '../utils/fspiop20022.utils';
 
 /**
@@ -110,5 +110,9 @@ export const CustomTransforms: ICustomTransforms = {
 
   fspiopErrorDescrForCode: (options: Options) => () => (data: unknown, state: State) => {
     return getDescrFromErrCode(data as string);
+  },
+
+  ilpPacketCondition: (options: Options) => () => (data: unknown, state: State) => {
+    return getIlpPacketCondition(data);
   }
 }

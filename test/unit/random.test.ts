@@ -3,6 +3,9 @@
 // import { createTransformer } from '../../src/lib';
 // import { CustomTransforms } from '../../src/lib/transforms';
 
+import { CustomTransforms, createTransformer } from 'src/lib';
+import { State } from 'src/types/map-transform';
+
 // import { CustomTransforms, createTransformer } from 'src/lib';
 // import { State } from 'src/types/map-transform';
 
@@ -419,4 +422,33 @@ describe('Random tests', () => {
   //   const targetFspiop = await transformer.transform(sourceIso, { mapperOptions: { rev: true } as State });
   //   expect(targetFspiop).toBeFalsy();
   // });
+
+  it.skip('should ... test map to multiple fields with transform on the second', async () => {    
+    const getIlpPacketCondition = (options: any) => () => (value: any, state: State) => {
+      return value?.body?.schemaB.ilpPacket ? true : false;
+    };
+
+    CustomTransforms.getIlpPacketCondition = getIlpPacketCondition;
+
+    const mapping = {
+      $noDefaults: true,
+      // 'body.schemaA.condition': { $transform: 'getIlpPacketCondition', path: 'body.schemaB.ilpPacket' }
+      'body.schemaA.condition': ['body.schemaB.ilpPacket', { $transform: 'getIlpPacketCondition' }],
+      'body.schemaA.ilpPacket': 'body.schemaB.ilpPacket'
+
+    };
+
+    const transformers = { ...CustomTransforms };
+    const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } });
+
+    const schemaBsource = {
+      body: {
+          schemaB: {
+          ilpPacket: '123'
+        }
+      }
+    };
+    const schemaAtarget = await transformer.transform(schemaBsource, { });
+    console.log(schemaAtarget);
+  });
 });

@@ -125,12 +125,12 @@ A note on using `ml-schema-transformer-lib` (MLST) in CJS projects
 If you're seeing any of the following errors while running tests with Jest
 
 1. `You need to run with a version of node that supports ES Modules in the VM API. See https://jestjs.io/docs/ecmascript-modules` or
-2. ` TypeError: A dynamic import callback was invoked without --experimental-vm-modules`
+2. `TypeError: A dynamic import callback was invoked without --experimental-vm-modules`
 
 **Workarounds**
 
-To resolve (1), upgrade to latest Node LTS (v20.17.0)
-To resolve (2), update your test command to pass in the `--experimental-vm-modules` NODE_OPTION e.g NODE_OPTIONS='--experimental-vm-modules' npx jest
+To resolve (1), upgrade to latest Node LTS (v20.17.0 at the time of writing)
+To resolve (2), (assuming Node is updated to LTS) update your test command to pass in the `--experimental-vm-modules` NODE_OPTION e.g NODE_OPTIONS='--experimental-vm-modules' npx jest
 
 **The why?**
 

@@ -82,4 +82,9 @@ export function getProp(obj: GenericObject, path: string): unknown {
   return current;
 }
 
+// Get the ILP packet condition from an ILP packet
+export const getIlpPacketCondition = (ilpPacket: string): string => {
+  return ilpPacket; // @todo implement
+}
+
 export * as fspiopIso20022Utils from './fspiop20022.utils';

@@ -68,7 +68,9 @@ export const FspiopIso20022TransformFacade = {
       /**
        * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
        * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
+       * We do not apply these mutations if there is mapping override.
        */
+      if (options.overrideMapping) return target;
       
      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
