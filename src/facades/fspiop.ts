@@ -28,9 +28,8 @@ import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
 import { getProp, setProp } from 'src/lib/utils';
-import { quotes_reverse } from 'src/mappings/fspiopiso20022';
 
-const { discovery_reverse, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
+const { discovery_reverse, quotes_reverse, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
 
@@ -44,26 +43,23 @@ export const FspiopTransformFacade = {
   parties: {
     put: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> => 
       transformFn(source, {
-        mapping: options.overrideMapping || discovery_reverse.parties.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions } as State,
         logger: log,
+        mapping: options.overrideMapping || discovery_reverse.parties.put,
+        ...options
       }),
     putError: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
-        mapping: options.overrideMapping || discovery_reverse.parties.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions } as State,
         logger: log,
+        mapping: options.overrideMapping || discovery_reverse.parties.putError,
+        ...options
       }),
   },
   quotes: {
     post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
       const target = await transformFn(source, {
-        mapping: options.overrideMapping || quotes_reverse.post,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions, rev: true } as State,
         logger: log,
+        mapping: options.overrideMapping || quotes_reverse.post,
+        ...options
       });
 
       /**
@@ -87,17 +83,15 @@ export const FspiopTransformFacade = {
     },
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || quotes.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions, rev: true } as State,
         logger: log,
+        mapping: options.overrideMapping || quotes_reverse.put,
+        ...options
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || quotes.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions, rev: true } as State,
         logger: log,
+        mapping: options.overrideMapping || quotes_reverse.putError,
+        ...options
       }),
   },
   fxQuotes: {
