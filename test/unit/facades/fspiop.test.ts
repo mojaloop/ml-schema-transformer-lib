@@ -30,11 +30,6 @@ import { getProp } from 'src/lib/utils';
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
-const expected = (prop: string) => {
-  return (target: GenericObject) => {
-    return getProp(isoTargets(target), prop);
-  }
-}
 const isoTargets = (target: GenericObject) => ({
   parties: {
     put: {
@@ -251,6 +246,12 @@ const isoTargets = (target: GenericObject) => ({
     }
   },
 })
+
+const expected = (prop: string) => {
+  return (target: GenericObject) => {
+    return getProp(isoTargets(target), prop);
+  }
+}
 
 describe('FSPIOPTransformFacade tests', () => {
   FspiopTransformFacade.configure({ logger: mockLogger });
