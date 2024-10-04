@@ -22,20 +22,26 @@
  --------------
  ******/
 
-import { Source, Target } from 'src/types';
+import { GenericObject, Source, Target } from 'src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { fspiop, fspiopIso20022, mockLogger } from '../../fixtures';
+import { getProp } from 'src/lib/utils';
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
-const expectedIsoTargets = {
+const expected = (prop: string) => {
+  return (target: GenericObject) => {
+    return getProp(isoTargets(target), prop);
+  }
+}
+const isoTargets = (target: GenericObject) => ({
   parties: {
     put: {
       body: {
         Assgnmt: {
-          MsgId: "01J9BKAB6822038PNDHC2579VA",
-          CreDtTm: "2024-10-04T11:05:55.658Z",
+          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
+          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
           Assgnr: {
             Agt: {
               FinInstnId: {
@@ -98,8 +104,8 @@ const expectedIsoTargets = {
           Vrfctn: false
         },
         Assgnmt: {
-          MsgId: "01J9BKE2XQTZ16E1YPNPS55ZND",
-          CreDtTm: "2024-10-04T11:07:58.264Z",
+          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
+          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
           Assgnr: {
             Agt: {
               FinInstnId: {
@@ -126,8 +132,8 @@ const expectedIsoTargets = {
     post: {
       body: {
         GrpHdr: {
-          MsgId: "01J9BK2PNFNX6CE7TX63JHY5GM",
-          CreDtTm: "2024-10-04T11:01:45.265Z",
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
           NbOfTxs: 1,
           PmtInstrXpryDtTm: "2020-01-01T00:00:00Z",
           SttlmInf: {
@@ -200,8 +206,8 @@ const expectedIsoTargets = {
     put: {
       body: {
         GrpHdr: {
-          MsgId: "01J9BKJHACWWM965KG6W1KM7CH",
-          CreDtTm: "2024-10-04T11:10:24.076Z",
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
           NbOfTxs: 1,
           PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
           SttlmInf: {
@@ -231,8 +237,8 @@ const expectedIsoTargets = {
     putError: {
       body: {
         GrpHdr: {
-          MsgId: "01J9BKPHEKRCZ4GXZDD251E40H",
-          CreDtTm: "2024-10-04T11:12:35.284Z"
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
         },
         TxInfAndSts: {
           StsRsnInf: {
@@ -244,15 +250,18 @@ const expectedIsoTargets = {
       }
     }
   },
-}
+})
 
 describe('FSPIOPTransformFacade tests', () => {
   FspiopTransformFacade.configure({ logger: mockLogger });
   
-  const testCase = (source: Source, transformerFn: Function, expectedTarget: Target | null = null) => {
+  const testCase = (source: Source, transformerFn: Function, expectedTarget: Function | null = null) => {
     return async () => {
       const target = await transformerFn(source);
-      if (expectedTarget !== null) expect(target).toEqual(expectedTarget);
+      if (expectedTarget !== null) {
+        const expTargetObj = expectedTarget(target);
+        expect(target).toEqual(expTargetObj);
+      }
     };
   }
   describe('configure', () => {
@@ -269,21 +278,21 @@ describe('FSPIOPTransformFacade tests', () => {
   })
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.parties.put, FspiopTransformFacade.parties.put, expectedIsoTargets.parties.put)();
+      await testCase(fspiop.parties.put, FspiopTransformFacade.parties.put, expected('parties.put'))();
     });
     test('should transform PUT parties error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.parties.putError, FspiopTransformFacade.parties.putError)();
+      await testCase(fspiop.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
     });
   })
   describe('Quotes', () => {
     test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.quotes.post, FspiopTransformFacade.quotes.post, expectedIsoTargets.quotes.post)();
+      await testCase(fspiop.quotes.post, FspiopTransformFacade.quotes.post, expected('quotes.post'))();
     });
     test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.quotes.put, FspiopTransformFacade.quotes.put, expectedIsoTargets.quotes.put)();
+      await testCase(fspiop.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.quotes.putError, FspiopTransformFacade.quotes.putError, expectedIsoTargets.quotes.putError)();
+      await testCase(fspiop.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
     });
   })
   describe('FXQuotes', () => {
