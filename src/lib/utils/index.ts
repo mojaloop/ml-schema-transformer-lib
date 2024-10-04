@@ -87,13 +87,13 @@ export function getProp(obj: GenericObject, path: string): unknown {
 // Get the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // @todo These params should be passed in via a config/options
-  const ILP_SECRET = process.env.ILP_SECRET;
-  const ILP_VERSION = process.env.ILP_VERSION || Ilp.ILP_VERSIONS.v4;
+  const ilpSecret = process.env.MLST_ILP_SECRET;
+  const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
-  if (!ILP_SECRET || !ILP_VERSION) {
-    throw new Error('ILP_SECRET and ILP_VERSION environment variables must be set');
+  if (!ilpSecret) {
+    throw new Error('getIlpPacketCondition: ILP_SECRET environment variables must be set');
   }
-  const ilp = Ilp.ilpFactory(ILP_VERSION, { secret: ILP_SECRET, logger });
+  const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
   return decoded?.executionCondition?.toString();
 }
