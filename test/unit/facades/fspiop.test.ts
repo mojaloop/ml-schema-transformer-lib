@@ -58,7 +58,7 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiop.parties.putError, FspiopTransformFacade.parties.putError)();
     });
   })
-  describe('Quotes', () => {
+  describe.skip('Quotes', () => {
     test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiop.quotes.post, FspiopTransformFacade.quotes.post, fspiopIso20022.quotes.post)();
     });

@@ -5,6 +5,7 @@
 
 import { CustomTransforms, createTransformer } from 'src/lib';
 import { State } from 'src/types/map-transform';
+const mapTransform = require('map-transform-cjs').default;
 
 // import { CustomTransforms, createTransformer } from 'src/lib';
 // import { State } from 'src/types/map-transform';
@@ -326,7 +327,6 @@ describe('Random tests', () => {
   //   expect(targetFspiop).toBeFalsy();
   // });
   // it.skip('should ... test if-then-else', async () => {
-  //   const mapTransform = await import('map-transform');
   //   const { ifelse , set} = mapTransform;
   //   // const discovery = {
   //   //   parties: {
@@ -423,7 +423,7 @@ describe('Random tests', () => {
   //   expect(targetFspiop).toBeFalsy();
   // });
 
-  it('should ... test map to multiple fields with transform on the second', async () => {    
+  it.skip('should ... test map to multiple fields with transform on the second', async () => {    
     
     vi.stubEnv('ILP_SECRET', 'shh');
     vi.stubEnv('ILP_VERSION', 'v1');

@@ -53,7 +53,8 @@
     "@mojaloop/central-services-error-handling": "^13.0.1",
     "@mojaloop/central-services-shared": "^18.9.0",
     "@mojaloop/sdk-standard-components": "^19.0.0",
-    "map-transform": "^1.5.3"
+    "cd": "^0.3.3",
+    "map-transform-cjs": "^0.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
