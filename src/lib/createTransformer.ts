@@ -22,6 +22,7 @@
  --------------
  ******/
 
+/* eslint-disable  @typescript-eslint/no-require-imports */
 const mapTransform = require('map-transform-cjs').default;
 import { TransformDefinition } from 'src/types/map-transform';
 import { CreateTransformerOptions, ITransformer } from '../types';

@@ -72,7 +72,7 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
       
-     // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
+      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
       // source.body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf -> target.body.transactionType.refundInfo.reason
