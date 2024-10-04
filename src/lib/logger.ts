@@ -31,4 +31,4 @@ export const createLogger = (context: LogContext, logLevel: LogLevel) => {
   return log;
 };
 
-export const logger = createLogger('MLST', process.env.LOG_LEVEL as LogLevel || logLevelsMap.info);
+export const logger = createLogger('MLST', process.env.MLST_LOG_LEVEL as LogLevel || logLevelsMap.warn);

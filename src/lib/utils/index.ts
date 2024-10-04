@@ -88,7 +88,7 @@ export function getProp(obj: GenericObject, path: string): unknown {
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // @todo These params should be passed in via a config/options
   const ILP_SECRET = process.env.ILP_SECRET;
-  const ILP_VERSION = process.env.ILP_VERSION;
+  const ILP_VERSION = process.env.ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
   if (!ILP_SECRET || !ILP_VERSION) {
     throw new Error('ILP_SECRET and ILP_VERSION environment variables must be set');
