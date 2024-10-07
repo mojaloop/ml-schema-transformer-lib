@@ -632,30 +632,30 @@ export const fspiopIso20022 = {
     put: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KA3GYHTDXC63XC8T13TYVR",
-          CreDtTm: "2024-10-07T10:58:50.450Z",
+          MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
+          CreDtTm: '2024-10-07T10:58:50.450Z',
           NbOfTxs: 1,
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           IntrBkSttlmAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           InstdAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
             Amt: {
-              Ccy: "AED"
+              Ccy: 'AED'
             }
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA"
+            IlpV4PrepPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA'
           }
         }
       }
@@ -663,13 +663,13 @@ export const fspiopIso20022 = {
     putError: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KA6PHW6DP9FYSKSP9JZ35S",
-          CreDtTm: "2024-10-07T11:00:34.493Z"
+          MsgId: '01J9KA6PHW6DP9FYSKSP9JZ35S',
+          CreDtTm: '2024-10-07T11:00:34.493Z'
         },
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
@@ -774,38 +774,38 @@ export const fspiopIso20022 = {
     post: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KAN53RBRYEE3THRVPMS0BQ",
-          CreDtTm: "2024-10-07T11:08:28.154Z",
+          MsgId: '01J9KAN53RBRYEE3THRVPMS0BQ',
+          CreDtTm: '2024-10-07T11:08:28.154Z',
           NbOfTxs: 1,
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "string"
+                Id: 'string'
               }
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "string"
+                Id: 'string'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA"
+            IlpV4PrepPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA'
           }
         }
       }
@@ -813,42 +813,42 @@ export const fspiopIso20022 = {
     patch: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KAQKDJWKWC492855AXHVM3",
-          CreDtTm: "2024-10-07T11:09:48.339Z"
+          MsgId: '01J9KAQKDJWKWC492855AXHVM3',
+          CreDtTm: '2024-10-07T11:09:48.339Z'
         },
         TxInfAndSts: {
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESERVED"
+          TxSts: 'RESERVED'
         }
       }
     },
     put: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KAS0HTTEESBVZ0XF0SZ870",
-          CreDtTm: "2024-10-07T11:10:34.554Z"
+          MsgId: '01J9KAS0HTTEESBVZ0XF0SZ870',
+          CreDtTm: '2024-10-07T11:10:34.554Z'
         },
         TxInfAndSts: {
-          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESERVED"
+          TxSts: 'RESERVED'
         }
       }
     },
     putError: {
       body: {
         GrpHdr: {
-          MsgId: "01J9KATBS4MGZ35JFV04XY7APA",
-          CreDtTm: "2024-10-07T11:11:18.821Z"
+          MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
+          CreDtTm: '2024-10-07T11:11:18.821Z'
         },
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }

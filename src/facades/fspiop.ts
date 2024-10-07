@@ -23,14 +23,13 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { State } from 'src/types/map-transform';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
 import { getProp, setProp } from 'src/lib/utils';
 import { fxTransfers_reverse } from 'src/mappings/fspiopiso20022';
 
-const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
+const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
 
