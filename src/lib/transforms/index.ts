@@ -25,7 +25,7 @@
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
 import { generateID as genID, isEmptyObject, isPersonPartyIdType, getIlpPacketCondition } from '../utils';
-import { getDescrFromErrCode } from '../utils/fspiop20022.utils';
+import { getDescrFromErrCode } from '../utils';
 
 /**
 * We define default custom transforms here.

@@ -24,6 +24,7 @@
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const Ilp = require('@mojaloop/sdk-standard-components').Ilp;
+const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
 import { logger } from '../../lib';
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
@@ -84,6 +85,11 @@ export function getProp(obj: GenericObject, path: string): unknown {
   return current;
 }
 
+export const getDescrFromErrCode = (code: string | number): string => {
+  const errorCode = Number.parseInt(code as string);
+  return CreateFSPIOPErrorFromErrorCode(errorCode)?.apiErrorCode?.type?.description || 'Unknown error';
+}
+
 // Get the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // @todo These params should be passed in via a config/options
@@ -97,5 +103,3 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   const decoded = ilp.decodeIlpPacket(ilpPacket);
   return decoded?.executionCondition?.toString();
 }
-
-export * as fspiopIso20022Utils from './fspiop20022.utils';
