@@ -135,16 +135,16 @@ const fspiopTargets = {
         conversionTerms: {
           conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
           determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "string",
-          counterPartyFsp: "string",
+          initiatingFsp: "source",
+          counterPartyFsp: "destination",
           amountType: "RECEIVE",
           sourceAmount: {
-            currency: "AED",
+            currency: "XXX",
             amount: "123.45"
           },
           targetAmount: {
-            currency: "AED",
-            amount: "123.45"
+            currency: "XXY",
+            amount: "34.55"
           },
           expiration: "2016-05-24T08:38:08.699-04:00"
         }
@@ -156,16 +156,16 @@ const fspiopTargets = {
         conversionTerms: {
           conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
           determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "string",
-          counterPartyFsp: "string",
+          initiatingFsp: "source",
+          counterPartyFsp: "destination",
           amountType: "RECEIVE",
           sourceAmount: {
-            currency: "AED",
+            currency: "XXX",
             amount: "123.45"
           },
           targetAmount: {
-            currency: "AED",
-            amount: "123.45"
+            currency: "XXY",
+            amount: "33.55"
           },
           expiration: "2016-05-24T08:38:08.699-04:00"
         }
@@ -175,7 +175,7 @@ const fspiopTargets = {
       body: {
         errorInformation: {
           errorCode: "3100",
-          errorDescription: "string"
+          errorDescription: "Additional info"
         }
       }
     }
@@ -184,10 +184,10 @@ const fspiopTargets = {
     post: {
       body: {
         transferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        payeeFsp: "string",
-        payerFsp: "string",
+        payeeFsp: "payeeFsp",
+        payerFsp: "payerFsp",
         amount: {
-          currency: "AED",
+          currency: "XXX",
           amount: "123.45"
         },
         ilpPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA",
@@ -221,15 +221,15 @@ const fspiopTargets = {
       body: {
         commitRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
         determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        initiatingFsp: "string",
-        counterPartyFsp: "string",
+        initiatingFsp: "source",
+        counterPartyFsp: "destination",
         sourceAmount: {
-          currency: "AED",
+          currency: "XXX",
           amount: "123.45"
         },
         targetAmount: {
-          currency: "AED",
-          amount: "123.45"
+          currency: "XXY",
+          amount: "33.55"
         },
         condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz",
         expiration: "2016-05-24T08:38:08.699-04:00"
@@ -250,7 +250,7 @@ const fspiopTargets = {
       body: {
         errorInformation: {
           errorCode: "3100",
-          errorDescription: "string"
+          errorDescription: "Additional info"
         }
       }
     }

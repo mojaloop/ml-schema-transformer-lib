@@ -245,6 +245,12 @@ const isoTargets = (target: GenericObject) => ({
       }
     }
   },
+  transfers: {
+    post: {},
+    patch: {},
+    put: {},
+    putError: {}
+  }
 })
 
 const expected = (prop: string) => {
@@ -259,6 +265,7 @@ describe('FSPIOPTransformFacade tests', () => {
   const testCase = (source: Source, transformerFn: Function, expectedTarget: Function | null = null) => {
     return async () => {
       const target = await transformerFn(source);
+      expect(target).toBeTruthy();
       if (expectedTarget !== null) {
         const expTargetObj = expectedTarget(target);
         expect(target).toEqual(expTargetObj);

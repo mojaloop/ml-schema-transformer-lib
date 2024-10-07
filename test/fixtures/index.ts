@@ -307,8 +307,8 @@ export const fspiop = {
     post: {
       body: {
         transferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        payeeFsp: 'string',
-        payerFsp: 'string',
+        payeeFsp: 'payeefsp',
+        payerFsp: 'payerfsp',
         amount: {
           currency: 'AED',
           amount: '123.45'
@@ -319,8 +319,8 @@ export const fspiop = {
         extensionList: {
           extension: [
             {
-              key: 'string',
-              value: 'string'
+              key: 'extKey1',
+              value: 'extVal1'
             }
           ]
         }
@@ -333,8 +333,8 @@ export const fspiop = {
         extensionList: {
           extension: [
             {
-              key: 'string',
-              value: 'string'
+              key: 'extKey1',
+              value: 'extVal1'
             }
           ]
         }
@@ -348,8 +348,8 @@ export const fspiop = {
         extensionList: {
           extension: [
             {
-              key: 'string',
-              value: 'string'
+              key: 'extKey1',
+              value: 'extVal1'
             }
           ]
         }
@@ -363,8 +363,8 @@ export const fspiop = {
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'extKey1',
+                value: 'extVal1'
               }
             ]
           }
@@ -377,14 +377,14 @@ export const fspiop = {
       body: {
         commitRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
         determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-        initiatingFsp: 'string',
-        counterPartyFsp: 'string',
+        initiatingFsp: 'initfsp',
+        counterPartyFsp: 'counterfsp',
         sourceAmount: {
-          currency: 'AED',
+          currency: 'XXX',
           amount: '123.45'
         },
         targetAmount: {
-          currency: 'AED',
+          currency: 'XXY',
           amount: '123.45'
         },
         condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz',
@@ -398,8 +398,8 @@ export const fspiop = {
         extensionList: {
           extension: [
             {
-              key: 'string',
-              value: 'string'
+              key: 'extKey1',
+              value: 'extVal1'
             }
           ]
         }
@@ -413,8 +413,8 @@ export const fspiop = {
         extensionList: {
           extension: [
             {
-              key: 'string',
-              value: 'string'
+              key: 'extKey1',
+              value: 'extVal1'
             }
           ]
         }
@@ -424,12 +424,12 @@ export const fspiop = {
       body: {
         errorInformation: {
           errorCode: '3100',
-          errorDescription: 'string',
+          errorDescription: 'Client Validation Error',
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'extKey1',
+                value: 'extVal1'
               }
             ]
           }
@@ -688,27 +688,27 @@ export const fspiopIso20022 = {
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'source'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'destination'
               }
             }
           },
           ChrgBr: 'RECEIVE',
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: 'AED',
+              Ccy: 'XXX',
               ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'AED',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: '34.55'
           }
         },
         GrpHdr: {
@@ -731,27 +731,27 @@ export const fspiopIso20022 = {
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'source'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'destination'
               }
             }
           },
           ChrgBr: 'RECEIVE',
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: 'AED',
+              Ccy: 'XXX',
               ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'AED',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: '33.55'
           }
         },
         GrpHdr: {
@@ -764,7 +764,7 @@ export const fspiopIso20022 = {
         TxInfAndSts: {
           TxSts: '3100',
           StsRsnInf: {
-            AddtInf: 'string'
+            AddtInf: 'Additional info'
           }
         }
       }
@@ -789,19 +789,19 @@ export const fspiopIso20022 = {
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'payeeFsp'
               }
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'payerFsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'AED',
+            Ccy: 'XXX',
             ActiveCurrencyAndAmount: '123.45'
           },
           VrfctnOfTerms: {
@@ -866,26 +866,26 @@ export const fspiopIso20022 = {
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'source'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'string'
+                Id: 'destination'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: 'AED',
+              Ccy: 'XXX',
               ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'AED',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount_SimpleType: '33.55'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
@@ -920,7 +920,7 @@ export const fspiopIso20022 = {
         TxInfAndSts: {
           TxSts: '3100',
           StsRsnInf: {
-            AddtInf: 'string'
+            AddtInf: 'Additional info'
           }
         }
       }
