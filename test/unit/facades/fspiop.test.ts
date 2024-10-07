@@ -233,7 +233,7 @@ const isoTargets = (target: GenericObject) => ({
       body: {
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
         },
         TxInfAndSts: {
           StsRsnInf: {
@@ -246,10 +246,89 @@ const isoTargets = (target: GenericObject) => ({
     }
   },
   transfers: {
-    post: {},
-    patch: {},
-    put: {},
-    putError: {}
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: 1,
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          },
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "payeefsp"
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "payerfsp"
+              }
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXX",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA"
+          }
+        }
+      }
+    },
+    patch: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESERVED"
+        }
+      }
+    },
+    put: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESERVED"
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
   }
 })
 
@@ -265,7 +344,7 @@ describe('FSPIOPTransformFacade tests', () => {
   const testCase = (source: Source, transformerFn: Function, expectedTarget: Function | null = null) => {
     return async () => {
       const target = await transformerFn(source);
-      expect(target).toBeTruthy();
+      expect(target).toHaveProperty('body');
       if (expectedTarget !== null) {
         const expTargetObj = expectedTarget(target);
         expect(target).toEqual(expTargetObj);
@@ -303,6 +382,20 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiop.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
     });
   })
+  describe('Transfers', () => {
+    test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+      await testCase(fspiop.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
+    })
+    test('should transform PATCH transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+      await testCase(fspiop.transfers.patch, FspiopTransformFacade.transfers.patch, expected('transfers.patch'))();
+    })
+    test('should transform PUT transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+      await testCase(fspiop.transfers.put, FspiopTransformFacade.transfers.put, expected('transfers.put'))();
+    })
+    test('should transform PUT transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
+      await testCase(fspiop.transfers.putError, FspiopTransformFacade.transfers.putError, expected('transfers.putError'))();
+    })
+  })
   describe('FXQuotes', () => {
     test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiop.fxQuotes.post, FspiopTransformFacade.fxQuotes.post)();
@@ -312,20 +405,6 @@ describe('FSPIOPTransformFacade tests', () => {
     })
     test('should transform PUT FX quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiop.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError)();
-    })
-  })
-  describe('Transfers', () => {
-    test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.post, FspiopTransformFacade.transfers.post)();
-    })
-    test('should transform PATCH transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.patch, FspiopTransformFacade.transfers.patch)();
-    })
-    test('should transform PUT transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.put, FspiopTransformFacade.transfers.put)();
-    })
-    test('should transform PUT transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.putError, FspiopTransformFacade.transfers.putError)();
     })
   })
   describe('FXTransfers', () => {
