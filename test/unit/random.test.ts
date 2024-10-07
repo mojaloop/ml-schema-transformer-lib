@@ -3,7 +3,7 @@
 // import { createTransformer } from '../../src/lib';
 // import { CustomTransforms } from '../../src/lib/transforms';
 
-import { CustomTransforms, createTransformer } from 'src/lib';
+// import { CustomTransforms, createTransformer } from 'src/lib';
 // import { State } from 'src/types/map-transform';
 // const mapTransform = require('map-transform-cjs').default;
 
@@ -423,30 +423,30 @@ describe('Random tests', () => {
   //   expect(targetFspiop).toBeFalsy();
   // });
 
-  it.skip('should ... test map to multiple fields with transform on the second', async () => {    
+  // it.skip('should ... test map to multiple fields with transform on the second', async () => {    
     
-    vi.stubEnv('ILP_SECRET', 'shh');
-    vi.stubEnv('ILP_VERSION', 'v1');
+  //   vi.stubEnv('ILP_SECRET', 'shh');
+  //   vi.stubEnv('ILP_VERSION', 'v1');
 
-    const mapping = {
-      $noDefaults: true,
-      // 'body.schemaA.condition': { $transform: 'getIlpPacketCondition', path: 'body.schemaB.ilpPacket' }
-      'body.schemaA.condition': ['body.schemaB.ilpPacket', { $transform: 'ilpPacketCondition' }],
-      'body.schemaA.ilpPacket': 'body.schemaB.ilpPacket'
+  //   const mapping = {
+  //     $noDefaults: true,
+  //     // 'body.schemaA.condition': { $transform: 'getIlpPacketCondition', path: 'body.schemaB.ilpPacket' }
+  //     'body.schemaA.condition': ['body.schemaB.ilpPacket', { $transform: 'ilpPacketCondition' }],
+  //     'body.schemaA.ilpPacket': 'body.schemaB.ilpPacket'
 
-    };
+  //   };
 
-    const transformers = { ...CustomTransforms };
-    const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } });
+  //   const transformers = { ...CustomTransforms };
+  //   const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers } });
 
-    const schemaBsource = {
-      body: {
-        schemaB: {
-          ilpPacket: 'AYIC9AAAAAAAABdwHWcucGF5ZWVmc3AubXNpc2RuLjIyNTU2OTk5MTI1ggLKZXlKMGNtRnVjMkZqZEdsdmJrbGtJam9pWmpRMFltUmtOV010WXpreE1DMDBZVGt3TFRoa05qa3RaR0ppWVRaaVl6aGxZVFpqSWl3aWNYVnZkR1ZKWkNJNklqVTBaRFZtTURsaUxXRTBOMlF0TkRCa05pMWhZVEEzTFdFNVkyWXpZbUl5TkRsaFpDSXNJbkJoZVdWbElqcDdJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pTWpJMU5UWTVPVGt4TWpVaUxDSm1jM0JKWkNJNkluQmhlV1ZsWm5Od0luMTlMQ0p3WVhsbGNpSTZleUp3WVhKMGVVbGtTVzVtYnlJNmV5SndZWEowZVVsa1ZIbHdaU0k2SWsxVFNWTkVUaUlzSW5CaGNuUjVTV1JsYm5ScFptbGxjaUk2SWpJeU5UQTNNREE0TVRneElpd2labk53U1dRaU9pSndZWGxsY21aemNDSjlMQ0p3WlhKemIyNWhiRWx1Wm04aU9uc2lZMjl0Y0d4bGVFNWhiV1VpT25zaVptbHljM1JPWVcxbElqb2lUV0YwY3lJc0lteGhjM1JPWVcxbElqb2lTR0ZuYldGdUluMHNJbVJoZEdWUFprSnBjblJvSWpvaU1UazRNeTB4TUMweU5TSjlmU3dpWVcxdmRXNTBJanA3SW1GdGIzVnVkQ0k2SWpZd0lpd2lZM1Z5Y21WdVkza2lPaUpWVTBRaWZTd2lkSEpoYm5OaFkzUnBiMjVVZVhCbElqcDdJbk5qWlc1aGNtbHZJam9pVkZKQlRsTkdSVklpTENKcGJtbDBhV0YwYjNJaU9pSlFRVmxGVWlJc0ltbHVhWFJwWVhSdmNsUjVjR1VpT2lKRFQwNVRWVTFGVWlKOWZRAA'
-        }
-      }
-    };
-    const schemaAtarget = await transformer.transform(schemaBsource, { });
-    expect(schemaAtarget).toBeTruthy();
-  });
+  //   const schemaBsource = {
+  //     body: {
+  //       schemaB: {
+  //         ilpPacket: 'AYIC9AAAAAAAABdwHWcucGF5ZWVmc3AubXNpc2RuLjIyNTU2OTk5MTI1ggLKZXlKMGNtRnVjMkZqZEdsdmJrbGtJam9pWmpRMFltUmtOV010WXpreE1DMDBZVGt3TFRoa05qa3RaR0ppWVRaaVl6aGxZVFpqSWl3aWNYVnZkR1ZKWkNJNklqVTBaRFZtTURsaUxXRTBOMlF0TkRCa05pMWhZVEEzTFdFNVkyWXpZbUl5TkRsaFpDSXNJbkJoZVdWbElqcDdJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pTWpJMU5UWTVPVGt4TWpVaUxDSm1jM0JKWkNJNkluQmhlV1ZsWm5Od0luMTlMQ0p3WVhsbGNpSTZleUp3WVhKMGVVbGtTVzVtYnlJNmV5SndZWEowZVVsa1ZIbHdaU0k2SWsxVFNWTkVUaUlzSW5CaGNuUjVTV1JsYm5ScFptbGxjaUk2SWpJeU5UQTNNREE0TVRneElpd2labk53U1dRaU9pSndZWGxsY21aemNDSjlMQ0p3WlhKemIyNWhiRWx1Wm04aU9uc2lZMjl0Y0d4bGVFNWhiV1VpT25zaVptbHljM1JPWVcxbElqb2lUV0YwY3lJc0lteGhjM1JPWVcxbElqb2lTR0ZuYldGdUluMHNJbVJoZEdWUFprSnBjblJvSWpvaU1UazRNeTB4TUMweU5TSjlmU3dpWVcxdmRXNTBJanA3SW1GdGIzVnVkQ0k2SWpZd0lpd2lZM1Z5Y21WdVkza2lPaUpWVTBRaWZTd2lkSEpoYm5OaFkzUnBiMjVVZVhCbElqcDdJbk5qWlc1aGNtbHZJam9pVkZKQlRsTkdSVklpTENKcGJtbDBhV0YwYjNJaU9pSlFRVmxGVWlJc0ltbHVhWFJwWVhSdmNsUjVjR1VpT2lKRFQwNVRWVTFGVWlKOWZRAA'
+  //       }
+  //     }
+  //   };
+  //   const schemaAtarget = await transformer.transform(schemaBsource, { });
+  //   expect(schemaAtarget).toBeTruthy();
+  // });
 });

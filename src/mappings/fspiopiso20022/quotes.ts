@@ -54,7 +54,7 @@ export const quotes = {
     "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
     "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
     "body.payeeFspFee.currency": "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy",
-    "body.payeeFsFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
+    "body.payeeFspFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
     "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketCondition" }] 
   }`,

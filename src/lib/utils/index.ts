@@ -101,5 +101,5 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   }
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
-  return decoded?.executionCondition?.toString();
+  return decoded?.executionCondition?.toString('base64');
 }

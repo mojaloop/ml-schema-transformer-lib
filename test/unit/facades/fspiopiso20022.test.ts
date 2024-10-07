@@ -25,7 +25,7 @@
 import { Source, Target, TransformFacadeFunction } from 'src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
-import { fspiopIso20022, fspiop, mockLogger } from '../../fixtures';
+import { fspiopIso20022, fspiop, mockLogger, ilpPacket, ilpCondition } from '../../fixtures';
 
 const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 
@@ -108,15 +108,13 @@ const fspiopTargets = {
           currency: "AED",
           amount: "123.45"
         },
-        payeeFspCommission: {
+        payeeFspFee: {
           currency: "AED",
           amount: "123.45"
         },
         expiration: "2016-05-24T08:38:08.699-04:00",
-        ilpPacket: {
-          condition: "_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh"
-        },
-        condition: "_Bn2Rc51-Zo5kPnZkmqr0Oecxk3Ig1pYgeK4SdV49zh"
+        ilpPacket,
+        condition: ilpCondition
       }
     },
     putError: {
@@ -289,8 +287,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
     test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post, fspiopTargets.quotes.post)();
     });
-    // @todo enable after fixing fixtures for ilpPacketCondition
-    test.skip('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+    test('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.quotes.put, FspiopIso20022TransformFacade.quotes.put, fspiopTargets.quotes.put)();
     });
     test('should transform PUT quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
