@@ -26,7 +26,6 @@ import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogg
 import { Source, TransformFacadeOptions } from 'src/types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { State } from 'src/types/map-transform';
 import { getProp, setProp } from 'src/lib/utils';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
@@ -43,26 +42,23 @@ export const FspiopIso20022TransformFacade = {
   parties: {
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions } as State,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || discovery.parties.put,
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || discovery.parties.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: { ...options.mapperOptions } as State,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || discovery.parties.putError
       }),
   },
   quotes: {
     post: async (source: Source, options: TransformFacadeOptions = {}) => {
       const target = await transformFn(source, {
-        mapping: options.overrideMapping || quotes.post,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || quotes.post
       });
 
       /**
@@ -84,100 +80,88 @@ export const FspiopIso20022TransformFacade = {
     },
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || quotes.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || quotes.put
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || quotes.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || quotes.putError
       }),
   },
   fxQuotes: {
     post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxQuotes.post,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxQuotes.post
       }),
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxQuotes.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxQuotes.put,
+        
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxQuotes.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxQuotes.putError,
       }),
   },
   transfers: {
     post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || transfers.post,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || transfers.post,
       }),
     patch: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || transfers.patch,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || transfers.patch,
       }),
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || transfers.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || transfers.put,
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || transfers.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || transfers.putError,
       }),
   },
   fxTransfers: {
     post: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxTransfers.post,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxTransfers.post,
       }),
     patch: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxTransfers.patch,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxTransfers.patch,
       }),
     put: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxTransfers.put,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxTransfers.put,
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}) =>
       transformFn(source, {
-        mapping: options.overrideMapping || fxTransfers.putError,
-        mapTransformOptions: options.mapTransformOptions,
-        mapperOptions: options.mapperOptions,
+        ...options,
         logger: log,
+        mapping: options.overrideMapping || fxTransfers.putError,
       }),
   },
 };

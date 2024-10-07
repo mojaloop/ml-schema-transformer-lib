@@ -31,7 +31,7 @@ export const quotes = {
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.transactionId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.transactionRequestId": "body.CdtTrfTxInf.PmtId.InstrId",
-    "body.payee.partyIdInfo.partyIdType": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.SchmeNm.Prtry" ] }
+    "body.payee.partyIdInfo.partyIdType": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.SchmeNm.Prtry" ] },
     "body.payee.partyIdInfo.partyIdentifier": { "$alt": [ "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id", "body.CdtTrfTxInf.Cdtr.Id.PrvId.Othr.Id" ] },
     "body.payee.partyIdInfo.fspId": "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id",
     "body.payee.name": "body.CdtTrfTxInf.Cdtr.Name",

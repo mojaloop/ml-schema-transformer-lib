@@ -9,11 +9,11 @@
  --------------
  This is the official list of the Mojaloop project contributors for this file.
  Names of the original copyright holders (individuals or organizations)
- should be listed with a '*' in the first column. People who have
+ should be listed with a "*" in the first column. People who have
  contributed from an organization can be listed under the organization
  that actually holds the copyright for their contributions (see the
  Gates Foundation organization for an example). Those individuals should have
- their names indented and be marked with a '-'. Email address can be added
+ their names indented and be marked with a "-". Email address can be added
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
@@ -49,5 +49,35 @@ export const fxTransfers = {
   putError: `{
     "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
     "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
+  }`
+}
+
+// FSPIOP to FSPIOP ISO20022 mappings
+
+export const fxTransfers_reverse = {
+  post: `{
+    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.commitRequestId",
+    "body.CdtTrfTxInf.PmtId.TxId": "body.determiningTransferId",
+    "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.initiatingFsp",
+    "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.counterPartyFsp",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.sourceAmount.currency",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.sourceAmount.amount",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.targetAmount.amount",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition",
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
+  }`,
+  patch: `{
+    "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
+    "body.TxInfAndSts.TxSts": "body.transferState"
+  }`,
+  put: `{
+    "body.TxInfAndSts.ExctnConf": "body.fulfilment",
+    "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
+    "body.TxInfAndSts.TxSts": "body.transferState"
+  }`,
+  putError: `{
+    "body.TxInfAndSts.TxSts": "body.errorInformation.errorCode",
+    "body.TxInfAndSts.StsRsnInf.AddtInf": "body.errorInformation.errorDescription"
   }`
 }
