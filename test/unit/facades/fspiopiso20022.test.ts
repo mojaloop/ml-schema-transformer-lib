@@ -318,7 +318,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError, fspiopTargets.fxQuotes.putError)();
     })
   })
-  describe.only('FXTransfers', () => {
+  describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.fxTransfers.post, FspiopIso20022TransformFacade.fxTransfers.post, fspiopTargets.fxTransfers.post)();
     })

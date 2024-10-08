@@ -295,7 +295,7 @@ const isoTargets = (target: GenericObject) => ({
           PrcgDt: {
             DtTm: "2016-05-24T08:38:08.699-04:00"
           },
-          TxSts: "RESERVED"
+          TxSts: "RESV"
         }
       }
     },
@@ -310,7 +310,7 @@ const isoTargets = (target: GenericObject) => ({
           PrcgDt: {
             DtTm: "2016-05-24T08:38:08.699-04:00"
           },
-          TxSts: "RESERVED"
+          TxSts: "RESV"
         }
       }
     },
@@ -603,7 +603,7 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiop.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
     })
   })
-  describe.only('FXTransfers', () => {
+  describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiop.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
     })
