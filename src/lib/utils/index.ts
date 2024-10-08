@@ -85,9 +85,11 @@ export function getProp(obj: unknown, path: string): unknown {
   return current;
 }
 
+// Will throw if code is not found
+// @todo should this error be caught and handled? e.g return a default message 'Unknown error'
 export const getDescrFromErrCode = (code: string | number): string => {
   const errorCode = Number.parseInt(code as string);
-  return CreateFSPIOPErrorFromErrorCode(errorCode)?.apiErrorCode?.type?.description || 'Unknown error';
+  return CreateFSPIOPErrorFromErrorCode(errorCode)?.apiErrorCode?.type?.description;
 }
 
 // Get the ILP packet condition from an ILP packet
@@ -109,8 +111,8 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
 // Covnerts FSPIOP transfer state to FSPIOP ISO20022 transfer state
 // improve: use enums from cs-shared
 // @todo: confirm if we have captured all possible states, and should we throw errors if unknown states are encountered
-export const toIsoTransferState = (fspiopState: string): string => {
-  if (!fspiopState) return '';
+export const toIsoTransferState = (fspiopState: string): string | undefined => {
+  if (!fspiopState) return undefined;
 
   switch (fspiopState) {
     case 'COMMITTED':
@@ -131,8 +133,8 @@ export const toIsoTransferState = (fspiopState: string): string => {
 // Converts FSPIOP ISO20022 transfer state to FSPIOP transfer state
 // improve: use enums from cs-shared
 // @todo: confir if we have captured all possible states, and should we throw errors if unknown states are encountered
-export const toFspiopTransferState = (isoState: string): string => {
-  if (!isoState) return '';
+export const toFspiopTransferState = (isoState: string): string | undefined => {
+  if (!isoState) return undefined;
 
   switch (isoState) {
     case 'COMM':

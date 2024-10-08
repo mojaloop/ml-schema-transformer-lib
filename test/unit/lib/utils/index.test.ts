@@ -22,10 +22,9 @@
  --------------
  ******/
 
- const Util = require('@mojaloop/central-services-shared').Util;
 import { ilpCondition, ilpPacket } from 'test/fixtures';
-import { generateID, getIlpPacketCondition } from '../../../../src/lib/utils';
-import { ID_GENERATOR_TYPE } from '../../../../src/types';
+import { generateID, getDescrFromErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState } from '../../../../src/lib/utils';
+import { ID_GENERATOR_TYPE } from 'src/types';
 
 
 describe('Utils tests', () => {
@@ -41,17 +40,114 @@ describe('Utils tests', () => {
       expect(id.length).toBe(36);
     });
     it('should generate a unique ulid ID with a custom config', () => {
-      const spy = vi.spyOn(Util, 'id');
       const id = generateID(ID_GENERATOR_TYPE.ulid, { time: 1234567890 });
       expect(id).toBeDefined();
       expect(id.length).toBe(26);
-      // expect(spy).toHaveBeenCalledWith({ type: ID_GENERATOR_TYPE.ulid, time: 1234567890 });
     })
-  })
-  describe('getIlpPacketCondition', () => {
-    it('should return the condition from an ILP packet', () => {
-      const decodedCondition = getIlpPacketCondition(ilpPacket);
-      expect(ilpCondition).toBe(decodedCondition);
+  });
+  describe('isPersonPartyIdType', () => {
+    it('should return true for a person party ID type', () => {
+      const partyIdType = 'MSISDN';
+      const isPerson = isPersonPartyIdType(partyIdType);
+      expect(isPerson).toBe(true);
     });
-  })
+    it('should return false for a business party ID type', () => {
+      const partyIdType = 'BUSINESS';
+      const isPerson = isPersonPartyIdType(partyIdType);
+      expect(isPerson).toBe(false);
+    });
+  });
+  describe('isEmptyObject', () => {
+    it('should return true for an empty object', () => {
+      const isEmpty = isEmptyObject({});
+      expect(isEmpty).toBe(true);
+    });
+    it('should return false for a non-empty object', () => {
+      const isEmpty = isEmptyObject({ key: 'value' });
+      expect(isEmpty).toBe(false);
+    });
+  });
+  describe('setProp', () => {
+    it('should set a nested property in an object', () => {
+      const obj = {};
+      setProp(obj, 'nested.property', 'value');
+      expect(obj).toEqual({ nested: { property: 'value' } });
+    });
+  });
+  describe('getProp', () => {
+    it('should get a nested property from an object', () => {
+      const obj = { nested: { property: 'value' } };
+      const value = getProp(obj, 'nested.property');
+      expect(value).toBe('value');
+    });
+    it('should return undefined for a non-existent property', () => {
+      const obj = { nested: { property: 'value' } };
+      const value = getProp(obj, 'nested.nonexistent');
+      expect(value).toBeUndefined();
+    })
+  });
+  describe('getDescrFromErrCode', () => {
+    it('should return a description from an error code', () => {
+      const description = getDescrFromErrCode('3100');
+      expect(description).toBe('Client Validation Error');
+    });
+    it('should throw an error for an unknown error code', () => {
+      expect(() => getDescrFromErrCode('9999')).toThrow();
+    });
+  });
+  describe('getIlpPacketCondition', () => {
+    it('should get the condition from an ILP packet', () => {
+      const condition = getIlpPacketCondition(ilpPacket);
+      expect(condition).toBe(ilpCondition);
+    });
+    it('should throw an error for an invalid ILP packet', () => {
+      expect(() => getIlpPacketCondition('invalid packet')).toThrow();
+    });
+    it('should throw an error if MLST_ILP_SECRET is not set', () => {
+      process.env.MLST_ILP_SECRET = '';
+      expect(() => getIlpPacketCondition(ilpPacket)).toThrow();
+    });
+  });
+  describe('toIsoTransferState', () => {
+    it('should return undefined if state is falsy', () => {
+      const state = toIsoTransferState(null as any);
+      expect(state).toBe(undefined);
+    });
+    it('should convert FSPIOP transfer state to an ISO 20022 state', () => {
+      let state = toIsoTransferState('COMMITTED');
+      expect(state).toBe('COMM');
+      state = toIsoTransferState('ABORTED');
+      expect(state).toBe('ABOR');
+      state = toIsoTransferState('RECEIVED');
+      expect(state).toBe('RECV');
+      state = toIsoTransferState('RESERVED');
+      expect(state).toBe('RESV');
+      state = toIsoTransferState('SETTLED');
+      expect(state).toBe('SETT');
+    });
+    it('should throw an error for an unknown state', () => {
+      expect(() => toIsoTransferState('UNKNOWN')).toThrow();
+    });
+  });
+  describe('toFspiopTransferState', () => {
+    it('should return undefined if state is falsy', () => {
+      const state = toIsoTransferState(null as any);
+      expect(state).toBe(undefined);
+    });
+    it('should convert ISO 20022 transfer state to an FSPIOP state', () => {
+      let state = toFspiopTransferState('COMM');
+      expect(state).toBe('COMMITTED');
+      state = toFspiopTransferState('ABOR');
+      expect(state).toBe('ABORTED');
+      state = toFspiopTransferState('RECV');
+      expect(state).toBe('RECEIVED');
+      state = toFspiopTransferState('RESV');
+      expect(state).toBe('RESERVED');
+      state = toFspiopTransferState('SETT');
+      expect(state).toBe('SETTLED');
+    });
+    it('should throw an error for an unknown state', () => {
+      expect(() => toFspiopTransferState('UNKNOWN')).toThrow();
+    });
+  });
 });
