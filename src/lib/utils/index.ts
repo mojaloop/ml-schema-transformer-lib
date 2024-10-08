@@ -52,9 +52,9 @@ export const isEmptyObject = (data: unknown) => {
 }
 
 // Set nested property in an object
-export const setProp = (obj: GenericObject, path: string, value: unknown) => {
+export const setProp = (obj: unknown, path: string, value: unknown) => {
   const pathParts = path.split('.');
-  let current = obj;
+  let current = obj as GenericObject;
 
   for (let i = 0; i < pathParts.length - 1; i++) {
     const part = pathParts[i] as string;
@@ -70,7 +70,7 @@ export const setProp = (obj: GenericObject, path: string, value: unknown) => {
 }
 
 // Get nested property in an object
-export function getProp(obj: GenericObject, path: string): unknown {
+export function getProp(obj: unknown, path: string): unknown {
   const pathParts = path.split('.');
   let current = obj;
 
@@ -92,14 +92,16 @@ export const getDescrFromErrCode = (code: string | number): string => {
 
 // Get the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
-  // @todo These params should be passed in via a config/options
+  // improve: These envs should be passable via a config/options
   const ilpSecret = process.env.MLST_ILP_SECRET;
   const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
   if (!ilpSecret) {
     throw new Error('getIlpPacketCondition: ILP_SECRET environment variables must be set');
   }
+
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
+  // @todo: confirm if this is the correct way to get condition from packet
   return decoded?.executionCondition?.toString('base64');
 }

@@ -26,34 +26,35 @@
 
 export const fxQuotes = {
   post: `{
-    "body.conversionRequestId": "body.CdtTrfTxInf.PmtId.EndToEndId",
+    "$noDefault": "true",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "body.convertionRequestId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
-    "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
+    "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.conversionTerms.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.conversionTerms.amountType": "body.CdtTrfTxInf.ChrgBr",
     "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
+    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
-    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount"
   }`,
   put: `{
-    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "$noDefault": "true",
+    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.conversionTerms.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.conversionTerms.amountType": "body.CdtTrfTxInf.ChrgBr",
     "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
+    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
-    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   }`,
   putError: `{
-    "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
-    "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
+    "$noDefault": "true",
+    "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
+    "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
   }`
 }
 
@@ -61,33 +62,39 @@ export const fxQuotes = {
 
 export const fxQuotes_reverse = {
   post: `{
-    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.conversionRequestId",
+    "$noDefault": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.CdtTrfTxInf.PmtId.TxId": "body.convertionRequestId",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
-    "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
+    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.ChrgBr": "body.conversionTerms.amountType",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.conversionTerms.sourceAmount.amount",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.conversionTerms.targetAmount.amount",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
   }`,
   put: `{
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition",
+    "$noDefault": "true",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
     "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.ChrgBr": "body.conversionTerms.amountType",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.conversionTerms.sourceAmount.amount",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.conversionTerms.targetAmount.amount",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
   }`,
   putError: `{
-    "body.TxInfAndSts.TxSts": "body.errorInformation.errorCode",
-    "body.TxInfAndSts.StsRsnInf.AddtInf": "body.errorInformation.errorDescription"
+    "$noDefault": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
   }`
 }

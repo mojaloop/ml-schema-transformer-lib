@@ -59,6 +59,7 @@ export const quotes = {
     "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketCondition" }] 
   }`,
   putError: `{
+    "$noDefaults": "true",
     "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
     "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
   }`
