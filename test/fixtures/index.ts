@@ -828,7 +828,7 @@ export const fspiopIso20022 = {
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: 'RESERVED'
+          TxSts: 'RESV'
         }
       }
     },
@@ -843,7 +843,7 @@ export const fspiopIso20022 = {
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: 'RESERVED'
+          TxSts: 'RESV'
         }
       }
     },
@@ -866,69 +866,92 @@ export const fspiopIso20022 = {
   fxTransfers: {
     post: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
+          CreDtTm: '2024-10-07T11:11:18.821Z',
+          NbOfTxs: 1,
+          SttlmInf: {
+            SttlmMtd: 'CLRG'
+          },
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
+        },
         CdtTrfTxInf: {
           PmtId: {
-            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'source'
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'destination'
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
               Ccy: 'XXX',
-              ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '33.55'
+            ActiveOrHistoricCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
+            IlpV4PrepPacket: {
+              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
+            }
           }
-        },
-        GrpHdr: {
-          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         }
       }
     },
     patch: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
+          CreDtTm: '2024-10-07T11:11:18.821Z'
+        },
         TxInfAndSts: {
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
-          }
+          },
+          TxSts: 'RESV'
         }
       }
     },
     put: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
+          CreDtTm: '2024-10-07T11:11:18.821Z'
+        },
         TxInfAndSts: {
           ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
             DtTm: '2016-05-24T08:38:08.699-04:00'
-          }
+          },
+          TxSts: 'RESV'
         }
       }
     },
     putError: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
+          CreDtTm: '2024-10-07T11:11:18.821Z'
+        },
         TxInfAndSts: {
-          TxSts: '3100',
           StsRsnInf: {
-            AddtInf: 'Additional info'
+            Rsn: {
+              Cd: '3100'
+            }
           }
         }
       }

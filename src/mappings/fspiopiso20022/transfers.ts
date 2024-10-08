@@ -38,13 +38,13 @@ export const transfers = {
   patch: `{
     "$noDefaults": "true",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
-    "body.transferState": "body.TxInfAndSts.TxSts"
+    "body.transferState": ["body.TxInfAndSts.TxSts", { "$transform": "toFspiopTransferState" }]
   }`,
   put: `{
     "$noDefaults": "true",
     "body.fulfilment": "body.TxInfAndSts.ExctnConf",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
-    "body.transferState": "body.TxInfAndSts.TxSts"
+    "body.transferState": ["body.TxInfAndSts.TxSts", { "$transform": "toFspiopTransferState" }]
   }`,
   putError: `{
     "$noDefaults": "true",
@@ -75,7 +75,7 @@ export const transfers_reverse = {
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
-    "body.TxInfAndSts.TxSts": "body.transferState"
+    "body.TxInfAndSts.TxSts": ["body.transferState", { "$transform": "toIsoTransferState" }]
   }`,
   put: `{
     "$noDefaults": "true",
@@ -83,7 +83,7 @@ export const transfers_reverse = {
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.ExctnConf": "body.fulfilment",
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
-    "body.TxInfAndSts.TxSts": "body.transferState"
+    "body.TxInfAndSts.TxSts": ["body.transferState", { "$transform": "toIsoTransferState" }]
   }`,
   putError: `{
     "$noDefaults": "true",

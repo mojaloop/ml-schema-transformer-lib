@@ -214,38 +214,40 @@ const fspiopTargets = {
   fxTransfers: {
     post: {
       body: {
+        expiration: "2016-05-24T08:38:08.699-04:00",
         commitRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
         determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        initiatingFsp: "source",
-        counterPartyFsp: "destination",
+        initiatingFsp: "initfsp",
+        counterPartyFsp: "counterfsp",
         sourceAmount: {
           currency: "XXX",
           amount: "123.45"
         },
         targetAmount: {
           currency: "XXY",
-          amount: "33.55"
+          amount: "234.45"
         },
-        condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz",
-        expiration: "2016-05-24T08:38:08.699-04:00"
+        condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
       }
     },
     patch: {
       body: {
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00"
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        conversionState: "RESERVED"
       }
     },
     put: {
       body: {
         fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00"
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        conversionState: "RESERVED"
       }
     },
     putError: {
       body: {
         errorInformation: {
           errorCode: "3100",
-          errorDescription: "Additional info"
+          errorDescription: "Client Validation Error"
         }
       }
     }
@@ -316,7 +318,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError, fspiopTargets.fxQuotes.putError)();
     })
   })
-  describe('FXTransfers', () => {
+  describe.only('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.fxTransfers.post, FspiopIso20022TransformFacade.fxTransfers.post, fspiopTargets.fxTransfers.post)();
     })

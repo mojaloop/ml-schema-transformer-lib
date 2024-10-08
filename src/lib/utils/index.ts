@@ -105,3 +105,47 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // @todo: confirm if this is the correct way to get condition from packet
   return decoded?.executionCondition?.toString('base64');
 }
+
+// Covnerts FSPIOP transfer state to FSPIOP ISO20022 transfer state
+// improve: use enums from cs-shared
+// @todo: confirm if we have captured all possible states, and should we throw errors if unknown states are encountered
+export const toIsoTransferState = (fspiopState: string): string => {
+  if (!fspiopState) return '';
+
+  switch (fspiopState) {
+    case 'COMMITTED':
+      return 'COMM';
+    case 'RESERVED':
+      return 'RESV';
+    case 'RECEIVED':
+      return 'RECV';
+    case 'ABORTED':
+      return 'ABOR';
+    case 'SETTLED':
+      return 'SETT';
+    default:
+      throw new Error(`toIsoTransferState: Unknown FSPIOP transfer state: ${fspiopState}`);
+  }
+}
+
+// Converts FSPIOP ISO20022 transfer state to FSPIOP transfer state
+// improve: use enums from cs-shared
+// @todo: confir if we have captured all possible states, and should we throw errors if unknown states are encountered
+export const toFspiopTransferState = (isoState: string): string => {
+  if (!isoState) return '';
+
+  switch (isoState) {
+    case 'COMM':
+      return 'COMMITTED';
+    case 'RESV':
+      return 'RESERVED';
+    case 'RECV':
+      return 'RECEIVED';
+    case 'ABOR':
+      return 'ABORTED';
+    case 'SETT':
+      return 'SETTLED';
+    default:
+      throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
+  }
+}

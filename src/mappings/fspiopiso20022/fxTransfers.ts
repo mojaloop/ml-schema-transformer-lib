@@ -26,29 +26,33 @@
 
 export const fxTransfers = {
   post: `{
-    "body.commitRequestId": "body.CdtTrfTxInf.PmtId.EndToEndId",
-    "body.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
+    "$noDefaults": "true",
+    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "body.commitRequestId": "body.CdtTrfTxInf.PmtId.TxId",
+    "body.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
     "body.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
+    "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType",
-    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
+    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
   }`,
   patch: `{
+    "$noDefaults": "true",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
-    "body.transferState": "body.TxInfAndSts.TxSts"
+    "body.conversionState": ["body.TxInfAndSts.TxSts", { "$transform": "toFspiopTransferState" }]
   }`,
   put: `{
+    "$noDefaults": "true",
     "body.fulfilment": "body.TxInfAndSts.ExctnConf",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
-    "body.transferState": "body.TxInfAndSts.TxSts"
+    "body.conversionState": ["body.TxInfAndSts.TxSts", { "$transform": "toFspiopTransferState" }]
   }`,
   putError: `{
-    "body.errorInformation.errorCode": "body.TxInfAndSts.TxSts",
-    "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtInf"
+    "$noDefaults": "true",
+    "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
+    "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
   }`
 }
 
@@ -56,28 +60,41 @@ export const fxTransfers = {
 
 export const fxTransfers_reverse = {
   post: `{
-    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.commitRequestId",
-    "body.CdtTrfTxInf.PmtId.TxId": "body.determiningTransferId",
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.CdtTrfTxInf.PmtId.TxId": "body.commitRequestId",
+    "body.CdtTrfTxInf.PmtId.EndToEndId": "body.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.counterPartyFsp",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.sourceAmount.amount",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount_SimpleType": "body.targetAmount.amount",
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.targetAmount.amount",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition"
   }`,
   patch: `{
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
-    "body.TxInfAndSts.TxSts": "body.transferState"
+    "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
   }`,
   put: `{
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.ExctnConf": "body.fulfilment",
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
-    "body.TxInfAndSts.TxSts": "body.transferState"
+    "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
   }`,
   putError: `{
-    "body.TxInfAndSts.TxSts": "body.errorInformation.errorCode",
-    "body.TxInfAndSts.StsRsnInf.AddtInf": "body.errorInformation.errorDescription"
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
   }`
 }

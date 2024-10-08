@@ -24,7 +24,7 @@
 
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
-import { generateID as genID, isEmptyObject, isPersonPartyIdType, getIlpPacketCondition } from '../utils';
+import { generateID as genID, isEmptyObject, isPersonPartyIdType, getIlpPacketCondition, toFspiopTransferState, toIsoTransferState } from '../utils';
 import { getDescrFromErrCode } from '../utils';
 
 /**
@@ -114,5 +114,13 @@ export const CustomTransforms: ICustomTransforms = {
 
   ilpPacketCondition: (options: Options) => () => (data: unknown, state: State) => {
     return getIlpPacketCondition(data as string);
+  },
+
+  toFspiopTransferState: (options: Options) => () => (data: unknown, state: State) => {
+    return toFspiopTransferState(data as string);
+  },
+
+  toIsoTransferState: (options: Options) => () => (data: unknown, state: State) => {
+    return toIsoTransferState(data as string);
   }
 }
