@@ -684,39 +684,39 @@ export const fspiopIso20022 = {
           CreDtTm: '2024-10-07T10:58:50.450Z',
           NbOfTxs: 1,
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           PmtId: {
-            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -725,40 +725,40 @@ export const fspiopIso20022 = {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
             },
             PmtId: {
-              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -771,7 +771,7 @@ export const fspiopIso20022 = {
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
