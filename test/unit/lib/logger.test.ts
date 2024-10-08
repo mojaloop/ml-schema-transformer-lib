@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { createLogger } from 'src/lib';
+import { createLogger } from '../../../src/lib/logger';
 
 describe('Logger', () => {
   it('should create a logger', () => {

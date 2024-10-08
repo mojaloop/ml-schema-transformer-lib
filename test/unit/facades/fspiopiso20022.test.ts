@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { Source, Target, TransformFacadeFunction } from 'src/types';
+import { Source, Target, TransformFacadeFunction } from '../../../src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { fspiopIso20022, fspiop, mockLogger, ilpPacket, ilpCondition } from '../../fixtures';

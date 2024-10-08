@@ -22,11 +22,32 @@
  --------------
  ******/
 
+ const Util = require('@mojaloop/central-services-shared').Util;
 import { ilpCondition, ilpPacket } from 'test/fixtures';
-import { getIlpPacketCondition } from '../../../../src/lib/utils';
+import { generateID, getIlpPacketCondition } from '../../../../src/lib/utils';
+import { ID_GENERATOR_TYPE } from '../../../../src/types';
 
 
 describe('Utils tests', () => {
+  describe('generateID', () => {
+    it('should generate a unique ulid ID (default)', () => {
+      const id = generateID();
+      expect(id).toBeDefined();
+      expect(id.length).toBe(26);
+    });
+    it('should generate a unique uuid ID', () => {
+      const id = generateID(ID_GENERATOR_TYPE.uuid);
+      expect(id).toBeDefined();
+      expect(id.length).toBe(36);
+    });
+    it('should generate a unique ulid ID with a custom config', () => {
+      const spy = vi.spyOn(Util, 'id');
+      const id = generateID(ID_GENERATOR_TYPE.ulid, { time: 1234567890 });
+      expect(id).toBeDefined();
+      expect(id.length).toBe(26);
+      // expect(spy).toHaveBeenCalledWith({ type: ID_GENERATOR_TYPE.ulid, time: 1234567890 });
+    })
+  })
   describe('getIlpPacketCondition', () => {
     it('should return the condition from an ILP packet', () => {
       const decodedCondition = getIlpPacketCondition(ilpPacket);

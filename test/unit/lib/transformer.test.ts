@@ -22,8 +22,8 @@
  --------------
  ******/
 
-import { Transformer, createTransformer, transformFn } from 'src/lib';
-import { State } from 'src/types/map-transform';
+import { Transformer, createTransformer, transformFn } from '../../../src/lib';
+import { State } from '../../../src/types/map-transform';
 import { mockLogger } from 'test/fixtures';
 
 describe('Transformer tests', () => {

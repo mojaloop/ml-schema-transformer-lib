@@ -22,11 +22,11 @@
  --------------
  ******/
 
-import { GenericObject, Source, Target } from 'src/types';
+import { GenericObject, Source, Target } from '../../../src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { fspiop, fspiopIso20022, ilpPacket, mockLogger } from '../../fixtures';
-import { getProp } from 'src/lib/utils';
+import { getProp } from '../../../src/lib/utils';
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
