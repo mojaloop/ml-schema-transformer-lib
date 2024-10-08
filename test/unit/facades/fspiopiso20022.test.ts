@@ -165,23 +165,21 @@ const fspiopTargets = {
   fxQuotes: {
     post: {
       body: {
-        conversionRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
         conversionTerms: {
           conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
           determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "source",
-          counterPartyFsp: "destination",
-          amountType: "RECEIVE",
+          initiatingFsp: "initfsp",
+          counterPartyFsp: "counterfsp",
           sourceAmount: {
             currency: "XXX",
             amount: "123.45"
           },
           targetAmount: {
             currency: "XXY",
-            amount: "34.55"
-          },
-          expiration: "2016-05-24T08:38:08.699-04:00"
-        }
+            amount: "23.55"
+          }
+        },
+        amountType: "RECEIVE"
       }
     },
     put: {
@@ -190,26 +188,25 @@ const fspiopTargets = {
         conversionTerms: {
           conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
           determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "source",
-          counterPartyFsp: "destination",
-          amountType: "RECEIVE",
+          initiatingFsp: "initfsp",
+          counterPartyFsp: "counterfsp",
           sourceAmount: {
             currency: "XXX",
             amount: "123.45"
           },
           targetAmount: {
             currency: "XXY",
-            amount: "33.55"
-          },
-          expiration: "2016-05-24T08:38:08.699-04:00"
-        }
+            amount: "23.55"
+          }
+        },
+        amountType: "RECEIVE"
       }
     },
     putError: {
       body: {
         errorInformation: {
           errorCode: "3100",
-          errorDescription: "Additional info"
+          errorDescription: "Client Validation Error"
         }
       }
     }

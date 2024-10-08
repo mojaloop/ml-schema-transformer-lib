@@ -329,6 +329,108 @@ const isoTargets = (target: GenericObject) => ({
         }
       }
     }
+  },
+  fxQuotes: {
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: 1,
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          }
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "initfsp"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "counterfsp"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
+        }
+      }
+    },
+    put: {
+      body: {
+        CdtTrfTxInf: {
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: {
+              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+            },
+            PmtId: {
+              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            }
+          },
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "initfsp"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "counterfsp"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
   }
 })
 
@@ -398,13 +500,13 @@ describe('FSPIOPTransformFacade tests', () => {
   })
   describe('FXQuotes', () => {
     test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxQuotes.post, FspiopTransformFacade.fxQuotes.post)();
+      await testCase(fspiop.fxQuotes.post, FspiopTransformFacade.fxQuotes.post, expected('fxQuotes.post'))();
     })
     test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxQuotes.put, FspiopTransformFacade.fxQuotes.put)();
+      await testCase(fspiop.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
     })
     test('should transform PUT FX quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError)();
+      await testCase(fspiop.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
     })
   })
   describe('FXTransfers', () => {

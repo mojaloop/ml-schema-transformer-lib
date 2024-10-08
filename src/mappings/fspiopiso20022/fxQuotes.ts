@@ -26,7 +26,7 @@
 
 export const fxQuotes = {
   post: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.convertionRequestId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
@@ -39,7 +39,7 @@ export const fxQuotes = {
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount"
   }`,
   put: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
@@ -52,7 +52,7 @@ export const fxQuotes = {
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   }`,
   putError: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
     "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
   }`
@@ -62,7 +62,7 @@ export const fxQuotes = {
 
 export const fxQuotes_reverse = {
   post: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
@@ -79,7 +79,7 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
   }`,
   put: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
     "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
@@ -92,7 +92,7 @@ export const fxQuotes_reverse = {
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
   }`,
   putError: `{
-    "$noDefault": "true",
+    "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"

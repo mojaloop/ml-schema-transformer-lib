@@ -207,36 +207,36 @@ export const fspiop = {
         conversionTerms: {
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-          initiatingFsp: 'string',
-          counterPartyFsp: 'string',
+          initiatingFsp: 'initfsp',
+          counterPartyFsp: 'counterfsp',
           amountType: 'RECEIVE',
           sourceAmount: {
-            currency: 'AED',
+            currency: 'XXX',
             amount: '123.45'
           },
           targetAmount: {
-            currency: 'AED',
-            amount: '123.45'
+            currency: 'XXY',
+            amount: '23.55'
           },
           expiration: '2016-05-24T08:38:08.699-04:00',
           charges: [
             {
-              chargeType: 'string',
+              chargeType: 'charge-type',
               sourceAmount: {
-                currency: 'AED',
-                amount: '123.45'
+                currency: 'XXX',
+                amount: '3.45'
               },
               targetAmount: {
-                currency: 'AED',
-                amount: '123.45'
+                currency: 'XXY',
+                amount: '5.65'
               }
             }
           ],
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'extKey1',
+                value: 'extVal1'
               }
             ]
           }
@@ -249,36 +249,36 @@ export const fspiop = {
         conversionTerms: {
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-          initiatingFsp: 'string',
-          counterPartyFsp: 'string',
+          initiatingFsp: 'initfsp',
+          counterPartyFsp: 'counterfsp',
           amountType: 'RECEIVE',
           sourceAmount: {
-            currency: 'AED',
+            currency: 'XXX',
             amount: '123.45'
           },
           targetAmount: {
-            currency: 'AED',
-            amount: '123.45'
+            currency: 'XXY',
+            amount: '23.55'
           },
           expiration: '2016-05-24T08:38:08.699-04:00',
           charges: [
             {
-              chargeType: 'string',
+              chargeType: 'charge-type',
               sourceAmount: {
-                currency: 'AED',
-                amount: '123.45'
+                currency: 'XXX',
+                amount: '23.45'
               },
               targetAmount: {
-                currency: 'AED',
-                amount: '123.45'
+                currency: 'XXY',
+                amount: '43.45'
               }
             }
           ],
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'ext1Key',
+                value: 'ext1Val'
               }
             ]
           }
@@ -289,12 +289,12 @@ export const fspiop = {
       body: {
         errorInformation: {
           errorCode: '3100',
-          errorDescription: 'string',
+          errorDescription: 'Client Validation Error',
           extensionList: {
             extension: [
               {
-                key: 'string',
-                value: 'string'
+                key: 'extKey1',
+                value: 'extVal1'
               }
             ]
           }
@@ -384,7 +384,7 @@ export const fspiop = {
         },
         targetAmount: {
           currency: 'XXY',
-          amount: '123.45'
+          amount: '234.45'
         },
         condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz',
         expiration: '2016-05-24T08:38:08.699-04:00'
@@ -679,40 +679,44 @@ export const fspiopIso20022 = {
   fxQuotes: {
     post: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
+          CreDtTm: '2024-10-07T10:58:50.450Z',
+          NbOfTxs: 1,
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          }
+        },
         CdtTrfTxInf: {
           PmtId: {
-            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'source'
+                Id: "initfsp"
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'destination'
+                Id: "counterfsp"
               }
             }
           },
-          ChrgBr: 'RECEIVE',
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: 'XXX',
-              ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '34.55'
-          }
-        },
-        GrpHdr: {
-          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
         }
       }
     },
@@ -720,51 +724,55 @@ export const fspiopIso20022 = {
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            IlpV4PrepPacket: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
+            IlpV4PrepPacket: {
+              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+            },
             PmtId: {
-              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
             }
           },
           PmtId: {
-            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: 'source'
+                Id: "initfsp"
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: 'destination'
+                Id: "counterfsp"
               }
             }
           },
-          ChrgBr: 'RECEIVE',
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: 'XXX',
-              ActiveOrHistoricCurrencyAndAmount_SimpleType: '123.45'
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount_SimpleType: '33.55'
-          }
-        },
-        GrpHdr: {
-          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
         }
       }
     },
     putError: {
       body: {
+        GrpHdr: {
+          MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
+          CreDtTm: '2024-10-07T10:58:50.450Z',
+        },
         TxInfAndSts: {
-          TxSts: '3100',
           StsRsnInf: {
-            AddtInf: 'Additional info'
+            Rsn: {
+              Cd: "3100"
+            }
           }
         }
       }

@@ -115,8 +115,7 @@ export const FspiopIso20022TransformFacade = {
       const target = await transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxQuotes.put,
-        
+        mapping: options.overrideMapping || fxQuotes.put
       });
 
       /**
@@ -135,7 +134,7 @@ export const FspiopIso20022TransformFacade = {
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxQuotes.putError,
+        mapping: options.overrideMapping || fxQuotes.putError
       }),
   },
   transfers: {
@@ -143,25 +142,25 @@ export const FspiopIso20022TransformFacade = {
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || transfers.post,
+        mapping: options.overrideMapping || transfers.post
       }),
     patch: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || transfers.patch,
+        mapping: options.overrideMapping || transfers.patch
       }),
     put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || transfers.put,
+        mapping: options.overrideMapping || transfers.put
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || transfers.putError,
+        mapping: options.overrideMapping || transfers.putError
       }),
   },
   fxTransfers: {
@@ -169,25 +168,25 @@ export const FspiopIso20022TransformFacade = {
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxTransfers.post,
+        mapping: options.overrideMapping || fxTransfers.post
       }),
     patch: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxTransfers.patch,
+        mapping: options.overrideMapping || fxTransfers.patch
       }),
     put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxTransfers.put,
+        mapping: options.overrideMapping || fxTransfers.put
       }),
     putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || fxTransfers.putError,
-      }),
+        mapping: options.overrideMapping || fxTransfers.putError
+      })
   },
 };
