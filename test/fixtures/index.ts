@@ -445,22 +445,22 @@ export const expectedFspiopTargets = {
   parties: {
     put: {
       headers: {
-        "fspiop-source": "source",
-        "fspiop-destination": "destination"
+        'fspiop-source': 'source',
+        'fspiop-destination': 'destination'
       },
       params: {
-        SubId: "subId"
+        SubId: 'subId'
       },
       body: {
         party: {
           partyIdInfo: {
-            partyIdType: "MSISDN",
-            partyIdentifier: "16135551212",
-            fspId: "FSPID"
+            partyIdType: 'MSISDN',
+            partyIdentifier: '16135551212',
+            fspId: 'FSPID'
           },
-          name: "party-name",
+          name: 'party-name',
           supportedCurrencies: [
-            "AED"
+            'AED'
           ]
         }
       }
@@ -472,59 +472,59 @@ export const expectedFspiopTargets = {
   quotes: {
     post: {
       body: {
-        quoteId: "12345678",
-        expiration: "2020-01-01T00:00:00Z",
-        transactionId: "2345678",
-        transactionRequestId: "3456789",
+        quoteId: '12345678',
+        expiration: '2020-01-01T00:00:00Z',
+        transactionId: '2345678',
+        transactionRequestId: '3456789',
         payee: {
           partyIdInfo: {
-            partyIdentifier: "4567890",
-            fspId: "4321"
+            partyIdentifier: '4567890',
+            fspId: '4321'
           },
-          name: "Payee Name",
+          name: 'Payee Name',
           supportedCurrencies: [
-            "XTS",
-            "XDT"
+            'XTS',
+            'XDT'
           ]
         },
         payer: {
           partyIdInfo: {
-            partyIdentifier: "987654321",
-            fspId: "dfsp2"
+            partyIdentifier: '987654321',
+            fspId: 'dfsp2'
           },
-          name: "Payer Name",
+          name: 'Payer Name',
           supportedCurrencies: [
-            "XXX",
-            "XXY"
+            'XXX',
+            'XXY'
           ]
         },
         amount: {
-          currency: "USD",
-          amount: "100"
+          currency: 'USD',
+          amount: '100'
         },
         transactionType: {
           refundInfo: {
-            originalTransactionId: "3456789"
+            originalTransactionId: '3456789'
           }
         },
-        amountType: "RECEIVE"
+        amountType: 'RECEIVE'
       }
     },
     put: {
       body: {
         transferAmount: {
-          currency: "AED",
-          amount: "123.45"
+          currency: 'AED',
+          amount: '123.45'
         },
         payeeReceiveAmount: {
-          currency: "AED",
-          amount: "123.45"
+          currency: 'AED',
+          amount: '123.45'
         },
         payeeFspFee: {
-          currency: "AED",
-          amount: "123.45"
+          currency: 'AED',
+          amount: '123.45'
         },
-        expiration: "2016-05-24T08:38:08.699-04:00",
+        expiration: '2016-05-24T08:38:08.699-04:00',
         ilpPacket,
         condition: ilpCondition
       }
@@ -532,8 +532,8 @@ export const expectedFspiopTargets = {
     putError: {
       body: {
         errorInformation: {
-          errorCode: "3100",
-          errorDescription: "Client Validation Error"
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
         }
       }
     }
@@ -541,35 +541,35 @@ export const expectedFspiopTargets = {
   transfers: {
     post: {
       body: {
-        transferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        payeeFsp: "payeeFsp",
-        payerFsp: "payerFsp",
+        transferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        payeeFsp: 'payeeFsp',
+        payerFsp: 'payerFsp',
         amount: {
-          currency: "XXX",
-          amount: "123.45"
+          currency: 'XXX',
+          amount: '123.45'
         },
-        ilpPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA",
-        expiration: "2016-05-24T08:38:08.699-04:00"
+        ilpPacket: 'AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA',
+        expiration: '2016-05-24T08:38:08.699-04:00'
       }
     },
     patch: {
       body: {
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
-        transferState: "RESERVED"
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        transferState: 'RESERVED'
       }
     },
     put: {
       body: {
-        fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
-        transferState: "RESERVED"
+        fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        transferState: 'RESERVED'
       }
     },
     putError: {
       body: {
         errorInformation: {
-          errorCode: "3100",
-          errorDescription: "Client Validation Error"
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
         }
       }
     }
@@ -578,47 +578,47 @@ export const expectedFspiopTargets = {
     post: {
       body: {
         conversionTerms: {
-          conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "initfsp",
-          counterPartyFsp: "counterfsp",
+          conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          initiatingFsp: 'initfsp',
+          counterPartyFsp: 'counterfsp',
           sourceAmount: {
-            currency: "XXX",
-            amount: "123.45"
+            currency: 'XXX',
+            amount: '123.45'
           },
           targetAmount: {
-            currency: "XXY",
-            amount: "23.55"
+            currency: 'XXY',
+            amount: '23.55'
           }
         },
-        amountType: "RECEIVE"
+        amountType: 'RECEIVE'
       }
     },
     put: {
       body: {
-        condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1",
+        condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
         conversionTerms: {
-          conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-          initiatingFsp: "initfsp",
-          counterPartyFsp: "counterfsp",
+          conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+          initiatingFsp: 'initfsp',
+          counterPartyFsp: 'counterfsp',
           sourceAmount: {
-            currency: "XXX",
-            amount: "123.45"
+            currency: 'XXX',
+            amount: '123.45'
           },
           targetAmount: {
-            currency: "XXY",
-            amount: "23.55"
+            currency: 'XXY',
+            amount: '23.55'
           }
         },
-        amountType: "RECEIVE"
+        amountType: 'RECEIVE'
       }
     },
     putError: {
       body: {
         errorInformation: {
-          errorCode: "3100",
-          errorDescription: "Client Validation Error"
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
         }
       }
     }
@@ -626,40 +626,40 @@ export const expectedFspiopTargets = {
   fxTransfers: {
     post: {
       body: {
-        expiration: "2016-05-24T08:38:08.699-04:00",
-        commitRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-        initiatingFsp: "initfsp",
-        counterPartyFsp: "counterfsp",
+        expiration: '2016-05-24T08:38:08.699-04:00',
+        commitRequestId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+        initiatingFsp: 'initfsp',
+        counterPartyFsp: 'counterfsp',
         sourceAmount: {
-          currency: "XXX",
-          amount: "123.45"
+          currency: 'XXX',
+          amount: '123.45'
         },
         targetAmount: {
-          currency: "XXY",
-          amount: "234.45"
+          currency: 'XXY',
+          amount: '234.45'
         },
-        condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+        condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
       }
     },
     patch: {
       body: {
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
-        conversionState: "RESERVED"
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        conversionState: 'RESERVED'
       }
     },
     put: {
       body: {
-        fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
-        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
-        conversionState: "RESERVED"
+        fulfilment: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
+        completedTimestamp: '2016-05-24T08:38:08.699-04:00',
+        conversionState: 'RESERVED'
       }
     },
     putError: {
       body: {
         errorInformation: {
-          errorCode: "3100",
-          errorDescription: "Client Validation Error"
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
         }
       }
     }
@@ -1198,7 +1198,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "source"
+                  Id: 'source'
                 }
               }
             }
@@ -1207,7 +1207,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "destination"
+                  Id: 'destination'
                 }
               }
             }
@@ -1215,31 +1215,31 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         },
         Rpt: {
           Vrfctn: true,
-          OrgnlId: "subId",
+          OrgnlId: 'subId',
           UpdtdPtyAndAcctId: {
             Pty: {
               Id: {
                 PrvId: {
                   Othr: {
                     SchmeNm: {
-                      Prtry: "MSISDN"
+                      Prtry: 'MSISDN'
                     },
-                    Id: "16135551212"
+                    Id: '16135551212'
                   }
                 }
               },
-              Nm: "party-name"
+              Nm: 'party-name'
             },
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "FSPID"
+                  Id: 'FSPID'
                 }
               }
             },
             Acct: {
               Ccy: [
-                "AED"
+                'AED'
               ]
             }
           }
@@ -1250,9 +1250,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
       body: {
         Rpt: {
           Rsn: {
-            Cd: "3100"
+            Cd: '3100'
           },
-          OrgnlId: "subId",
+          OrgnlId: 'subId',
           Vrfctn: false
         },
         Assgnmt: {
@@ -1262,7 +1262,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "source"
+                  Id: 'source'
                 }
               }
             }
@@ -1271,7 +1271,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "destination"
+                  Id: 'destination'
                 }
               }
             }
@@ -1286,39 +1286,39 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z",
+          NbOfTxs: '1',
+          PmtInstrXpryDtTm: '2020-01-01T00:00:00Z',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
           CdtTrfTxInf: {
             Purp: {
-              Prtry: "DEPOSIT"
+              Prtry: 'DEPOSIT'
             }
           }
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "12345678",
-            EndToEndId: "2345678"
+            TxId: '12345678',
+            EndToEndId: '2345678'
           },
           Cdtr: {
             Id: {
               PrvId: {
                 Othr: {
                   SchmeNm: {
-                    Prtry: "MSISDN"
+                    Prtry: 'MSISDN'
                   },
-                  Id: "4567890"
+                  Id: '4567890'
                 }
               }
             },
-            Name: "Payee Name"
+            Name: 'Payee Name'
           },
           CdtrAcct: {
             Ccy: [
-              "XTS",
-              "XDT"
+              'XTS',
+              'XDT'
             ]
           },
           Dbtr: {
@@ -1326,32 +1326,32 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               PrvId: {
                 Othr: {
                   SchmeNm: {
-                    Prtry: "MSISDN"
+                    Prtry: 'MSISDN'
                   },
-                  Id: "987654321"
+                  Id: '987654321'
                 }
               }
             },
-            Name: "Payer Name",
+            Name: 'Payer Name',
             Acct: {
               Ccy: [
-                "XXX",
-                "XXY"
+                'XXX',
+                'XXY'
               ]
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "dfsp2"
+                Id: 'dfsp2'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "USD",
-            ActiveCurrencyAndAmount: "100"
+            Ccy: 'USD',
+            ActiveCurrencyAndAmount: '100'
           },
-          ChrgBr: "CRED"
+          ChrgBr: 'CRED'
         }
       }
     },
@@ -1360,24 +1360,24 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
+          NbOfTxs: '1',
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           IntrBkSttlmAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           InstdAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
             Amt: {
-              Ccy: "AED"
+              Ccy: 'AED'
             }
           },
           VrfctnOfTerms: {
@@ -1395,7 +1395,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
@@ -1408,33 +1408,33 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payeefsp"
+                Id: 'payeefsp'
               }
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payerfsp"
+                Id: 'payerfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXX",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'XXX',
+            ActiveCurrencyAndAmount: '123.45'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: ilpPacket
@@ -1450,9 +1450,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         },
         TxInfAndSts: {
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESV"
+          TxSts: 'RESV'
         }
       }
     },
@@ -1463,11 +1463,11 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
         },
         TxInfAndSts: {
-          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESV"
+          TxSts: 'RESV'
         }
       }
     },
@@ -1480,7 +1480,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
@@ -1493,41 +1493,41 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           PmtId: {
-            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -1536,40 +1536,40 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         CdtTrfTxInf: {
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
             },
             PmtId: {
-              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -1582,7 +1582,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
@@ -1595,44 +1595,44 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           UndrlygCstmrCdtTrf: {
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "234.45"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
             }
           }
         }
@@ -1646,9 +1646,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         },
         TxInfAndSts: {
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESV"
+          TxSts: 'RESV'
         }
       }
     },
@@ -1659,11 +1659,11 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
         },
         TxInfAndSts: {
-          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          ExctnConf: 'WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8',
           PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
+            DtTm: '2016-05-24T08:38:08.699-04:00'
           },
-          TxSts: "RESV"
+          TxSts: 'RESV'
         }
       }
     },
@@ -1676,11 +1676,11 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: "3100"
+              Cd: '3100'
             }
           }
         }
       }
     }
   }
-})
+});

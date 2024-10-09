@@ -23,35 +23,35 @@
  ******/
 
 import { TransformFacades } from 'src';
-import { GenericObject, Source, Target } from 'src/types';
+import { GenericObject, Source, TransformFacadeFunction } from 'src/types';
 import { expectedFspiopIso20022Targets, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
 
-const PERF_THRESHOLD_MS = 2000;
+const PERF_THRESHOLD_MS = 1000;
 
 const expected = (prop: string) => {
   return (target: GenericObject) => {
     return getProp(expectedFspiopIso20022Targets(target), prop);
-  }
-}
+  };
+};
 
 describe('Performance Test', () => {
-  const perfTest = async (transformFn: Function, source: Source, expectedTargetFn: Function) => {
+  const perfTest = async (transformFn: TransformFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
     let target;
 
     const startTime = Date.now();
 
     for (let i = 0; i < 1000; i++) {
-      target = await transformFn(source);
+      target = await transformFn(source, {});
     }
 
     const endTime = Date.now();
     const runtime = endTime - startTime;
 
-    const expectedTarget = expectedTargetFn(target);
+    const expectedTarget = expectedTargetFn(target as GenericObject);
     expect(target).toEqual(expectedTarget);
     expect(runtime).toBeLessThan(PERF_THRESHOLD_MS);
-  }
+  };
   describe('TransformFacades.FSPIOP', () => {
     describe('quotes', () => {
       it('POST /quotes performance test', async () => {
