@@ -1,3 +1,6 @@
+import { getProp } from 'src/lib/utils';
+import { GenericObject } from 'src/types';
+
 export const mockLogger = {
   error: vi.fn(),
   warn: vi.fn(),
@@ -25,7 +28,7 @@ export const mockLogger = {
 export const ilpPacket = 'DIIDSgAAAAAAAMNQMjAxNzExMTUyMzE3Mjg5ODVPqz_E707Be6heJ0uDF-up-UEj013dNAKkU1Xy0buXqQpnLm1vamFsb29wggMDZXlKeGRXOTBaVWxrSWpvaU1qQTFNRGd4T0RZdE1UUTFPQzAwWVdNd0xXRTRNalF0WkRSaU1EZGxNemRrTjJJeklpd2lkSEpoYm5OaFkzUnBiMjVKWkNJNklqSXdOVEE0TVRnMkxURTBOVGd0TkdGak1DMWhPREkwTFdRMFlqQTNaVE0zWkRkaU15SXNJblJ5WVc1ellXTjBhVzl1Vkhsd1pTSTZleUp6WTJWdVlYSnBieUk2SWxSU1FVNVRSa1ZTSWl3aWFXNXBkR2xoZEc5eUlqb2lVRUZaUlZJaUxDSnBibWwwYVdGMGIzSlVlWEJsSWpvaVEwOU9VMVZOUlZJaUxDSmlZV3hoYm1ObFQyWlFZWGx0Wlc1MGN5STZJakV4TUNKOUxDSndZWGxsWlNJNmV5SndZWEowZVVsa1NXNW1ieUk2ZXlKd1lYSjBlVWxrVkhsd1pTSTZJazFUU1ZORVRpSXNJbkJoY25SNVNXUmxiblJwWm1sbGNpSTZJakV5TXpRMU5qYzRPU0lzSW1aemNFbGtJam9pVFc5aWFXeGxUVzl1WlhraWZYMHNJbkJoZVdWeUlqcDdJbkJsY25OdmJtRnNTVzVtYnlJNmV5SmpiMjF3YkdWNFRtRnRaU0k2ZXlKbWFYSnpkRTVoYldVaU9pSk5ZWFJ6SWl3aWJHRnpkRTVoYldVaU9pSklZV2R0WVc0aWZYMHNJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pT1RnM05qVTBNeUlzSW1aemNFbGtJam9pUW1GdWEwNXlUMjVsSW4xOUxDSmxlSEJwY21GMGFXOXVJam9pTWpBeE55MHhNUzB4TlZReU1qb3hOem95T0M0NU9EVXRNREU2TURBaUxDSmhiVzkxYm5RaU9uc2lZVzF2ZFc1MElqb2lOVEF3SWl3aVkzVnljbVZ1WTNraU9pSlZVMFFpZlgw';
 export const ilpCondition = 'T6s/xO9OwXuoXidLgxfrqflBI9Nd3TQCpFNV8tG7l6k='; // @todo this is the result of the decoded `executionCondition`, confirm if this is the expected condition
 
-export const fspiop = {
+export const fspiopSources = {
   parties: {
     put: {
       body: {
@@ -438,7 +441,232 @@ export const fspiop = {
   }
 };
 
-export const fspiopIso20022 = {
+export const expectedFspiopTargets = {
+  parties: {
+    put: {
+      headers: {
+        "fspiop-source": "source",
+        "fspiop-destination": "destination"
+      },
+      params: {
+        SubId: "subId"
+      },
+      body: {
+        party: {
+          partyIdInfo: {
+            partyIdType: "MSISDN",
+            partyIdentifier: "16135551212",
+            fspId: "FSPID"
+          },
+          name: "party-name",
+          supportedCurrencies: [
+            "AED"
+          ]
+        }
+      }
+    },
+    putError: {
+      ...fspiopSources.parties.putError
+    }
+  },
+  quotes: {
+    post: {
+      body: {
+        quoteId: "12345678",
+        expiration: "2020-01-01T00:00:00Z",
+        transactionId: "2345678",
+        transactionRequestId: "3456789",
+        payee: {
+          partyIdInfo: {
+            partyIdentifier: "4567890",
+            fspId: "4321"
+          },
+          name: "Payee Name",
+          supportedCurrencies: [
+            "XTS",
+            "XDT"
+          ]
+        },
+        payer: {
+          partyIdInfo: {
+            partyIdentifier: "987654321",
+            fspId: "dfsp2"
+          },
+          name: "Payer Name",
+          supportedCurrencies: [
+            "XXX",
+            "XXY"
+          ]
+        },
+        amount: {
+          currency: "USD",
+          amount: "100"
+        },
+        transactionType: {
+          refundInfo: {
+            originalTransactionId: "3456789"
+          }
+        },
+        amountType: "RECEIVE"
+      }
+    },
+    put: {
+      body: {
+        transferAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        payeeReceiveAmount: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        payeeFspFee: {
+          currency: "AED",
+          amount: "123.45"
+        },
+        expiration: "2016-05-24T08:38:08.699-04:00",
+        ilpPacket,
+        condition: ilpCondition
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: "3100",
+          errorDescription: "Client Validation Error"
+        }
+      }
+    }
+  },
+  transfers: {
+    post: {
+      body: {
+        transferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        payeeFsp: "payeeFsp",
+        payerFsp: "payerFsp",
+        amount: {
+          currency: "XXX",
+          amount: "123.45"
+        },
+        ilpPacket: "AYIBgQAAAAAAAASwNGxldmVsb25lLmRmc3AxLm1lci45T2RTOF81MDdqUUZERmZlakgyOVc4bXFmNEpLMHlGTFGCAUBQU0svMS4wCk5vbmNlOiB1SXlweUYzY3pYSXBFdzVVc05TYWh3CkVuY3J5cHRpb246IG5vbmUKUGF5bWVudC1JZDogMTMyMzZhM2ItOGZhOC00MTYzLTg0NDctNGMzZWQzZGE5OGE3CgpDb250ZW50LUxlbmd0aDogMTM1CkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpTZW5kZXItSWRlbnRpZmllcjogOTI4MDYzOTEKCiJ7XCJmZWVcIjowLFwidHJhbnNmZXJDb2RlXCI6XCJpbnZvaWNlXCIsXCJkZWJpdE5hbWVcIjpcImFsaWNlIGNvb3BlclwiLFwiY3JlZGl0TmFtZVwiOlwibWVyIGNoYW50XCIsXCJkZWJpdElkZW50aWZpZXJcIjpcIjkyODA2MzkxXCJ9IgA",
+        expiration: "2016-05-24T08:38:08.699-04:00"
+      }
+    },
+    patch: {
+      body: {
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        transferState: "RESERVED"
+      }
+    },
+    put: {
+      body: {
+        fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        transferState: "RESERVED"
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: "3100",
+          errorDescription: "Client Validation Error"
+        }
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      body: {
+        conversionTerms: {
+          conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+          determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+          initiatingFsp: "initfsp",
+          counterPartyFsp: "counterfsp",
+          sourceAmount: {
+            currency: "XXX",
+            amount: "123.45"
+          },
+          targetAmount: {
+            currency: "XXY",
+            amount: "23.55"
+          }
+        },
+        amountType: "RECEIVE"
+      }
+    },
+    put: {
+      body: {
+        condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1",
+        conversionTerms: {
+          conversionId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+          determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+          initiatingFsp: "initfsp",
+          counterPartyFsp: "counterfsp",
+          sourceAmount: {
+            currency: "XXX",
+            amount: "123.45"
+          },
+          targetAmount: {
+            currency: "XXY",
+            amount: "23.55"
+          }
+        },
+        amountType: "RECEIVE"
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: "3100",
+          errorDescription: "Client Validation Error"
+        }
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      body: {
+        expiration: "2016-05-24T08:38:08.699-04:00",
+        commitRequestId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        determiningTransferId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+        initiatingFsp: "initfsp",
+        counterPartyFsp: "counterfsp",
+        sourceAmount: {
+          currency: "XXX",
+          amount: "123.45"
+        },
+        targetAmount: {
+          currency: "XXY",
+          amount: "234.45"
+        },
+        condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+      }
+    },
+    patch: {
+      body: {
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        conversionState: "RESERVED"
+      }
+    },
+    put: {
+      body: {
+        fulfilment: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+        completedTimestamp: "2016-05-24T08:38:08.699-04:00",
+        conversionState: "RESERVED"
+      }
+    },
+    putError: {
+      body: {
+        errorInformation: {
+          errorCode: "3100",
+          errorDescription: "Client Validation Error"
+        }
+      }
+    }
+  }
+};
+
+export const fspiopIso20022Sources = {
   parties: {
     put: {
       body: {
@@ -959,3 +1187,500 @@ export const fspiopIso20022 = {
   }
 };
 
+export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
+  parties: {
+    put: {
+      body: {
+        Assgnmt: {
+          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
+          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
+          Assgnr: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "source"
+                }
+              }
+            }
+          },
+          Assgne: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "destination"
+                }
+              }
+            }
+          }
+        },
+        Rpt: {
+          Vrfctn: true,
+          OrgnlId: "subId",
+          UpdtdPtyAndAcctId: {
+            Pty: {
+              Id: {
+                PrvId: {
+                  Othr: {
+                    SchmeNm: {
+                      Prtry: "MSISDN"
+                    },
+                    Id: "16135551212"
+                  }
+                }
+              },
+              Nm: "party-name"
+            },
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "FSPID"
+                }
+              }
+            },
+            Acct: {
+              Ccy: [
+                "AED"
+              ]
+            }
+          }
+        }
+      }
+    },
+    putError: {
+      body: {
+        Rpt: {
+          Rsn: {
+            Cd: "3100"
+          },
+          OrgnlId: "subId",
+          Vrfctn: false
+        },
+        Assgnmt: {
+          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
+          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
+          Assgnr: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "source"
+                }
+              }
+            }
+          },
+          Assgne: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "destination"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  quotes: {
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: "1",
+          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z",
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          },
+          CdtTrfTxInf: {
+            Purp: {
+              Prtry: "DEPOSIT"
+            }
+          }
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            TxId: "12345678",
+            EndToEndId: "2345678"
+          },
+          Cdtr: {
+            Id: {
+              PrvId: {
+                Othr: {
+                  SchmeNm: {
+                    Prtry: "MSISDN"
+                  },
+                  Id: "4567890"
+                }
+              }
+            },
+            Name: "Payee Name"
+          },
+          CdtrAcct: {
+            Ccy: [
+              "XTS",
+              "XDT"
+            ]
+          },
+          Dbtr: {
+            Id: {
+              PrvId: {
+                Othr: {
+                  SchmeNm: {
+                    Prtry: "MSISDN"
+                  },
+                  Id: "987654321"
+                }
+              }
+            },
+            Name: "Payer Name",
+            Acct: {
+              Ccy: [
+                "XXX",
+                "XXY"
+              ]
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "dfsp2"
+              }
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "USD",
+            ActiveCurrencyAndAmount: "100"
+          },
+          ChrgBr: "CRED"
+        }
+      }
+    },
+    put: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: "1",
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          }
+        },
+        CdtTrfTxInf: {
+          IntrBkSttlmAmt: {
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          InstdAmt: {
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          ChrgsInf: {
+            Amt: {
+              Ccy: "AED"
+            }
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: ilpPacket
+          }
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
+  },
+  transfers: {
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: "1",
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          },
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "payeefsp"
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "payerfsp"
+              }
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXX",
+            ActiveCurrencyAndAmount: "123.45"
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: ilpPacket
+          }
+        }
+      }
+    },
+    patch: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESV"
+        }
+      }
+    },
+    put: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESV"
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: "1",
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          }
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "initfsp"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "counterfsp"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
+        }
+      }
+    },
+    put: {
+      body: {
+        CdtTrfTxInf: {
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: {
+              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+            },
+            PmtId: {
+              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            }
+          },
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "initfsp"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "counterfsp"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "23.55"
+          },
+          ChrgBr: "DEBT"
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: "1",
+          SttlmInf: {
+            SttlmMtd: "CLRG"
+          },
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+        },
+        CdtTrfTxInf: {
+          PmtId: {
+            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
+            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+          },
+          Dbtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "initfsp"
+              }
+            }
+          },
+          Cdtr: {
+            FinInstnId: {
+              Othr: {
+                Id: "counterfsp"
+              }
+            }
+          },
+          UndrlygCstmrCdtTrf: {
+            InstdAmt: {
+              Ccy: "XXX",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
+            }
+          },
+          IntrBkSttlmAmt: {
+            Ccy: "XXY",
+            ActiveOrHistoricCurrencyAndAmount: "234.45"
+          },
+          VrfctnOfTerms: {
+            IlpV4PrepPacket: {
+              condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+            }
+          }
+        }
+      }
+    },
+    patch: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESV"
+        }
+      }
+    },
+    put: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
+          PrcgDt: {
+            DtTm: "2016-05-24T08:38:08.699-04:00"
+          },
+          TxSts: "RESV"
+        }
+      }
+    },
+    putError: {
+      body: {
+        GrpHdr: {
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
+        },
+        TxInfAndSts: {
+          StsRsnInf: {
+            Rsn: {
+              Cd: "3100"
+            }
+          }
+        }
+      }
+    }
+  }
+})

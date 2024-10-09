@@ -26,512 +26,14 @@ import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { getProp, setProp } from '../../../src/lib/utils';
 import { GenericObject, Source } from '../../../src/types';
-import { fspiop, ilpPacket, mockLogger } from '../../fixtures';
+import { expectedFspiopIso20022Targets, fspiopSources, mockLogger } from '../../fixtures';
 import { FSPIO20022PMappings } from '../../../src/mappings'
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
 
-const isoTargets = (target: GenericObject) => ({
-  parties: {
-    put: {
-      body: {
-        Assgnmt: {
-          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
-          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
-          Assgnr: {
-            Agt: {
-              FinInstnId: {
-                Othr: {
-                  Id: "source"
-                }
-              }
-            }
-          },
-          Assgne: {
-            Agt: {
-              FinInstnId: {
-                Othr: {
-                  Id: "destination"
-                }
-              }
-            }
-          }
-        },
-        Rpt: {
-          Vrfctn: true,
-          OrgnlId: "subId",
-          UpdtdPtyAndAcctId: {
-            Pty: {
-              Id: {
-                PrvId: {
-                  Othr: {
-                    SchmeNm: {
-                      Prtry: "MSISDN"
-                    },
-                    Id: "16135551212"
-                  }
-                }
-              },
-              Nm: "party-name"
-            },
-            Agt: {
-              FinInstnId: {
-                Othr: {
-                  Id: "FSPID"
-                }
-              }
-            },
-            Acct: {
-              Ccy: [
-                "AED"
-              ]
-            }
-          }
-        }
-      }
-    },
-    putError: {
-      body: {
-        Rpt: {
-          Rsn: {
-            Cd: "3100"
-          },
-          OrgnlId: "subId",
-          Vrfctn: false
-        },
-        Assgnmt: {
-          MsgId: getProp(target, 'body.Assgnmt.MsgId'),
-          CreDtTm: getProp(target, 'body.Assgnmt.CreDtTm'),
-          Assgnr: {
-            Agt: {
-              FinInstnId: {
-                Othr: {
-                  Id: "source"
-                }
-              }
-            }
-          },
-          Assgne: {
-            Agt: {
-              FinInstnId: {
-                Othr: {
-                  Id: "destination"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  quotes: {
-    post: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          PmtInstrXpryDtTm: "2020-01-01T00:00:00Z",
-          SttlmInf: {
-            SttlmMtd: "CLRG"
-          },
-          CdtTrfTxInf: {
-            Purp: {
-              Prtry: "DEPOSIT"
-            }
-          }
-        },
-        CdtTrfTxInf: {
-          PmtId: {
-            TxId: "12345678",
-            EndToEndId: "2345678"
-          },
-          Cdtr: {
-            Id: {
-              PrvId: {
-                Othr: {
-                  SchmeNm: {
-                    Prtry: "MSISDN"
-                  },
-                  Id: "4567890"
-                }
-              }
-            },
-            Name: "Payee Name"
-          },
-          CdtrAcct: {
-            Ccy: [
-              "XTS",
-              "XDT"
-            ]
-          },
-          Dbtr: {
-            Id: {
-              PrvId: {
-                Othr: {
-                  SchmeNm: {
-                    Prtry: "MSISDN"
-                  },
-                  Id: "987654321"
-                }
-              }
-            },
-            Name: "Payer Name",
-            Acct: {
-              Ccy: [
-                "XXX",
-                "XXY"
-              ]
-            }
-          },
-          DbtrAgt: {
-            FinInstnId: {
-              Othr: {
-                Id: "dfsp2"
-              }
-            }
-          },
-          IntrBkSttlmAmt: {
-            Ccy: "USD",
-            ActiveCurrencyAndAmount: "100"
-          },
-          ChrgBr: "CRED"
-        }
-      }
-    },
-    put: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
-          SttlmInf: {
-            SttlmMtd: "CLRG"
-          }
-        },
-        CdtTrfTxInf: {
-          IntrBkSttlmAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
-          },
-          InstdAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
-          },
-          ChrgsInf: {
-            Amt: {
-              Ccy: "AED"
-            }
-          },
-          VrfctnOfTerms: {
-            IlpV4PrepPacket: ilpPacket
-          }
-        }
-      }
-    },
-    putError: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          StsRsnInf: {
-            Rsn: {
-              Cd: "3100"
-            }
-          }
-        }
-      }
-    }
-  },
-  transfers: {
-    post: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          SttlmInf: {
-            SttlmMtd: "CLRG"
-          },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
-        },
-        CdtTrfTxInf: {
-          PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
-          },
-          CdtrAgt: {
-            FinInstnId: {
-              Othr: {
-                Id: "payeefsp"
-              }
-            }
-          },
-          DbtrAgt: {
-            FinInstnId: {
-              Othr: {
-                Id: "payerfsp"
-              }
-            }
-          },
-          IntrBkSttlmAmt: {
-            Ccy: "XXX",
-            ActiveCurrencyAndAmount: "123.45"
-          },
-          VrfctnOfTerms: {
-            IlpV4PrepPacket: ilpPacket
-          }
-        }
-      }
-    },
-    patch: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
-          },
-          TxSts: "RESV"
-        }
-      }
-    },
-    put: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
-          PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
-          },
-          TxSts: "RESV"
-        }
-      }
-    },
-    putError: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          StsRsnInf: {
-            Rsn: {
-              Cd: "3100"
-            }
-          }
-        }
-      }
-    }
-  },
-  fxQuotes: {
-    post: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          SttlmInf: {
-            SttlmMtd: "CLRG"
-          }
-        },
-        CdtTrfTxInf: {
-          PmtId: {
-            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
-          },
-          Dbtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "initfsp"
-              }
-            }
-          },
-          Cdtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "counterfsp"
-              }
-            }
-          },
-          UndrlygCstmrCdtTrf: {
-            InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
-            }
-          },
-          IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
-          },
-          ChrgBr: "DEBT"
-        }
-      }
-    },
-    put: {
-      body: {
-        CdtTrfTxInf: {
-          VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
-            },
-            PmtId: {
-              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
-            }
-          },
-          PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
-          },
-          Dbtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "initfsp"
-              }
-            }
-          },
-          Cdtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "counterfsp"
-              }
-            }
-          },
-          UndrlygCstmrCdtTrf: {
-            InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
-            }
-          },
-          IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
-          },
-          ChrgBr: "DEBT"
-        }
-      }
-    },
-    putError: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          StsRsnInf: {
-            Rsn: {
-              Cd: "3100"
-            }
-          }
-        }
-      }
-    }
-  },
-  fxTransfers: {
-    post: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          SttlmInf: {
-            SttlmMtd: "CLRG"
-          },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
-        },
-        CdtTrfTxInf: {
-          PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
-          },
-          Dbtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "initfsp"
-              }
-            }
-          },
-          Cdtr: {
-            FinInstnId: {
-              Othr: {
-                Id: "counterfsp"
-              }
-            }
-          },
-          UndrlygCstmrCdtTrf: {
-            InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
-            }
-          },
-          IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "234.45"
-          },
-          VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
-            }
-          }
-        }
-      }
-    },
-    patch: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
-          },
-          TxSts: "RESV"
-        }
-      }
-    },
-    put: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          ExctnConf: "WLctttbu2HvTsa1XWvUoGRcQozHsqeu9Ahl2JW9Bsu8",
-          PrcgDt: {
-            DtTm: "2016-05-24T08:38:08.699-04:00"
-          },
-          TxSts: "RESV"
-        }
-      }
-    },
-    putError: {
-      body: {
-        GrpHdr: {
-          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
-          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm')
-        },
-        TxInfAndSts: {
-          StsRsnInf: {
-            Rsn: {
-              Cd: "3100"
-            }
-          }
-        }
-      }
-    }
-  }
-})
-
 const expected = (prop: string) => {
   return (target: GenericObject) => {
-    return getProp(isoTargets(target), prop);
+    return getProp(expectedFspiopIso20022Targets(target), prop);
   }
 }
 
@@ -555,40 +57,40 @@ describe('FSPIOPTransformFacade tests', () => {
       vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(async () => {
         throw new Error('Test error')
       });
-      const promise = FspiopTransformFacade.parties.put(fspiop.parties.put);
+      const promise = FspiopTransformFacade.parties.put(fspiopSources.parties.put);
       await expect(promise).rejects.toThrow();
       expect(logger.error).toBeCalled();
     });
   })
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.parties.put, FspiopTransformFacade.parties.put, expected('parties.put'))();
+      await testCase(fspiopSources.parties.put, FspiopTransformFacade.parties.put, expected('parties.put'))();
     });
     test('should transform PUT parties error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
+      await testCase(fspiopSources.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
     });
   })
   describe('Quotes', () => {
     describe('POST /quotes', () => {
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-        await testCase(fspiop.quotes.post, FspiopTransformFacade.quotes.post, expected('quotes.post'))();
+        await testCase(fspiopSources.quotes.post, FspiopTransformFacade.quotes.post, expected('quotes.post'))();
       });
       test('should not apply mutation on target if override mapping is set', async () => {
-        const source = { ...fspiop.quotes.post };
+        const source = { ...fspiopSources.quotes.post };
         const overrideMapping = FSPIO20022PMappings.quotes_reverse.post;
         const target = await FspiopTransformFacade.quotes.post(source, { overrideMapping });
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBeUndefined();
       });
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType != SEND', async () => {
-        const source = { ...fspiop.quotes.post };
+        const source = { ...fspiopSources.quotes.post };
         source.body.amountType = 'RECEIVE';
         const target = await FspiopTransformFacade.quotes.post(source);
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('DEBT');
       });
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022 with refundInfo', async () => {
-        const source = { ...fspiop.quotes.post };
+        const source = { ...fspiopSources.quotes.post };
         setProp(source, 'body.transactionType', { refundInfo: { reason: 'Refund reason' } });
 
         const target = await FspiopTransformFacade.quotes.post(source);
@@ -598,40 +100,40 @@ describe('FSPIOPTransformFacade tests', () => {
       });
     })
     test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
+      await testCase(fspiopSources.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
+      await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
     });
   })
   describe('Transfers', () => {
     test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
+      await testCase(fspiopSources.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
     })
     test('should transform PATCH transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.patch, FspiopTransformFacade.transfers.patch, expected('transfers.patch'))();
+      await testCase(fspiopSources.transfers.patch, FspiopTransformFacade.transfers.patch, expected('transfers.patch'))();
     })
     test('should transform PUT transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.put, FspiopTransformFacade.transfers.put, expected('transfers.put'))();
+      await testCase(fspiopSources.transfers.put, FspiopTransformFacade.transfers.put, expected('transfers.put'))();
     })
     test('should transform PUT transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.transfers.putError, FspiopTransformFacade.transfers.putError, expected('transfers.putError'))();
+      await testCase(fspiopSources.transfers.putError, FspiopTransformFacade.transfers.putError, expected('transfers.putError'))();
     })
   })
   describe('FXQuotes', () => {
     describe('POST /fxQuotes', () => {
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-        await testCase(fspiop.fxQuotes.post, FspiopTransformFacade.fxQuotes.post, expected('fxQuotes.post'))();
+        await testCase(fspiopSources.fxQuotes.post, FspiopTransformFacade.fxQuotes.post, expected('fxQuotes.post'))();
       });
       test('should not apply mutation on target if override mapping is set', async () => {
-        const source = { ...fspiop.fxQuotes.post };
+        const source = { ...fspiopSources.fxQuotes.post };
         const overrideMapping = FSPIO20022PMappings.fxQuotes_reverse.post;
         const target = await FspiopTransformFacade.fxQuotes.post(source, { overrideMapping });
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBeUndefined();
       });
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
-        const source = { ...fspiop.fxQuotes.post };
+        const source = { ...fspiopSources.fxQuotes.post };
         setProp(source, 'body.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.post(source);
         expect(target).toHaveProperty('body');
@@ -640,17 +142,17 @@ describe('FSPIOPTransformFacade tests', () => {
     });
     describe('PUT /fxQuotes', () => {
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-        await testCase(fspiop.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
+        await testCase(fspiopSources.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
       });
       test('should not apply mutation on target if override mapping is set', async () => {
-        const source = { ...fspiop.fxQuotes.put };
+        const source = { ...fspiopSources.fxQuotes.put };
         const overrideMapping = FSPIO20022PMappings.fxQuotes_reverse.put;
         const target = await FspiopTransformFacade.fxQuotes.put(source, { overrideMapping });
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBeUndefined();
       });
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
-        const source = { ...fspiop.fxQuotes.put };
+        const source = { ...fspiopSources.fxQuotes.put };
         setProp(source, 'body.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.put(source);
         expect(target).toHaveProperty('body');
@@ -658,21 +160,21 @@ describe('FSPIOPTransformFacade tests', () => {
       });
     });
     test('should transform PUT FX quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
+      await testCase(fspiopSources.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
     })
   })
   describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
+      await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
     })
     test('should transform PATCH FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxTransfers.patch, FspiopTransformFacade.fxTransfers.patch, expected('fxTransfers.patch'))();
+      await testCase(fspiopSources.fxTransfers.patch, FspiopTransformFacade.fxTransfers.patch, expected('fxTransfers.patch'))();
     })
     test('should transform PUT FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxTransfers.put, FspiopTransformFacade.fxTransfers.put, expected('fxTransfers.put'))();
+      await testCase(fspiopSources.fxTransfers.put, FspiopTransformFacade.fxTransfers.put, expected('fxTransfers.put'))();
     })
     test('should transform PUT FX transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiop.fxTransfers.putError, FspiopTransformFacade.fxTransfers.putError, expected('fxTransfers.putError'))();
+      await testCase(fspiopSources.fxTransfers.putError, FspiopTransformFacade.fxTransfers.putError, expected('fxTransfers.putError'))();
     })
   })
 });
