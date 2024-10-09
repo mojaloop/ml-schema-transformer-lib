@@ -23,9 +23,11 @@
  ******/
 
 import { TransformFacades } from 'src';
-import { GenericObject, Source } from 'src/types';
+import { GenericObject, Source, Target } from 'src/types';
 import { expectedFspiopIso20022Targets, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
+
+const PERF_THRESHOLD_MS = 2000;
 
 const expected = (prop: string) => {
   return (target: GenericObject) => {
@@ -34,34 +36,31 @@ const expected = (prop: string) => {
 }
 
 describe('Performance Test', () => {
-  const perfTest = async (transformFn: Function, source: Source) => {
-    return transformFn(source);
+  const perfTest = async (transformFn: Function, source: Source, expectedTargetFn: Function) => {
+    let target;
+
+    const startTime = Date.now();
+
+    for (let i = 0; i < 1000; i++) {
+      target = await transformFn(source);
+    }
+
+    const endTime = Date.now();
+    const runtime = endTime - startTime;
+
+    const expectedTarget = expectedTargetFn(target);
+    expect(target).toEqual(expectedTarget);
+    expect(runtime).toBeLessThan(PERF_THRESHOLD_MS);
   }
   describe('TransformFacades.FSPIOP', () => {
     describe('quotes', () => {
       it('POST /quotes performance test', async () => {
-        const source = fspiopSources.quotes.post;
-        const transformFn = TransformFacades.FSPIOP.quotes.post;
-        let target;
-
-        for (let i = 0; i < 1000; i++) {
-          target = await perfTest(transformFn, source);
-        }
-        const expectedTarget = expected('quotes.post')(target);
-        expect(target).toEqual(expectedTarget);
+        await perfTest(TransformFacades.FSPIOP.quotes.post, fspiopSources.quotes.post, expected('quotes.post'));
       });
     });
     describe('transfers', () => {
       it('POST /transfers performance test', async () => {
-        const source = fspiopSources.transfers.post;
-        const transformFn = TransformFacades.FSPIOP.transfers.post;
-        let target;
-
-        for (let i = 0; i < 1000; i++) {
-          target = await perfTest(transformFn, source);
-        }
-        const expectedTarget = expected('transfers.post')(target);
-        expect(target).toEqual(expectedTarget);
+        await perfTest(TransformFacades.FSPIOP.transfers.post, fspiopSources.transfers.post, expected('transfers.post'));
       });
     });
   });
