@@ -456,13 +456,13 @@ describe('Random tests', () => {
     const isoSource = {
       body: {
         Assgnmt: {
-          MsgId: "01J9R7Q22GXFJBEW7NQDVMHNN4",
-          CreDtTm: "2024-10-09T08:53:17.006Z",
+          MsgId: '01J9R7Q22GXFJBEW7NQDVMHNN4',
+          CreDtTm: '2024-10-09T08:53:17.006Z',
           Assgnr: {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "testingtoolkitdfsp"
+                  Id: 'testingtoolkitdfsp'
                 }
               }
             }
@@ -471,34 +471,34 @@ describe('Random tests', () => {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "testingtoolkitdfsp"
+                  Id: 'testingtoolkitdfsp'
                 }
               }
             }
           }
         },
         Rpt: {
-          OrgnlId: "MSISDN/27713803912",
+          OrgnlId: 'MSISDN/27713803912',
           Vrfctn: true,
           UpdtdPtyAndAcctId: {
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "testingtoolkitdfsp"
+                  Id: 'testingtoolkitdfsp'
                 }
               }
             },
             Acct: {
-              Ccy: "XTS"
+              Ccy: 'XTS'
             },
             Pty: {
-              Nm: "Test Party",
+              Nm: 'Test Party',
               Id: {
                 PrvtId: {
                   Othr: {
-                    Id: "27713803912",
+                    Id: '27713803912',
                     SchmeNm: {
-                      Prtry: "MSISDN"
+                      Prtry: 'MSISDN'
                     }
                   }
                 }
