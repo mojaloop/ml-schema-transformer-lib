@@ -23,7 +23,7 @@
  ******/
 
 import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
-import { DataMapper, State, TransformDefinition } from '../types/map-transform';
+import { DataMapper, State } from '../types/map-transform';
 import { createTransformer } from './createTransformer';
 
 export const transformFn = async (source: Source, options: TransformFunctionOptions): Promise<Target> => {
