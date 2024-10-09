@@ -17,34 +17,28 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
+import { CustomTransforms } from 'src/lib';
+import { Options, State } from 'src/types/map-transform';
 
-import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
-import { DataMapper, State, TransformDefinition } from '../types/map-transform';
-import { createTransformer } from './createTransformer';
-
-export const transformFn = async (source: Source, options: TransformFunctionOptions): Promise<Target> => {
-  const { mapping, mapTransformOptions, mapperOptions, logger } = options;
-  try {
-    const transformer = await createTransformer(mapping, { mapTransformOptions });
-    return transformer.transform(source, { mapperOptions });
-  } catch (error) {
-    logger.error('Error transforming payload with supplied mapping', { error, source, mapping });
-    throw error;
-  }
-};
-
-export class Transformer implements ITransformer {
-  mapper: DataMapper;
-  
-  constructor(mapper: DataMapper) {
-    this.mapper = mapper;
-  }
-
-  async transform(source: Source, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Target> {
-    return this.mapper(source, mapperOptions) as Promise<Target>;
-  }
-}
+ describe('Transforms tests', () => {
+  describe('isNotEmpty', () => {
+    test('isNotEmpty should be true', async () => {
+      const data = {
+        name: 'John Doe',
+      };
+      const state = {};
+      const result = (CustomTransforms.isNotEmpty as Function)({} as Options)()(data, state as State);
+      expect(result).toBe(true);
+    });
+    test('isNotEmpty should be false', async () => {
+      const data = {};
+      const state = {};
+      const result = (CustomTransforms.isNotEmpty as Function)({} as Options)()(data, state as State);
+      expect(result).toBe(false);
+    });
+  });
+ });

@@ -17,34 +17,31 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
-import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
-import { DataMapper, State, TransformDefinition } from '../types/map-transform';
-import { createTransformer } from './createTransformer';
+import { createTransformer } from 'src';
+import { Transformer } from 'src/lib';
+import { Options } from 'src/types/map-transform';
 
-export const transformFn = async (source: Source, options: TransformFunctionOptions): Promise<Target> => {
-  const { mapping, mapTransformOptions, mapperOptions, logger } = options;
-  try {
-    const transformer = await createTransformer(mapping, { mapTransformOptions });
-    return transformer.transform(source, { mapperOptions });
-  } catch (error) {
-    logger.error('Error transforming payload with supplied mapping', { error, source, mapping });
-    throw error;
-  }
-};
 
-export class Transformer implements ITransformer {
-  mapper: DataMapper;
-  
-  constructor(mapper: DataMapper) {
-    this.mapper = mapper;
-  }
-
-  async transform(source: Source, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Target> {
-    return this.mapper(source, mapperOptions) as Promise<Target>;
-  }
-}
+describe('createTransformer tests', () => {
+  test('should create and return a Transformer instance', async () => {
+    const jsonParseSpy = vi.spyOn(JSON, 'parse');
+    const mapping = {};
+    const transformer = await createTransformer(mapping);
+    expect(transformer).toBeDefined();
+    expect(jsonParseSpy).not.toHaveBeenCalled();
+    expect(transformer).toBeInstanceOf(Transformer);
+  });
+  test('should parse JSON string mapping and return a Transformer instance', async () => {
+    const jsonParseSpy = vi.spyOn(JSON, 'parse');
+    const mapping = '{}';
+    const transformer = await createTransformer(mapping);
+    expect(transformer).toBeDefined();
+    expect(jsonParseSpy).toHaveBeenCalledWith(mapping);
+    expect(transformer).toBeInstanceOf(Transformer);
+  });
+});

@@ -26,6 +26,8 @@ import { Source, Target, TransformFacadeFunction } from '../../../src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
 import { fspiopIso20022, fspiop, mockLogger, ilpPacket, ilpCondition } from '../../fixtures';
+import { FSPIO20022PMappings } from '../../../src/mappings'
+import { getProp, setProp } from 'src/lib/utils';
 
 const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 
@@ -95,7 +97,7 @@ const fspiopTargets = {
             originalTransactionId: "3456789"
           }
         },
-        amountType: "SEND"
+        amountType: "RECEIVE"
       }
     },
     put: {
@@ -283,8 +285,33 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
     });
   })
   describe('Quotes', () => {
-    test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-      await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post, fspiopTargets.quotes.post)();
+    describe('POST /quotes', () => {
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+        await testCase(fspiopIso20022.quotes.post, FspiopIso20022TransformFacade.quotes.post, fspiopTargets.quotes.post)();
+      });
+      test('should not apply mutation on target if override mapping is set', async () => {
+        const source = { ...fspiopIso20022.quotes.post };
+        const overrideMapping = FSPIO20022PMappings.quotes.post;
+        const target = await FspiopIso20022TransformFacade.quotes.post(source, { overrideMapping });
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBeUndefined();
+      });
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP with body.CdtTrfTxInf.ChrgBr != DEBT', async () => {
+        const source = { ...fspiopIso20022.quotes.post };
+        setProp(source, 'body.CdtTrfTxInf.ChrgBr', 'CRED');
+        const target = await FspiopIso20022TransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBe('SEND');
+      });
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP with refundInfo', async () => {
+        const source = { ...fspiopIso20022.quotes.post };
+        setProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd', 'REFD');
+        setProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', 'Refund reason');
+
+        const target = await FspiopIso20022TransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.transactionType.refundInfo.reason')).toBe('Refund reason');
+      });
     });
     test('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.quotes.put, FspiopIso20022TransformFacade.quotes.put, fspiopTargets.quotes.put)();
@@ -308,12 +335,44 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
     })
   })
   describe('FXQuotes', () => {
-    test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-      await testCase(fspiopIso20022.fxQuotes.post, FspiopIso20022TransformFacade.fxQuotes.post, fspiopTargets.fxQuotes.post)();
-    })
-    test('should transform PUT FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
-      await testCase(fspiopIso20022.fxQuotes.put, FspiopIso20022TransformFacade.fxQuotes.put, fspiopTargets.fxQuotes.put)();
-    })
+    describe('POST /fxQuotes', () => {
+      test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+        await testCase(fspiopIso20022.fxQuotes.post, FspiopIso20022TransformFacade.fxQuotes.post, fspiopTargets.fxQuotes.post)();
+      });
+      test('should not apply mutation on target if override mapping is set', async () => {
+        const source = { ...fspiopIso20022.fxQuotes.post };
+        const overrideMapping = FSPIO20022PMappings.fxQuotes.post;
+        const target = await FspiopIso20022TransformFacade.fxQuotes.post(source, { overrideMapping });
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBeUndefined();
+      });
+      test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP with body.CdtTrfTxInf.ChrgBr != DEBT', async () => {
+        const source = { ...fspiopIso20022.fxQuotes.post };
+        setProp(source, 'body.CdtTrfTxInf.ChrgBr', 'CRED');
+        const target = await FspiopIso20022TransformFacade.fxQuotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBe('SEND');
+      });
+    });
+    describe('PUT /fxQuotes', () => {
+      test('should transform PUT FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
+        await testCase(fspiopIso20022.fxQuotes.put, FspiopIso20022TransformFacade.fxQuotes.put, fspiopTargets.fxQuotes.put)();
+      })
+      test('should not apply mutation on target if override mapping is set', async () => {
+        const source = { ...fspiopIso20022.fxQuotes.put };
+        const overrideMapping = FSPIO20022PMappings.fxQuotes.put;
+        const target = await FspiopIso20022TransformFacade.fxQuotes.put(source, { overrideMapping });
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBeUndefined();
+      });
+      test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP with body.CdtTrfTxInf.ChrgBr != DEBT', async () => {
+        const source = { ...fspiopIso20022.fxQuotes.put };
+        setProp(source, 'body.CdtTrfTxInf.ChrgBr', 'CRED');
+        const target = await FspiopIso20022TransformFacade.fxQuotes.put(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.amountType')).toBe('SEND');
+      });
+    });
     test('should transform PUT FX quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError, fspiopTargets.fxQuotes.putError)();
     })

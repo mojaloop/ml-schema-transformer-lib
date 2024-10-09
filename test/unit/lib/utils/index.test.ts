@@ -44,6 +44,11 @@ describe('Utils tests', () => {
       expect(id).toBeDefined();
       expect(id.length).toBe(26);
     })
+    it('should generate a unique ulid ID with an unknown type', () => {
+      const id = generateID('unknown' as ID_GENERATOR_TYPE);
+      expect(id).toBeDefined();
+      expect(id.length).toBe(26);
+    });
   });
   describe('isPersonPartyIdType', () => {
     it('should return true for a person party ID type', () => {
@@ -131,7 +136,7 @@ describe('Utils tests', () => {
   });
   describe('toFspiopTransferState', () => {
     it('should return undefined if state is falsy', () => {
-      const state = toIsoTransferState(null as any);
+      const state = toFspiopTransferState(null as any);
       expect(state).toBe(undefined);
     });
     it('should convert ISO 20022 transfer state to an FSPIOP state', () => {

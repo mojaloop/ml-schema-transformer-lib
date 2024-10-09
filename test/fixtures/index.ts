@@ -602,7 +602,7 @@ export const fspiopIso20022 = {
               }
             }
           },
-          ChrgBr: 'SEND',
+          ChrgBr: 'DEBT',
           IntrBkSttlmAmt: {
             ChrgsInf: {
               Amt: {
