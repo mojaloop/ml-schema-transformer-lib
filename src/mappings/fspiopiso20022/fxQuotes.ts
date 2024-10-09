@@ -65,7 +65,7 @@ export const fxQuotes_reverse = {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
-    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": 1 },
+    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.CdtTrfTxInf.PmtId.TxId": "body.convertionRequestId",

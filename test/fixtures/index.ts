@@ -633,7 +633,7 @@ export const fspiopIso20022 = {
         GrpHdr: {
           MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
           CreDtTm: '2024-10-07T10:58:50.450Z',
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
           SttlmInf: {
             SttlmMtd: 'CLRG'
@@ -682,7 +682,7 @@ export const fspiopIso20022 = {
         GrpHdr: {
           MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
           CreDtTm: '2024-10-07T10:58:50.450Z',
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: 'CLRG'
           }
@@ -784,7 +784,7 @@ export const fspiopIso20022 = {
         GrpHdr: {
           MsgId: '01J9KAN53RBRYEE3THRVPMS0BQ',
           CreDtTm: '2024-10-07T11:08:28.154Z',
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: 'CLRG'
           },
@@ -869,7 +869,7 @@ export const fspiopIso20022 = {
         GrpHdr: {
           MsgId: '01J9KATBS4MGZ35JFV04XY7APA',
           CreDtTm: '2024-10-07T11:11:18.821Z',
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: 'CLRG'
           },

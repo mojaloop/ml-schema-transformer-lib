@@ -10,6 +10,8 @@
 // import { CustomTransforms, createTransformer } from 'src/lib';
 // import { State } from 'src/types/map-transform';
 
+import { TransformFacades } from '../../src';
+
 
 describe('Random tests', () => {
   it('dummy trst', async () => {
@@ -424,7 +426,7 @@ describe('Random tests', () => {
   // });
 
   // it.skip('should ... test map to multiple fields with transform on the second', async () => {    
-    
+
   //   vi.stubEnv('ILP_SECRET', 'shh');
   //   vi.stubEnv('ILP_VERSION', 'v1');
 
@@ -449,4 +451,65 @@ describe('Random tests', () => {
   //   const schemaAtarget = await transformer.transform(schemaBsource, { });
   //   expect(schemaAtarget).toBeTruthy();
   // });
+
+  it.skip('test put parties iso to fspiop', async () => {
+    const isoSource = {
+      body: {
+        Assgnmt: {
+          MsgId: "01J9R7Q22GXFJBEW7NQDVMHNN4",
+          CreDtTm: "2024-10-09T08:53:17.006Z",
+          Assgnr: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "testingtoolkitdfsp"
+                }
+              }
+            }
+          },
+          Assgne: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "testingtoolkitdfsp"
+                }
+              }
+            }
+          }
+        },
+        Rpt: {
+          OrgnlId: "MSISDN/27713803912",
+          Vrfctn: true,
+          UpdtdPtyAndAcctId: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: "testingtoolkitdfsp"
+                }
+              }
+            },
+            Acct: {
+              Ccy: "XTS"
+            },
+            Pty: {
+              Nm: "Test Party",
+              Id: {
+                PrvtId: {
+                  Othr: {
+                    Id: "27713803912",
+                    SchmeNm: {
+                      Prtry: "MSISDN"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    const target = await TransformFacades.FSPIOPISO20022.parties.put(isoSource);
+    expect(target).toBeTruthy();
+  });
 });

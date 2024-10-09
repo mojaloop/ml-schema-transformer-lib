@@ -28,12 +28,17 @@ const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-e
 import { logger } from '../../lib';
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
-/**
- * Generate a unique ID
- * @param idGenType ID generator type
- * @param config Configuration object
- * @returns Unique ID
- */
+// improve: use enums from cs-shared
+// @todo: confirm if we have captured all possible states, and should we throw errors if unknown states are encountered
+const fspiopToIsoTransferStateMap: GenericObject = {
+  COMMITTED: 'COMM',
+  RESERVED: 'RESV',
+  RECEIVED: 'RECV',
+  ABORTED: 'ABOR',
+  SETTLED: 'SETT'
+}
+
+// Generate a unique ID
 export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}): string => {
   switch (idGenType) {
     case ID_GENERATOR_TYPE.ulid:
@@ -69,7 +74,7 @@ export const setProp = (obj: unknown, path: string, value: unknown) => {
   current[pathParts[pathParts.length - 1] as string] = value;
 }
 
-// Get nested property in an object
+// Get nested property from an object
 export function getProp(obj: unknown, path: string): unknown {
   const pathParts = path.split('.');
   let current = obj;
@@ -109,45 +114,18 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
 }
 
 // Covnerts FSPIOP transfer state to FSPIOP ISO20022 transfer state
-// improve: use enums from cs-shared
-// @todo: confirm if we have captured all possible states, and should we throw errors if unknown states are encountered
 export const toIsoTransferState = (fspiopState: string): string | undefined => {
   if (!fspiopState) return undefined;
-
-  switch (fspiopState) {
-    case 'COMMITTED':
-      return 'COMM';
-    case 'RESERVED':
-      return 'RESV';
-    case 'RECEIVED':
-      return 'RECV';
-    case 'ABORTED':
-      return 'ABOR';
-    case 'SETTLED':
-      return 'SETT';
-    default:
-      throw new Error(`toIsoTransferState: Unknown FSPIOP transfer state: ${fspiopState}`);
-  }
+  const isoState = fspiopToIsoTransferStateMap[fspiopState] as string;
+  if (!isoState) throw new Error(`toIsoTransferState: Unknown FSPIOP transfer state: ${fspiopState}`);
+  return isoState;
 }
 
 // Converts FSPIOP ISO20022 transfer state to FSPIOP transfer state
-// improve: use enums from cs-shared
-// @todo: confir if we have captured all possible states, and should we throw errors if unknown states are encountered
 export const toFspiopTransferState = (isoState: string): string | undefined => {
   if (!isoState) return undefined;
-
-  switch (isoState) {
-    case 'COMM':
-      return 'COMMITTED';
-    case 'RESV':
-      return 'RESERVED';
-    case 'RECV':
-      return 'RECEIVED';
-    case 'ABOR':
-      return 'ABORTED';
-    case 'SETT':
-      return 'SETTLED';
-    default:
-      throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
+  for (const [key, value] of Object.entries(fspiopToIsoTransferStateMap)) {
+    if (value === isoState) return key;
   }
+  throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
 }

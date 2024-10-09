@@ -129,7 +129,7 @@ const isoTargets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           PmtInstrXpryDtTm: "2020-01-01T00:00:00Z",
           SttlmInf: {
             SttlmMtd: "CLRG"
@@ -203,7 +203,7 @@ const isoTargets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
           SttlmInf: {
             SttlmMtd: "CLRG"
@@ -251,7 +251,7 @@ const isoTargets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: "CLRG"
           },
@@ -336,7 +336,7 @@ const isoTargets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: "CLRG"
           }
@@ -438,7 +438,7 @@ const isoTargets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: 1,
+          NbOfTxs: "1",
           SttlmInf: {
             SttlmMtd: "CLRG"
           },

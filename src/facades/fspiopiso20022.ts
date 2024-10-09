@@ -67,7 +67,7 @@ export const FspiopIso20022TransformFacade = {
        * We do not apply these mutations if there is mapping override.
        */
       if (options.overrideMapping) return target;
-      
+
       // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
@@ -89,52 +89,6 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes.putError
-      }),
-  },
-  fxQuotes: {
-    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
-      const target = await transformFn(source, {
-        ...options,
-        logger: log,
-        mapping: options.overrideMapping || fxQuotes.post
-      });
-
-      /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
-       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
-       * We do not apply these mutations if there is mapping override.
-       */
-      if (options.overrideMapping) return target;
-      
-      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
-      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
-
-      return target;
-    },
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
-      const target = await transformFn(source, {
-        ...options,
-        logger: log,
-        mapping: options.overrideMapping || fxQuotes.put
-      });
-
-      /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
-       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
-       * We do not apply these mutations if there is mapping override.
-       */
-      if (options.overrideMapping) return target;
-      
-      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
-      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
-
-      return target;
-    },
-    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
-      transformFn(source, {
-        ...options,
-        logger: log,
-        mapping: options.overrideMapping || fxQuotes.putError
       }),
   },
   transfers: {
@@ -161,6 +115,52 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers.putError
+      }),
+  },
+  fxQuotes: {
+    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+      const target = await transformFn(source, {
+        ...options,
+        logger: log,
+        mapping: options.overrideMapping || fxQuotes.post
+      });
+
+      /**
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
+       * We do not apply these mutations if there is mapping override.
+       */
+      if (options.overrideMapping) return target;
+
+      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
+      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+
+      return target;
+    },
+    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+      const target = await transformFn(source, {
+        ...options,
+        logger: log,
+        mapping: options.overrideMapping || fxQuotes.put
+      });
+
+      /**
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
+       * We do not apply these mutations if there is mapping override.
+       */
+      if (options.overrideMapping) return target;
+
+      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
+      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+
+      return target;
+    },
+    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      transformFn(source, {
+        ...options,
+        logger: log,
+        mapping: options.overrideMapping || fxQuotes.putError
       }),
   },
   fxTransfers: {

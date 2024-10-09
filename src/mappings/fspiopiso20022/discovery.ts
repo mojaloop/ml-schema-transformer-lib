@@ -49,7 +49,7 @@ export const discovery = {
 }
 
 // FSPIOP to FSPIOP ISO220022 mappings
-// A reverse mapping (with all contant mappings removed) is needed in this case to overcome a bug in map-transform
+// A reverse mapping (with all constant mappings removed) is needed in this case to overcome a bug in map-transform
 // where reverse transform on constant values is not working as expected.
 
 export const discovery_reverse = {
