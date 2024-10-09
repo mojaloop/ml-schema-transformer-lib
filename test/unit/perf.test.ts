@@ -38,19 +38,17 @@ const expected = (prop: string) => {
 describe('Performance Test', () => {
   const perfTest = async (transformFn: TransformFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
     let target;
+    const startTime = performance.now();
 
-    const startTime = Date.now();
+    for (let i = 0; i < 1000; i++) target = await transformFn(source, {});
 
-    for (let i = 0; i < 1000; i++) {
-      target = await transformFn(source, {});
-    }
-
-    const endTime = Date.now();
+    const endTime = performance.now();
     const runtime = endTime - startTime;
-
     const expectedTarget = expectedTargetFn(target as GenericObject);
     expect(target).toEqual(expectedTarget);
     expect(runtime).toBeLessThan(PERF_THRESHOLD_MS);
+    /* eslint-disable no-console */
+    console.log(`Runtime: ${runtime}ms`);
   };
   describe('TransformFacades.FSPIOP', () => {
     describe('quotes', () => {
