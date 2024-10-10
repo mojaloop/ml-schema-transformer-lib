@@ -109,7 +109,7 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",
     "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount": "body.payeeReceiveAmount.amount",
     "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
-    "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFsFee.amount",
+    "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
   }`,
   putError: `{
