@@ -1,23 +1,24 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./dist",
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
-    "lib": ["esNext"],
-    "target": "esNext",
-    "module": "nodeNext",
-    "moduleResolution": "nodeNext",
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "types": ["vitest/globals", "node"]
   },
-  "include": ["./src"],
+  "include": ["./src", "./test"],
   "exclude": ["node_modules"]
 }

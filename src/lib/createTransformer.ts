@@ -17,13 +17,21 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
-
+ 
+ * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
+/* eslint-disable  @typescript-eslint/no-require-imports */
+const mapTransform = require('map-transform-cjs').default;
+import { TransformDefinition } from '../types/map-transform';
+import { CreateTransformerOptions, ITransformer } from '../types';
+import { Transformer } from './transformer';
+import { CustomTransforms } from './transforms';
 
-describe ('Integration Tests -->', () => {
-  test('dummy test', () => {
-    expect(true).toBe(true);
-  });
-});
+export const createTransformer = async (mapping: TransformDefinition, options: CreateTransformerOptions = {}): Promise<ITransformer> => {
+  const { mapTransformOptions } = options;
+  const mergedOptions = { ...mapTransformOptions, transformers: { ...mapTransformOptions?.transformers, ...CustomTransforms } };
+  mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
+  return new Transformer(mapTransform(mapping, mergedOptions));
+};
