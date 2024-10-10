@@ -100,12 +100,12 @@ export const getDescrFromErrCode = (code: string | number): string => {
 // Get the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // improve: These envs should be passable via a config/options
-  const ilpSecret = process.env.MLST_ILP_SECRET;
+  const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret'; // @todo: remove env ref after ilpFactory is updated to not require secret
   const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
-  if (!ilpSecret) {
-    throw new Error('getIlpPacketCondition: ILP_SECRET environment variables must be set');
-  }
+  // if (!ilpSecret) {
+  //   throw new Error('getIlpPacketCondition: MLST_ILP_SECRET environment variables must be set');
+  // }
 
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
