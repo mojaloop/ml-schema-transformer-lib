@@ -909,22 +909,22 @@ export const fspiopIso20022Sources = {
     post: {
       body: {
         GrpHdr: {
-          MsgId: "01J9TYRCYTN8WAKCN3EMAY1BAD",
-          CreDtTm: "2024-10-10T10:14:27.034Z",
-          NbOfTxs: "1",
+          MsgId: '01J9TYRCYTN8WAKCN3EMAY1BAD',
+          CreDtTm: '2024-10-10T10:14:27.034Z',
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           PmtId: {
-            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -933,7 +933,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -941,7 +941,7 @@ export const fspiopIso20022Sources = {
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -949,7 +949,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -957,27 +957,27 @@ export const fspiopIso20022Sources = {
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -986,19 +986,19 @@ export const fspiopIso20022Sources = {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
             },
             PmtId: {
-              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -1007,7 +1007,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -1015,7 +1015,7 @@ export const fspiopIso20022Sources = {
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -1023,7 +1023,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -1031,27 +1031,27 @@ export const fspiopIso20022Sources = {
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -1075,24 +1075,24 @@ export const fspiopIso20022Sources = {
     post: {
       body: {
         GrpHdr: {
-          MsgId: "01J9TXTGDH2BYTYD2DA74X0R9F",
-          CreDtTm: "2024-10-10T09:58:07.538Z",
-          NbOfTxs: "1",
+          MsgId: '01J9TXTGDH2BYTYD2DA74X0R9F',
+          CreDtTm: '2024-10-10T09:58:07.538Z',
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
-          ChrgBr: "SLEV",
+          ChrgBr: 'SLEV',
           Cdtr: {
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "payeefsp"
+                  Id: 'payeefsp'
                 }
               }
             }
@@ -1101,7 +1101,7 @@ export const fspiopIso20022Sources = {
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "payerfsp"
+                  Id: 'payerfsp'
                 }
               }
             }
@@ -1109,23 +1109,23 @@ export const fspiopIso20022Sources = {
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payeefsp"
+                Id: 'payeefsp'
               }
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payerfsp"
+                Id: 'payerfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXX",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'XXX',
+            ActiveCurrencyAndAmount: '123.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: "DIIDSgAAAAAAAMNQMjAxNzExMTUyMzE3Mjg5ODVPqz_E707Be6heJ0uDF-up-UEj013dNAKkU1Xy0buXqQpnLm1vamFsb29wggMDZXlKeGRXOTBaVWxrSWpvaU1qQTFNRGd4T0RZdE1UUTFPQzAwWVdNd0xXRTRNalF0WkRSaU1EZGxNemRrTjJJeklpd2lkSEpoYm5OaFkzUnBiMjVKWkNJNklqSXdOVEE0TVRnMkxURTBOVGd0TkdGak1DMWhPREkwTFdRMFlqQTNaVE0zWkRkaU15SXNJblJ5WVc1ellXTjBhVzl1Vkhsd1pTSTZleUp6WTJWdVlYSnBieUk2SWxSU1FVNVRSa1ZTSWl3aWFXNXBkR2xoZEc5eUlqb2lVRUZaUlZJaUxDSnBibWwwYVdGMGIzSlVlWEJsSWpvaVEwOU9VMVZOUlZJaUxDSmlZV3hoYm1ObFQyWlFZWGx0Wlc1MGN5STZJakV4TUNKOUxDSndZWGxsWlNJNmV5SndZWEowZVVsa1NXNW1ieUk2ZXlKd1lYSjBlVWxrVkhsd1pTSTZJazFUU1ZORVRpSXNJbkJoY25SNVNXUmxiblJwWm1sbGNpSTZJakV5TXpRMU5qYzRPU0lzSW1aemNFbGtJam9pVFc5aWFXeGxUVzl1WlhraWZYMHNJbkJoZVdWeUlqcDdJbkJsY25OdmJtRnNTVzVtYnlJNmV5SmpiMjF3YkdWNFRtRnRaU0k2ZXlKbWFYSnpkRTVoYldVaU9pSk5ZWFJ6SWl3aWJHRnpkRTVoYldVaU9pSklZV2R0WVc0aWZYMHNJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pT1RnM05qVTBNeUlzSW1aemNFbGtJam9pUW1GdWEwNXlUMjVsSW4xOUxDSmxlSEJwY21GMGFXOXVJam9pTWpBeE55MHhNUzB4TlZReU1qb3hOem95T0M0NU9EVXRNREU2TURBaUxDSmhiVzkxYm5RaU9uc2lZVzF2ZFc1MElqb2lOVEF3SWl3aVkzVnljbVZ1WTNraU9pSlZVMFFpZlgw"
+            IlpV4PrepPacket: 'DIIDSgAAAAAAAMNQMjAxNzExMTUyMzE3Mjg5ODVPqz_E707Be6heJ0uDF-up-UEj013dNAKkU1Xy0buXqQpnLm1vamFsb29wggMDZXlKeGRXOTBaVWxrSWpvaU1qQTFNRGd4T0RZdE1UUTFPQzAwWVdNd0xXRTRNalF0WkRSaU1EZGxNemRrTjJJeklpd2lkSEpoYm5OaFkzUnBiMjVKWkNJNklqSXdOVEE0TVRnMkxURTBOVGd0TkdGak1DMWhPREkwTFdRMFlqQTNaVE0zWkRkaU15SXNJblJ5WVc1ellXTjBhVzl1Vkhsd1pTSTZleUp6WTJWdVlYSnBieUk2SWxSU1FVNVRSa1ZTSWl3aWFXNXBkR2xoZEc5eUlqb2lVRUZaUlZJaUxDSnBibWwwYVdGMGIzSlVlWEJsSWpvaVEwOU9VMVZOUlZJaUxDSmlZV3hoYm1ObFQyWlFZWGx0Wlc1MGN5STZJakV4TUNKOUxDSndZWGxsWlNJNmV5SndZWEowZVVsa1NXNW1ieUk2ZXlKd1lYSjBlVWxrVkhsd1pTSTZJazFUU1ZORVRpSXNJbkJoY25SNVNXUmxiblJwWm1sbGNpSTZJakV5TXpRMU5qYzRPU0lzSW1aemNFbGtJam9pVFc5aWFXeGxUVzl1WlhraWZYMHNJbkJoZVdWeUlqcDdJbkJsY25OdmJtRnNTVzVtYnlJNmV5SmpiMjF3YkdWNFRtRnRaU0k2ZXlKbWFYSnpkRTVoYldVaU9pSk5ZWFJ6SWl3aWJHRnpkRTVoYldVaU9pSklZV2R0WVc0aWZYMHNJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pT1RnM05qVTBNeUlzSW1aemNFbGtJam9pUW1GdWEwNXlUMjVsSW4xOUxDSmxlSEJwY21GMGFXOXVJam9pTWpBeE55MHhNUzB4TlZReU1qb3hOem95T0M0NU9EVXRNREU2TURBaUxDSmhiVzkxYm5RaU9uc2lZVzF2ZFc1MElqb2lOVEF3SWl3aVkzVnljbVZ1WTNraU9pSlZVMFFpZlgw'
           }
         }
       }
@@ -1179,23 +1179,23 @@ export const fspiopIso20022Sources = {
     post: {
       body: {
         GrpHdr: {
-          MsgId: "01J9TYG0AXZNJXXF5CCH4NDDKK",
-          CreDtTm: "2024-10-10T10:09:51.965Z",
-          NbOfTxs: "1",
+          MsgId: '01J9TYG0AXZNJXXF5CCH4NDDKK',
+          CreDtTm: '2024-10-10T10:09:51.965Z',
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -1204,7 +1204,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -1212,7 +1212,7 @@ export const fspiopIso20022Sources = {
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -1220,7 +1220,7 @@ export const fspiopIso20022Sources = {
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -1228,29 +1228,29 @@ export const fspiopIso20022Sources = {
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "234.45"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
             }
           }
         }
@@ -1524,22 +1524,22 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
-          ChrgBr: "SLEV",
+          ChrgBr: 'SLEV',
           Cdtr: {
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "payeefsp"
+                  Id: 'payeefsp'
                 }
               }
             }
@@ -1548,7 +1548,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "payerfsp"
+                  Id: 'payerfsp'
                 }
               }
             }
@@ -1556,23 +1556,23 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payeefsp"
+                Id: 'payeefsp'
               }
             }
           },
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "payerfsp"
+                Id: 'payerfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXX",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'XXX',
+            ActiveCurrencyAndAmount: '123.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: "DIIDSgAAAAAAAMNQMjAxNzExMTUyMzE3Mjg5ODVPqz_E707Be6heJ0uDF-up-UEj013dNAKkU1Xy0buXqQpnLm1vamFsb29wggMDZXlKeGRXOTBaVWxrSWpvaU1qQTFNRGd4T0RZdE1UUTFPQzAwWVdNd0xXRTRNalF0WkRSaU1EZGxNemRrTjJJeklpd2lkSEpoYm5OaFkzUnBiMjVKWkNJNklqSXdOVEE0TVRnMkxURTBOVGd0TkdGak1DMWhPREkwTFdRMFlqQTNaVE0zWkRkaU15SXNJblJ5WVc1ellXTjBhVzl1Vkhsd1pTSTZleUp6WTJWdVlYSnBieUk2SWxSU1FVNVRSa1ZTSWl3aWFXNXBkR2xoZEc5eUlqb2lVRUZaUlZJaUxDSnBibWwwYVdGMGIzSlVlWEJsSWpvaVEwOU9VMVZOUlZJaUxDSmlZV3hoYm1ObFQyWlFZWGx0Wlc1MGN5STZJakV4TUNKOUxDSndZWGxsWlNJNmV5SndZWEowZVVsa1NXNW1ieUk2ZXlKd1lYSjBlVWxrVkhsd1pTSTZJazFUU1ZORVRpSXNJbkJoY25SNVNXUmxiblJwWm1sbGNpSTZJakV5TXpRMU5qYzRPU0lzSW1aemNFbGtJam9pVFc5aWFXeGxUVzl1WlhraWZYMHNJbkJoZVdWeUlqcDdJbkJsY25OdmJtRnNTVzVtYnlJNmV5SmpiMjF3YkdWNFRtRnRaU0k2ZXlKbWFYSnpkRTVoYldVaU9pSk5ZWFJ6SWl3aWJHRnpkRTVoYldVaU9pSklZV2R0WVc0aWZYMHNJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pT1RnM05qVTBNeUlzSW1aemNFbGtJam9pUW1GdWEwNXlUMjVsSW4xOUxDSmxlSEJwY21GMGFXOXVJam9pTWpBeE55MHhNUzB4TlZReU1qb3hOem95T0M0NU9EVXRNREU2TURBaUxDSmhiVzkxYm5RaU9uc2lZVzF2ZFc1MElqb2lOVEF3SWl3aVkzVnljbVZ1WTNraU9pSlZVMFFpZlgw"
+            IlpV4PrepPacket: 'DIIDSgAAAAAAAMNQMjAxNzExMTUyMzE3Mjg5ODVPqz_E707Be6heJ0uDF-up-UEj013dNAKkU1Xy0buXqQpnLm1vamFsb29wggMDZXlKeGRXOTBaVWxrSWpvaU1qQTFNRGd4T0RZdE1UUTFPQzAwWVdNd0xXRTRNalF0WkRSaU1EZGxNemRrTjJJeklpd2lkSEpoYm5OaFkzUnBiMjVKWkNJNklqSXdOVEE0TVRnMkxURTBOVGd0TkdGak1DMWhPREkwTFdRMFlqQTNaVE0zWkRkaU15SXNJblJ5WVc1ellXTjBhVzl1Vkhsd1pTSTZleUp6WTJWdVlYSnBieUk2SWxSU1FVNVRSa1ZTSWl3aWFXNXBkR2xoZEc5eUlqb2lVRUZaUlZJaUxDSnBibWwwYVdGMGIzSlVlWEJsSWpvaVEwOU9VMVZOUlZJaUxDSmlZV3hoYm1ObFQyWlFZWGx0Wlc1MGN5STZJakV4TUNKOUxDSndZWGxsWlNJNmV5SndZWEowZVVsa1NXNW1ieUk2ZXlKd1lYSjBlVWxrVkhsd1pTSTZJazFUU1ZORVRpSXNJbkJoY25SNVNXUmxiblJwWm1sbGNpSTZJakV5TXpRMU5qYzRPU0lzSW1aemNFbGtJam9pVFc5aWFXeGxUVzl1WlhraWZYMHNJbkJoZVdWeUlqcDdJbkJsY25OdmJtRnNTVzVtYnlJNmV5SmpiMjF3YkdWNFRtRnRaU0k2ZXlKbWFYSnpkRTVoYldVaU9pSk5ZWFJ6SWl3aWJHRnpkRTVoYldVaU9pSklZV2R0WVc0aWZYMHNJbkJoY25SNVNXUkpibVp2SWpwN0luQmhjblI1U1dSVWVYQmxJam9pVFZOSlUwUk9JaXdpY0dGeWRIbEpaR1Z1ZEdsbWFXVnlJam9pT1RnM05qVTBNeUlzSW1aemNFbGtJam9pUW1GdWEwNXlUMjVsSW4xOUxDSmxlSEJwY21GMGFXOXVJam9pTWpBeE55MHhNUzB4TlZReU1qb3hOem95T0M0NU9EVXRNREU2TURBaUxDSmhiVzkxYm5RaU9uc2lZVzF2ZFc1MElqb2lOVEF3SWl3aVkzVnljbVZ1WTNraU9pSlZVMFFpZlgw'
           }
         }
       }
@@ -1628,20 +1628,20 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
           PmtId: {
-            InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -1650,7 +1650,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -1658,7 +1658,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -1666,7 +1666,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -1674,27 +1674,27 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -1703,19 +1703,19 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         CdtTrfTxInf: {
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1"
+              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
             },
             PmtId: {
-              InstrId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -1724,7 +1724,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -1732,7 +1732,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -1740,7 +1740,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -1748,27 +1748,27 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "23.55"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '23.55'
           },
-          ChrgBr: "DEBT"
+          ChrgBr: 'DEBT'
         }
       }
     },
@@ -1794,21 +1794,21 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
+          NbOfTxs: '1',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           },
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00"
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
         },
         CdtTrfTxInf: {
           PmtId: {
-            TxId: "b51ec534-ee48-4575-b6a9-ead2955b8069",
-            EndToEndId: "b51ec534-ee48-4575-b6a9-ead2955b8069"
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
               Othr: {
-                Id: "initfsp"
+                Id: 'initfsp'
               }
             }
           },
@@ -1817,7 +1817,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "initfsp"
+                    Prtry: 'initfsp'
                   }
                 }
               }
@@ -1825,7 +1825,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             DbtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "initfsp"
+                  Id: 'initfsp'
                 }
               }
             },
@@ -1833,7 +1833,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               OrgId: {
                 Othr: {
                   Id: {
-                    Prtry: "counterfsp"
+                    Prtry: 'counterfsp'
                   }
                 }
               }
@@ -1841,29 +1841,29 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             CdtrAgt: {
               FinInstnId: {
                 Othr: {
-                  Id: "counterfsp"
+                  Id: 'counterfsp'
                 }
               }
             },
             InstdAmt: {
-              Ccy: "XXX",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'XXX',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           Cdtr: {
             FinInstnId: {
               Othr: {
-                Id: "counterfsp"
+                Id: 'counterfsp'
               }
             }
           },
           IntrBkSttlmAmt: {
-            Ccy: "XXY",
-            ActiveOrHistoricCurrencyAndAmount: "234.45"
+            Ccy: 'XXY',
+            ActiveOrHistoricCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
-              condition: "re58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz"
+              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
             }
           }
         }
