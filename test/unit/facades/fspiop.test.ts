@@ -50,6 +50,7 @@ describe('FSPIOPTransformFacade tests', () => {
       }
     };
   }
+
   describe('configure', () => {
     test('should configure logger', async () => {
       const logger = mockLogger;
@@ -61,7 +62,8 @@ describe('FSPIOPTransformFacade tests', () => {
       await expect(promise).rejects.toThrow();
       expect(logger.error).toBeCalled();
     });
-  })
+  });
+
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.parties.put, FspiopTransformFacade.parties.put, expected('parties.put'))();
@@ -69,7 +71,8 @@ describe('FSPIOPTransformFacade tests', () => {
     test('should transform PUT parties error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
     });
-  })
+  });
+
   describe('Quotes', () => {
     describe('POST /quotes', () => {
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
@@ -105,7 +108,8 @@ describe('FSPIOPTransformFacade tests', () => {
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
     });
-  })
+  });
+
   describe('Transfers', () => {
     test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
@@ -119,7 +123,8 @@ describe('FSPIOPTransformFacade tests', () => {
     test('should transform PUT transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.transfers.putError, FspiopTransformFacade.transfers.putError, expected('transfers.putError'))();
     })
-  })
+  });
+
   describe('FXQuotes', () => {
     describe('POST /fxQuotes', () => {
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
@@ -140,6 +145,7 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
       });
     });
+
     describe('PUT /fxQuotes', () => {
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
@@ -159,22 +165,24 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
       });
     });
+
     test('should transform PUT FX quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
-    })
-  })
+    });
+  });
+
   describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
-    })
+    });
     test('should transform PATCH FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.patch, FspiopTransformFacade.fxTransfers.patch, expected('fxTransfers.patch'))();
-    })
+    });
     test('should transform PUT FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.put, FspiopTransformFacade.fxTransfers.put, expected('fxTransfers.put'))();
-    })
+    });
     test('should transform PUT FX transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.putError, FspiopTransformFacade.fxTransfers.putError, expected('fxTransfers.putError'))();
-    })
-  })
+    });
+  });
 });

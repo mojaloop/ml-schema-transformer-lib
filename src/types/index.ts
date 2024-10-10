@@ -62,7 +62,6 @@ export type FspiopTarget = Pick<Target, 'body'>;
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;
 
-// Temp type def for types that need more concrete type def when/if possible
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type GenericObject =  Record<string, any>;
 

@@ -50,7 +50,8 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
   }
 }
 
-export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);  // improve: import enums from cs-shared
+// improve: import enums from cs-shared
+export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType); 
 
 export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
@@ -63,14 +64,11 @@ export const setProp = (obj: unknown, path: string, value: unknown) => {
 
   for (let i = 0; i < pathParts.length - 1; i++) {
     const part = pathParts[i] as string;
-
     if (!current[part]) {
       current[part] = {};
     }
-
     current = current[part];
   }
-
   current[pathParts[pathParts.length - 1] as string] = value;
 }
 
@@ -91,7 +89,7 @@ export function getProp(obj: unknown, path: string): unknown {
 }
 
 // Will throw if code is not found
-// @todo should this error be caught and handled? e.g return a default message 'Unknown error'
+// improve: should this error be caught and handled? e.g return a default message 'Unknown error'
 export const getDescrFromErrCode = (code: string | number): string => {
   const errorCode = Number.parseInt(code as string);
   return CreateFSPIOPErrorFromErrorCode(errorCode)?.apiErrorCode?.type?.description;
@@ -100,20 +98,17 @@ export const getDescrFromErrCode = (code: string | number): string => {
 // Get the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // improve: These envs should be passable via a config/options
-  const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret'; // @todo: remove env ref after ilpFactory is updated to not require secret
+  // @todo: remove env ref after ilpFactory is updated to not require secret
+  const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret';
   const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
-
-  // if (!ilpSecret) {
-  //   throw new Error('getIlpPacketCondition: MLST_ILP_SECRET environment variables must be set');
-  // }
 
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
-  // @todo: confirm if this is the correct way to get condition from packet
+
   return decoded?.executionCondition?.toString('base64');
 }
 
-// Covnerts FSPIOP transfer state to FSPIOP ISO20022 transfer state
+// Converts FSPIOP transfer state to FSPIOP ISO20022 transfer state
 export const toIsoTransferState = (fspiopState: string): string | undefined => {
   if (!fspiopState) return undefined;
   const isoState = fspiopToIsoTransferStateMap[fspiopState] as string;
