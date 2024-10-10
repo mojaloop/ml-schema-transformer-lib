@@ -38,7 +38,7 @@
     "docs": "typedoc",
     "test": "npm run test:unit",
     "test:unit": "vitest run test/unit/",
-    "test:xunit": "npm run test:unit -- --reporter=junit --outputFile=./test/reports/xunit.xml",
+    "test:xunit": "npm run test:unit -- --reporter=junit --outputFile=./test/results/xunit.xml",
     "test:coverage": "npm run test:unit -- --coverage",
     "test:coverage-check": "npm run test:unit -- --coverage",
     "warn-pre-commit": "echo \"pre commit tasks running. build and test\"",
