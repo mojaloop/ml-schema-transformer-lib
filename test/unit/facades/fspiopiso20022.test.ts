@@ -22,11 +22,11 @@
  --------------
  ******/
 
-import { Source, Target, TransformFacadeFunction } from '../../../src/types';
+import { IsoSource, IsoTransformFacadeFunction, Target } from '../../../src/types';
 import { TransformFacades } from '../../../src';
 import * as createTransformerLib from '../../../src/lib/createTransformer';
-import { fspiopIso20022Sources, fspiopSources, mockLogger, ilpPacket, ilpCondition, expectedFspiopTargets } from '../../fixtures';
-import { FSPIO20022PMappings } from '../../../src/mappings'
+import { fspiopIso20022Sources, mockLogger, expectedFspiopTargets } from '../../fixtures';
+import { FSPIO20022PMappings } from '../../../src/mappings';
 import { getProp, setProp } from 'src/lib/utils';
 
 const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
@@ -34,7 +34,7 @@ const { FSPIOPISO20022: FspiopIso20022TransformFacade } = TransformFacades;
 const fspiopTargets = expectedFspiopTargets;
 
 describe('FSPIOPISO20022TransformFacade tests', () => {
-  const testCase = (source: Source, transformerFn: TransformFacadeFunction, expectedTarget: Target | null = null) => {
+  const testCase = (source: IsoSource, transformerFn: IsoTransformFacadeFunction, expectedTarget: Partial<Target> | null = null) => {
     return async () => {
       const target = await transformerFn(source, {});
       expect(target).toHaveProperty('body');

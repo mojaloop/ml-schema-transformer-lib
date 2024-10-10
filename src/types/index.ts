@@ -26,11 +26,12 @@ import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogg
 import { AsyncTransformer, Options, State, TransformDefinition, Transformer } from './map-transform';
 
 export interface ITransformer {
-  transform(source: Source, { mapperOptions }: { mapperOptions?: State }): Promise<Target>;
+  transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State }): Promise<Partial<Target>>;
 }
 
 export type TransformFacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
-export type TransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<Target>;
+export type FspiopTransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<IsoTarget>;
+export type IsoTransformFacadeFunction = (source: IsoSource, options: TransformFacadeOptions) => Promise<Partial<Target>>;
 export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
 
@@ -54,6 +55,12 @@ export type Target = {
   headers?: GenericObject;
   params?: GenericObject;
 };
+
+export type FspiopSource = Pick<Source, 'body'>;
+export type FspiopTarget = Pick<Target, 'body'>;
+
+export type IsoSource = Pick<Source, 'body'>;
+export type IsoTarget = Pick<Target, 'body'>;
 
 // Temp type def for types that need more concrete type def when/if possible
 /* eslint-disable  @typescript-eslint/no-explicit-any */

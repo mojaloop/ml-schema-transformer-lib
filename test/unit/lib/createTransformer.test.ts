@@ -24,7 +24,6 @@
 
 import { createTransformer } from 'src';
 import { Transformer } from 'src/lib';
-import { Options } from 'src/types/map-transform';
 
 
 describe('createTransformer tests', () => {

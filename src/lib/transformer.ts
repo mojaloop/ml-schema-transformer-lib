@@ -26,7 +26,7 @@ import { ITransformer, Source, Target, TransformFunctionOptions } from '../types
 import { DataMapper, State } from '../types/map-transform';
 import { createTransformer } from './createTransformer';
 
-export const transformFn = async (source: Source, options: TransformFunctionOptions): Promise<Target> => {
+export const transformFn = async (source: Partial<Source>, options: TransformFunctionOptions): Promise<Partial<Target>> => {
   const { mapping, mapTransformOptions, mapperOptions, logger } = options;
   try {
     const transformer = await createTransformer(mapping, { mapTransformOptions });
@@ -44,7 +44,7 @@ export class Transformer implements ITransformer {
     this.mapper = mapper;
   }
 
-  async transform(source: Source, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Target> {
-    return this.mapper(source, mapperOptions) as Promise<Target>;
+  async transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Partial<Target>> {
+    return this.mapper(source, mapperOptions) as Promise<Partial<Target>>;
   }
 }

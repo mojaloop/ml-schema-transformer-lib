@@ -31,7 +31,7 @@ describe('Transformer tests', () => {
     test('should create a new Transformer instance', async () => {
       const mapping = {
         partyType: 'partyIdInfo.partyIdType',
-        partyIdentifier: 'partyIdInfo.partyIdentifier',  
+        partyIdentifier: 'partyIdInfo.partyIdentifier',
       };
       const transformer = await createTransformer(mapping);
       expect(transformer).toBeInstanceOf(Transformer);
@@ -39,22 +39,26 @@ describe('Transformer tests', () => {
 
     test('should use custom transform functions if supplied', async () => {
       const source = {
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '1234567890',
+        body: {
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '1234567890',
+          }
         }
-      }
+      };
       const mappingStr = `{
-        "partyType": "partyIdInfo.partyIdType",
-        "partyIdentifier": ["partyIdInfo.partyIdentifier", { "$transform": "padLeft" }]
+        "body.partyType": "body.partyIdInfo.partyIdType",
+        "body.partyIdentifier": ["body.partyIdInfo.partyIdentifier", { "$transform": "padLeft" }]
       }`;
       const mapping = JSON.parse(mappingStr);
       const padLeft = (options: any) => () => (value: any) => value.padStart(20, '0');
-      const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers: {  padLeft } } });
+      const transformer = await createTransformer(mapping, { mapTransformOptions: { transformers: { padLeft } } });
       const target = await transformer.transform(source, {});
       expect(target).toEqual({
-        partyType: source.partyIdInfo.partyIdType,
-        partyIdentifier: '00000000001234567890',
+        body: {
+          partyType: source.body.partyIdInfo.partyIdType,
+          partyIdentifier: '00000000001234567890',
+        }
       });
       expect(transformer).toBeInstanceOf(Transformer);
     })
@@ -63,28 +67,32 @@ describe('Transformer tests', () => {
   describe('transformFn', () => {
     test('should transform source payload using supplied mapping', async () => {
       const source = {
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '1234567890',
-        },
+        body: {
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '1234567890',
+          },
+        }
       };
       const mapping = JSON.stringify({
-        partyType: 'partyIdInfo.partyIdType',
-        partyIdentifier: 'partyIdInfo.partyIdentifier',  
+        partyType: 'body.partyIdInfo.partyIdType',
+        partyIdentifier: 'body.partyIdInfo.partyIdentifier',
       });
       const target = await transformFn(source, { mapping, logger: mockLogger });
       expect(target).toEqual({
-        partyType: source.partyIdInfo.partyIdType,
-        partyIdentifier: source.partyIdInfo.partyIdentifier,
+        partyType: source.body.partyIdInfo.partyIdType,
+        partyIdentifier: source.body.partyIdInfo.partyIdentifier,
       });
     });
 
     test('should throw an error if transformation fails', async () => {
       const source = {
-        partyIdInfo: {
-          partyIdType: 'MSISDN',
-          partyIdentifier: '1234567890',
-        },
+        body: {
+          partyIdInfo: {
+            partyIdType: 'MSISDN',
+            partyIdentifier: '1234567890',
+          },
+        }
       };
       await expect(transformFn(source, { mapping: 'invalid mapping', logger: mockLogger })).rejects.toThrow(Error);
       expect(mockLogger.error).toHaveBeenCalled();
@@ -98,7 +106,9 @@ describe('Transformer tests', () => {
         const mockOptions = { mapperOptions: {} as State }
         const transformer = new Transformer(mockMapper);
         const source = {
-          party: 'MSISDN',
+          body: {
+            party: 'MSISDN',
+          }
         };
         await transformer.transform(source, mockOptions);
         expect(mockMapper).toHaveBeenCalledWith(source, mockOptions.mapperOptions);

@@ -31,8 +31,8 @@ export const discovery = {
       "headers.fspiop-source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
       "params.SubId": "body.Rpt.OrgnlId",
-      "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
-      "body.party.partyIdInfo.partyIdentifier": "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id",
+      "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
+      "body.party.partyIdInfo.partyIdentifier": "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id",
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
       "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
       "body.party.supportedCurrencies": "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy"
@@ -63,9 +63,9 @@ export const discovery_reverse = {
       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.fspiop-destination",
       "body.Rpt.OrgnlId": "params.SubId",
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
-      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
+      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
-      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
+      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id": "body.party.partyIdInfo.fspId",
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm": "body.party.name",
       "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy": "body.party.supportedCurrencies"

@@ -25,7 +25,7 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { GenericObject, Source, Target, TransformFacadeOptions } from '../types';
+import { FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions } from '../types';
 import { getProp, setProp } from '../lib/utils';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
 
@@ -41,26 +41,26 @@ export const FspiopTransformFacade = {
     log = logger;
   },
   parties: {
-    put: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> =>
+    put: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.put,
-      }),
-    putError: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    putError: async (source: Source & { headers: GenericObject }, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.putError,
-      }),
+      }) as Promise<IsoTarget>,
   },
   quotes: {
-    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.post
-      });
+      }) as IsoTarget;
 
       /**
        * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
@@ -81,52 +81,52 @@ export const FspiopTransformFacade = {
 
       return target;
     },
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.put
-      }),
-    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.putError,
-      }),
+      }) as Promise<IsoTarget>,
   },
   transfers: {
-    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.post
-      }),
-    patch: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.patch
-      }),
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.put
-      }),
-    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.putError
-      }),
+      }) as Promise<IsoTarget>,
   },
   fxQuotes: {
-    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.post
-      });
+      }) as IsoTarget;
 
       /**
       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
@@ -140,12 +140,12 @@ export const FspiopTransformFacade = {
 
       return target;
     },
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> => {
+    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.put
-      });
+      }) as IsoTarget;
 
       /**
       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
@@ -159,37 +159,37 @@ export const FspiopTransformFacade = {
 
       return target;
     },
-    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.putError
-      }),
+      }) as Promise<IsoTarget>,
   },
   fxTransfers: {
-    post: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.post
-      }),
-    patch: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.patch
-      }),
-    put: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.put
-      }),
-    putError: async (source: Source, options: TransformFacadeOptions = {}): Promise<Target> =>
+      }) as Promise<IsoTarget>,
+    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.putError
-      }),
+      }) as Promise<IsoTarget>,
   },
 };

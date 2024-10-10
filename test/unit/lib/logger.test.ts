@@ -26,12 +26,9 @@ import { createLogger } from '../../../src/lib/logger';
 
 describe('Logger', () => {
   it('should create a logger', () => {
-    // Arrange
     const logLevel = 'info';
     const context = 'MLST';
-    // Act
     const logger = createLogger(context, logLevel);
-    // Assert
     expect(logger).toBeDefined();
   });
 });

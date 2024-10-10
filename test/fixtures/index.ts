@@ -698,7 +698,7 @@ export const fspiopIso20022Sources = {
           UpdtdPtyAndAcctId: {
             Pty: {
               Id: {
-                PrvId: {
+                PrvtId: {
                   Othr: {
                     SchmeNm: {
                       Prtry: 'MSISDN'
@@ -1219,7 +1219,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           UpdtdPtyAndAcctId: {
             Pty: {
               Id: {
-                PrvId: {
+                PrvtId: {
                   Othr: {
                     SchmeNm: {
                       Prtry: 'MSISDN'
@@ -1304,7 +1304,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           Cdtr: {
             Id: {
-              PrvId: {
+              PrvtId: {
                 Othr: {
                   SchmeNm: {
                     Prtry: 'MSISDN'
@@ -1323,7 +1323,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           Dbtr: {
             Id: {
-              PrvId: {
+              PrvtId: {
                 Othr: {
                   SchmeNm: {
                     Prtry: 'MSISDN'
