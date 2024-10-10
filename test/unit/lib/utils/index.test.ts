@@ -112,6 +112,10 @@ describe('Utils tests', () => {
       process.env.MLST_ILP_SECRET = '';
       expect(() => getIlpPacketCondition(ilpPacket)).toThrow();
     });
+    it('should not throw an error if MLST_ILP_SECRET is not set', () => {
+      process.env.MLST_ILP_SECRET = '';
+      expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
+    });
   });
   describe('toIsoTransferState', () => {
     it('should return undefined if state is falsy', () => {
