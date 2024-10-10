@@ -104,8 +104,8 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 | Env Variable Name           | Default Value | Description                                          | 
 |-----------------------------|---------------|------------------------------------------------------|
 | MLST_LOG_LEVEL              | `warn`        | The log level for MLST                               |
-| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketCondition` transform  |
-| MLST_ILP_SECRET             |  None         | ILP secret used for `ilpPacketCondition` transform   |
+| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform  |
+| MLST_ILP_SECRET             |  None         | ILP secret used for `ilpPacketToCondition` transform   |
 
 
 ## Development

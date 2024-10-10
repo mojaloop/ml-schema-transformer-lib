@@ -433,7 +433,7 @@ describe('Random tests', () => {
   //   const mapping = {
   //     $noDefaults: true,
   //     // 'body.schemaA.condition': { $transform: 'getIlpPacketCondition', path: 'body.schemaB.ilpPacket' }
-  //     'body.schemaA.condition': ['body.schemaB.ilpPacket', { $transform: 'ilpPacketCondition' }],
+  //     'body.schemaA.condition': ['body.schemaB.ilpPacket', { $transform: 'ilpPacketToCondition' }],
   //     'body.schemaA.ilpPacket': 'body.schemaB.ilpPacket'
 
   //   };

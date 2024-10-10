@@ -112,7 +112,7 @@ export const CustomTransforms: ICustomTransforms = {
     return getDescrFromErrCode(data as string);
   },
 
-  ilpPacketCondition: (options: Options) => () => (data: unknown, state: State) => {
+  ilpPacketToCondition: (options: Options) => () => (data: unknown, state: State) => {
     return getIlpPacketCondition(data as string);
   },
 

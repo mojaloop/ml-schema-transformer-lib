@@ -33,7 +33,8 @@ export const transfers = {
     "body.payerFsp": "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
     "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket"
+    "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
+    "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }]
   }`,
   patch: `{
     "$noDefaults": "true",
@@ -64,6 +65,9 @@ export const transfers_reverse = {
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.CdtTrfTxInf.PmtId.TxId": "body.transferId",
+    "body.CdtTrfTxInf.ChrgBr": { "$transform": "fixed", "value": "SLEV" },
+    "boddy.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": "body.payeeFsp",
+    "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": "body.payerFsp",
     "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payeeFsp",
     "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "body.payerFsp",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
