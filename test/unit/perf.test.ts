@@ -24,7 +24,7 @@
 
 import { TransformFacades } from 'src';
 import { GenericObject, Source, FspiopTransformFacadeFunction } from 'src/types';
-import { expectedFspiopIso20022Targets, fspiopSources } from '../fixtures';
+import { expectedFspiopIso20022Targets, expectedFspiopTargets, fspiopIso20022Sources, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
 
 const PERF_THRESHOLD_MS = 2000;
@@ -59,6 +59,18 @@ describe('Performance Test', () => {
     describe('transfers', () => {
       it('POST /transfers performance test', async () => {
         await perfTest(TransformFacades.FSPIOP.transfers.post, fspiopSources.transfers.post, expected('transfers.post'));
+      });
+    });
+  });
+  describe.only('TransformFacades.FSPIOPISO20022', () => {
+    describe('quotes', () => {
+      it('POST /quotes performance test', async () => {
+        await perfTest(TransformFacades.FSPIOPISO20022.quotes.post, fspiopIso20022Sources.quotes.post, () => expectedFspiopTargets.quotes.post);
+      });
+    });
+    describe('transfers', () => {
+      it('POST /transfers performance test', async () => {
+        await perfTest(TransformFacades.FSPIOPISO20022.transfers.post, fspiopIso20022Sources.transfers.post, () => expectedFspiopTargets.transfers.post);
       });
     });
   });
