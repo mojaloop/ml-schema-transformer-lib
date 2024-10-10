@@ -25,7 +25,6 @@
 import { createTransformer } from 'src';
 import { Transformer } from 'src/lib';
 
-
 describe('createTransformer tests', () => {
   test('should create and return a Transformer instance', async () => {
     const jsonParseSpy = vi.spyOn(JSON, 'parse');
