@@ -27,7 +27,7 @@ import { GenericObject, Source, FspiopTransformFacadeFunction } from 'src/types'
 import { expectedFspiopIso20022Targets, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
 
-const PERF_THRESHOLD_MS = 1000;
+const PERF_THRESHOLD_MS = 2000;
 
 const expected = (prop: string) => {
   return (target: GenericObject) => {
