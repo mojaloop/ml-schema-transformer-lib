@@ -62,7 +62,7 @@ describe('Performance Test', () => {
       });
     });
   });
-  describe.only('TransformFacades.FSPIOPISO20022', () => {
+  describe('TransformFacades.FSPIOPISO20022', () => {
     describe('quotes', () => {
       it('POST /quotes performance test', async () => {
         await perfTest(TransformFacades.FSPIOPISO20022.quotes.post, fspiopIso20022Sources.quotes.post, () => expectedFspiopTargets.quotes.post);
