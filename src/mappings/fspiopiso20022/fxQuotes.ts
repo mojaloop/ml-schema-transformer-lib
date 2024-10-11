@@ -25,7 +25,7 @@
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxQuotes = {
-  post: `{
+  post: {
     "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.conversionRequestId": "body.CdtTrfTxInf.PmtId.TxId",
@@ -33,35 +33,35 @@ export const fxQuotes = {
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.conversionTerms.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
+    //"body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
+    //"body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount"
-  }`,
-  put: `{
+  },
+  put: {
     "$noDefaults": "true",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.conversionTerms.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
+    // "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
+    // "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
-  }`,
-  putError: `{
+  },
+  putError: {
     "$noDefaults": "true",
     "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
     "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
-  }`
+  }
 }
 
 // FSPIOP to FSPIOP ISO20022 mappings
 
 export const fxQuotes_reverse = {
-  post: `{
+  post: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -72,37 +72,37 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",  
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
-  }`,
-  put: `{
+  },
+  put: {
     "$noDefaults": "true",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
     "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",  
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.conversionTerms.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
-  }`,
-  putError: `{
+  },
+  putError: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
-  }`
+  }
 }

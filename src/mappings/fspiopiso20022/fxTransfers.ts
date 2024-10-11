@@ -25,19 +25,19 @@
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxTransfers = {
-  post: `{
+  post: {
     "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.commitRequestId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
     "body.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
-    "body.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
-    "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
+    // "body.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
+    // "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
-  }`,
+  },
   patch: `{
     "$noDefaults": "true",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
@@ -59,7 +59,7 @@ export const fxTransfers = {
 // FSPIOP to FSPIOP ISO20022 mappings
 
 export const fxTransfers_reverse = {
-  post: `{
+  post: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -69,36 +69,36 @@ export const fxTransfers_reverse = {
     "body.CdtTrfTxInf.PmtId.TxId": "body.commitRequestId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.initiatingFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.OrgId.Othr.Id.Prtry": "body.initiatingFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id": "body.initiatingFsp",
     "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id": "body.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.counterPartyFsp",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.sourceAmount.amount",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.OrgId.Othr.Id.Prtry": "body.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.counterPartyFsp",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.sourceAmount.currency",
+    // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.targetAmount.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition"
-  }`,
-  patch: `{
+  },
+  patch: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
     "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
-  }`,
-  put: `{
+  },
+  put: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.ExctnConf": "body.fulfilment",
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
     "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
-  }`,
-  putError: `{
+  },
+  putError: {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
-  }`
+  }
 }
