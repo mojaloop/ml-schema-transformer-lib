@@ -38,7 +38,7 @@ export const fxTransfers = {
     "body.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
+    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket"
   } as unknown as TransformObject,
   patch: `{
     "$noDefaults": "true",
@@ -80,7 +80,7 @@ export const fxTransfers_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.targetAmount.amount",
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition"
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition"
   } as unknown as TransformObject,
   patch: `{
     "$noDefaults": "true",
