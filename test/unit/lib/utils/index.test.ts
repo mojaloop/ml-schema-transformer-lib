@@ -97,7 +97,8 @@ describe('Utils tests', () => {
       expect(description).toBe('Client Validation Error');
     });
     it('should throw an error for an unknown error code', () => {
-      expect(() => getDescrFromErrCode('9999')).toThrow();
+      expect(() => getDescrFromErrCode('9999')).not.toThrow();
+      expect(getDescrFromErrCode('9999')).toBe('Unknown error');
     });
   });
   describe('getIlpPacketCondition', () => {
@@ -131,8 +132,6 @@ describe('Utils tests', () => {
       expect(state).toBe('RECV');
       state = toIsoTransferState('RESERVED');
       expect(state).toBe('RESV');
-      state = toIsoTransferState('SETTLED');
-      expect(state).toBe('SETT');
     });
     it('should throw an error for an unknown state', () => {
       expect(() => toIsoTransferState('UNKNOWN')).toThrow();
@@ -152,8 +151,6 @@ describe('Utils tests', () => {
       expect(state).toBe('RECEIVED');
       state = toFspiopTransferState('RESV');
       expect(state).toBe('RESERVED');
-      state = toFspiopTransferState('SETT');
-      expect(state).toBe('SETTLED');
     });
     it('should throw an error for an unknown state', () => {
       expect(() => toFspiopTransferState('UNKNOWN')).toThrow();

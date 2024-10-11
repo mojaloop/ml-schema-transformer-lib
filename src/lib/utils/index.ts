@@ -29,13 +29,12 @@ import { logger } from '../../lib';
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
 // improve: use enums from cs-shared
-// @todo: confirm if we have captured all possible states, and should we throw errors if unknown states are encountered
+// We only cover the states that are externally visible
 const fspiopToIsoTransferStateMap: GenericObject = {
   COMMITTED: 'COMM',
   RESERVED: 'RESV',
   RECEIVED: 'RECV',
-  ABORTED: 'ABOR',
-  SETTLED: 'SETT'
+  ABORTED: 'ABOR'
 }
 
 // Generate a unique ID
@@ -88,12 +87,14 @@ export function getProp(obj: unknown, path: string): unknown {
   return current;
 }
 
-// Will throw if code is not found
-// improve: should this error be caught and handled? e.g return a default message 'Unknown error'
 export const getDescrFromErrCode = (code: string | number): string => {
-  const errorCode = Number.parseInt(code as string);
-  const errorCreated = CreateFSPIOPErrorFromErrorCode(errorCode);
-  return errorCreated?.apiErrorCode?.type?.description;
+  try {
+    const errorCode = Number.parseInt(code as string);
+    const errorCreated = CreateFSPIOPErrorFromErrorCode(errorCode);
+    return errorCreated?.apiErrorCode?.type?.description;
+  } catch (error) {
+    return 'Unknown error';
+  }
 }
 
 // Get the ILP packet condition from an ILP packet
