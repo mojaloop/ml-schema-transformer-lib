@@ -1718,7 +1718,8 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         CdtTrfTxInf: {
           PmtId: {
             InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
-            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            EndToEndId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {

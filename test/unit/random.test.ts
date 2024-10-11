@@ -1,8 +1,8 @@
 import { createTransformer } from 'src';
 
 
-describe.skip('Random', () => {
-  it('should transform with alt and fixed value', async () => {
+describe('Random', () => {
+  it.skip('should transform with alt and fixed value', async () => {
     const mappingStr = `{
       "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Dbtr", "headers.fspiop-destination" ] },
       "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.DbtrAgt", "headers.fspiop-destination" ] },
