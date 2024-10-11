@@ -69,11 +69,8 @@ export const FspiopTransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      // source.body.amountType -> target.body.CdtTrfTxInf.ChrgBr 
       setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
-
-      // source.body.transactionType.refundInfo -> target.body.CdtTrfTxInf.InstrForCdtrAgt.Cd
-      // source.body.transactionType.refundInfo.reason -> target.body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf
+      
       if (getProp(source, 'body.transactionType.refundInfo')) {
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd', 'REFD');
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
@@ -135,7 +132,6 @@ export const FspiopTransformFacade = {
       */
       if (options.overrideMapping) return target;
 
-      // source.body.amountType -> target.body.CdtTrfTxInf.ChrgBr 
       setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
 
       return target;
@@ -154,7 +150,6 @@ export const FspiopTransformFacade = {
       */
       if (options.overrideMapping) return target;
 
-      // source.body.amountType -> target.body.CdtTrfTxInf.ChrgBr 
       setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
 
       return target;

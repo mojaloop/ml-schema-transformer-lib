@@ -68,10 +68,8 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
-      // source.body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf -> target.body.transactionType.refundInfo.reason
       if (getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd') === 'REFD') {
         setProp(target, 'body.transactionType.refundInfo.reason', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf'));
       }
@@ -132,7 +130,6 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
       return target;
@@ -151,7 +148,6 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      // source.body.CdtTrfTxInf.ChrgBr -> target.body.amountType
       setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
       return target;

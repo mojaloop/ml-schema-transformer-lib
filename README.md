@@ -104,9 +104,19 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 | Env Variable Name           | Default Value | Description                                          | 
 |-----------------------------|---------------|------------------------------------------------------|
 | MLST_LOG_LEVEL              | `warn`        | The log level for MLST                               |
-| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform  |
-| MLST_ILP_SECRET             |  None         | ILP secret used for `ilpPacketToCondition` transform   |
+| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform|
 
+
+## Performance
+
+Hardware   →   Apple M3 Max, 14 Cores, 36 GB RAM                                    
+
+| Use Case                                       | No. of Iterations | Duration       |
+|------------------------------------------------|-------------------|----------------|
+| POST /quotes transformation { FSPIOP → ISO }   | 1000              | ~301ms         |
+| POST /quotes transformation { ISO → FSPIOP }    | 1000              |~205ms          |
+| POST /transfers transformation { FSPIOP → ISO } | 1000              | ~135ms         |
+| POST /transfers transformation { ISO → FSPIOP } | 1000              | ~79ms          |
 
 ## Development
 
