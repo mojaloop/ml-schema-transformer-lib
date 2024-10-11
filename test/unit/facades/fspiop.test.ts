@@ -106,6 +106,13 @@ describe('FSPIOPTransformFacade tests', () => {
       test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
       });
+      test('should return SHAR as body.CdtTrfTxInf.ChrgBr if context.isoPostQuote.CdtTrfTxInf.ChrgBr is not set', async () => {
+        const source = { ...fspiopSources.quotes.put };
+        source.$context = {} as any;
+        const target = await FspiopTransformFacade.quotes.put(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('SHAR');
+      });
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
