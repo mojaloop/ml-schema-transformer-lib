@@ -113,6 +113,27 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('SHAR');
       });
+      test('should use values in $context if set', async () => {
+        const source = { ...fspiopSources.quotes.put };
+        source.$context = {
+          isoPostQuote: {
+            CdtTrfTxInf: {
+              Dbtr: 'Dbtr',
+              DbtrAgt: 'DbtrAgt',
+              Cdtr: 'Cdtr',
+              CdtrAgt: 'CdtrAgt',
+              ChrgBr: 'ChrgBr'
+            }
+          }
+        } as any;
+        const target = await FspiopTransformFacade.quotes.put(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id')).toBe('Dbtr');
+        expect(getProp(target, 'body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id')).toBe('DbtrAgt');
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id')).toBe('Cdtr');
+        expect(getProp(target, 'body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id')).toBe('CdtrAgt');
+        expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
+      });
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
