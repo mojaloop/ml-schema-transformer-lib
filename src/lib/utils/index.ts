@@ -105,7 +105,7 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
 
-  return decoded?.executionCondition?.toString('base64');
+  return decoded?.executionCondition?.toString('base64url');
 }
 
 // Converts FSPIOP transfer state to FSPIOP ISO20022 transfer state
