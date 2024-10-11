@@ -1487,10 +1487,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: "1",
-          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
+          NbOfTxs: '1',
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
           SttlmInf: {
-            SttlmMtd: "CLRG"
+            SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
@@ -1498,7 +1498,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "destinationfsp"
+                  Id: 'destinationfsp'
                 }
               }
             }
@@ -1506,7 +1506,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           DbtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "destinationfsp"
+                Id: 'destinationfsp'
               }
             }
           },
@@ -1514,7 +1514,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Id: {
               OrgId: {
                 Othr: {
-                  Id: "sourcefsp"
+                  Id: 'sourcefsp'
                 }
               }
             }
@@ -1522,23 +1522,23 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: "sourcefsp"
+                Id: 'sourcefsp'
               }
             }
           },
-          ChrgBr: "CRED",
+          ChrgBr: 'CRED',
           IntrBkSttlmAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           InstdAmt: {
-            Ccy: "AED",
-            ActiveCurrencyAndAmount: "123.45"
+            Ccy: 'AED',
+            ActiveCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
             Amt: {
-              Ccy: "AED",
-              ActiveOrHistoricCurrencyAndAmount: "123.45"
+              Ccy: 'AED',
+              ActiveOrHistoricCurrencyAndAmount: '123.45'
             }
           },
           VrfctnOfTerms: {
