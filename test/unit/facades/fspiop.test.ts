@@ -55,7 +55,7 @@ describe('FSPIOPTransformFacade tests', () => {
     test('should configure logger', async () => {
       const logger = mockLogger;
       FspiopTransformFacade.configure({ logger });
-      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(async () => {
+      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(() => {
         throw new Error('Test error')
       });
       const promise = FspiopTransformFacade.parties.put(fspiopSources.parties.put);
@@ -102,8 +102,10 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('Refund reason');
       });
     })
-    test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
+    describe('PUT /quotes', () => {
+      test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
+      });
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();

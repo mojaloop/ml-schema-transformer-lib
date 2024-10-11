@@ -184,6 +184,17 @@ export const fspiopSources = {
             }
           ]
         }
+      },
+      headers: {
+        'fspiop-source': 'sourcefsp',
+        'fspiop-destination': 'destinationfsp'
+      },
+      $context: {
+        isoPostQuote: {
+          CdtTrfTxInf: {
+            ChrgBr: 'CRED'
+          }
+        }
       }
     },
     putError: {
@@ -1087,7 +1098,7 @@ export const fspiopIso20022Sources = {
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
-          ChrgBr: 'SLEV',
+          ChrgBr: 'SHAR',
           Cdtr: {
             Id: {
               OrgId: {
@@ -1476,25 +1487,58 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
-          NbOfTxs: '1',
-          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
+          NbOfTxs: "1",
+          PmtInstrXpryDtTm: "2016-05-24T08:38:08.699-04:00",
           SttlmInf: {
-            SttlmMtd: 'CLRG'
+            SttlmMtd: "CLRG"
           }
         },
         CdtTrfTxInf: {
+          Dbtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: "destinationfsp"
+                }
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "destinationfsp"
+              }
+            }
+          },
+          Cdtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: "sourcefsp"
+                }
+              }
+            }
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: "sourcefsp"
+              }
+            }
+          },
+          ChrgBr: "CRED",
           IntrBkSttlmAmt: {
-            Ccy: 'AED',
-            ActiveCurrencyAndAmount: '123.45'
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
           },
           InstdAmt: {
-            Ccy: 'AED',
-            ActiveCurrencyAndAmount: '123.45'
+            Ccy: "AED",
+            ActiveCurrencyAndAmount: "123.45"
           },
           ChrgsInf: {
             Amt: {
-              Ccy: 'AED',
-              ActiveOrHistoricCurrencyAndAmount: '123.45'
+              Ccy: "AED",
+              ActiveOrHistoricCurrencyAndAmount: "123.45"
             }
           },
           VrfctnOfTerms: {
@@ -1535,7 +1579,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
-          ChrgBr: 'SLEV',
+          ChrgBr: 'SHAR',
           Cdtr: {
             Id: {
               OrgId: {

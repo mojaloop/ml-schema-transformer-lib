@@ -49,6 +49,8 @@ export const quotes = {
   put: `{
     "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "headers.fspiop-destination": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id",
+    "headers.fspiop-source": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id",
     "body.transferAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.transferAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
@@ -56,7 +58,7 @@ export const quotes = {
     "body.payeeFspFee.currency": "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy",
     "body.payeeFspFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "body.condition": ["body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }] 
+    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }] 
   }`,
   putError: `{
     "$noDefaults": "true",
@@ -104,6 +106,11 @@ export const quotes_reverse = {
     "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Dbtr", "headers.fspiop-destination" ]},
+    "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.DbtrAgt", "headers.fspiop-destination" ]},
+    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Cdtr", "headers.fspiop-source" ] },
+    "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.CdtrAgt", "headers.fspiop-source" ]},
+    "body.CdtTrfTxInf.ChrgBr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.ChrgBr", { "$transform": "fixed", "value": "SHAR" } ] },
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.transferAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.transferAmount.amount",
     "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",

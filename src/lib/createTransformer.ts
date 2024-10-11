@@ -29,7 +29,7 @@ import { CreateTransformerOptions, ITransformer } from '../types';
 import { Transformer } from './transformer';
 import { CustomTransforms } from './transforms';
 
-export const createTransformer = async (mapping: TransformDefinition, options: CreateTransformerOptions = {}): Promise<ITransformer> => {
+export const createTransformer = (mapping: TransformDefinition, options: CreateTransformerOptions = {}): ITransformer => {
   const { mapTransformOptions } = options;
   const mergedOptions = { ...mapTransformOptions, transformers: { ...mapTransformOptions?.transformers, ...CustomTransforms } };
   mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;

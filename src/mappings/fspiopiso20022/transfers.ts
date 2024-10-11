@@ -65,7 +65,7 @@ export const transfers_reverse = {
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.CdtTrfTxInf.PmtId.TxId": "body.transferId",
-    "body.CdtTrfTxInf.ChrgBr": { "$transform": "fixed", "value": "SLEV" },
+    "body.CdtTrfTxInf.ChrgBr": { "$transform": "fixed", "value": "SHAR" },
     "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": "body.payeeFsp",
     "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": "body.payerFsp",
     "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payeeFsp",
