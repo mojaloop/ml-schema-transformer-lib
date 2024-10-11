@@ -22,6 +22,8 @@
  --------------
  ******/
 
+import { TransformObject } from 'src/types/map-transform'
+
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxQuotes = {
@@ -37,7 +39,7 @@ export const fxQuotes = {
     //"body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount"
-  },
+  } as unknown as TransformObject,
   put: {
     "$noDefaults": "true",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
@@ -50,12 +52,12 @@ export const fxQuotes = {
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
-  },
-  putError: {
+  } as unknown as TransformObject,
+  putError: `{
     "$noDefaults": "true",
     "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
     "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
-  }
+  }`
 }
 
 // FSPIOP to FSPIOP ISO20022 mappings
@@ -81,7 +83,7 @@ export const fxQuotes_reverse = {
     // "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
-  },
+  } as unknown as TransformObject,
   put: {
     "$noDefaults": "true",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
@@ -98,11 +100,11 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
-  },
-  putError: {
+  } as unknown as TransformObject,
+  putError: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
-  }
+  }`
 }

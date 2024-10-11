@@ -22,6 +22,8 @@
  --------------
  ******/
 
+import { TransformObject } from 'src/types/map-transform'
+
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxTransfers = {
@@ -37,7 +39,7 @@ export const fxTransfers = {
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition"
-  },
+  } as unknown as TransformObject,
   patch: `{
     "$noDefaults": "true",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
@@ -79,26 +81,26 @@ export const fxTransfers_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.targetAmount.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition"
-  },
-  patch: {
+  } as unknown as TransformObject,
+  patch: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
     "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
-  },
-  put: {
+  }`,
+  put: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.ExctnConf": "body.fulfilment",
     "body.TxInfAndSts.PrcgDt.DtTm": "body.completedTimestamp",
     "body.TxInfAndSts.TxSts": ["body.conversionState", { "$transform": "toIsoTransferState" }]
-  },
-  putError: {
+  }`,
+  putError: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
-  }
+  }`
 }

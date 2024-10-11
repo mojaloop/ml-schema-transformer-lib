@@ -92,7 +92,8 @@ export function getProp(obj: unknown, path: string): unknown {
 // improve: should this error be caught and handled? e.g return a default message 'Unknown error'
 export const getDescrFromErrCode = (code: string | number): string => {
   const errorCode = Number.parseInt(code as string);
-  return CreateFSPIOPErrorFromErrorCode(errorCode)?.apiErrorCode?.type?.description;
+  const errorCreated = CreateFSPIOPErrorFromErrorCode(errorCode);
+  return errorCreated?.apiErrorCode?.type?.description;
 }
 
 // Get the ILP packet condition from an ILP packet
