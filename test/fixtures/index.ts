@@ -1023,7 +1023,7 @@ export const fspiopIso20022Sources = {
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '23.55'
+            ActiveCurrencyAndAmount: '23.55'
           },
           ChrgBr: 'DEBT'
         }
@@ -1775,7 +1775,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '23.55'
+            ActiveCurrencyAndAmount: '23.55'
           },
           ChrgBr: 'DEBT'
         }
