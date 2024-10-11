@@ -523,6 +523,7 @@ export const expectedFspiopTargets = {
     },
     put: {
       body: {
+        expiration: '2016-05-24T08:38:08.699-04:00',
         transferAmount: {
           currency: 'AED',
           amount: '123.45'
@@ -535,9 +536,12 @@ export const expectedFspiopTargets = {
           currency: 'AED',
           amount: '123.45'
         },
-        expiration: '2016-05-24T08:38:08.699-04:00',
         ilpPacket,
         condition: ilpCondition
+      },
+      headers: {
+        'fspiop-destination': 'destinationfsp',
+        'fspiop-source': 'sourcefsp'
       }
     },
     putError: {
@@ -871,8 +875,8 @@ export const fspiopIso20022Sources = {
     put: {
       body: {
         GrpHdr: {
-          MsgId: '01J9KA3GYHTDXC63XC8T13TYVR',
-          CreDtTm: '2024-10-07T10:58:50.450Z',
+          MsgId: '01J9KA6PHW6DP9FYSKSP9JZ35S',
+          CreDtTm: '2024-10-07T11:00:34.493Z',
           NbOfTxs: '1',
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
           SttlmInf: {
@@ -880,6 +884,39 @@ export const fspiopIso20022Sources = {
           }
         },
         CdtTrfTxInf: {
+          Dbtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: 'destinationfsp'
+                }
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: 'destinationfsp'
+              }
+            }
+          },
+          Cdtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: 'sourcefsp'
+                }
+              }
+            }
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: 'sourcefsp'
+              }
+            }
+          },
+          ChrgBr: 'CRED',
           IntrBkSttlmAmt: {
             Ccy: 'AED',
             ActiveCurrencyAndAmount: '123.45'

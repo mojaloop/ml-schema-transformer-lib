@@ -81,7 +81,7 @@ export const FspiopTransformFacade = {
 
       return target;
     },
-    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
+    put: async (source: FspiopSource & { $context?: { isoPostQuote: GenericObject } }, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
         logger: log,

@@ -46,7 +46,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
     test('should configure logger', async () => {
       const logger = mockLogger;
       FspiopIso20022TransformFacade.configure({ logger });
-      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(async () => {
+      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(() => {
         throw new Error('Test error')
       });
       const promise = FspiopIso20022TransformFacade.parties.put(fspiopIso20022Sources.parties.put);

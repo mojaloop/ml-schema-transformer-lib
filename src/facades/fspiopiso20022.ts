@@ -78,12 +78,12 @@ export const FspiopIso20022TransformFacade = {
 
       return target;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> =>
+    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<Pick<Target, 'body' | 'headers'>> =>
       transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes.put
-      }) as Promise<FspiopTarget>,
+      }) as  Promise<Target>,
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> =>
       transformFn(source, {
         ...options,
