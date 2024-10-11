@@ -33,9 +33,8 @@ const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse }
 
 let log: ContextLogger = defaultLogger;
 
-/**
- * Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
- */
+// Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
+
 export const FspiopTransformFacade = {
   configure: ({ logger }: { logger: ContextLogger }) => {
     log = logger;

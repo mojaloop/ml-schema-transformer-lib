@@ -569,7 +569,6 @@ workflows:
             - pr-tools/pr-title-check
             - test-lint
             - test-unit
-            # - test-coverage
             - vulnerability-check
             - audit-licenses
           filters:

@@ -54,7 +54,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       expect(logger.error).toBeCalled();
     });
   });
-
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022Sources.parties.put, FspiopIso20022TransformFacade.parties.put, fspiopTargets.parties.put)();
@@ -63,7 +62,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022Sources.parties.putError, FspiopIso20022TransformFacade.parties.putError, fspiopTargets.parties.putError)();
     });
   });
-
   describe('Quotes', () => {
     describe('POST /quotes', () => {
       test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
@@ -100,7 +98,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022Sources.quotes.putError, FspiopIso20022TransformFacade.quotes.putError, fspiopTargets.quotes.putError)();
     });
   });
-
   describe('Transfers', () => {
     test('should transform POST transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022Sources.transfers.post, FspiopIso20022TransformFacade.transfers.post, fspiopTargets.transfers.post)();
@@ -115,7 +112,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022Sources.transfers.putError, FspiopIso20022TransformFacade.transfers.putError, fspiopTargets.transfers.putError)();
     });
   });
-
   describe('FXQuotes', () => {
     describe('POST /fxQuotes', () => {
       test('should transform POST FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
@@ -136,7 +132,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.amountType')).toBe('SEND');
       });
     });
-
     describe('PUT /fxQuotes', () => {
       test('should transform PUT FX quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
         await testCase(fspiopIso20022Sources.fxQuotes.put, FspiopIso20022TransformFacade.fxQuotes.put, fspiopTargets.fxQuotes.put)();
@@ -161,7 +156,6 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       await testCase(fspiopIso20022Sources.fxQuotes.putError, FspiopIso20022TransformFacade.fxQuotes.putError, fspiopTargets.fxQuotes.putError)();
     });
   });
-
   describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022Sources.fxTransfers.post, FspiopIso20022TransformFacade.fxTransfers.post, fspiopTargets.fxTransfers.post)();

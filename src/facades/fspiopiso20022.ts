@@ -32,9 +32,8 @@ const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappi
 
 let log = defaultLogger;
 
-/**
- * Facades for transforming FSPIOP ISO 20022 payloads to FSPIOP payloads
- */
+// Facades for transforming FSPIOP ISO 20022 payloads to FSPIOP payloads
+
 export const FspiopIso20022TransformFacade = {
   configure: ({ logger }: { logger: ContextLogger }) => {
     log = logger;

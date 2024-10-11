@@ -63,7 +63,6 @@ describe('FSPIOPTransformFacade tests', () => {
       expect(logger.error).toBeCalled();
     });
   });
-
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.parties.put, FspiopTransformFacade.parties.put, expected('parties.put'))();
@@ -72,7 +71,6 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiopSources.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
     });
   });
-
   describe('Quotes', () => {
     describe('POST /quotes', () => {
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
@@ -95,13 +93,12 @@ describe('FSPIOPTransformFacade tests', () => {
       test('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022 with refundInfo', async () => {
         const source = { ...fspiopSources.quotes.post };
         setProp(source, 'body.transactionType', { refundInfo: { reason: 'Refund reason' } });
-
         const target = await FspiopTransformFacade.quotes.post(source);
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd')).toBe('REFD');
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('Refund reason');
       });
-    })
+    });
     describe('PUT /quotes', () => {
       test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.quotes.put, FspiopTransformFacade.quotes.put, expected('quotes.put'))();
@@ -139,7 +136,6 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
     });
   });
-
   describe('Transfers', () => {
     test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
@@ -154,7 +150,6 @@ describe('FSPIOPTransformFacade tests', () => {
       await testCase(fspiopSources.transfers.putError, FspiopTransformFacade.transfers.putError, expected('transfers.putError'))();
     })
   });
-
   describe('FXQuotes', () => {
     describe('POST /fxQuotes', () => {
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
@@ -175,7 +170,6 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
       });
     });
-
     describe('PUT /fxQuotes', () => {
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
@@ -195,12 +189,10 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
       });
     });
-
     test('should transform PUT FX quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxQuotes.putError, FspiopTransformFacade.fxQuotes.putError, expected('fxQuotes.putError'))();
     });
   });
-
   describe('FXTransfers', () => {
     test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();

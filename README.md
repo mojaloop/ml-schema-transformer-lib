@@ -47,7 +47,7 @@ The facade functions work with built-in mappings which are located in `src/mappi
 The facade functions take optional second parameter of type `TransformFacadeOptions` for controlling certain aspects of the function.
 
 For example:
- - To override the mapping used in the function, pass in `{ overrideMapping: 'your mapping JSOn string' }`
+ - To override the mapping used in the function, pass in `{ overrideMapping: 'your mapping JSON string' }`
  - To pass in additional options for the instantiation of [MapTransform](https://github.com/integreat-io/map-transform) (the underlying transformation library), pass in `{ mapTransformOptions: { ...additionalMapTransformOptions } }`.
  - To pass in additional options for the MapTransform mapper call, pass in `{ mapperOptions: { ...additionalMapperOptions } }`
 
@@ -111,9 +111,9 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 
 Hardware   →   Apple M3 Max, 14 Cores, 36 GB RAM                                    
 
-| Use Case                                       | No. of Iterations | Duration       |
-|------------------------------------------------|-------------------|----------------|
-| POST /quotes transformation { FSPIOP → ISO }   | 1000              | ~301ms         |
+| Use Case                                        | No. of Iterations | Duration       |
+|-------------------------------------------------|-------------------|----------------|
+| POST /quotes transformation { FSPIOP → ISO }    | 1000              | ~301ms         |
 | POST /quotes transformation { ISO → FSPIOP }    | 1000              |~205ms          |
 | POST /transfers transformation { FSPIOP → ISO } | 1000              | ~135ms         |
 | POST /transfers transformation { ISO → FSPIOP } | 1000              | ~79ms          |

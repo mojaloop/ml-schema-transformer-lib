@@ -36,7 +36,6 @@ describe('Transformer tests', () => {
       const transformer = await createTransformer(mapping);
       expect(transformer).toBeInstanceOf(Transformer);
     });
-
     test('should use custom transform functions if supplied', async () => {
       const source = {
         body: {
@@ -63,7 +62,6 @@ describe('Transformer tests', () => {
       expect(transformer).toBeInstanceOf(Transformer);
     })
   })
-
   describe('transformFn', () => {
     test('should transform source payload using supplied mapping', async () => {
       const source = {
@@ -84,7 +82,6 @@ describe('Transformer tests', () => {
         partyIdentifier: source.body.partyIdInfo.partyIdentifier,
       });
     });
-
     test('should throw an error if transformation fails', async () => {
       const source = {
         body: {
@@ -98,7 +95,6 @@ describe('Transformer tests', () => {
       expect(mockLogger.error).toHaveBeenCalled();
     });
   });
-
   describe('Transformer', () => {
     describe('Transformer', () => {
       test('should transform source payload using supplied mapper', async () => {
