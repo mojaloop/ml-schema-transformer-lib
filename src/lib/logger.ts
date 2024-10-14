@@ -21,9 +21,14 @@
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
-export { createTransformer } from './lib';
-import { FspiopTransformFacade as FSPIOP, FspiopIso20022TransformFacade as FSPIOPISO20022 } from './facades';
-export const TransformFacades = {
-  FSPIOP,
-  FSPIOPISO20022,
+
+import { loggerFactory } from '@mojaloop/central-services-logger/src/contextLogger';
+import { LogContext, LogLevel, logLevelsMap } from '../types';
+
+export const createLogger = (context: LogContext, logLevel: LogLevel) => {
+  const log = loggerFactory(context);
+  log.setLevel(logLevel);
+  return log;
 };
+
+export const logger = createLogger('MLST', process.env.MLST_LOG_LEVEL as LogLevel || logLevelsMap.warn);

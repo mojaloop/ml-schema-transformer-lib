@@ -21,9 +21,11 @@
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
-export { createTransformer } from './lib';
-import { FspiopTransformFacade as FSPIOP, FspiopIso20022TransformFacade as FSPIOPISO20022 } from './facades';
-export const TransformFacades = {
-  FSPIOP,
-  FSPIOPISO20022,
-};
+
+// FSPIOP ISO 20022 to FSPIOP mappings
+
+export * from './discovery'
+export * from './quotes'
+export * from './fxQuotes'
+export * from './transfers'
+export * from './fxTransfers'

@@ -21,9 +21,30 @@
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
-export { createTransformer } from './lib';
-import { FspiopTransformFacade as FSPIOP, FspiopIso20022TransformFacade as FSPIOPISO20022 } from './facades';
-export const TransformFacades = {
-  FSPIOP,
-  FSPIOPISO20022,
+
+import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
+import { DataMapper, State } from '../types/map-transform';
+import { createTransformer } from './createTransformer';
+
+export const transformFn = async (source: Partial<Source>, options: TransformFunctionOptions): Promise<Partial<Target>> => {
+  const { mapping, mapTransformOptions, mapperOptions, logger } = options;
+  try {
+    const transformer = await createTransformer(mapping, { mapTransformOptions });
+    return transformer.transform(source, { mapperOptions });
+  } catch (error) {
+    logger.error('Error transforming payload with supplied mapping', { error, source, mapping });
+    throw error;
+  }
 };
+
+export class Transformer implements ITransformer {
+  mapper: DataMapper;
+  
+  constructor(mapper: DataMapper) {
+    this.mapper = mapper;
+  }
+
+  async transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Partial<Target>> {
+    return this.mapper(source, mapperOptions) as Promise<Partial<Target>>;
+  }
+}

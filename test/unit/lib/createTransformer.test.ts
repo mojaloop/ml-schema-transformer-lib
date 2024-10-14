@@ -17,13 +17,29 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
-export { createTransformer } from './lib';
-import { FspiopTransformFacade as FSPIOP, FspiopIso20022TransformFacade as FSPIOPISO20022 } from './facades';
-export const TransformFacades = {
-  FSPIOP,
-  FSPIOPISO20022,
-};
+
+import { createTransformer } from 'src';
+import { Transformer } from 'src/lib';
+
+describe('createTransformer tests', () => {
+  test('should create and return a Transformer instance', async () => {
+    const jsonParseSpy = vi.spyOn(JSON, 'parse');
+    const mapping = {};
+    const transformer = await createTransformer(mapping);
+    expect(transformer).toBeDefined();
+    expect(jsonParseSpy).not.toHaveBeenCalled();
+    expect(transformer).toBeInstanceOf(Transformer);
+  });
+  test('should parse JSON string mapping and return a Transformer instance', async () => {
+    const jsonParseSpy = vi.spyOn(JSON, 'parse');
+    const mapping = '{}';
+    const transformer = await createTransformer(mapping);
+    expect(transformer).toBeDefined();
+    expect(jsonParseSpy).toHaveBeenCalledWith(mapping);
+    expect(transformer).toBeInstanceOf(Transformer);
+  });
+});

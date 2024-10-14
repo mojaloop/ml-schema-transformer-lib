@@ -21,15 +21,11 @@ module.exports = {
     semi: ['error'],
   },
   env: {
-    node: true,
-    jest: true,
+    node: true
   },
   overrides: [
     {
       files: ['test/**/*.ts'],
-      env: {
-        jest: true,
-      },
       rules: {
         // add here any rules specific to test files
       },

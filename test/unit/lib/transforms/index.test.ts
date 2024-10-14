@@ -18,12 +18,27 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
+ * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
+import { CustomTransforms } from 'src/lib';
+import { Options, State } from 'src/types/map-transform';
 
-
-describe ('Integration Tests -->', () => {
-  test('dummy test', () => {
-    expect(true).toBe(true);
+ describe('Transforms tests', () => {
+  describe('isNotEmpty', () => {
+    test('isNotEmpty should be true', async () => {
+      const data = {
+        name: 'John Doe',
+      };
+      const state = {};
+      const result = (CustomTransforms.isNotEmpty as Function)({} as Options)()(data, state as State);
+      expect(result).toBe(true);
+    });
+    test('isNotEmpty should be false', async () => {
+      const data = {};
+      const state = {};
+      const result = (CustomTransforms.isNotEmpty as Function)({} as Options)()(data, state as State);
+      expect(result).toBe(false);
+    });
   });
-});
+ });
