@@ -29,7 +29,7 @@ import { TransformObject } from 'src/types/map-transform'
 export const fxQuotes = {
   post: {
     "$noDefaults": "true",
-    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.conversionRequestId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
@@ -51,7 +51,7 @@ export const fxQuotes = {
     "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
-    "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   } as unknown as TransformObject,
   putError: `{
     "$noDefaults": "true",
@@ -69,7 +69,7 @@ export const fxQuotes_reverse = {
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionRequestId",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.conversionTerms.determiningTransferId",
@@ -99,7 +99,7 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration"
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration"
   } as unknown as TransformObject,
   putError: `{
     "$noDefaults": "true",

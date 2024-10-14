@@ -75,6 +75,7 @@ export const FspiopTransformFacade = {
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
       }
 
+      // @todo: impossible transformation
       if (getProp(source, 'body.transactionType.initiator') === 'PAYER') {
         setProp(target, 'body.CdtTrfTxInf.InitgPty', getProp(target, 'body.CdtTrfItInf.Dtr'));
       } else  {
