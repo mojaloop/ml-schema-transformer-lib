@@ -1110,7 +1110,7 @@ export const fspiopIso20022Sources = {
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '23.55'
+            ActiveCurrencyAndAmount: '23.55'
           },
           ChrgBr: 'DEBT'
         }
@@ -1864,12 +1864,18 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '23.55'
+            ActiveCurrencyAndAmount: '23.55'
           },
           ChrgBr: 'DEBT'
         },
         GrpHdr: {
-          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00'
+          MsgId: getProp(target, 'body.GrpHdr.MsgId'),
+          CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
+          NbOfTxs: '1',
+          PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
+          SttlmInf: {
+            SttlmMtd: 'CLRG'
+          }
         }
       }
     },

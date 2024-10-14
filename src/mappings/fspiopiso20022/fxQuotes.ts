@@ -50,7 +50,7 @@ export const fxQuotes = {
     "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
     "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount",
+    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
   } as unknown as TransformObject,
   putError: `{
@@ -86,6 +86,11 @@ export const fxQuotes_reverse = {
   } as unknown as TransformObject,
   put: {
     "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
     "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
@@ -98,8 +103,7 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
-    "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
   } as unknown as TransformObject,
   putError: `{
     "$noDefaults": "true",
