@@ -1048,13 +1048,11 @@ export const fspiopIso20022Sources = {
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
               condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
-            },
-            PmtId: {
-              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
@@ -1802,13 +1800,11 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
               condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
-            },
-            PmtId: {
-              InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
             }
           },
           PmtId: {
-            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
+            TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
+            InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
           },
           Dbtr: {
             FinInstnId: {
