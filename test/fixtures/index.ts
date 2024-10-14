@@ -655,7 +655,9 @@ export const expectedFspiopTargets = {
           currency: 'XXY',
           amount: '234.45'
         },
-        condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
+        condition: { 
+          condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
+        }
       }
     },
     patch: {
@@ -978,10 +980,10 @@ export const fspiopIso20022Sources = {
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -994,10 +996,10 @@ export const fspiopIso20022Sources = {
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1052,10 +1054,10 @@ export const fspiopIso20022Sources = {
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -1068,10 +1070,10 @@ export const fspiopIso20022Sources = {
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1249,10 +1251,10 @@ export const fspiopIso20022Sources = {
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -1265,10 +1267,10 @@ export const fspiopIso20022Sources = {
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1294,7 +1296,7 @@ export const fspiopIso20022Sources = {
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '234.45'
+            ActiveCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
             IlpV4PrepPacket: {
@@ -1730,10 +1732,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -1746,10 +1748,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1804,10 +1806,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -1820,10 +1822,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1897,10 +1899,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           UndrlygCstmrCdtTrf: {
             Dbtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'initfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'initfsp'
                   }
                 }
               }
@@ -1913,10 +1915,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               }
             },
             Cdtr: {
-              OrgId: {
-                Othr: {
-                  Id: {
-                    Prtry: 'counterfsp'
+              Id: {
+                OrgId: {
+                  Othr: {
+                    Id: 'counterfsp'
                   }
                 }
               }
@@ -1942,12 +1944,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           IntrBkSttlmAmt: {
             Ccy: 'XXY',
-            ActiveOrHistoricCurrencyAndAmount: '234.45'
+            ActiveCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
-            }
+            IlpV4PrepPacket: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
           }
         }
       }

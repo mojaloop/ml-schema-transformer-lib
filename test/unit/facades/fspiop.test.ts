@@ -151,7 +151,7 @@ describe('FSPIOPTransformFacade tests', () => {
     })
   });
   describe('FXQuotes', () => {
-    describe.skip('POST /fxQuotes', () => {
+    describe('POST /fxQuotes', () => {
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.post, FspiopTransformFacade.fxQuotes.post, expected('fxQuotes.post'))();
       });
@@ -170,7 +170,7 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
       });
     });
-    describe.skip('PUT /fxQuotes', () => {
+    describe('PUT /fxQuotes', () => {
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
       });
@@ -194,7 +194,7 @@ describe('FSPIOPTransformFacade tests', () => {
     });
   });
   describe('FXTransfers', () => {
-    test.skip('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+    test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
     });
     test('should transform PATCH FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
