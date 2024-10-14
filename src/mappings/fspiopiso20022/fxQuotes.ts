@@ -43,7 +43,7 @@ export const fxQuotes = {
   put: {
     "$noDefaults": "true",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
-    "body.conversionTerms.conversionId": "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId",
+    "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
     "body.conversionTerms.counterPartyFsp": "body.CdtTrfTxInf.Cdtr.FinInstnId.Othr.Id",
@@ -92,7 +92,7 @@ export const fxQuotes_reverse = {
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
-    "body.CdtTrfTxInf.VrfctnOfTerms.PmtId.InstrId": "body.conversionTerms.conversionId",
+    "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.Id.OrgId.Othr.Id": "body.conversionTerms.initiatingFsp",
