@@ -164,7 +164,7 @@ describe('FSPIOPTransformFacade tests', () => {
       });
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
         const source = { ...fspiopSources.fxQuotes.post };
-        setProp(source, 'body.amountType', 'SEND');
+        setProp(source, 'body.conversionTerms.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.post(source);
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');
@@ -183,7 +183,7 @@ describe('FSPIOPTransformFacade tests', () => {
       });
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
         const source = { ...fspiopSources.fxQuotes.put };
-        setProp(source, 'body.amountType', 'SEND');
+        setProp(source, 'body.conversionTerms.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.put(source);
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('CRED');

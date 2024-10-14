@@ -73,6 +73,26 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'body.transactionType.refundInfo.reason', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf'));
       }
 
+      if (getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
+        setProp(target, 'body.transactionType.initiator', 'PAYEE');
+      } else {
+        setProp(target, 'body.transactionType.initiator', 'PAYER');
+      }
+      
+      if (!getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
+        if (getProp(source, 'body.CdtTrfTxInf.Dtr.Id.Pty')) {
+          setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
+        } else {
+          setProp(target, 'body.transactionType.initiatorType', 'BUSINESS');
+        }
+      } else {
+        if (getProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty')) {
+          setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
+        } else {
+          setProp(target, 'body.transactionType.initiatorType', 'BUSINESS');
+        }
+      }
+
       return target;
     },
     put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<Pick<Target, 'body' | 'headers'>> =>
@@ -129,7 +149,7 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
       return target;
     },
@@ -147,7 +167,7 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
 
       return target;
     },

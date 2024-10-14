@@ -149,6 +149,8 @@ export const fspiopSources = {
           amount: 5
         },
         transactionType: {
+          initiator: 'PAYEE',
+          initiatorType: 'BUSINESS',
           scenario: 'DEPOSIT'
         },
         expiration: '2020-01-01T00:00:00Z',
@@ -188,6 +190,9 @@ export const fspiopSources = {
       headers: {
         'fspiop-source': 'sourcefsp',
         'fspiop-destination': 'destinationfsp'
+      },
+      params: {
+        ID: '12345678'
       },
       $context: {
         isoPostQuote: {
@@ -514,6 +519,8 @@ export const expectedFspiopTargets = {
           amount: '100'
         },
         transactionType: {
+          initiator: 'PAYEE',
+          initiatorType: 'BUSINESS',
           refundInfo: {
             originalTransactionId: '3456789'
           }
@@ -542,6 +549,9 @@ export const expectedFspiopTargets = {
       headers: {
         'fspiop-destination': 'destinationfsp',
         'fspiop-source': 'sourcefsp'
+      },
+      params: {
+        ID: '12345678'
       }
     },
     putError: {
@@ -594,6 +604,7 @@ export const expectedFspiopTargets = {
     post: {
       body: {
         conversionTerms: {
+          amountType: 'RECEIVE',
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           initiatingFsp: 'initfsp',
@@ -606,14 +617,14 @@ export const expectedFspiopTargets = {
             currency: 'XXY',
             amount: '23.55'
           }
-        },
-        amountType: 'RECEIVE'
+        }
       }
     },
     put: {
       body: {
         condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
         conversionTerms: {
+          amountType: 'RECEIVE',
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           initiatingFsp: 'initfsp',
@@ -626,8 +637,7 @@ export const expectedFspiopTargets = {
             currency: 'XXY',
             amount: '23.55'
           }
-        },
-        amountType: 'RECEIVE'
+        }
       }
     },
     putError: {
@@ -881,6 +891,7 @@ export const fspiopIso20022Sources = {
           CreDtTm: '2024-10-07T11:00:34.493Z',
           NbOfTxs: '1',
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
+          PmtId: '12345678',
           SttlmInf: {
             SttlmMtd: 'CLRG'
           }
@@ -1528,6 +1539,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
           NbOfTxs: '1',
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
+          PmtId: '12345678',
           SttlmInf: {
             SttlmMtd: 'CLRG'
           }

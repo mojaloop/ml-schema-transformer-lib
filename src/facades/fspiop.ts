@@ -75,6 +75,12 @@ export const FspiopTransformFacade = {
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
       }
 
+      if (getProp(source, 'body.transactionType.initiator') === 'PAYER') {
+        setProp(target, 'body.CdtTrfTxInf.InitgPty', getProp(target, 'body.CdtTrfItInf.Dtr'));
+      } else  {
+        setProp(target, 'body.CdtTrfTxInf.InitgPty', getProp(target, 'body.CdtTrfItInf.Cdr'));
+      }
+
       return target;
     },
     put: async (source: FspiopSource & { $context?: { isoPostQuote: GenericObject } }, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
@@ -131,7 +137,7 @@ export const FspiopTransformFacade = {
       */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
+      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.conversionTerms.amountType') === 'SEND' ? 'CRED' : 'DEBT');
 
       return target;
     },
@@ -149,7 +155,7 @@ export const FspiopTransformFacade = {
       */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
+      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.conversionTerms.amountType') === 'SEND' ? 'CRED' : 'DEBT');
 
       return target;
     },
