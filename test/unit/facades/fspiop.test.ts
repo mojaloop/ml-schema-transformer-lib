@@ -98,13 +98,6 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd')).toBe('REFD');
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('Refund reason');
       });
-      test.skip('should transform POST quotes payload from FSPIOP to FSPIOP ISO 20022 with initiator === PAYER', async () => {
-        const source = { ...fspiopSources.quotes.post };
-        setProp(source, 'body.transactionType.initiator', 'PAYER');
-        const target = await FspiopTransformFacade.quotes.post(source);
-        expect(target).toHaveProperty('body');
-        expect(getProp(target, 'body.CdtTrfTxInf.InitgPty')).toBe('Dbtr');
-      })
     });
     describe('PUT /quotes', () => {
       test('should transform PUT quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {

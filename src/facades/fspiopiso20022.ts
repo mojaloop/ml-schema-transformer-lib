@@ -79,14 +79,14 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'body.transactionType.initiator', 'PAYER');
       }
       
-      if (!getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
-        if (getProp(source, 'body.CdtTrfTxInf.Dtr.Id.Pty')) {
+      if (getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
+        if (getProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty')) {
           setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
         } else {
           setProp(target, 'body.transactionType.initiatorType', 'BUSINESS');
         }
       } else {
-        if (getProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty')) {
+        if (getProp(source, 'body.CdtTrfTxInf.Dtr.Id.Pty')) {
           setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
         } else {
           setProp(target, 'body.transactionType.initiatorType', 'BUSINESS');

@@ -90,6 +90,32 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.transactionType.refundInfo.reason')).toBe('Refund reason');
       });
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP with PAYER initiator', async () => {
+        const source = { ...fspiopIso20022Sources.quotes.post };
+        setProp(source, 'body.CdtTrfTxInf.PmtId.InstrId', undefined);
+
+        const target = await FspiopIso20022TransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.transactionType.initiator')).toBe('PAYER');
+      });
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP with CONSUMER initiatorType', async () => {
+        const source = { ...fspiopIso20022Sources.quotes.post };
+        setProp(source, 'body.CdtTrfTxInf.PmtId.InstrId', undefined);
+        setProp(source, 'body.CdtTrfTxInf.Dtr.Id.Pty', {});
+
+        const target = await FspiopIso20022TransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.transactionType.initiatorType')).toBe('CONSUMER');
+      });
+      test('should transform POST quotes payload from FSPIOP ISO 20022 to FSPIOP with CONSUMER initiatorType when CdtTrfTxInf.PmtId.InstrId is set', async () => {
+        const source = { ...fspiopIso20022Sources.quotes.post };
+        setProp(source, 'body.CdtTrfTxInf.PmtId.InstrId', {});
+        setProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty', {});
+
+        const target = await FspiopIso20022TransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.transactionType.initiatorType')).toBe('CONSUMER');
+      });
     });
     test('should transform PUT quotes payload from FSPIOP ISO 20022 to FSPIOP', async () => {
       await testCase(fspiopIso20022Sources.quotes.put, FspiopIso20022TransformFacade.quotes.put, fspiopTargets.quotes.put)();
