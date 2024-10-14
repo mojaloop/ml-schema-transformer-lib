@@ -41,11 +41,10 @@ const fspiopToIsoTransferStateMap: GenericObject = {
 export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}): string => {
   switch (idGenType) {
     case ID_GENERATOR_TYPE.ulid:
-      return idGenerator({ type: idGenType, ...config })();
     case ID_GENERATOR_TYPE.uuid:
-      return idGenerator({ type: idGenType, ...config })();
+      return idGenerator({ ...config, type: idGenType })();
     default:
-      return idGenerator({ type: ID_GENERATOR_TYPE.ulid, ...config })();
+      return idGenerator({ ...config, type: ID_GENERATOR_TYPE.ulid })();
   }
 }
 
