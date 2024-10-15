@@ -55,7 +55,7 @@ export const quotes = {
     "body.transferAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.transferAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.payeeReceiveAmount.currency": "body.CdtTrfTxInf.InstdAmt.Ccy",
-    "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount",
+    "body.payeeReceiveAmount.amount": "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.payeeFspFee.currency": "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy",
     "body.payeeFspFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
@@ -116,7 +116,7 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.transferAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.transferAmount.amount",
     "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",
-    "body.CdtTrfTxInf.InstdAmt.ActiveCurrencyAndAmount": "body.payeeReceiveAmount.amount",
+    "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.payeeReceiveAmount.amount",
     "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
     "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"

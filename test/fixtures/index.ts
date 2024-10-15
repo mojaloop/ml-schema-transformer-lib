@@ -937,7 +937,7 @@ export const fspiopIso20022Sources = {
           },
           InstdAmt: {
             Ccy: 'AED',
-            ActiveCurrencyAndAmount: '123.45'
+            ActiveOrHistoricCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
             Amt: {
@@ -1585,7 +1585,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           },
           InstdAmt: {
             Ccy: 'AED',
-            ActiveCurrencyAndAmount: '123.45'
+            ActiveOrHistoricCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
             Amt: {
