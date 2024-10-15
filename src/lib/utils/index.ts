@@ -104,9 +104,16 @@ export const getIlpPacketCondition = (ilpPacket: string, ilpVersion?: string): G
   const definedIlpVersion = ilpVersion || process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
   const ilp = Ilp.ilpFactory(definedIlpVersion, { secret: ilpSecret, logger });
-  const decoded = ilp.decodeIlpPacket(ilpPacket);
 
-  return decoded?.executionCondition?.toString('base64url');
+  if (definedIlpVersion === Ilp.ILP_VERSIONS.v1) {
+    return ilp.getResponseIlp(ilp.getTransactionObject(ilpPacket)).condition;
+  }
+  if (definedIlpVersion === Ilp.ILP_VERSIONS.v4) {
+    const decoded = ilp.decodeIlpPacket(ilpPacket);
+    return decoded?.executionCondition?.toString('base64url');
+  }
+
+  throw new Error(`getIlpPacketCondition: Unsupported ILP version: ${definedIlpVersion}`);
 }
 
 // Converts FSPIOP transfer state to FSPIOP ISO20022 transfer state
@@ -125,3 +132,4 @@ export const toFspiopTransferState = (isoState: string): string | undefined => {
   }
   throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
 }
+

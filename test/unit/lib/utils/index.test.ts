@@ -22,7 +22,9 @@
  --------------
  ******/
 
-import { ilpCondition, ilpPacket } from 'test/fixtures';
+const Ilp = require('@mojaloop/sdk-standard-components').Ilp;
+
+import { ilpV4Condition, ilpV4Packet, ilpV1Condition, ilpV1Packet } from 'test/fixtures';
 import { generateID, getDescrFromErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
@@ -103,15 +105,26 @@ describe('Utils tests', () => {
   });
   describe('getIlpPacketCondition', () => {
     it('should get the condition from an ILP packet', () => {
-      const condition = getIlpPacketCondition(ilpPacket);
-      expect(condition).toBe(ilpCondition);
+      const condition = getIlpPacketCondition(ilpV4Packet);
+      expect(condition).toBe(ilpV4Condition);
     });
     it('should throw an error for an invalid ILP packet', () => {
       expect(() => getIlpPacketCondition('invalid packet')).toThrow();
     });
     it('should not throw an error if MLST_ILP_SECRET is not set', () => {
       process.env.MLST_ILP_SECRET = '';
-      expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
+      expect(() => getIlpPacketCondition(ilpV4Packet)).not.toThrow();
+    });
+    it('should get the condition from an ILP packet with specified v4 ilpPacket', () => {
+      const condition = getIlpPacketCondition(ilpV4Packet, Ilp.ILP_VERSIONS.v4);
+      expect(condition).toBe(ilpV4Condition);
+    });
+    it('should get the condition from an ILP packet with specified v1 ilpPacket', () => {
+      const condition = getIlpPacketCondition(ilpV1Packet, Ilp.ILP_VERSIONS.v1);
+      expect(condition).toBe(ilpV1Condition);
+    });
+    it('should throw an error for an unsupported ILP version', () => {
+      expect(() => getIlpPacketCondition(ilpV4Packet, 'v135')).toThrow();
     });
   });
   describe('toIsoTransferState', () => {
