@@ -29,7 +29,7 @@ import { createTransformer } from './createTransformer';
 export const transformFn = async (source: Partial<Source>, options: TransformFunctionOptions): Promise<Partial<Target>> => {
   const { mapping, mapTransformOptions, mapperOptions, logger } = options;
   try {
-    const transformer = await createTransformer(mapping, { mapTransformOptions });
+    const transformer = createTransformer(mapping, { mapTransformOptions });
     return transformer.transform(source, { mapperOptions });
   } catch (error) {
     logger.error('Error transforming payload with supplied mapping', { error, source, mapping });

@@ -1537,12 +1537,14 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CreDtTm: getProp(target, 'body.GrpHdr.CreDtTm'),
           NbOfTxs: '1',
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
-          PmtId: '12345678',
           SttlmInf: {
             SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
+          PmtId: {
+            TxId: '12345678'
+          },
           Dbtr: {
             Id: {
               OrgId: {
