@@ -52,8 +52,8 @@ export type Source = {
 
 export type Target = {
   body: GenericObject;
-  headers?: GenericObject;
-  params?: GenericObject;
+  headers: GenericObject;
+  params: GenericObject;
 };
 
 export type FspiopSource = Pick<Source, 'body'>;

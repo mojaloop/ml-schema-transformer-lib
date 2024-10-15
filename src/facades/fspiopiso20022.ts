@@ -95,7 +95,7 @@ export const FspiopIso20022TransformFacade = {
 
       return target;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<Pick<Target, 'body' | 'headers'>> =>
+    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<Target> =>
       transformFn(source, {
         ...options,
         logger: log,
