@@ -26,7 +26,7 @@ import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource }
 
 export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
   return !!(config.logger);
-}
+};
 
 const FSPIOP = {
   parties: {
