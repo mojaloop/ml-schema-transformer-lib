@@ -44,6 +44,10 @@ export interface ICustomTransforms {
   [key: string | symbol]: Transformer | AsyncTransformer
 }
 
+export type ConfigOptions = {
+  logger: ContextLogger;
+}
+
 export type Source = {
   body: GenericObject;
   headers?: GenericObject;

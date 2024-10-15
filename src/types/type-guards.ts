@@ -22,15 +22,92 @@
  --------------
  ******/
 
-import { FspiopPutQuotesSource } from '.';
+ import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
+import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource } from '.';
 
 // @todo: Add more type guards
 
 const FSPIOP = {
+  isConfig: (config: ConfigOptions): config is ConfigOptions => {
+    return !!(config.logger);
+  },
+  parties: {
+    put: {
+      isSource: (source: Source): source is Source => {
+        return !!(source.body && source.headers && source.params);
+      }
+    },
+    putError: {
+      isSource: (source: Source): source is Source => {
+        return !!(source.body && source.headers && source.params);
+      }
+    }
+  },
   quotes: {
+    post: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
     put: {
       isSource: (source: FspiopPutQuotesSource): source is FspiopPutQuotesSource => {
         return !!(source.body && (source.$context || source.headers));
+      }
+    },
+    putError: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  transfers: {
+    post: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
       }
     }
   }
