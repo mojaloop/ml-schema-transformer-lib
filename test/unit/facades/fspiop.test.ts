@@ -121,7 +121,7 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('Refund reason');
       });
     });
-    describe('PUT /quotes', () => {
+    describe('PUT /quotes/{ID}', () => {
       test('should throw if source is wrongly typed', async () => {
         const source = { ...fspiopSources.quotes.put };
         setProp(source, 'headers', undefined);
@@ -161,14 +161,22 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
       });
     });
-    test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
-    });
-    test('should throw if source is wrongly typed', async () => {
-      const source = { ...fspiopSources.quotes.putError };
-      setProp(source, 'body', undefined);
-      const promise = FspiopTransformFacade.quotes.putError(source);
-      await expect(promise).rejects.toThrow('Invalid source object for put quotes error');
+    describe('PUT /quotes/{ID}/error', () => {
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.quotes.putError };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.quotes.putError(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put quotes error');
+      });
+      test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();
+      });
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.quotes.putError };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.quotes.putError(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put quotes error');
+      });
     });
   });
   describe('Transfers', () => {
@@ -281,17 +289,49 @@ describe('FSPIOPTransformFacade tests', () => {
     });
   });
   describe('FXTransfers', () => {
-    test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
+    describe('POST /fxTransfers', () => {
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.fxTransfers.post };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.fxTransfers.post(source);
+        await expect(promise).rejects.toThrow('Invalid source object for post fxTransfers');
+      });
+      test('should transform POST FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.fxTransfers.post, FspiopTransformFacade.fxTransfers.post, expected('fxTransfers.post'))();
+      });
     });
-    test('should transform PATCH FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.fxTransfers.patch, FspiopTransformFacade.fxTransfers.patch, expected('fxTransfers.patch'))();
+    describe('PATCH /fxTransfers/{ID}', () => {
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.fxTransfers.patch };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.fxTransfers.patch(source);
+        await expect(promise).rejects.toThrow('Invalid source object for patch fxTransfers');
+      });
+      test('should transform PATCH FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.fxTransfers.patch, FspiopTransformFacade.fxTransfers.patch, expected('fxTransfers.patch'))();
+      });
     });
-    test('should transform PUT FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.fxTransfers.put, FspiopTransformFacade.fxTransfers.put, expected('fxTransfers.put'))();
+    describe('PUT /fxTransfers/{ID}', () => {
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.fxTransfers.put };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.fxTransfers.put(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put fxTransfers');
+      });
+      test('should transform PUT FX transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.fxTransfers.put, FspiopTransformFacade.fxTransfers.put, expected('fxTransfers.put'))();
+      });
     });
-    test('should transform PUT FX transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
-      await testCase(fspiopSources.fxTransfers.putError, FspiopTransformFacade.fxTransfers.putError, expected('fxTransfers.putError'))();
+    describe('PUT /fxTransfers/{ID}/error', () => {
+      test('should throw if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.fxTransfers.post };
+        setProp(source, 'body', undefined);
+        const promise = FspiopTransformFacade.fxTransfers.putError(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put fxTransfers error');
+      });
+      test('should transform PUT FX transfers error payload from FSPIOP to FSPIOP ISO 20022', async () => {
+        await testCase(fspiopSources.fxTransfers.putError, FspiopTransformFacade.fxTransfers.putError, expected('fxTransfers.putError'))();
+      });
     });
   });
 });

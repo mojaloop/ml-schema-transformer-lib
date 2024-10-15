@@ -28,7 +28,7 @@ import { FSPIO20022PMappings } from '../mappings';
 import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions } from '../types';
 import { getProp, setProp } from '../lib/utils';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
-import { TypeGuards } from 'src/types/type-guards';
+import { TypeGuards, isConfig } from 'src/types/type-guards';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
@@ -38,7 +38,7 @@ let log: ContextLogger = defaultLogger;
 
 export const FspiopTransformFacade = {
   configure: (config: ConfigOptions) => {
-    if (!TypeGuards.FSPIOP.isConfig(config)) {
+    if (!isConfig(config)) {
       throw new Error('Invalid configuration object for FSPIOP transform facade');
     }
     log = config.logger;

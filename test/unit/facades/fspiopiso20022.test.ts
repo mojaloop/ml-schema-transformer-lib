@@ -155,10 +155,10 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
     });
     describe('PUT /quotes/{ID}/error', () => {
       test('should throw if source is wrongly typed', async () => {
-        const source = { ...fspiopIso20022Sources.quotes.post };
+        const source = { ...fspiopIso20022Sources.quotes.putError };
         setProp(source, 'body', undefined);
-        const promise = FspiopIso20022TransformFacade.quotes.post(source);
-        await expect(promise).rejects.toThrow('Invalid source object for post quotes');
+        const promise = FspiopIso20022TransformFacade.quotes.putError(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put quotes error');
       });
       test('should transform PUT quotes error payload from FSPIOP ISO 20022 to FSPIOP', async () => {
         await testCase(fspiopIso20022Sources.quotes.putError, FspiopIso20022TransformFacade.quotes.putError, fspiopTargets.quotes.putError)();

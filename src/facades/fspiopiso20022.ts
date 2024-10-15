@@ -26,7 +26,7 @@ import { ConfigOptions, FspiopTarget, IsoSource, Target, TransformFacadeOptions 
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp } from '../lib/utils';
-import { TypeGuards } from 'src/types/type-guards';
+import { TypeGuards, isConfig } from 'src/types/type-guards';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
@@ -36,7 +36,7 @@ let log = defaultLogger;
 
 export const FspiopIso20022TransformFacade = {
   configure: (config: ConfigOptions) => {
-    if (!TypeGuards.FSPIOPISO20022.isConfig(config)) {
+    if (!isConfig(config)) {
       throw new Error('Invalid configuration object for FSPIOP ISO 20022 transform facade');
     }
     log = config.logger;

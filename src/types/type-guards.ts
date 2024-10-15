@@ -24,10 +24,11 @@
 
 import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource } from '.';
 
+export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
+  return !!(config.logger);
+}
+
 const FSPIOP = {
-  isConfig: (config: ConfigOptions): config is ConfigOptions => {
-    return !!(config.logger);
-  },
   parties: {
     put: {
       isSource: (source: Source): source is Source => {
@@ -121,9 +122,6 @@ const FSPIOP = {
 };
  
 const FSPIOPISO20022 = {
-  isConfig: (config: ConfigOptions): config is ConfigOptions => {
-    return !!(config.logger);
-  },
   parties: {
     put: {
       isSource: (source: IsoSource): source is IsoSource => {
