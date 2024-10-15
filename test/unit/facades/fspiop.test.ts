@@ -131,6 +131,13 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id')).toBe('CdtrAgt');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
       });
+      test('should fail type check if source is wrongly typed', async () => {
+        const source = { ...fspiopSources.quotes.put };
+        setProp(source, 'headers', undefined);
+        setProp(source, '$context', undefined);
+        const promise = FspiopTransformFacade.quotes.put(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put quotes');
+      });
     });
     test('should transform PUT quotes error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.quotes.putError, FspiopTransformFacade.quotes.putError, expected('quotes.putError'))();

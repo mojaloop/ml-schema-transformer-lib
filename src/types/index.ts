@@ -59,6 +59,8 @@ export type Target = {
 export type FspiopSource = Pick<Source, 'body'>;
 export type FspiopTarget = Pick<Target, 'body'>;
 
+export type FspiopPutQuotesSource = { body: GenericObject,  $context: { isoPostQuote: GenericObject }, headers?: GenericObject } | {body: GenericObject, headers: GenericObject, $context?: GenericObject };
+
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;
 
@@ -81,3 +83,4 @@ export const logLevelsMap = {
 
 export const logLevelValues = Object.values(logLevelsMap);
 export type LogLevel = (typeof logLevelValues)[number];
+

@@ -25,9 +25,10 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions } from '../types';
+import { FspiopPutQuotesSource, FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions } from '../types';
 import { getProp, setProp } from '../lib/utils';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
+import { TypeGuards } from 'src/types/type-guards';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
@@ -77,12 +78,16 @@ export const FspiopTransformFacade = {
 
       return target;
     },
-    put: async (source: FspiopSource & { $context: { isoPostQuote: GenericObject } | { headers?: GenericObject } }, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
-      transformFn(source, {
+    put: async (source: FspiopPutQuotesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+      if (!TypeGuards.FSPIOP.quotes.put.isSource(source)) {
+        throw new Error('Invalid source object for put quotes');
+      }
+      return transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.put
-      }) as Promise<IsoTarget>,
+      }) as Promise<IsoTarget>
+    },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
         ...options,
