@@ -22,7 +22,6 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource } from '.';
 
 // @todo: Add more type guards
