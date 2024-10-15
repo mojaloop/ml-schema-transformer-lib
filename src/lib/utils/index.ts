@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -49,7 +49,7 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
 }
 
 // improve: import enums from cs-shared
-export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType); 
+export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);
 
 export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
@@ -97,13 +97,13 @@ export const getDescrFromErrCode = (code: string | number): string => {
 }
 
 // Get the ILP packet condition from an ILP packet
-export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
+export const getIlpPacketCondition = (ilpPacket: string, ilpVersion?: string): GenericObject => {
   // improve: These envs should be passable via a config/options
   // @todo: remove env ref after ilpFactory is updated to not require secret
   const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret';
-  const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
+  const definedIlpVersion = ilpVersion || process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
-  const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
+  const ilp = Ilp.ilpFactory(definedIlpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
 
   return decoded?.executionCondition?.toString('base64url');
