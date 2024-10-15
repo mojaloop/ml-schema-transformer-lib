@@ -52,7 +52,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.put,
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     putError: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.putError.isSource(source)) {
@@ -62,7 +62,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.putError,
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
   },
   quotes: {
@@ -110,7 +110,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.putError,
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
   },
   transfers: {
@@ -122,7 +122,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.post
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
@@ -132,7 +132,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.patch
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
@@ -142,7 +142,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.put
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.putError.isSource(source)) {
@@ -152,7 +152,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.putError
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
   },
   fxQuotes: {
@@ -206,7 +206,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.putError
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
   },
   fxTransfers: {
@@ -218,7 +218,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.post
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
@@ -228,7 +228,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.patch
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
@@ -238,7 +238,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.put
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.putError.isSource(source)) {
@@ -248,7 +248,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.putError
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
   },
 };
