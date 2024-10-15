@@ -34,6 +34,6 @@ const FSPIOP = {
       }
     }
   }
-}
+};
 
 export const TypeGuards = { FSPIOP };

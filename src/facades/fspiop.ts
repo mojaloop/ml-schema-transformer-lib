@@ -86,7 +86,7 @@ export const FspiopTransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.put
-      }) as Promise<IsoTarget>
+      }) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> =>
       transformFn(source, {
