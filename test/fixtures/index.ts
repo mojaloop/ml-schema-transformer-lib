@@ -623,7 +623,7 @@ export const expectedFspiopTargets = {
     },
     put: {
       body: {
-        condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
+        condition: ilpCondition,
         conversionTerms: {
           amountType: 'RECEIVE',
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -1047,9 +1047,7 @@ export const fspiopIso20022Sources = {
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
-            }
+            IlpV4PrepPacket: ilpPacket
           },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -1801,9 +1799,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
-            }
+            IlpV4PrepPacket: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
           },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
