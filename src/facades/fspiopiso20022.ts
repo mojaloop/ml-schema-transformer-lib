@@ -22,7 +22,6 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { ConfigOptions, FspiopTarget, IsoSource, Target, TransformFacadeOptions } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
@@ -51,7 +50,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery.parties.put,
-      }) as Promise<Target>
+      }) as Promise<Target>;
     },
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<Target> => {
       if (!TypeGuards.FSPIOPISO20022.parties.putError.isSource(source)) {
@@ -61,7 +60,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery.parties.putError
-      }) as Promise<Target>
+      }) as Promise<Target>;
     },
   },
   quotes: {
@@ -118,7 +117,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes.put
-      }) as  Promise<Target>
+      }) as  Promise<Target>;
     },
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.putError.isSource(source)) {
@@ -128,7 +127,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes.putError
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
   },
   transfers: {
@@ -140,7 +139,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers.post
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     patch: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.patch.isSource(source)) {
@@ -150,7 +149,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers.patch
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.put.isSource(source)) {
@@ -160,7 +159,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers.put
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.putError.isSource(source)) {
@@ -170,7 +169,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers.putError
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
   },
   fxQuotes: {
@@ -224,7 +223,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes.putError
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
   },
   fxTransfers: {
@@ -236,7 +235,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers.post
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     patch: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.patch.isSource(source)) {
@@ -246,7 +245,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers.patch
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.put.isSource(source)) {
@@ -256,7 +255,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers.put
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     },
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.putError.isSource(source)) {
@@ -266,7 +265,7 @@ export const FspiopIso20022TransformFacade = {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers.putError
-      }) as Promise<FspiopTarget>
+      }) as Promise<FspiopTarget>;
     }
   },
 };

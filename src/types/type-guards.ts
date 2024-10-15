@@ -120,100 +120,100 @@ const FSPIOP = {
   }
 };
  
- const FSPIOPISO20022 = {
-   isConfig: (config: ConfigOptions): config is ConfigOptions => {
-     return !!(config.logger);
-   },
-   parties: {
-     put: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     putError: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     }
-   },
-   quotes: {
-     post: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     put: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     putError: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     }
-   },
-   transfers: {
-     post: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     patch: {
-        isSource: (source: IsoSource): source is IsoSource => {
-          return !!(source.body);
-        }
-      },
-     put: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     putError: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     }
-   },
-   fxQuotes: {
-     post: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     put: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     putError: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     }
-   },
-   fxTransfers: {
-     post: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     patch: {
-        isSource: (source: IsoSource): source is IsoSource => {
-          return !!(source.body);
-        }
-      },
-     put: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     },
-     putError: {
-       isSource: (source: IsoSource): source is IsoSource => {
-         return !!(source.body);
-       }
-     }
-   }
- };
+const FSPIOPISO20022 = {
+  isConfig: (config: ConfigOptions): config is ConfigOptions => {
+    return !!(config.logger);
+  },
+  parties: {
+    put: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  quotes: {
+    post: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  transfers: {
+    post: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    patch: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  fxQuotes: {
+    post: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    }
+  },
+  fxTransfers: {
+    post: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    patch: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    put: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    },
+    putError: {
+      isSource: (source: IsoSource): source is IsoSource => {
+        return !!(source.body);
+      }
+    }
+  }
+};
 
 export const TypeGuards = { FSPIOP, FSPIOPISO20022 };
