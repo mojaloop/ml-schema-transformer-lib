@@ -125,7 +125,7 @@ export const FspiopTransformFacade = {
       }) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
-      if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
+      if (!TypeGuards.FSPIOP.transfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch transfers');
       }
       return transformFn(source, {
@@ -221,7 +221,7 @@ export const FspiopTransformFacade = {
       }) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
-      if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
+      if (!TypeGuards.FSPIOP.fxTransfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch fxTransfers');
       }
       return transformFn(source, {

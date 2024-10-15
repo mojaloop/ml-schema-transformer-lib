@@ -22,9 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource } from '.';
-
-// @todo: Add more type guards
+import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource } from '.';
 
 const FSPIOP = {
   isConfig: (config: ConfigOptions): config is ConfigOptions => {
@@ -65,6 +63,11 @@ const FSPIOP = {
         return !!(source.body);
       }
     },
+    patch: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
     put: {
       isSource: (source: FspiopSource): source is FspiopSource => {
         return !!(source.body);
@@ -99,6 +102,11 @@ const FSPIOP = {
         return !!(source.body);
       }
     },
+    patch: {
+      isSource: (source: FspiopSource): source is FspiopSource => {
+        return !!(source.body);
+      }
+    },
     put: {
       isSource: (source: FspiopSource): source is FspiopSource => {
         return !!(source.body);
@@ -111,5 +119,101 @@ const FSPIOP = {
     }
   }
 };
+ 
+ const FSPIOPISO20022 = {
+   isConfig: (config: ConfigOptions): config is ConfigOptions => {
+     return !!(config.logger);
+   },
+   parties: {
+     put: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     putError: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     }
+   },
+   quotes: {
+     post: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     put: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     putError: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     }
+   },
+   transfers: {
+     post: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     patch: {
+        isSource: (source: IsoSource): source is IsoSource => {
+          return !!(source.body);
+        }
+      },
+     put: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     putError: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     }
+   },
+   fxQuotes: {
+     post: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     put: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     putError: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     }
+   },
+   fxTransfers: {
+     post: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     patch: {
+        isSource: (source: IsoSource): source is IsoSource => {
+          return !!(source.body);
+        }
+      },
+     put: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     },
+     putError: {
+       isSource: (source: IsoSource): source is IsoSource => {
+         return !!(source.body);
+       }
+     }
+   }
+ };
 
-export const TypeGuards = { FSPIOP };
+export const TypeGuards = { FSPIOP, FSPIOPISO20022 };
