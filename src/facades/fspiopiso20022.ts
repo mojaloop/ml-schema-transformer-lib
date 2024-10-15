@@ -22,11 +22,10 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, TransformFacadeOptions } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp } from '../lib/utils';
-import { TypeGuards, isConfig } from 'src/types/type-guards';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 

@@ -87,4 +87,5 @@ export const logLevelsMap = {
 
 export const logLevelValues = Object.values(logLevelsMap);
 export type LogLevel = (typeof logLevelValues)[number];
+export * from './type-guards';
 

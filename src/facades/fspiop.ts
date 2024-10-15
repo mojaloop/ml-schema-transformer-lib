@@ -25,10 +25,9 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions } from '../types';
+import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
 import { getProp, setProp } from '../lib/utils';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
-import { TypeGuards, isConfig } from 'src/types/type-guards';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
