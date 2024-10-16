@@ -265,7 +265,7 @@ export const fspiopSources = {
     },
     put: {
       body: {
-        condition: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1',
+        condition: ilpCondition,
         conversionTerms: {
           conversionId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
           determiningTransferId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -406,7 +406,7 @@ export const fspiopSources = {
           currency: 'XXY',
           amount: '234.45'
         },
-        condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz',
+        condition: ilpCondition,
         expiration: '2016-05-24T08:38:08.699-04:00'
       }
     },
@@ -666,9 +666,7 @@ export const expectedFspiopTargets = {
           currency: 'XXY',
           amount: '234.45'
         },
-        condition: { 
-          condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
-        }
+        condition: ilpCondition
       }
     },
     patch: {
@@ -1047,7 +1045,7 @@ export const fspiopIso20022Sources = {
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            IlpV4PrepPacket: ilpPacket
+            Sh256Sgntr: ilpCondition
           },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -1307,9 +1305,7 @@ export const fspiopIso20022Sources = {
             ActiveCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: {
-              condition: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
-            }
+            Sh256Sgntr: ilpCondition
           }
         }
       }
@@ -1799,7 +1795,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            IlpV4PrepPacket: 'g55PVnhRS9OAKnMS6AkNBtPngJbMaRixwVKM3BPGYH1'
+            Sh256Sgntr: ilpCondition
           },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -1964,7 +1960,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             ActiveCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
-            IlpV4PrepPacket: 're58GF7B9AMzwlULedVdVWidOTJGmModEMX6Npe0Pvz'
+            Sh256Sgntr: ilpCondition
           }
         }
       }
