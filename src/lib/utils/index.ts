@@ -103,6 +103,11 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret';
   const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
 
+  // ILP v1 is not supported since ISO 20022 does not support it
+  if (ilpVersion == Ilp.ILP_VERSIONS.v1) {
+    throw new Error('ILP v1 is not supported');
+  }
+
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);
 
