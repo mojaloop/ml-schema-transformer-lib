@@ -44,6 +44,7 @@ const target = await TransformFacades.FSPIOP.quotes.post(source);
 The `source` parameter may require `params` and/or `headers` properties depending on the use-case.
 `target` will always be `{ body }` for ISO targets and `{ body, headers?, params? }` for FSPIOP targets. The optional FSPIOP target `headers` and `params` will be populated as needed on use-case basis.
 Be sure to check the signature for the facade function you're using to be sure of what is expected as parameter and result.
+The facade functions have type guards that validate the `source` parameter to ensure they are of the right shape. The type guards will throw exceptions when the `source` parameter passed are not in the shape expected.
 The facade functions work with built-in mappings which are located in `src/mappings` directory.
 The facade functions take optional second parameter of type `TransformFacadeOptions` for controlling certain aspects of the function.
 
