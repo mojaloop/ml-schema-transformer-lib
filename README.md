@@ -41,7 +41,7 @@ const source = {
 // `target` is an object with `body` property containing  transformed FSPIOP ISO 20022 POST /quotes payload
 const target = await TransformFacades.FSPIOP.quotes.post(source);
 ```
-The `source` parameter require `params` and `headers` properties depedning on the use case.
+The `source` parameter may require `params` and/or `headers` properties depending on the use-case.
 `target` will always be `{ body }` for ISO targets and `{ body, headers?, params? }` for FSPIOP targets. The optional `headers` and `params` will be populated as needed on use-case basis.
 Be sure to check the signature for the facade function you're using to be sure of what is expected as parameter and result.
 The facade functions work with built-in mappings which are located in `src/mappings` directory.
