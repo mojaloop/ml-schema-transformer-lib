@@ -31,7 +31,7 @@ import { TransformFacades } from '@mojaloop/ml-schema-transformer-lib';
 // CJS
 const { TransformFacades } = require('@mojaloop/ml-schema-transformer-lib')
 
-// `source` is a an object with `body` property containing FSPIOP POST /quotes payload
+// `source` is an object with `body` property containing FSPIOP POST /quotes payload
 const source = {
   body: {
     quoteId: 'random quote id',
