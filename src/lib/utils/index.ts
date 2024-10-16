@@ -86,7 +86,7 @@ export function getProp(obj: unknown, path: string): unknown {
   return current;
 }
 
-export const getDescrFromErrCode = (code: string | number): string => {
+export const getDescrForErrCode = (code: string | number): string => {
   try {
     const errorCode = Number.parseInt(code as string);
     const errorCreated = CreateFSPIOPErrorFromErrorCode(errorCode);
@@ -102,6 +102,11 @@ export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
   // @todo: remove env ref after ilpFactory is updated to not require secret
   const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret';
   const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
+
+  // ILP v1 is not supported since ISO 20022 does not support it
+  if (ilpVersion == Ilp.ILP_VERSIONS.v1) {
+    throw new Error('ILP v1 is not supported');
+  }
 
   const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
   const decoded = ilp.decodeIlpPacket(ilpPacket);

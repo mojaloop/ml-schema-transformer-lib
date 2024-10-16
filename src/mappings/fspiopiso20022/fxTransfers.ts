@@ -27,7 +27,7 @@ import { TransformObject } from 'src/types/map-transform'
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxTransfers = {
-  post: {
+  post: `{
     "$noDefaults": "true",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.commitRequestId": "body.CdtTrfTxInf.PmtId.TxId",
@@ -39,7 +39,7 @@ export const fxTransfers = {
     "body.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket"
-  } as unknown as TransformObject,
+  }`,
   patch: `{
     "$noDefaults": "true",
     "body.completedTimestamp": "body.TxInfAndSts.PrcgDt.DtTm",
@@ -61,7 +61,7 @@ export const fxTransfers = {
 // FSPIOP to FSPIOP ISO20022 mappings
 
 export const fxTransfers_reverse = {
-  post: {
+  post: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -81,7 +81,7 @@ export const fxTransfers_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.targetAmount.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition"
-  } as unknown as TransformObject,
+  }`,
   patch: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },

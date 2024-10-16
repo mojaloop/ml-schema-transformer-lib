@@ -27,7 +27,7 @@ import { TransformObject } from 'src/types/map-transform'
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxQuotes = {
-  post: {
+  post: `{
     "$noDefaults": "true",
     "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
     "body.conversionRequestId": "body.CdtTrfTxInf.PmtId.TxId",
@@ -39,10 +39,10 @@ export const fxQuotes = {
     "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount"
-  } as unknown as TransformObject,
-  put: {
+  }`,
+  put: `{
     "$noDefaults": "true",
-    "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition",
+    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }], 
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
@@ -52,7 +52,7 @@ export const fxQuotes = {
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
     "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
-  } as unknown as TransformObject,
+  }`,
   putError: `{
     "$noDefaults": "true",
     "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
@@ -63,7 +63,7 @@ export const fxQuotes = {
 // FSPIOP to FSPIOP ISO20022 mappings
 
 export const fxQuotes_reverse = {
-  post: {
+  post: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -83,15 +83,15 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
-  } as unknown as TransformObject,
-  put: {
+  }`,
+  put: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration",
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket.condition": "body.condition",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.condition",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.TxId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
@@ -104,7 +104,7 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
-  } as unknown as TransformObject,
+  }`,
   putError: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },

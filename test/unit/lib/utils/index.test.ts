@@ -23,7 +23,7 @@
  ******/
 
 import { ilpCondition, ilpPacket } from 'test/fixtures';
-import { generateID, getDescrFromErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState } from '../../../../src/lib/utils';
+import { generateID, getDescrForErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
 
@@ -91,14 +91,14 @@ describe('Utils tests', () => {
       expect(value).toBeUndefined();
     })
   });
-  describe('getDescrFromErrCode', () => {
+  describe('getDescrForErrCode', () => {
     it('should return a description from an error code', () => {
-      const description = getDescrFromErrCode('3100');
+      const description = getDescrForErrCode('3100');
       expect(description).toBe('Client Validation Error');
     });
     it('should throw an error for an unknown error code', () => {
-      expect(() => getDescrFromErrCode('9999')).not.toThrow();
-      expect(getDescrFromErrCode('9999')).toBe('Unknown error');
+      expect(() => getDescrForErrCode('9999')).not.toThrow();
+      expect(getDescrForErrCode('9999')).toBe('Unknown error');
     });
   });
   describe('getIlpPacketCondition', () => {
@@ -112,6 +112,14 @@ describe('Utils tests', () => {
     it('should not throw an error if MLST_ILP_SECRET is not set', () => {
       process.env.MLST_ILP_SECRET = '';
       expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
+    });
+    it('should not throw an error if MLST_ILP_VERSION is not set', () => {
+      process.env.MLST_ILP_VERSION = '';
+      expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
+    });
+    it('should throw an error for an unsupported ILP version', () => {
+      process.env.MLST_ILP_VERSION = 'v1';
+      expect(() => getIlpPacketCondition(ilpPacket)).toThrow();
     });
   });
   describe('toIsoTransferState', () => {
