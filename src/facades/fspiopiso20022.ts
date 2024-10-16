@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPostQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp } from '../lib/utils';
@@ -108,7 +108,7 @@ export const FspiopIso20022TransformFacade = {
 
       return target;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPostQuotesTarget> => {
+    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutQuotesTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.put.isSource(source)) {
         throw new Error('Invalid source object for put quotes');
       }
