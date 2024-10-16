@@ -22,16 +22,10 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
+import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
 
 export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
   return !!(config.logger);
-};
-
-const baseGuards = {
-  isSource: (source: Source): source is Source => {
-    return !!(source.body && source.headers && source.params);
-  }
 };
 
 const baseFspiopGuards = {
