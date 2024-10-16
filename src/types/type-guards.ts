@@ -28,189 +28,83 @@ export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
   return !!(config.logger);
 };
 
+const baseGuards = {
+  isSource: (source: Source): source is Source => {
+    return !!(source.body && source.headers && source.params);
+  }
+}
+
+const baseFspiopGuards = {
+  isSource: (source: FspiopSource): source is FspiopSource => {
+    return !!(source.body);
+  }
+}
+
+const baseIsoGuards = {
+  isSource: (source: IsoSource): source is IsoSource => {
+    return !!(source.body);
+  }
+}
+
 const FSPIOP = {
   parties: {
-    put: {
-      isSource: (source: Source): source is Source => {
-        return !!(source.body && source.headers && source.params);
-      }
-    },
-    putError: {
-      isSource: (source: Source): source is Source => {
-        return !!(source.body && source.headers && source.params);
-      }
-    }
+    put: baseGuards,
+    putError: baseGuards
   },
   quotes: {
-    post: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
+    post: baseFspiopGuards,
     put: {
       isSource: (source: FspiopPutQuotesSource): source is FspiopPutQuotesSource => {
         return !!(source.body && (source.$context || source.headers));
       }
     },
-    putError: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    }
+    putError: baseFspiopGuards
   },
   transfers: {
-    post: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    patch: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseFspiopGuards,
+    patch: baseFspiopGuards,
+    put: baseFspiopGuards,
+    putError: baseFspiopGuards
   },
   fxQuotes: {
-    post: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseFspiopGuards,
+    put: baseFspiopGuards,
+    putError: baseFspiopGuards
   },
   fxTransfers: {
-    post: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    patch: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: FspiopSource): source is FspiopSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseFspiopGuards,
+    patch: baseFspiopGuards,
+    put: baseFspiopGuards,
+    putError: baseFspiopGuards
   }
 };
- 
+
 const FSPIOPISO20022 = {
   parties: {
-    put: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    }
+    put: baseIsoGuards,
+    putError: baseIsoGuards
   },
   quotes: {
-    post: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseIsoGuards,
+    put: baseIsoGuards,
+    putError: baseIsoGuards
   },
   transfers: {
-    post: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    patch: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseIsoGuards,
+    patch: baseIsoGuards,
+    put: baseIsoGuards,
+    putError: baseIsoGuards
   },
   fxQuotes: {
-    post: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseIsoGuards,
+    put: baseIsoGuards,
+    putError: baseIsoGuards
   },
   fxTransfers: {
-    post: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    patch: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    put: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    },
-    putError: {
-      isSource: (source: IsoSource): source is IsoSource => {
-        return !!(source.body);
-      }
-    }
+    post: baseIsoGuards,
+    patch: baseIsoGuards,
+    put: baseIsoGuards,
+    putError: baseIsoGuards
   }
 };
 
