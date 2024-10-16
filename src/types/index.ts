@@ -55,7 +55,7 @@ export type Headers = {
 
 export type Params = {
   ID: string;
-  SubId?: string;
+  SubId: string;
 }
 
 export type Source = {
