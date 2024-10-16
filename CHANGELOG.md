@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v0.1.4-snapshot.10...v0.1.4) (2024-10-16)
+
+
+### Features
+
+* add more specific types for targets ([2306490](https://github.com/mojaloop/ml-schema-transformer-lib/commit/230649075009f930b9cfaa595583dafc9ab23bf1))
+* update types ([bc840d5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/bc840d57a9970ed5eb7cb6804cb73ab8dc4609d6))
+* update types and gurads ([0868355](https://github.com/mojaloop/ml-schema-transformer-lib/commit/08683552b8f2253f804ac13a9b01703b8a41d089))
+
+
+### Refactor
+
+* rename getDescrFromErrCode ([914e251](https://github.com/mojaloop/ml-schema-transformer-lib/commit/914e2519a74bf5bdbdbd6116e0dbe4701a4e9210))
+
+
+### Chore
+
+* linting ([336d720](https://github.com/mojaloop/ml-schema-transformer-lib/commit/336d720f9c2ae1bdfbaead997a5d59a891db1de7))
+* minor update ([e6848d3](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e6848d351e85a158707726c6dd2e43143ab9873c))
+
+
+### Documentation
+
+* update readme ([952d869](https://github.com/mojaloop/ml-schema-transformer-lib/commit/952d8692deb4ab6d0b54f567238d85c3ff566cda))
+* update readme ([e16f1d5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e16f1d5e3d2a94dcecba8dfefafb183cf3121056))
+* update readme ([d0fe774](https://github.com/mojaloop/ml-schema-transformer-lib/commit/d0fe7743263eff5202a59d50682f65e86f54915a))
+* update readme ([84096f9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/84096f93a1ad82a7ddb994a2b3ea612f83c8fc85))
+
 ### [0.1.3](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v0.1.2...v0.1.3) (2024-10-15)
 
 
