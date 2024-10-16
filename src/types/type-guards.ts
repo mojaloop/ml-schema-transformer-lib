@@ -32,19 +32,19 @@ const baseGuards = {
   isSource: (source: Source): source is Source => {
     return !!(source.body && source.headers && source.params);
   }
-}
+};
 
 const baseFspiopGuards = {
   isSource: (source: FspiopSource): source is FspiopSource => {
     return !!(source.body);
   }
-}
+};
 
 const baseIsoGuards = {
   isSource: (source: IsoSource): source is IsoSource => {
     return !!(source.body);
   }
-}
+};
 
 const FSPIOP = {
   parties: {
