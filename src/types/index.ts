@@ -76,6 +76,9 @@ export type FspiopTarget = Pick<Target, 'body'>;
 export type FspiopPutQuotesSource = { body: GenericObject, params: Pick<Params, 'ID'>,  $context: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
 export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
 export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
+export type FspiopPostQuotesTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'ID'> };
+export type FspiopPutPartiesTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
+export type FspiopPutPartiesErrorTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
 
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;
