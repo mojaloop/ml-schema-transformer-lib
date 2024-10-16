@@ -86,7 +86,7 @@ export function getProp(obj: unknown, path: string): unknown {
   return current;
 }
 
-export const getDescrFromErrCode = (code: string | number): string => {
+export const getDescrForErrCode = (code: string | number): string => {
   try {
     const errorCode = Number.parseInt(code as string);
     const errorCreated = CreateFSPIOPErrorFromErrorCode(errorCode);
