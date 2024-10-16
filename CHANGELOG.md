@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v0.1.4...v1.1.0) (2024-10-16)
+
+
+### Features
+
+* update mappings for fxQuotes and fxTransfers ([5ee3a56](https://github.com/mojaloop/ml-schema-transformer-lib/commit/5ee3a5619c95057572ad90c284f57696ac9d0438))
+
+
+### Bug Fixes
+
+* fix condition mapping for fxquotes and fxtransfers ([4f62ed6](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4f62ed6e6fcfdc2eb2bc67d60bf5835c9b26d410))
+
 ### [0.1.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v0.1.4-snapshot.10...v0.1.4) (2024-10-16)
 
 
