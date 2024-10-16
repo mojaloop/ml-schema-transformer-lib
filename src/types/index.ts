@@ -48,6 +48,16 @@ export type ConfigOptions = {
   logger: ContextLogger;
 }
 
+export type Headers = {
+  'fspiop-source': string;
+  'fspiop-destination': string;
+}
+
+export type Params = {
+  ID: string;
+  SubId?: string;
+}
+
 export type Source = {
   body: GenericObject;
   headers?: GenericObject;
@@ -56,14 +66,16 @@ export type Source = {
 
 export type Target = {
   body: GenericObject;
-  headers: GenericObject;
-  params: GenericObject;
+  headers: Headers;
+  params: Params;
 };
 
 export type FspiopSource = Pick<Source, 'body'>;
 export type FspiopTarget = Pick<Target, 'body'>;
 
-export type FspiopPutQuotesSource = { body: GenericObject,  $context: { isoPostQuote: GenericObject }, headers?: GenericObject } | {body: GenericObject, headers: GenericObject, $context?: GenericObject };
+export type FspiopPutQuotesSource = { body: GenericObject, params: Pick<Params, 'ID'>,  $context: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
+export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
+export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
 
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;

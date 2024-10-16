@@ -25,7 +25,7 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, GenericObject, IsoTarget, Source, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
+import { ConfigOptions, FspiopPutPartiesErrorSource, FspiopPutPartiesSource, FspiopPutQuotesSource, FspiopSource, GenericObject, Headers, IsoTarget, Params, Source, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
 import { getProp, setProp } from '../lib/utils';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
 
@@ -43,7 +43,7 @@ export const FspiopTransformFacade = {
     log = config.logger;
   },
   parties: {
-    put: async (source: Source & { headers: GenericObject, params: GenericObject  }, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopPutPartiesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.put.isSource(source)) {
         throw new Error('Invalid source object for put parties');
       }
@@ -53,7 +53,7 @@ export const FspiopTransformFacade = {
         mapping: options.overrideMapping || discovery_reverse.parties.put,
       }) as Promise<IsoTarget>;
     },
-    putError: async (source: Source & { headers: GenericObject, params: GenericObject }, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopPutPartiesErrorSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.putError.isSource(source)) {
         throw new Error('Invalid source object for put parties error');
       }

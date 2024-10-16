@@ -31,18 +31,18 @@ import { TransformFacades } from '@mojaloop/ml-schema-transformer-lib';
 // CJS
 const { TransformFacades } = require('@mojaloop/ml-schema-transformer-lib')
 
-// source is an FSPIOP POST /quotes payload 
+// `source` is a an object with `body` property containing FSPIOP POST /quotes payload
 const source = {
   body: {
     quoteId: 'random quote id',
     ...,
-  },
-  headers: { ... },
-  params: { ... }
+  }
 };
-// target is an FSPIOP ISO 20022 Post /quotes payload
+// `target` is an object with `body` property containing  transformed FSPIOP ISO 20022 POST /quotes payload
 const target = await TransformFacades.FSPIOP.quotes.post(source);
 ```
+The `source` parameter and the `target` result may contain `params` and `headers` properties depedning on the use case.
+Be sure to check the signature for the facade function you're using to be sure of what is expected as parameter and result.
 The facade functions work with built-in mappings which are located in `src/mappings` directory.
 The facade functions take optional second parameter of type `TransformFacadeOptions` for controlling certain aspects of the function.
 
@@ -104,7 +104,7 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 | Env Variable Name           | Default Value | Description                                          | 
 |-----------------------------|---------------|------------------------------------------------------|
 | MLST_LOG_LEVEL              | `warn`        | The log level for MLST                               |
-| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform|
+| MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform. <br />**Note**:  ILP v1 is not supported|
 
 
 ## Performance

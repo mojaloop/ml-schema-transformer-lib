@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource } from '.';
+import { ConfigOptions, FspiopPutQuotesSource, Source, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
 
 export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
   return !!(config.logger);
@@ -48,14 +48,22 @@ const baseIsoGuards = {
 
 const FSPIOP = {
   parties: {
-    put: baseGuards,
-    putError: baseGuards
+    put: {
+      isSource: (source: FspiopPutPartiesSource): source is FspiopPutPartiesSource => {
+        return !!(source.body && source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'] && source.params && source.params.SubId);
+      }
+    },
+    putError: {
+      isSource: (source: FspiopPutPartiesErrorSource): source is FspiopPutPartiesErrorSource => {
+        return !!(source.body && source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'] && source.params && source.params.SubId);
+      }
+    }
   },
   quotes: {
     post: baseFspiopGuards,
     put: {
       isSource: (source: FspiopPutQuotesSource): source is FspiopPutQuotesSource => {
-        return !!(source.body && (source.$context || source.headers));
+        return !!(source.body && source.params?.ID &&  ((source.$context && source.$context.isoPostQuote) || (source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'])));
       }
     },
     putError: baseFspiopGuards
