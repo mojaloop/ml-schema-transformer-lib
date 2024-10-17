@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.0...v1.1.1) (2024-10-17)
+
+
+### Bug Fixes
+
+* update mappings for parties id path ([99cfcd9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/99cfcd9697127e161f1b641af26cb6a834aa3911))
+* update transform ([bde1fa8](https://github.com/mojaloop/ml-schema-transformer-lib/commit/bde1fa893a4cb6e94570d672e0ced9ba6ac3a4f1))
+
+
+### Chore
+
+* update deps ([df36eeb](https://github.com/mojaloop/ml-schema-transformer-lib/commit/df36eeb0198baef39d802c5cc577db18595947e9))
+
 ## [1.1.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v0.1.4...v1.1.0) (2024-10-16)
 
 
