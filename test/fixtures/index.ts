@@ -473,8 +473,7 @@ export const expectedFspiopTargets = {
       params: {
         Type: 'MSISDN',
         ID: '16135551212',
-        SubId: 'subId',
-        IdPath: 'MSISDN/16135551212/subId'
+        SubId: 'subId'
       },
       body: {
         party: {
@@ -491,7 +490,21 @@ export const expectedFspiopTargets = {
       }
     },
     putError: {
-      ...fspiopSources.parties.putError
+      body: {
+        errorInformation: {
+          errorCode: '3100',
+          errorDescription: 'Client Validation Error'
+        }
+      },
+      headers: {
+        'fspiop-source': 'source',
+        'fspiop-destination': 'destination'
+      },
+      params: {
+        Type: 'MSISDN',
+        ID: '16135551212',
+        SubId: 'subId'
+      }
     }
   },
   quotes: {
