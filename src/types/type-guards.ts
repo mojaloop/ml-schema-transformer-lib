@@ -44,12 +44,12 @@ const FSPIOP = {
   parties: {
     put: {
       isSource: (source: FspiopPutPartiesSource): source is FspiopPutPartiesSource => {
-        return !!(source.body && source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'] && source.params && source.params.SubId);
+        return !!(source.body && (source.headers?.['fspiop-source'] && source.headers['fspiop-destination']) && (source.params.IdPath || (source.params?.Type && source.params.ID)));
       }
     },
     putError: {
       isSource: (source: FspiopPutPartiesErrorSource): source is FspiopPutPartiesErrorSource => {
-        return !!(source.body && source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'] && source.params && source.params.SubId);
+        return !!(source.body && (source.headers?.['fspiop-source'] && source.headers['fspiop-destination']) && (source.params.IdPath || (source.params?.Type && source.params.ID)));
       }
     }
   },
@@ -57,7 +57,7 @@ const FSPIOP = {
     post: baseFspiopGuards,
     put: {
       isSource: (source: FspiopPutQuotesSource): source is FspiopPutQuotesSource => {
-        return !!(source.body && source.params?.ID &&  ((source.$context && source.$context.isoPostQuote) || (source.headers && source.headers['fspiop-source'] && source.headers['fspiop-destination'])));
+        return !!(source.body && source.params?.ID &&  ((source.$context?.isoPostQuote) || (source.headers?.['fspiop-source'] && source.headers['fspiop-destination'])));
       }
     },
     putError: baseFspiopGuards

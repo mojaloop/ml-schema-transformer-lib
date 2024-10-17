@@ -30,7 +30,7 @@ export const discovery = {
       "$noDefaults": true,
       "headers.fspiop-source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
-      "params.SubId": "body.Rpt.OrgnlId",
+      "params.IdPath": "body.Rpt.OrgnlId",
       "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
       "body.party.partyIdInfo.partyIdentifier": "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id",
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
@@ -43,7 +43,7 @@ export const discovery = {
       "body.errorInformation.errorCode": "body.Rpt.Rsn.Cd",
       "headers.fspiop-source": "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id",
       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
-      "params.SubId": "body.Rpt.OrgnlId"
+      "params.IdPath": "body.Rpt.OrgnlId"
     }`
   }
 }
@@ -56,10 +56,10 @@ export const discovery_reverse = {
       "$noDefaults": true,
       "body.Assgnmt.MsgId": { "$transform": "generateID" },
       "body.Assgnmt.CreDtTm": { "$transform": "datetimeNow" },
-      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true, "$direction": "fwd" }],
+      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": true }],
       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.fspiop-source",
       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.fspiop-destination",
-      "body.Rpt.OrgnlId": "params.SubId",
+      "body.Rpt.OrgnlId": "params.IdPath",
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
@@ -75,8 +75,8 @@ export const discovery_reverse = {
       "body.Assgnmt.CreDtTm": { "$transform": "datetimeNow" },
       "body.Assgnmt.Assgnr.Agt.FinInstnId.Othr.Id": "headers.fspiop-source",
       "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id": "headers.fspiop-destination",
-      "body.Rpt.OrgnlId": "params.SubId",
-      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": false, "$direction": "fwd" }]
+      "body.Rpt.OrgnlId": "params.IdPath",
+      "body.Rpt.Vrfctn": [{ "$transform": "fixed", "value": false }]
     }`
   }
 }

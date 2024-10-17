@@ -47,6 +47,13 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.parties.put.isSource(source)) {
         throw new Error('Invalid source object for put parties');
       }
+      // construct source.params.IdPath if not present
+      if (!source.params.IdPath) {
+        source.params.IdPath = `${source.params.Type}/${source.params.ID}`;
+        if (source.params.SubId) {
+          source.params.IdPath += `/${source.params.SubId}`;
+        }
+      }
       return transformFn(source, {
         ...options,
         logger: log,
@@ -56,6 +63,13 @@ export const FspiopTransformFacade = {
     putError: async (source: FspiopPutPartiesErrorSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.putError.isSource(source)) {
         throw new Error('Invalid source object for put parties error');
+      }
+      // construct source.params.IdPath if not present
+      if (!source.params.IdPath) {
+        source.params.IdPath = `${source.params.Type}/${source.params.ID}`;
+        if (source.params.SubId) {
+          source.params.IdPath += `/${source.params.SubId}`;
+        }
       }
       return transformFn(source, {
         ...options,
