@@ -54,14 +54,22 @@ export type Headers = {
 }
 
 export type Params = {
+  Type: string;
   ID: string;
-  SubId: string;
+  SubId?: string;
+}
+
+export type PartyIdParams = {
+  Type: string;
+  ID: string;
+  SubId?: string;
+  IdPath?: string; // format: IdType/IdValue or IdType/IdValue/SubIdValue
 }
 
 export type Source = {
   body: GenericObject;
-  headers?: GenericObject;
-  params?: GenericObject;
+  headers?: Headers;
+  params?: Partial<Params>;
 }
 
 export type Target = {
@@ -72,13 +80,12 @@ export type Target = {
 
 export type FspiopSource = Pick<Source, 'body'>;
 export type FspiopTarget = Pick<Target, 'body'>;
-
-export type FspiopPutQuotesSource = { body: GenericObject, params: Pick<Params, 'ID'>,  $context: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
-export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
-export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
-export type FspiopPutQuotesTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'ID'> };
-export type FspiopPutPartiesTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
-export type FspiopPutPartiesErrorTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'SubId'> };
+export type FspiopPutQuotesSource = { body: GenericObject, params: PartyIdParams,  $context: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: PartyIdParams, headers: Headers, $context?: { isoPostQuote: GenericObject } };
+export type FspiopPutQuotesTarget = { body: GenericObject, headers: Headers, params: PartyIdParams };
+export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, params: PartyIdParams };
+export type FspiopPutPartiesTarget = { body: GenericObject, headers: Headers, params: PartyIdParams };
+export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: PartyIdParams };
+export type FspiopPutPartiesErrorTarget = { body: GenericObject, headers: Headers, params: PartyIdParams };
 
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;

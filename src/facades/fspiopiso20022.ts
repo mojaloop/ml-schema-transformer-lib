@@ -45,21 +45,43 @@ export const FspiopIso20022TransformFacade = {
       if (!TypeGuards.FSPIOPISO20022.parties.put.isSource(source)) {
         throw new Error('Invalid source object for put parties');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery.parties.put,
       }) as Promise<Target>;
+
+      // split up IdPath
+      const IdPath = getProp(target, 'params.IdPath') as string;
+      if (IdPath) {
+        const [Type, ID, SubId] = IdPath.split('/');
+        setProp(target, 'params.Type', Type);
+        setProp(target, 'params.ID', ID);
+        if (SubId) setProp(target, 'params.SubId', SubId);
+      }
+
+      return target;
     },
     putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutPartiesErrorTarget> => {
       if (!TypeGuards.FSPIOPISO20022.parties.putError.isSource(source)) {
         throw new Error('Invalid source object for put parties error');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery.parties.putError
       }) as Promise<Target>;
+
+      // split up IdPath
+      const IdPath = getProp(target, 'params.IdPath') as string;
+      if (IdPath) {
+        const [Type, ID, SubId] = IdPath.split('/');
+        setProp(target, 'params.Type', Type);
+        setProp(target, 'params.ID', ID);
+        if (SubId) setProp(target, 'params.SubId', SubId);
+      }
+
+      return target;
     },
   },
   quotes: {
