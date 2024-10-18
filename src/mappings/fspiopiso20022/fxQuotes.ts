@@ -42,7 +42,7 @@ export const fxQuotes = {
   }`,
   put: `{
     "$noDefaults": "true",
-    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }] 
+    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }],
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.TxId",
     "body.conversionTerms.initiatingFsp": "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id",
