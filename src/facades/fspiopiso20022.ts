@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig, PartyIdParamsSource } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp } from '../lib/utils';
@@ -58,7 +58,7 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'params.Type', Type);
         setProp(target, 'params.ID', ID);
         if (SubId) setProp(target, 'params.SubId', SubId);
-        delete (target.params as any).IdPath;
+        delete (target.params as PartyIdParamsSource).IdPath;
       }
 
       return target;
@@ -80,7 +80,7 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'params.Type', Type);
         setProp(target, 'params.ID', ID);
         if (SubId) setProp(target, 'params.SubId', SubId);
-        delete (target.params as any).IdPath;
+        delete (target.params as PartyIdParamsSource).IdPath;
       }
 
       return target;
