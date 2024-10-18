@@ -55,7 +55,7 @@ export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
 }
 
-// Set nested property in an object
+// Safely set nested property in an object
 export const setProp = (obj: unknown, path: string, value: unknown) => {
   const pathParts = path.split('.');
   let current = obj as GenericObject;
@@ -70,8 +70,8 @@ export const setProp = (obj: unknown, path: string, value: unknown) => {
   current[pathParts[pathParts.length - 1] as string] = value;
 }
 
-// Get nested property from an object
-export function getProp(obj: unknown, path: string): unknown {
+// Safely get nested property from an object
+export const getProp = (obj: unknown, path: string): unknown  => {
   const pathParts = path.split('.');
   let current = obj;
 

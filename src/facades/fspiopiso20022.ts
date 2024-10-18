@@ -58,7 +58,7 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'params.Type', Type);
         setProp(target, 'params.ID', ID);
         if (SubId) setProp(target, 'params.SubId', SubId);
-        delete target.params.IdPath;
+        delete (target.params as any).IdPath;
       }
 
       return target;
@@ -80,7 +80,7 @@ export const FspiopIso20022TransformFacade = {
         setProp(target, 'params.Type', Type);
         setProp(target, 'params.ID', ID);
         if (SubId) setProp(target, 'params.SubId', SubId);
-        delete target.params.IdPath;
+        delete (target.params as any).IdPath;
       }
 
       return target;
