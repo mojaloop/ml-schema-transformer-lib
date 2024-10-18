@@ -1066,7 +1066,7 @@ export const fspiopIso20022Sources = {
       body: {
         CdtTrfTxInf: {
           VrfctnOfTerms: {
-            Sh256Sgntr: ilpCondition
+            IlpV4PrepPacket: ilpPacket
           },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
@@ -1326,7 +1326,7 @@ export const fspiopIso20022Sources = {
             ActiveCurrencyAndAmount: '234.45'
           },
           VrfctnOfTerms: {
-            Sh256Sgntr: ilpCondition
+            IlpV4PrepPacket: ilpPacket
           }
         }
       }
@@ -1815,9 +1815,6 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
     put: {
       body: {
         CdtTrfTxInf: {
-          VrfctnOfTerms: {
-            Sh256Sgntr: ilpCondition
-          },
           PmtId: {
             TxId: 'b51ec534-ee48-4575-b6a9-ead2955b8069',
             InstrId: 'b51ec534-ee48-4575-b6a9-ead2955b8069'
@@ -1980,9 +1977,6 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '234.45'
           },
-          VrfctnOfTerms: {
-            Sh256Sgntr: ilpCondition
-          }
         }
       }
     },
