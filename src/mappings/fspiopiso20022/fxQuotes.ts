@@ -80,9 +80,9 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.Id.OrgId.Othr.Id": "body.conversionTerms.counterPartyFsp",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id": "body.conversionTerms.counterPartyFsp",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
-    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
+    "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": { "$alt": [ "body.conversionTerms.sourceAmount.amount", { "$transform": "fixed", "value": "0" } ] },
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": { "$alt": [ "body.conversionTerms.targetAmount.amount", { "$transform": "fixed", "value": "0" } ] }
   }`,
   put: `{
     "$noDefaults": "true",
