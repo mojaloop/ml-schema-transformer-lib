@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.2...v1.1.3) (2024-10-21)
+
+
+### Chore
+
+* merge with upstream ([8bb8ade](https://github.com/mojaloop/ml-schema-transformer-lib/commit/8bb8ade51ef5831aa7147b1e86d582f1f9724cd5))
+* merge with upstream ([7d9eeed](https://github.com/mojaloop/ml-schema-transformer-lib/commit/7d9eeed42d046904d06cea66147730773eb747d1))
+
+## [1.2.0-snapshot.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.1...v1.2.0-snapshot.0) (2024-10-18)
+
+
+### Bug Fixes
+
+* types ([adeb04d](https://github.com/mojaloop/ml-schema-transformer-lib/commit/adeb04d8a7e8a5cda4c8535cc2c513b9b3632a90))
+* types ([b10504c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/b10504ccf38b6f83674c36fe8b929d246b647f3e))
+
+
+### Chore
+
+* update dependencies ([3fa2579](https://github.com/mojaloop/ml-schema-transformer-lib/commit/3fa2579bae79507dc0ee72741b9257cbd93b2ad4))
+
 ### [1.1.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.1...v1.1.2) (2024-10-21)
 
 
