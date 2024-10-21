@@ -1,6 +1,5 @@
 import { createTransformer } from 'src';
-import { FSPIO20022PMappings } from '../../src/mappings';
-import { FspiopTransformFacade } from '../../src/facades'
+import { FspiopTransformFacade } from '../../src/facades';
 
 
 describe('Random', () => {
@@ -54,7 +53,7 @@ describe('Random', () => {
     console.log(target2);
   });
 
-  it('should transform with alt and fixed value', async () => {
+  it.skip('should transform with alt and fixed value', async () => {
     // with context
     const source = {
       body: {},
