@@ -1,4 +1,6 @@
 import { createTransformer } from 'src';
+import { FSPIO20022PMappings } from '../../src/mappings';
+import { FspiopTransformFacade } from '../../src/facades'
 
 
 describe('Random', () => {
@@ -50,5 +52,20 @@ describe('Random', () => {
     const target2 = await transformer.transform(source2, {});
     /* eslint-disable-next-line */
     console.log(target2);
+  });
+
+  it('should transform with alt and fixed value', async () => {
+    // with context
+    const source = {
+      body: {},
+      params: { ID: 'id' },
+      headers: {
+        'fspiop-source': 'sourcefsp',
+        'fspiop-destination': 'destinationfsp'
+      }
+    };
+    const target = await FspiopTransformFacade.quotes.put(source, {});
+    /* eslint-disable-next-line */
+    console.log(target);
   });
 });
