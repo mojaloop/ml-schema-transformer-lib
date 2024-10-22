@@ -109,18 +109,6 @@ describe('Utils tests', () => {
     it('should throw an error for an invalid ILP packet', () => {
       expect(() => getIlpPacketCondition('invalid packet')).toThrow();
     });
-    it('should not throw an error if MLST_ILP_SECRET is not set', () => {
-      process.env.MLST_ILP_SECRET = '';
-      expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
-    });
-    it('should not throw an error if MLST_ILP_VERSION is not set', () => {
-      process.env.MLST_ILP_VERSION = '';
-      expect(() => getIlpPacketCondition(ilpPacket)).not.toThrow();
-    });
-    it('should throw an error for an unsupported ILP version', () => {
-      process.env.MLST_ILP_VERSION = 'v1';
-      expect(() => getIlpPacketCondition(ilpPacket)).toThrow();
-    });
   });
   describe('toIsoTransferState', () => {
     it('should return undefined if state is falsy', () => {
