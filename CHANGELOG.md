@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.3...v1.1.4) (2024-10-22)
+
+
+### Bug Fixes
+
+* remove dependence on sdk-standard-components to avoid circular dependency ([#13](https://github.com/mojaloop/ml-schema-transformer-lib/issues/13)) ([751d4b8](https://github.com/mojaloop/ml-schema-transformer-lib/commit/751d4b8eadd4affba5039302c8132e55fcb29667))
+
 ### [1.1.3](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.2...v1.1.3) (2024-10-21)
 
 
