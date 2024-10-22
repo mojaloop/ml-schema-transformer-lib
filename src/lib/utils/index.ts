@@ -17,15 +17,14 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
-const Ilp = require('@mojaloop/sdk-standard-components').Ilp;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
-import { logger } from '../../lib';
+const ilpPacket = require('ilp-packet');
 import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
 
 // improve: use enums from cs-shared
@@ -49,7 +48,7 @@ export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid
 }
 
 // improve: import enums from cs-shared
-export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType); 
+export const isPersonPartyIdType = (partyIdType: string) => partyIdType && !['BUSINESS', 'ALIAS', 'DEVICE'].includes(partyIdType);
 
 export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
@@ -97,20 +96,9 @@ export const getDescrForErrCode = (code: string | number): string => {
 }
 
 // Get the ILP packet condition from an ILP packet
-export const getIlpPacketCondition = (ilpPacket: string): GenericObject => {
-  // improve: These envs should be passable via a config/options
-  // @todo: remove env ref after ilpFactory is updated to not require secret
-  const ilpSecret = process.env.MLST_ILP_SECRET || 'dummy-secret';
-  const ilpVersion = process.env.MLST_ILP_VERSION || Ilp.ILP_VERSIONS.v4;
-
-  // ILP v1 is not supported since ISO 20022 does not support it
-  if (ilpVersion == Ilp.ILP_VERSIONS.v1) {
-    throw new Error('ILP v1 is not supported');
-  }
-
-  const ilp = Ilp.ilpFactory(ilpVersion, { secret: ilpSecret, logger });
-  const decoded = ilp.decodeIlpPacket(ilpPacket);
-
+export const getIlpPacketCondition = (inputIlpPacket: string): GenericObject => {
+  const binaryPacket = Buffer.from(inputIlpPacket, 'base64');
+  const decoded = ilpPacket.deserializeIlpPrepare(binaryPacket);
   return decoded?.executionCondition?.toString('base64url');
 }
 
