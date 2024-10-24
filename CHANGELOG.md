@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.6...v2.0.0) (2024-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* fix some mappings and add testing mode (#15)
+
+### Chore
+
+* fix some mappings and add testing mode ([#15](https://github.com/mojaloop/ml-schema-transformer-lib/issues/15)) ([754a876](https://github.com/mojaloop/ml-schema-transformer-lib/commit/754a876d9e2d30f7ef07b60528deb78002a2f8b4))
+
 ### [1.1.6](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.5...v1.1.6) (2024-10-24)
 
 
