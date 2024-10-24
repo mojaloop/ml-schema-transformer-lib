@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.5...v1.1.6) (2024-10-24)
+
+
+### Chore
+
+* bump central-services-error-handling to eliminate circular dep with sdk-standard-components ([e1af864](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e1af864ec5f346e942d399b7bb2e81a23cc6a727))
+* bump central-services-error-handling to eliminate circular dep with sdk-standard-components ([d65c276](https://github.com/mojaloop/ml-schema-transformer-lib/commit/d65c2765ca906bc9268c5e1c65f7202f646773c9))
+
 ### [1.1.5](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v1.1.4...v1.1.5) (2024-10-22)
 
 
