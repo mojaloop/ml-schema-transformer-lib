@@ -40,7 +40,7 @@ describe('Performance Test', () => {
   TransformFacades.FSPIOP.configure({
     logger: defaultLogger,
     isTestingMode: true
-  })
+  });
   const perfTest = async (transformFn: FspiopTransformFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
     let target;
     const startTime = performance.now();
