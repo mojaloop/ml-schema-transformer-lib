@@ -50,16 +50,13 @@
     "snapshot": "npx standard-version --no-verify --skip.changelog --prerelease snapshot --releaseCommitMessageFormat 'ci(snapshot): {{currentTag}}'"
   },
   "dependencies": {
-    "@mojaloop/central-services-error-handling": "^13.0.1",
+    "@mojaloop/central-services-error-handling": "^13.0.2",
     "@mojaloop/central-services-logger": "^11.5.1",
     "@mojaloop/central-services-shared": "^18.10.0",
     "map-transform-cjs": "^0.2.0",
     "ilp-packet": "2.2.0"
   },
   "overrides": {
-    "@mojaloop/central-services-error-handling": {
-      "@mojaloop/sdk-standard-components": "19.0.0"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
