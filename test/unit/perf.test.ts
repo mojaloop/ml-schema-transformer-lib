@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -26,6 +26,7 @@ import { TransformFacades } from 'src';
 import { GenericObject, Source, FspiopTransformFacadeFunction } from 'src/types';
 import { expectedFspiopIso20022Targets, expectedFspiopTargets, fspiopIso20022Sources, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
+import { logger as defaultLogger } from '../../src/lib';
 
 const PERF_THRESHOLD_MS = 2000;
 
@@ -36,6 +37,10 @@ const expected = (prop: string) => {
 };
 
 describe('Performance Test', () => {
+  TransformFacades.FSPIOP.configure({
+    logger: defaultLogger,
+    isTestingMode: true
+  })
   const perfTest = async (transformFn: FspiopTransformFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
     let target;
     const startTime = performance.now();

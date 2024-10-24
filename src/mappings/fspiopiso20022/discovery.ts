@@ -32,7 +32,7 @@ export const discovery = {
       "headers.fspiop-destination": "body.Assgnmt.Assgne.Agt.FinInstnId.Othr.Id",
       "params.IdPath": "body.Rpt.OrgnlId",
       "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
-      "body.party.partyIdInfo.partyIdentifier": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id"],
+      "body.party.partyIdInfo.partyIdentifier": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id"] },
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
       "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
       "body.party.supportedCurrencies": "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy"

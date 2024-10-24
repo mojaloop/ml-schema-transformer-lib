@@ -27,12 +27,23 @@ import { logger as defaultLogger, transformFn } from '../lib';
 import { getProp, setProp } from '../lib/utils';
 import { FSPIO20022PMappings } from '../mappings';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
-import { ConfigOptions, FspiopPutPartiesErrorSource, FspiopPutPartiesSource, FspiopPutQuotesSource, FspiopSource, IsoTarget, TransformFacadeOptions, TypeGuards, isConfig } from '../types';
+import {
+  ConfigOptions,
+  FspiopPutPartiesErrorSource,
+  FspiopPutPartiesSource,
+  FspiopPutQuotesSource,
+  FspiopSource,
+  FspiopPostTransfersSource,
+  IsoTarget,
+  TransformFacadeOptions,
+  TypeGuards,
+  isConfig
+} from '../types';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
-let isTestingMode: boolean = false;
+let isTestingMode: boolean | undefined = false;
 
 // Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
 
@@ -42,7 +53,7 @@ export const FspiopTransformFacade = {
       throw new Error('Invalid configuration object for FSPIOP transform facade');
     }
     log = config.logger;
-    isTestingMode = Boolean(process.env.MLST_TESTING_MODE) || isTestingMode;
+    isTestingMode = config.isTestingMode;
   },
   parties: {
     put: async (source: FspiopPutPartiesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
@@ -111,6 +122,9 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.quotes.put.isSource(source)) {
         throw new Error('Invalid source object for put quotes');
       }
+      if (!isTestingMode && !source.$context) {
+        throw new Error('Invalid source object for put quotes, missing $context');
+      }
       const defaultMapSelection = isTestingMode ? quotes_reverse.putTesting : quotes_reverse.put;
       const mapping = options.overrideMapping || defaultMapSelection;
       return transformFn(source, {
@@ -131,9 +145,12 @@ export const FspiopTransformFacade = {
     },
   },
   transfers: {
-    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    post: async (source: FspiopPostTransfersSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.post.isSource(source)) {
         throw new Error('Invalid source object for post transfers');
+      }
+      if (!isTestingMode && !source.$context) {
+        throw new Error('Invalid source object for post transfers, missing $context');
       }
       const defaultMapSelection = isTestingMode ? transfers_reverse.postTesting : transfers_reverse.post;
       const mapping = options.overrideMapping || defaultMapSelection;

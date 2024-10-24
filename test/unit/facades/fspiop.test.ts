@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -30,6 +30,7 @@ import { expectedFspiopIso20022Targets, fspiopSources, mockLogger } from '../../
 import { FSPIO20022PMappings } from '../../../src/mappings'
 
 const { FSPIOP: FspiopTransformFacade } = TransformFacades;
+process.env.MLST_TESTING_MODE = "true"
 
 const expected = (prop: string) => {
   return (target: GenericObject) => {
@@ -38,7 +39,7 @@ const expected = (prop: string) => {
 }
 
 describe('FSPIOPTransformFacade tests', () => {
-  FspiopTransformFacade.configure({ logger: mockLogger });
+  FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
 
   const testCase = (source: Source, transformerFn: Function, expectedTarget: Function | null = null) => {
     return async () => {
@@ -54,7 +55,7 @@ describe('FSPIOPTransformFacade tests', () => {
   describe('configure', () => {
     test('should configure logger', async () => {
       const logger = mockLogger;
-      FspiopTransformFacade.configure({ logger });
+      FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
       vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(() => {
         throw new Error('Test error')
       });
@@ -156,10 +157,38 @@ describe('FSPIOPTransformFacade tests', () => {
         source.$context = {
           isoPostQuote: {
             CdtTrfTxInf: {
-              Dbtr: 'Dbtr',
-              DbtrAgt: 'DbtrAgt',
-              Cdtr: 'Cdtr',
-              CdtrAgt: 'CdtrAgt',
+              Dbtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Dbtr'
+                    }
+                  }
+                }
+              },
+              DbtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'DbtrAgt'
+                  }
+                }
+              },
+              Cdtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Cdtr'
+                    }
+                  }
+                }
+              },
+              CdtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'CdtrAgt'
+                  }
+                }
+              },
               ChrgBr: 'ChrgBr'
             }
           }
@@ -190,6 +219,73 @@ describe('FSPIOPTransformFacade tests', () => {
         await expect(promise).rejects.toThrow('Invalid source object for put quotes error');
       });
     });
+    describe('PUT /quotes/{ID} testing mode false', () => {
+      test('should throw error if no context is provided', async () => {
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
+        const source = { ...fspiopSources.quotes.put };
+        // @ts-ignore
+        source.$context = undefined;
+        const promise = FspiopTransformFacade.quotes.put(source);
+        await expect(promise).rejects.toThrow('Invalid source object for put quotes, missing $context');
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+      });
+
+      test('should use values in $context if set', async () => {
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
+        const source = { ...fspiopSources.quotes.put };
+        source.$context = {
+          isoPostQuote: {
+            CdtTrfTxInf: {
+              Dbtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Dbtr'
+                    }
+                  }
+                }
+              },
+              DbtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'DbtrAgt'
+                  }
+                }
+              },
+              Cdtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Cdtr'
+                    }
+                  }
+                }
+              },
+              CdtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'CdtrAgt'
+                  }
+                }
+              },
+              ChrgBr: 'ChrgBr'
+            }
+          }
+        } as any;
+        const target = await FspiopTransformFacade.quotes.put(source);
+        expect(target).toHaveProperty('body');
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Dbtr);
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.DbtrAgt')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.DbtrAgt);
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Cdtr);
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.CdtrAgt')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.CdtrAgt);
+        expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+      });
+    })
   });
   describe('Transfers', () => {
     describe('POST /transfers', () => {
@@ -202,6 +298,70 @@ describe('FSPIOPTransformFacade tests', () => {
       test('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
       });
+    });
+    describe('POST /transfers testing mode false', () => {
+      test('should throw error if no context is provided', async () => {
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
+        const source = { ...fspiopSources.transfers.post };
+        // @ts-ignore
+        source.$context = undefined;
+        const promise = FspiopTransformFacade.transfers.post(source);
+        await expect(promise).rejects.toThrow('Invalid source object for post transfers, missing $context');
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+      });
+      test('should use values in $context if set', async () => {
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
+        const source = { ...fspiopSources.transfers.post };
+        source.$context = {
+          isoPostQuote: {
+            CdtTrfTxInf: {
+              Dbtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Dbtr'
+                    }
+                  }
+                }
+              },
+              DbtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'DbtrAgt'
+                  }
+                }
+              },
+              Cdtr: {
+                Id: {
+                  OrgId: {
+                    Othr: {
+                      Id: 'Cdtr'
+                    }
+                  }
+                }
+              },
+              CdtrAgt: {
+                FinInstnId: {
+                  Othr: {
+                    Id: 'CdtrAgt'
+                  }
+                }
+              },
+              ChrgBr: 'ChrgBr'
+            }
+          }
+        } as any;
+        const target = await FspiopTransformFacade.transfers.post(source);
+        expect(target).toHaveProperty('body');
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Dbtr);
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Cdtr);
+        // @ts-ignore
+        expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+
+      })
     });
     describe('PATCH /transfers/{ID}', () => {
       test('should throw if source is wrongly typed', async () => {

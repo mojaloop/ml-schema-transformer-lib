@@ -19,10 +19,38 @@ describe('Random', () => {
     const context = {
       isoPostQuote: {
         CdtTrfTxInf: {
-          Dbtr: 'Dbtr',
-          DbtrAgt: 'DbtrAgt',
-          Cdtr: 'Cdtr',
-          CdtrAgt: 'CdtrAgt',
+          Dbtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: 'Dbtr'
+                }
+              }
+            }
+          },
+          DbtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: 'DbtrAgt'
+              }
+            }
+          },
+          Cdtr: {
+            Id: {
+              OrgId: {
+                Othr: {
+                  Id: 'Cdtr'
+                }
+              }
+            }
+          },
+          CdtrAgt: {
+            FinInstnId: {
+              Othr: {
+                Id: 'CdtrAgt'
+              }
+            }
+          },
           ChrgBr: 'ChrgBr'
         }
       }
