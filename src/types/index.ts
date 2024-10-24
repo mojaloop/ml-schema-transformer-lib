@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -46,6 +46,7 @@ export interface ICustomTransforms {
 
 export type ConfigOptions = {
   logger: ContextLogger;
+  isTestingMode?: boolean;
 }
 
 export type Headers = {
@@ -64,11 +65,11 @@ export type PartyIdParamsSource = {
   ID: string;
   SubId?: string;
   IdPath?: string; // format: IdType/IdValue or IdType/IdValue/SubIdValue
-} | { 
+} | {
   Type?: string;
   ID?: string;
   SubId?: string;
-  IdPath: string; // format: IdType/IdValue or IdType/IdValue/SubIdValue 
+  IdPath: string; // format: IdType/IdValue or IdType/IdValue/SubIdValue
 }
 
 export type PartyIdParamsTarget = {
@@ -91,12 +92,13 @@ export type Target = {
 
 export type FspiopSource = Pick<Source, 'body'>;
 export type FspiopTarget = Pick<Target, 'body'>;
-export type FspiopPutQuotesSource = { body: GenericObject, params: Pick<Params, 'ID'>,  $context: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
+export type FspiopPutQuotesSource = { body: GenericObject, params: Pick<Params, 'ID'>,  $context?: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
 export type FspiopPutQuotesTarget = { body: GenericObject, headers: Headers, params: Pick<Params, 'ID'> };
 export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, params: PartyIdParamsSource };
 export type FspiopPutPartiesTarget = { body: GenericObject, headers: Headers, params: PartyIdParamsTarget };
 export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: PartyIdParamsSource };
 export type FspiopPutPartiesErrorTarget = { body: GenericObject, headers: Headers, params: PartyIdParamsTarget };
+export type FspiopPostTransfersSource = { body: GenericObject,  $context?: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
 
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;

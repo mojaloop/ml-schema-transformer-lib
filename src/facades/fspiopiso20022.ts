@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -30,7 +30,6 @@ import { getProp, setProp } from '../lib/utils';
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 let log = defaultLogger;
-
 // Facades for transforming FSPIOP ISO 20022 payloads to FSPIOP payloads
 
 export const FspiopIso20022TransformFacade = {
@@ -98,7 +97,7 @@ export const FspiopIso20022TransformFacade = {
       }) as FspiopTarget;
 
       /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
        * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
        * We do not apply these mutations if there is mapping override.
        */
@@ -115,7 +114,7 @@ export const FspiopIso20022TransformFacade = {
       } else {
         setProp(target, 'body.transactionType.initiator', 'PAYER');
       }
-      
+
       if (getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
         if (getProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty')) {
           setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
@@ -207,7 +206,7 @@ export const FspiopIso20022TransformFacade = {
       }) as FspiopTarget;
 
       /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
        * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
        * We do not apply these mutations if there is mapping override.
        */
@@ -228,7 +227,7 @@ export const FspiopIso20022TransformFacade = {
       }) as FspiopTarget;
 
       /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
        * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
        * We do not apply these mutations if there is mapping override.
        */
