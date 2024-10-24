@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -40,12 +40,14 @@ export const quotes = {
     "body.payer.partyIdInfo.partyIdentifier": { "$alt": [ "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id", "body.CdtTrfTxInf.Dbtr.Id.PrvtId.Othr.Id" ] },
     "body.payer.partyIdInfo.fspId": "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id",
     "body.payer.name": "body.CdtTrfTxInf.Dbtr.Name",
-    "body.payer.supportedCurrencies": "body.CdtTrfTxInf.Dbtr.Acct.Ccy",
+    "body.payer.supportedCurrencies": "body.CdtTrfTxInf.DbtrAcct.Ccy",
     "body.amount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.amount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.transactionType.scenario": "body.GrpHdr.CdtTrfTxInf.Purp.Prtry",
+    "body.transactionType.scenario": "body.CdtTrfTxInf.Purp.Prtry",
     "body.transactionType.refundInfo.originalTransactionId": "body.CdtTrfTxInf.PmtId.InstrId"
   }`,
+  // TODO: Support payeeFspCommission.currency and payeeFspCommission.amount
+  //       when CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Tp.Cd is "COMM"
   put: `{
     "$noDefaults": "true",
     "params.ID": "body.GrpHdr.PmtId",
@@ -59,7 +61,7 @@ export const quotes = {
     "body.payeeFspFee.currency": "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy",
     "body.payeeFspFee.amount": "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount",
     "body.ilpPacket": "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket",
-    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }] 
+    "body.condition": [ "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket", { "$transform": "ilpPacketToCondition" }]
   }`,
   putError: `{
     "$noDefaults": "true",
@@ -81,7 +83,7 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.PmtId.TxId": "body.quoteId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.transactionId",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionRequestId",
-    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry": ["body.payee.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }], 
+    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry": ["body.payee.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
     "body.CdtTrfTxInf.Cdtr.Id.PrvtId.Othr.SchmeNm.Prtry": ["body.payee.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
     "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": ["body.payee.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
     "body.CdtTrfTxInf.Cdtr.Id.PrvtId.Othr.Id": ["body.payee.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
@@ -94,13 +96,15 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.Dbtr.Id.PrvtId.Othr.Id": ["body.payer.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
     "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "body.payer.partyIdInfo.fspId",
     "body.CdtTrfTxInf.Dbtr.Name": "body.payer.name",
-    "body.CdtTrfTxInf.Dbtr.Acct.Ccy": "body.payer.supportedCurrencies",
+    "body.CdtTrfTxInf.DbtrAcct.Ccy": "body.payer.supportedCurrencies",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
     "body.GrpHdr.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId"
   }`,
-  put: `{
+  // TODO: Support payeeFspCommission.currency and payeeFspCommission.amount
+  //       when CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Tp.Cd is "COMM"
+  putTesting: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -113,6 +117,27 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Cdtr", "headers.fspiop-source" ] },
     "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.CdtrAgt", "headers.fspiop-source" ]},
     "body.CdtTrfTxInf.ChrgBr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.ChrgBr", { "$transform": "fixed", "value": "SHAR" } ] },
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.transferAmount.currency",
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.transferAmount.amount",
+    "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",
+    "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.payeeReceiveAmount.amount",
+    "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
+    "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
+  }`,
+  put: `{
+    "$noDefaults": "true",
+    "body.GrpHdr.MsgId": { "$transform": "generateID" },
+    "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+    "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
+    "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+    "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+    "body.CdtTrfTxInf.PmtId.TxId": "params.ID",
+    "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Dbtr" ]},
+    "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.DbtrAgt" ]},
+    "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Cdtr" ] },
+    "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.CdtrAgt" ]},
+    "body.CdtTrfTxInf.ChrgBr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.ChrgBr" ] },
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.transferAmount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.transferAmount.amount",
     "body.CdtTrfTxInf.InstdAmt.Ccy": "body.payeeReceiveAmount.currency",

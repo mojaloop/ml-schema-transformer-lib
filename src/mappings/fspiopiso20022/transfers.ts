@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -57,7 +57,7 @@ export const transfers = {
 // FSPIOP to FSPIOP ISO20022 mappings
 
 export const transfers_reverse = {
-  post: `{
+  postTesting: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -65,7 +65,7 @@ export const transfers_reverse = {
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
     "body.CdtTrfTxInf.PmtId.TxId": "body.transferId",
-    "body.CdtTrfTxInf.ChrgBr": { "$transform": "fixed", "value": "SHAR" },
+    "body.CdtTrfTxInf.ChrgBr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.ChrgBr", { "$transform": "fixed", "value": "SHAR" } ] },
     "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id": "body.payeeFsp",
     "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id": "body.payerFsp",
     "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payeeFsp",
@@ -73,6 +73,23 @@ export const transfers_reverse = {
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
+  }`,
+  post: `{
+      "$noDefaults": "true",
+      "body.GrpHdr.MsgId": { "$transform": "generateID" },
+      "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
+      "body.GrpHdr.NbOfTxs": { "$transform": "fixed", "value": "1" },
+      "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
+      "body.GrpHdr.PmtInstrXpryDtTm": "body.expiration",
+      "body.CdtTrfTxInf.PmtId.TxId": "body.transferId",
+      "body.CdtTrfTxInf.ChrgBr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.ChrgBr"] },
+      "body.CdtTrfTxInf.Cdtr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Cdtr"] },
+      "body.CdtTrfTxInf.Dbtr": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.Dbtr"] },
+      "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payeeFsp",
+      "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "body.payerFsp",
+      "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
+      "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
+      "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
   }`,
   patch: `{
     "$noDefaults": "true",

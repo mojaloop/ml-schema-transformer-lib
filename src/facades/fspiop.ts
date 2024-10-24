@@ -17,7 +17,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -32,6 +32,7 @@ import { ConfigOptions, FspiopPutPartiesErrorSource, FspiopPutPartiesSource, Fsp
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
+let isTestingMode: boolean = false;
 
 // Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
 
@@ -41,6 +42,7 @@ export const FspiopTransformFacade = {
       throw new Error('Invalid configuration object for FSPIOP transform facade');
     }
     log = config.logger;
+    isTestingMode = Boolean(process.env.MLST_TESTING_MODE) || isTestingMode;
   },
   parties: {
     put: async (source: FspiopPutPartiesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
@@ -90,14 +92,14 @@ export const FspiopTransformFacade = {
       }) as IsoTarget;
 
       /**
-       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+       * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
        * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
        * We do not apply these mutations if there is mapping override.
        */
       if (options.overrideMapping) return target;
 
       setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.amountType') === 'SEND' ? 'CRED' : 'DEBT');
-      
+
       if (getProp(source, 'body.transactionType.refundInfo')) {
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd', 'REFD');
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
@@ -109,10 +111,12 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.quotes.put.isSource(source)) {
         throw new Error('Invalid source object for put quotes');
       }
+      const defaultMapSelection = isTestingMode ? quotes_reverse.putTesting : quotes_reverse.put;
+      const mapping = options.overrideMapping || defaultMapSelection;
       return transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || quotes_reverse.put
+        mapping,
       }) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
@@ -131,10 +135,12 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.transfers.post.isSource(source)) {
         throw new Error('Invalid source object for post transfers');
       }
+      const defaultMapSelection = isTestingMode ? transfers_reverse.postTesting : transfers_reverse.post;
+      const mapping = options.overrideMapping || defaultMapSelection;
       return transformFn(source, {
         ...options,
         logger: log,
-        mapping: options.overrideMapping || transfers_reverse.post
+        mapping,
       }) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
@@ -180,7 +186,7 @@ export const FspiopTransformFacade = {
       }) as IsoTarget;
 
       /**
-      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
       * We do not apply these mutations if there is mapping override.
       */
@@ -201,7 +207,7 @@ export const FspiopTransformFacade = {
       }) as IsoTarget;
 
       /**
-      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings, 
+      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
       * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
       * We do not apply these mutations if there is mapping override.
       */

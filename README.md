@@ -73,11 +73,11 @@ const target = transformer.transform(source);
 The `createTransform` function takes an optional second parameter of type `CreateTransformerOptions` for controlling the instantiation of the `MapTransform` object.
 
 For example:
-- To pass in additional options for the instantiation of `MapTransform`, pass in { mapTransformOptions: { ...additionalMapTransformOptions } } 
+- To pass in additional options for the instantiation of `MapTransform`, pass in { mapTransformOptions: { ...additionalMapTransformOptions } }
 
 ### Custom Transform Functions
 
-Custom transform functions are special functions which are embedded in field mappings and are executed during transformation of those fields. 
+Custom transform functions are special functions which are embedded in field mappings and are executed during transformation of those fields.
 To provide custom transform functions (for both Facades and `createTransformer` use cases):
 
 ```
@@ -89,29 +89,29 @@ To provide custom transform functions (for both Facades and `createTransformer` 
     const modified = // apply custom transformation to `data`;
     return modified;
   }
-  const options = { 
+  const options = {
     mapTransformOptions: {
-      transformers: {  
+      transformers: {
         fn1,
         fn2,
         ...
       }
-    } 
+    }
   }
 ```
 
 Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/transforms/index.ts` or [here](https://github.com/integreat-io/map-transform?tab=readme-ov-file#operations) for more on authoring and using custom transform functions in mappings.
 
 ### Environment Variables
-| Env Variable Name           | Default Value | Description                                          | 
+| Env Variable Name           | Default Value | Description                                          |
 |-----------------------------|---------------|------------------------------------------------------|
 | MLST_LOG_LEVEL              | `warn`        | The log level for MLST                               |
 | MLST_ILP_VERSION            | `v4`          | ILP version used for `ilpPacketToCondition` transform. <br />**Note**:  ILP v1 is not supported|
-
+| MLST_TESTING_MODE           | false         | When `true`, some mapping contains defaults that don't need context from past requests. Useful for one off request transformations.
 
 ## Performance
 
-Hardware   →   Apple M3 Max, 14 Cores, 36 GB RAM                                    
+Hardware   →   Apple M3 Max, 14 Cores, 36 GB RAM
 
 | Use Case                                        | No. of Iterations | Duration       |
 |-------------------------------------------------|-------------------|----------------|
