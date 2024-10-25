@@ -1486,11 +1486,6 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           SttlmInf: {
             SttlmMtd: 'CLRG'
           },
-          CdtTrfTxInf: {
-            Purp: {
-              Prtry: 'DEPOSIT'
-            }
-          }
         },
         CdtTrfTxInf: {
           PmtId: {
@@ -1546,7 +1541,10 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'USD',
             ActiveCurrencyAndAmount: '100'
           },
-          ChrgBr: 'CRED'
+          ChrgBr: 'CRED',
+          Purp: {
+            Prtry: 'DEPOSIT'
+          }
         }
       }
     },

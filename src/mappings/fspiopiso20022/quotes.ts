@@ -99,7 +99,7 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.DbtrAcct.Ccy": "body.payer.supportedCurrencies",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
-    "body.GrpHdr.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
+    "body.CdtTrfTxInf.Purp.Prtry": "body.transactionType.scenario",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.transactionType.refundInfo.originalTransactionId"
   }`,
   // TODO: Support payeeFspCommission.currency and payeeFspCommission.amount
