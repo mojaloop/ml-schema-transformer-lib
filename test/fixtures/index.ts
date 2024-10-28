@@ -1810,7 +1810,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: "DEBT"
+          }
         }
       }
     },
@@ -1880,7 +1882,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: "DEBT"
+          }
         },
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),

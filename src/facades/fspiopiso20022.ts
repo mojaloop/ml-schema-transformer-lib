@@ -212,7 +212,7 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf') === 'CRED' ? 'SEND' : 'RECEIVE');
 
       return target;
     },
@@ -233,7 +233,7 @@ export const FspiopIso20022TransformFacade = {
        */
       if (options.overrideMapping) return target;
 
-      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
+      setProp(target, 'body.conversionTerms.amountType', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf') === 'CRED' ? 'SEND' : 'RECEIVE');
 
       return target;
     },
