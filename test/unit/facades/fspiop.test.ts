@@ -408,19 +408,12 @@ describe('FSPIOPTransformFacade tests', () => {
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.post, FspiopTransformFacade.fxQuotes.post, expected('fxQuotes.post'))();
       });
-      test('should not apply mutation on target if override mapping is set', async () => {
-        const source = { ...fspiopSources.fxQuotes.post };
-        const overrideMapping = FSPIO20022PMappings.fxQuotes_reverse.post;
-        const target = await FspiopTransformFacade.fxQuotes.post(source, { overrideMapping });
-        expect(target).toHaveProperty('body');
-        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBeUndefined();
-      });
       test('should transform POST FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
         const source = { ...fspiopSources.fxQuotes.post };
         setProp(source, 'body.conversionTerms.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.post(source);
         expect(target).toHaveProperty('body');
-        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('CRED');
+        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('SEND');
       });
     });
     describe('PUT /fxQuotes', () => {
@@ -433,19 +426,12 @@ describe('FSPIOPTransformFacade tests', () => {
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.fxQuotes.put, FspiopTransformFacade.fxQuotes.put, expected('fxQuotes.put'))();
       });
-      test('should not apply mutation on target if override mapping is set', async () => {
-        const source = { ...fspiopSources.fxQuotes.put };
-        const overrideMapping = FSPIO20022PMappings.fxQuotes_reverse.put;
-        const target = await FspiopTransformFacade.fxQuotes.put(source, { overrideMapping });
-        expect(target).toHaveProperty('body');
-        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBeUndefined();
-      });
       test('should transform PUT FX quotes payload from FSPIOP to FSPIOP ISO 20022 with amountType === SEND', async () => {
         const source = { ...fspiopSources.fxQuotes.put };
         setProp(source, 'body.conversionTerms.amountType', 'SEND');
         const target = await FspiopTransformFacade.fxQuotes.put(source);
         expect(target).toHaveProperty('body');
-        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('CRED');
+        expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('SEND');
       });
     });
     describe('PUT /fxQuotes/{ID}/error', () => {

@@ -1811,7 +1811,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             ActiveCurrencyAndAmount: '23.55'
           },
           InstrForCdtrAgt: {
-            InstrInf: 'DEBT'
+            InstrInf: 'RECEIVE'
           }
         }
       }
@@ -1883,7 +1883,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             ActiveCurrencyAndAmount: '23.55'
           },
           InstrForCdtrAgt: {
-            InstrInf: 'DEBT'
+            InstrInf: 'RECEIVE'
           }
         },
         GrpHdr: {
