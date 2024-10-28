@@ -1062,7 +1062,9 @@ export const fspiopIso20022Sources = {
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         }
       }
     },
@@ -1132,7 +1134,9 @@ export const fspiopIso20022Sources = {
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         }
       }
     },
