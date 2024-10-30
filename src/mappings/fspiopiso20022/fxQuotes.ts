@@ -38,7 +38,8 @@ export const fxQuotes = {
     "body.conversionTerms.sourceAmount.currency": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy",
     "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
-    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount"
+    "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
+    "body.conversionTerms.amountType": "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf"
   }`,
   put: `{
     "$noDefaults": "true",
@@ -51,7 +52,8 @@ export const fxQuotes = {
     "body.conversionTerms.sourceAmount.amount": "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount",
     "body.conversionTerms.targetAmount.currency": "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy",
     "body.conversionTerms.targetAmount.amount": "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount",
-    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm"
+    "body.conversionTerms.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
+    "body.conversionTerms.amountType": "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf"
   }`,
   putError: `{
     "$noDefaults": "true",
@@ -82,7 +84,8 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": { "$alt": [ "body.conversionTerms.sourceAmount.amount", { "$transform": "fixed", "value": "0" } ] },
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": { "$alt": [ "body.conversionTerms.targetAmount.amount", { "$transform": "fixed", "value": "0" } ] }
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": { "$alt": [ "body.conversionTerms.targetAmount.amount", { "$transform": "fixed", "value": "0" } ] },
+    "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf": "body.conversionTerms.amountType"
   }`,
   put: `{
     "$noDefaults": "true",
@@ -103,7 +106,8 @@ export const fxQuotes_reverse = {
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.Ccy": "body.conversionTerms.sourceAmount.currency",
     "body.CdtTrfTxInf.UndrlygCstmrCdtTrf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.conversionTerms.sourceAmount.amount",
     "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.conversionTerms.targetAmount.currency",
-    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount"
+    "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.conversionTerms.targetAmount.amount",
+    "body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf": "body.conversionTerms.amountType"
   }`,
   putError: `{
     "$noDefaults": "true",

@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/ml-schema-transformer-lib",
-  "version": "3.0.0-snapshot.0",
+  "version": "2.1.1",
   "description": "Shared component for ML schemas translation",
   "repository": {
     "type": "git",
@@ -60,7 +60,6 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22.8.4",
     "@typescript-eslint/eslint-plugin": "8.12.2",
     "@typescript-eslint/parser": "8.12.2",

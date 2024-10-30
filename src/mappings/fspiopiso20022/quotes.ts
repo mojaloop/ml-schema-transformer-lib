@@ -106,7 +106,7 @@ export const quotes_reverse = {
   }`,
   // TODO: Support payeeFspCommission.currency and payeeFspCommission.amount
   //       when CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Tp.Cd is "COMM"
-  putTesting: {
+  putTesting: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -125,10 +125,10 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.payeeReceiveAmount.amount",
     "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
     "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket",
-    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Nm": { $transform: 'fixed', value: '' } // @todo Temporary measure to avoid error with GP
-  } as unknown as TransformObject,
-  put: {
+    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id": { "$alt": [ "headers.fspiop-source", { "$transform": "fixed", "value": "" } ] },
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
+  }`,
+  put: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
@@ -147,9 +147,9 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.payeeReceiveAmount.amount",
     "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
     "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
-    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket",
-    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Nm": { "$transform": "fixed", "value": "" } // @todo Temporary measure to avoid error with GP
-  } as unknown as TransformObject,
+    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id": { "$alt": [ "headers.fspiop-source", { "$transform": "fixed", "value": "" } ] },
+    "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
+  }`,
   putError: `{
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },

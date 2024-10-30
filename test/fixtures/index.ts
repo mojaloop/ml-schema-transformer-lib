@@ -1062,7 +1062,9 @@ export const fspiopIso20022Sources = {
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         }
       }
     },
@@ -1132,7 +1134,9 @@ export const fspiopIso20022Sources = {
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         }
       }
     },
@@ -1605,14 +1609,16 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             ActiveOrHistoricCurrencyAndAmount: '123.45'
           },
           ChrgsInf: {
+            Agt: {
+              FinInstnId: {
+                Othr: {
+                  Id: 'sourcefsp',
+                },
+              },
+            },
             Amt: {
               Ccy: 'AED',
               ActiveOrHistoricCurrencyAndAmount: '123.45'
-            },
-            Agt: {
-              FinInstnId: {
-                Nm: ''
-              }
             }
           },
           VrfctnOfTerms: {
@@ -1815,7 +1821,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         }
       }
     },
@@ -1885,7 +1893,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Ccy: 'XXY',
             ActiveCurrencyAndAmount: '23.55'
           },
-          ChrgBr: 'DEBT'
+          InstrForCdtrAgt: {
+            InstrInf: 'RECEIVE'
+          }
         },
         GrpHdr: {
           MsgId: getProp(target, 'body.GrpHdr.MsgId'),
