@@ -1608,7 +1608,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: "sourcefsp",
+                  Id: 'sourcefsp',
                 },
               },
             },
