@@ -85,6 +85,22 @@ export const getProp = (obj: unknown, path: string): unknown  => {
   return current;
 }
 
+// Safely check if nested property exists in an object
+export const hasProp = (obj: unknown, path: string): boolean => {
+  const pathParts = path.split('.');
+  let current = obj;
+
+  for (const part of pathParts) {
+    if (typeof current === 'object' && current !== null && part in current) {
+      current = (current as GenericObject)[part];
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export const getDescrForErrCode = (code: string | number): string => {
   try {
     const errorCode = Number.parseInt(code as string);
