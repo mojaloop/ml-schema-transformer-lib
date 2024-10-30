@@ -1595,7 +1595,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           CdtrAgt: {
             FinInstnId: {
               Othr: {
-                Id: 'Testing'
+                Id: 'sourcefsp'
               }
             }
           },
@@ -1612,7 +1612,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Agt: {
               FinInstnId: {
                 Othr: {
-                  Id: 'sourcefsp',
+                  Id: 'Testing',
                 },
               },
             },
