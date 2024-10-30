@@ -134,7 +134,7 @@ export const FspiopTransformFacade = {
       }) as IsoTarget;
 
       if (!source.body.payeeFspFee && hasProp(target, 'body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id')) {
-        delete target.body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id;
+        delete target.body.CdtTrfTxInf.ChrgsInf;
       }
 
       return target;
