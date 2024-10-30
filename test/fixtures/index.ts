@@ -1508,10 +1508,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Name: 'Payee Name'
           },
           CdtrAcct: {
-            Ccy: [
-              'XTS',
-              'XDT'
-            ]
+            Ccy: 'XTS'
           },
           Dbtr: {
             Id: {
@@ -1527,10 +1524,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Name: 'Payer Name'
           },
           DbtrAcct: {
-            Ccy: [
-              'XXX',
-              'XXY'
-            ]
+            Ccy: 'XXX'
           },
           DbtrAgt: {
             FinInstnId: {
