@@ -68,7 +68,11 @@ export const CustomTransforms: ICustomTransforms = {
   },
 
   toArray: (options: Options) => () => (data: unknown, state: State) => {
-    return Array.isArray(data) ? data : [data];
+    if (data) {
+      return Array.isArray(data) ? data : [data];
+    }
+
+    return undefined;
   }
 
 }

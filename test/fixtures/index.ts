@@ -525,8 +525,7 @@ export const expectedFspiopTargets = {
           },
           name: 'Payee Name',
           supportedCurrencies: [
-            'XTS',
-            'XDT'
+            'XTS'
           ]
         },
         payer: {
@@ -769,9 +768,7 @@ export const fspiopIso20022Sources = {
               }
             },
             Acct: {
-              Ccy: [
-                'AED'
-              ]
+              Ccy: 'AED'
             }
           }
         }
@@ -846,10 +843,7 @@ export const fspiopIso20022Sources = {
             }
           },
           CdtrAcct: {
-            Ccy: [
-              'XTS',
-              'XDT'
-            ]
+            Ccy: 'XTS'
           },
           Dbtr: {
             Id: {
