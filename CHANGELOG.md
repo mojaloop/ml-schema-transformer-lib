@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.1.1...v2.2.0) (2024-10-30)
+
+
+### Features
+
+* add alt ([1e7b33b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/1e7b33bfe8896602796b8b101b549ce522a4487b))
+
+
+### Bug Fixes
+
+* add required Agt fro put quotes ([2fea4b9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/2fea4b99ae11128d2953ae08a660652bd813bee6))
+
+
+### Chore
+
+* remove import ([6193f22](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6193f227dbc23d29aaba5cf8bf3ca1636a56210c))
+* update deps ([0834a0f](https://github.com/mojaloop/ml-schema-transformer-lib/commit/0834a0f8c36da84afd55d5f6334767cc0c08972d))
+* ypdate code owners ([6d75ca2](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6d75ca244f969f9297f72924c132a32bc117769f))
+
 ### [2.1.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.1.0...v2.1.1) (2024-10-30)
 
 
