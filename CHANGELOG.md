@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.2.2...v2.3.0) (2024-10-30)
+
+
+### Features
+
+* transform supported currencies ([4c46f87](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4c46f8719d1d7a1ff0f5df00f7f125b147f39ee1))
+* trasform supportedCurrencies for quotes ([e41568b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e41568becb1f563604a829ba80f7a37e36df58ec))
+
 ### [2.2.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.2.1...v2.2.2) (2024-10-30)
 
 
