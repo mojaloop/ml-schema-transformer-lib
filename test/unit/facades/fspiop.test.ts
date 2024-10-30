@@ -201,7 +201,7 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id')).toBe('CdtrAgt');
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
       });
-      test('should remove body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id in target if body.payeeFspFee  not set in source', async () => {
+      test('should remove body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id in target if body.payeeFspFee not set in source', async () => {
         const source = { ...fspiopSources.quotes.put };
         delete (source as any).body.payeeFspFee;
         const target = await FspiopTransformFacade.quotes.put(source);
