@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.2...v2.3.3) (2024-10-30)
+
+
+### Bug Fixes
+
+* postQuotes - remove CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id if payeeFspFee is not set ([d1c2396](https://github.com/mojaloop/ml-schema-transformer-lib/commit/d1c239690faeb574cda8ad2b06a4669ecdd4d373))
+
+
+### Chore
+
+* whitespace ([65da5bc](https://github.com/mojaloop/ml-schema-transformer-lib/commit/65da5bc57c3f1a76799b97d503952a27a163b22d))
+
+
+### Documentation
+
+* add markdowns for mappings ([0d228ab](https://github.com/mojaloop/ml-schema-transformer-lib/commit/0d228ab6bfbb63e727e2eef702ba6ed746ad19a1))
+
 ### [2.3.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.1...v2.3.2) (2024-10-30)
 
 
