@@ -33,8 +33,8 @@
 |  | TRUE | Assgnmt.Assgne.Agt.FinInstnId.Othr.Id | $header.FSPIOP-Destination |
 |  | TRUE | Rpt.OrgnlId | {$params.IdPath} |
 |  | TRUE | Rpt.Vrfctn | TRUE |
-| TRUE |  | Rpt.UpdtdPtyAndAcctId.Pty.Id.{PrvId/OrgId}.Othr.SchmeNm.Prtry | if(party.PartyIdInfo.PartyIdType == BUSINESS | party.PartyIdInfo.PartyIdType ==  ALIAS | party.PartyIdInfo.PartyIdType ==  DEVICE)Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry = party.partyIdInfo.partyIdTypeelseRpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry = party.partyIdInfo.partyIdType |
-| TRUE |  | Rpt.UpdtdPtyAndAcctId.Pty.Id.{PrvId/OrgId}.Othr.Id | if(party.PartyIdInfo.PartyIdType == BUSINESS | party.PartyIdInfo.PartyIdType ==  ALIAS | party.PartyIdInfo.PartyIdType ==  DEVICE)Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id = party.partyIdInfo.partyIdentifierelseRpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id = party.partyIdInfo.partyIdentifier |
+| TRUE |  | Rpt.UpdtdPtyAndAcctId.Pty.Id.{PrvId/OrgId}.Othr.SchmeNm.Prtry | if(party.PartyIdInfo.PartyIdType == BUSINESS or party.PartyIdInfo.PartyIdType ==  ALIAS or party.PartyIdInfo.PartyIdType ==  DEVICE)Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry = party.partyIdInfo.partyIdTypeelseRpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.SchmeNm.Prtry = party.partyIdInfo.partyIdType |
+| TRUE |  | Rpt.UpdtdPtyAndAcctId.Pty.Id.{PrvId/OrgId}.Othr.Id | if(party.PartyIdInfo.PartyIdType == BUSINESS or party.PartyIdInfo.PartyIdType ==  ALIAS or party.PartyIdInfo.PartyIdType ==  DEVICE)Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id = party.partyIdInfo.partyIdentifierelseRpt.UpdtdPtyAndAcctId.Pty.Id.PrvId.Othr.Id = party.partyIdInfo.partyIdentifier |
 | TRUE |  | Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id | party.partyIdInfo.fspId |
 | TRUE |  | Rpt.UpdtdPtyAndAcctId.Pty.Nm | party.name |
 | TRUE |  | Rpt.UpdtdPtyAndAcctId.Acct.Ccy | party.supportedCurrencies |
@@ -64,13 +64,13 @@
 | TRUE |  | CdtTrfTxInf.PmtId.TxId | quoteId |
 |  |  | CdtTrfTxInf.PmtId.EndToEndId | transactionId |
 |  |  | CdtTrfTxInf.PmtId.InstrId | transactionRequestId |
-| TRUE | TRUE | CdtTrfTxInf.Cdtr.Id.{OrgId/PrvtId}.Othr.SchmeNm.Prtry | if(payee.partyIdInfo.PartyIdType == BUSINESS | payee.partyIdInfo.PartyIdType ==  ALIAS  | payee.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry = payee.partyIdInfo.partyIdTypeelseCdtTrfTxInf.Cdtr.Id.PrvtId.Othr.SchmeNm.Prtry = payee.partyIdInfo.partyIdType |
-| TRUE | TRUE | CdtTrfTxInf.Cdtr.Id.{OrgId/PrvtId}.Othr.Id | if(payee.PartyIdInfo.PartyIdType == BUSINESS | payee.PartyIdInfo.PartyIdType ==  ALIAS  | payee.PartyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id = payee.partyIdInfo.partyIdentifierelseCdtTrfTxInf.Cdtr.Id.PrvtId.Othr.Id = payee.partyIdInfo.partyIdentifier |
+| TRUE | TRUE | CdtTrfTxInf.Cdtr.Id.{OrgId/PrvtId}.Othr.SchmeNm.Prtry | if(payee.partyIdInfo.PartyIdType == BUSINESS or payee.partyIdInfo.PartyIdType ==  ALIAS  or payee.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry = payee.partyIdInfo.partyIdTypeelseCdtTrfTxInf.Cdtr.Id.PrvtId.Othr.SchmeNm.Prtry = payee.partyIdInfo.partyIdType |
+| TRUE | TRUE | CdtTrfTxInf.Cdtr.Id.{OrgId/PrvtId}.Othr.Id | if(payee.PartyIdInfo.PartyIdType == BUSINESS or payee.PartyIdInfo.PartyIdType ==  ALIAS  or payee.PartyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id = payee.partyIdInfo.partyIdentifierelseCdtTrfTxInf.Cdtr.Id.PrvtId.Othr.Id = payee.partyIdInfo.partyIdentifier |
 | TRUE | TRUE | CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id | payee.partyIdInfo.fspId |
 | TRUE | TRUE | CdtTrfTxInf.Cdtr.Name | payee.name |
 | TRUE |  | CdtTrfTxInf.CdtrAcct.Ccy | payee.supportedCurrencies |
-| TRUE | TRUE | CdtTrfTxInf.Dbtr.Id.{OrgId/PrvtId}.Othr.SchmeNm.Prtry | if(payer.partyIdInfo.PartyIdType == BUSINESS | payer.partyIdInfo.PartyIdType ==  ALIAS  | payer.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtry = payer.partyIdInfo.partyIdTypeelseCdtTrfTxInf.Dbtr.Id.PrvtId.Othr.SchmeNm.Prtry = payer.partyIdInfo.partyIdType |
-| TRUE | TRUE | CdtTrfTxInf.Dbtr.Id.{OrgId/PrvtId}.Othr.Id | if(payer.partyIdInfo.PartyIdType == BUSINESS | payer.partyIdInfo.PartyIdType ==  ALIAS  | payer.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id = payer.partyIdInfo.partyIdentifierelseCdtTrfTxInf.Dbtr.Id.PrvtId.Othr.Id = payer.partyIdInfo.partyIdentifier |
+| TRUE | TRUE | CdtTrfTxInf.Dbtr.Id.{OrgId/PrvtId}.Othr.SchmeNm.Prtry | if(payer.partyIdInfo.PartyIdType == BUSINESS or payer.partyIdInfo.PartyIdType ==  ALIAS or payer.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtry = payer.partyIdInfo.partyIdTypeelseCdtTrfTxInf.Dbtr.Id.PrvtId.Othr.SchmeNm.Prtry = payer.partyIdInfo.partyIdType |
+| TRUE | TRUE | CdtTrfTxInf.Dbtr.Id.{OrgId/PrvtId}.Othr.Id | if(payer.partyIdInfo.PartyIdType == BUSINESS or payer.partyIdInfo.PartyIdType ==  ALIAS or payer.partyIdInfo.PartyIdType ==  DEVICE)CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id = payer.partyIdInfo.partyIdentifierelseCdtTrfTxInf.Dbtr.Id.PrvtId.Othr.Id = payer.partyIdInfo.partyIdentifier |
 | TRUE |  | CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id | payer.partyIdInfo.fspId |
 | TRUE | TRUE | CdtTrfTxInf.Dbtr.Name | payer.name |
 | TRUE |  | CdtTrfTxInf.DbtrAcct.Ccy | payer.supportedCurrencies |
