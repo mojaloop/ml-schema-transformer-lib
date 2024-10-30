@@ -98,7 +98,7 @@ export type FspiopPutPartiesSource = { body: GenericObject, headers: Headers, pa
 export type FspiopPutPartiesTarget = { body: GenericObject, headers: Headers, params: PartyIdParamsTarget };
 export type FspiopPutPartiesErrorSource = { body: GenericObject, headers: Headers, params: PartyIdParamsSource };
 export type FspiopPutPartiesErrorTarget = { body: GenericObject, headers: Headers, params: PartyIdParamsTarget };
-export type FspiopPostTransfersSource = { body: GenericObject,  $context?: { isoPostQuote: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuote: GenericObject } };
+export type FspiopPostTransfersSource = { body: GenericObject,  $context?: { isoPostQuoteResponse: GenericObject }, headers?: Headers } | {body: GenericObject, params: Pick<Params, 'ID'>, headers: Headers, $context?: { isoPostQuoteResponse: GenericObject } };
 
 export type IsoSource = Pick<Source, 'body'>;
 export type IsoTarget = Pick<Target, 'body'>;
