@@ -53,14 +53,15 @@
     "@mojaloop/central-services-error-handling": "^13.0.2",
     "@mojaloop/central-services-logger": "^11.5.1",
     "@mojaloop/central-services-shared": "^18.11.0",
-    "map-transform-cjs": "^0.2.0",
-    "ilp-packet": "2.2.0"
+    "ilp-packet": "2.2.0",
+    "map-transform-cjs": "^0.2.0"
   },
   "overrides": {},
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@types/node": "^22.8.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.8.1",
     "@typescript-eslint/eslint-plugin": "8.11.0",
     "@typescript-eslint/parser": "8.11.0",
     "@vitest/coverage-v8": "^2.1.3",

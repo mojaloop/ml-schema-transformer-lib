@@ -1608,6 +1608,11 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
             Amt: {
               Ccy: 'AED',
               ActiveOrHistoricCurrencyAndAmount: '123.45'
+            },
+            Agt: {
+              FinInstnId: {
+                Nm: ''
+              }
             }
           },
           VrfctnOfTerms: {
