@@ -196,43 +196,21 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.fxQuotes.post.isSource(source)) {
         throw new Error('Invalid source object for post fxQuotes');
       }
-      const target = await transformFn(source, {
+      return transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.post
-      }) as IsoTarget;
-
-      /**
-      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
-      * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
-      * We do not apply these mutations if there is mapping override.
-      */
-      if (options.overrideMapping) return target;
-
-      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.conversionTerms.amountType') === 'SEND' ? 'CRED' : 'DEBT');
-
-      return target;
+      }) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.put.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes');
       }
-      const target = await transformFn(source, {
+      return transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.put
-      }) as IsoTarget;
-
-      /**
-      * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
-      * e.g one-sided mappings, or where the mappings are not sufficient to cover all scenarios.
-      * We do not apply these mutations if there is mapping override.
-      */
-      if (options.overrideMapping) return target;
-
-      setProp(target, 'body.CdtTrfTxInf.ChrgBr', getProp(source, 'body.conversionTerms.amountType') === 'SEND' ? 'CRED' : 'DEBT');
-
-      return target;
+      }) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.putError.isSource(source)) {

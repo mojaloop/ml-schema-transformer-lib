@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.0.1...v2.1.0) (2024-10-28)
+
+
+### Features
+
+* update fxQuotes amountType mapping ([9df691b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/9df691b08317cb73b159877c5c5dc4c50dfbf298))
+* update mapping for fxQuotes amountType ([d43d29f](https://github.com/mojaloop/ml-schema-transformer-lib/commit/d43d29f76a778af20dfb02c2dd9be17dba05a770))
+
+
+### Chore
+
+* update dependencies ([157d0ba](https://github.com/mojaloop/ml-schema-transformer-lib/commit/157d0ba7d749f6c2f728698f34b4e3b0af4ac7b2))
+
+
+### Test
+
+* update test ([969dea5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/969dea5e30236871c2ec0d94f21eae1e304beb4f))
+* update tests ([a1e5f22](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a1e5f22bd8cbb06c06b26ec4bc100d02e95a9498))
+* update tests ([c33bc4d](https://github.com/mojaloop/ml-schema-transformer-lib/commit/c33bc4d69e60f516b54898054641228d12955b49))
+
 ### [2.0.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.0.0...v2.0.1) (2024-10-25)
 
 
