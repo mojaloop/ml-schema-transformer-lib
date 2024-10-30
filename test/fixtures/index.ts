@@ -1437,9 +1437,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               }
             },
             Acct: {
-              Ccy: [
-                'AED'
-              ]
+              Ccy: 'AED'
             }
           }
         }
