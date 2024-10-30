@@ -53,8 +53,8 @@
     "@mojaloop/central-services-error-handling": "^13.0.2",
     "@mojaloop/central-services-logger": "^11.5.1",
     "@mojaloop/central-services-shared": "^18.11.0",
-    "map-transform-cjs": "^0.2.0",
-    "ilp-packet": "2.2.0"
+    "ilp-packet": "2.2.0",
+    "map-transform-cjs": "^0.2.0"
   },
   "overrides": {},
   "devDependencies": {
