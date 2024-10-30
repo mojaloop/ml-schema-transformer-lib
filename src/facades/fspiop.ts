@@ -24,7 +24,7 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
-import { getProp, setProp } from '../lib/utils';
+import { getProp, hasProp, setProp } from '../lib/utils';
 import { FSPIO20022PMappings } from '../mappings';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
 import {
@@ -127,11 +127,18 @@ export const FspiopTransformFacade = {
       }
       const defaultMapSelection = isTestingMode ? quotes_reverse.putTesting : quotes_reverse.put;
       const mapping = options.overrideMapping || defaultMapSelection;
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping,
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      if (!source.body.payeeFspFee && hasProp(target, 'body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id')) {
+        delete target.body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id;
+      }
+
+      return target;
+
     },
     putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.putError.isSource(source)) {
