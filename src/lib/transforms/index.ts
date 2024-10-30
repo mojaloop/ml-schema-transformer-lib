@@ -61,5 +61,14 @@ export const CustomTransforms: ICustomTransforms = {
 
   toIsoTransferState: (options: Options) => () => (data: unknown, state: State) => {
     return toIsoTransferState(data as string);
+  },
+
+  supportedCurrenciesToString: (options: Options) => () => (data: unknown, state: State) => {
+    return data && Array.isArray(data) && data.length > 0 ? data[0] : data;
+  },
+
+  toArray: (options: Options) => () => (data: unknown, state: State) => {
+    return Array.isArray(data) ? data : [data];
   }
+
 }

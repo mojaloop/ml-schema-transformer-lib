@@ -35,7 +35,7 @@ export const discovery = {
       "body.party.partyIdInfo.partyIdentifier": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id"] },
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
       "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
-      "body.party.supportedCurrencies": "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy"
+      "body.party.supportedCurrencies": ["body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy", { "$transform": "toArray" }]
     }`,
     putError: `{
       "$noDefaults": true,
@@ -66,7 +66,7 @@ export const discovery_reverse = {
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id": "body.party.partyIdInfo.fspId",
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm": "body.party.name",
-      "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy": "body.party.supportedCurrencies"
+      "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy": ["body.party.supportedCurrencies", { "$transform": "supportedCurrenciesToString" }]
     }`,
     putError: `{
       "$noDefaults": true,
