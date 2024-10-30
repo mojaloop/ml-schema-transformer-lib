@@ -313,7 +313,7 @@ describe('FSPIOPTransformFacade tests', () => {
         FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
         const source = { ...fspiopSources.transfers.post };
         source.$context = {
-          isoPostQuote: {
+          isoPostQuoteResponse: {
             CdtTrfTxInf: {
               Dbtr: {
                 Id: {
@@ -354,9 +354,9 @@ describe('FSPIOPTransformFacade tests', () => {
         const target = await FspiopTransformFacade.transfers.post(source);
         expect(target).toHaveProperty('body');
         // @ts-ignore
-        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Dbtr);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr')).toEqual(source.$context.isoPostQuoteResponse.CdtTrfTxInf.Dbtr);
         // @ts-ignore
-        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr')).toEqual(source.$context.isoPostQuote.CdtTrfTxInf.Cdtr);
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr')).toEqual(source.$context.isoPostQuoteResponse.CdtTrfTxInf.Cdtr);
         // @ts-ignore
         expect(getProp(target, 'body.CdtTrfTxInf.ChrgBr')).toBe('ChrgBr');
         FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
