@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.0...v2.3.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* do not transform empty supportedCurrencies ([f635417](https://github.com/mojaloop/ml-schema-transformer-lib/commit/f6354177bdf1e9bd5872a64e8d19488eab031417))
+
 ## [2.3.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.2.2...v2.3.0) (2024-10-30)
 
 
