@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.1.0...v2.1.1) (2024-10-30)
+
+
+### Chore
+
+* add default to charges agt field ([4ec76df](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4ec76df464b16dabc76555d8adb824d4da0fd3be))
+* dep update ([c4fe036](https://github.com/mojaloop/ml-schema-transformer-lib/commit/c4fe036d62c85560bf2320edef05564fd2812add))
+* dep update ([110c1cb](https://github.com/mojaloop/ml-schema-transformer-lib/commit/110c1cb85ffb94dd3c23eec3bcade9e3a34e327a))
+* dep update ([dd830e4](https://github.com/mojaloop/ml-schema-transformer-lib/commit/dd830e472dfb44c24aaf8ba1ada349bc9367c3f9))
+* lock ([4b9ce31](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4b9ce3146aba8792a135d66cd9cf9373fe255908))
+
 ## [2.1.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.0.1...v2.1.0) (2024-10-28)
 
 
