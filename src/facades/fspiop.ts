@@ -47,14 +47,14 @@ const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse }
 let log: ContextLogger = defaultLogger;
 let isTestingMode: boolean | undefined = false;
 
-const afterTransformSteps = [ applyUnrollExtensions ]
+const afterTransformSteps = [ applyUnrollExtensions ];
 
 const applyAfterTransformSteps = (source: GenericObject,  target: IsoTarget, options: FspiopTransformFacadeOptions): IsoTarget => {
   for (const step of afterTransformSteps) {
     target = step({ source, target, options, logger: log }) as IsoTarget;
   }
   return target;
-}
+};
 
 
 // Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
