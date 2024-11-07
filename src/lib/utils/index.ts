@@ -25,7 +25,7 @@
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
 const ilpPacket = require('ilp-packet');
-import { GenericObject, ID_GENERATOR_TYPE } from '../../types';
+import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
 
 // improve: use enums from cs-shared
 // We only cover the states that are externally visible
@@ -133,4 +133,10 @@ export const toFspiopTransferState = (isoState: string): string | undefined => {
     if (value === isoState) return key;
   }
   throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
+}
+
+export const validateConfig = (config: ConfigOptions): void => {
+  if (hasProp(config, 'logger') && !isContextLogger(config.logger)) {
+    throw new Error('Invalid logger provided');
+  }
 }

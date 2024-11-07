@@ -22,10 +22,24 @@
  --------------
  ******/
 
+import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
 
-export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
-  return !!(config.logger);
+// export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
+//   return 'logger' in config && isContextLogger(config.logger);
+// };
+
+export const isContextLogger = (logger: any): logger is ContextLogger => {
+  return (
+    'info' in logger &&
+    'error' in logger &&
+    'warn' in logger &&
+    'verbose' in logger &&
+    'debug' in logger &&
+    'silly' in logger &&
+    'audit' in logger &&
+    'trace' in logger
+  );
 };
 
 const baseFspiopGuards = {

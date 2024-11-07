@@ -22,10 +22,10 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig, PartyIdParamsSource } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig, PartyIdParamsSource, isContextLogger } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { getProp, setProp } from '../lib/utils';
+import { getProp, setProp, validateConfig } from '../lib/utils';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
@@ -34,10 +34,8 @@ let log = defaultLogger;
 
 export const FspiopIso20022TransformFacade = {
   configure: (config: ConfigOptions) => {
-    if (!isConfig(config)) {
-      throw new Error('Invalid configuration object for FSPIOP ISO 20022 transform facade');
-    }
-    log = config.logger;
+    validateConfig(config);
+    if (config.logger) log = config.logger;
   },
   parties: {
     put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {

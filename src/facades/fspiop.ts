@@ -24,7 +24,7 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
-import { getProp, hasProp, setProp } from '../lib/utils';
+import { getProp, hasProp, setProp, validateConfig } from '../lib/utils';
 import { FSPIO20022PMappings } from '../mappings';
 import { fxTransfers_reverse } from '../mappings/fspiopiso20022';
 import {
@@ -37,7 +37,7 @@ import {
   IsoTarget,
   TransformFacadeOptions,
   TypeGuards,
-  isConfig
+  isContextLogger
 } from '../types';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
@@ -49,11 +49,9 @@ let isTestingMode: boolean | undefined = false;
 
 export const FspiopTransformFacade = {
   configure: (config: ConfigOptions) => {
-    if (!isConfig(config)) {
-      throw new Error('Invalid configuration object for FSPIOP transform facade');
-    }
-    log = config.logger;
-    isTestingMode = config.isTestingMode;
+    validateConfig(config);
+    if (config.logger) log = config.logger;
+    if (hasProp(config, 'isTestingMode')) isTestingMode = !!config.isTestingMode;
   },
   parties: {
     put: async (source: FspiopPutPartiesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
@@ -125,8 +123,8 @@ export const FspiopTransformFacade = {
       if (!isTestingMode && !source.$context) {
         throw new Error('Invalid source object for put quotes, missing $context');
       }
-      const defaultMapSelection = isTestingMode ? quotes_reverse.putTesting : quotes_reverse.put;
-      const mapping = options.overrideMapping || defaultMapSelection;
+      const defaultMapping = isTestingMode ? quotes_reverse.putTesting : quotes_reverse.put;
+      const mapping = options.overrideMapping || defaultMapping;
       const target = await transformFn(source, {
         ...options,
         logger: log,
@@ -159,8 +157,8 @@ export const FspiopTransformFacade = {
       if (!isTestingMode && !source.$context) {
         throw new Error('Invalid source object for post transfers, missing $context');
       }
-      const defaultMapSelection = isTestingMode ? transfers_reverse.postTesting : transfers_reverse.post;
-      const mapping = options.overrideMapping || defaultMapSelection;
+      const defaultMapping = isTestingMode ? transfers_reverse.postTesting : transfers_reverse.post;
+      const mapping = options.overrideMapping || defaultMapping;
       return transformFn(source, {
         ...options,
         logger: log,

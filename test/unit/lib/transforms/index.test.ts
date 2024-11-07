@@ -24,7 +24,7 @@
 import { CustomTransforms } from 'src/lib';
 import { Options, State } from 'src/types/map-transform';
 
- describe('Transforms tests', () => {
+describe('Transforms tests', () => {
   describe('isNotEmpty', () => {
     test('isNotEmpty should be true', async () => {
       const data = {
@@ -41,4 +41,38 @@ import { Options, State } from 'src/types/map-transform';
       expect(result).toBe(false);
     });
   });
- });
+  describe('supportedCurrenciesToString', () => {
+    test('should return the first currency', async () => {
+      const data = ['USD', 'EUR'];
+      const state = {};
+      const result = (CustomTransforms.supportedCurrenciesToString as Function)({} as Options)()(data, state as State);
+      expect(result).toBe('USD');
+    });
+    test('should return data as is if it is not an array', async () => {
+      const data = 'USD';
+      const state = {};
+      const result = (CustomTransforms.supportedCurrenciesToString as Function)({} as Options)()(data, state as State);
+      expect(result).toBe(data);
+    });
+  });
+  describe('toArray', () => {
+    test('should return the data as an array', async () => {
+      const data = 'USD';
+      const state = {};
+      const result = (CustomTransforms.toArray as Function)({} as Options)()(data, state as State);
+      expect(result).toEqual([data]);
+    });
+    test('should return data as is if it is already an array', async () => {
+      const data = ['USD'];
+      const state = {};
+      const result = (CustomTransforms.toArray as Function)({} as Options)()(data, state as State);
+      expect(result).toEqual(data);
+    });
+    test('should return undefined if data is undefined', async () => {
+      const data = undefined;
+      const state = {};
+      const result = (CustomTransforms.toArray as Function)({} as Options)()(data, state as State);
+      expect(result).toEqual(undefined);
+    });
+  });
+});

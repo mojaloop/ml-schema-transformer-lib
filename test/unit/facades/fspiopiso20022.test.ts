@@ -43,8 +43,9 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
   }
 
   describe('configure', () => {
-    test('should throw if invalid configuration object is provided', () => {
-      expect(() => FspiopIso20022TransformFacade.configure({} as any)).toThrow();
+    test('should throw if invalid logger is provided', () => {
+      const logger = {};
+      expect(() => FspiopIso20022TransformFacade.configure({ logger } as any)).toThrow('Invalid logger provided');
     });
     test('should configure logger', async () => {
       const logger = mockLogger;

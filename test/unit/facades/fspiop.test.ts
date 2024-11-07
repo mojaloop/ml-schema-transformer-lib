@@ -53,9 +53,13 @@ describe('FSPIOPTransformFacade tests', () => {
   }
 
   describe('configure', () => {
+    test('should throw if invalid logger is provided', () => {
+      const logger = {};
+      expect(() => FspiopTransformFacade.configure({ logger } as any)).toThrow('Invalid logger provided');
+    });
     test('should configure logger', async () => {
       const logger = mockLogger;
-      FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+      FspiopTransformFacade.configure({ logger: mockLogger });
       vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(() => {
         throw new Error('Test error')
       });
@@ -63,10 +67,16 @@ describe('FSPIOPTransformFacade tests', () => {
       await expect(promise).rejects.toThrow();
       expect(logger.error).toBeCalled();
     });
-    test('should throw if wrong config is passed', async () => {
-      const config = { invalid: {} } as any
-      expect(() => FspiopTransformFacade.configure(config)).toThrow('Invalid configuration object for FSPIOP transform facade');
-    })
+    test('should configure testing mode', async () => {
+      const isTestingMode = true;
+      FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode });
+      vi.spyOn(createTransformerLib, 'createTransformer').mockImplementationOnce(() => {
+        throw new Error('Test error')
+      });
+      const promise = FspiopTransformFacade.parties.put(fspiopSources.parties.put);
+      await expect(promise).rejects.toThrow();
+      expect(mockLogger.error).toBeCalled();
+    });
   });
   describe('Parties', () => {
     test('should transform PUT parties payload from FSPIOP to FSPIOP ISO 20022', async () => {

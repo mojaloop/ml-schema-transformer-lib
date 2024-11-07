@@ -23,7 +23,7 @@
  ******/
 
 import { ilpCondition, ilpPacket } from 'test/fixtures';
-import { generateID, getDescrForErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState } from '../../../../src/lib/utils';
+import { generateID, getDescrForErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState, validateConfig } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
 
@@ -148,4 +148,10 @@ describe('Utils tests', () => {
       expect(() => toFspiopTransferState('UNKNOWN')).toThrow();
     });
   });
+  describe('validateConfig', () => {
+    test('should throw if invalid logger is provided', () => {
+      const config = { logger: {} };
+      expect(() => validateConfig(config as any)).toThrow('Invalid logger provided');
+    });
+  })
 });
