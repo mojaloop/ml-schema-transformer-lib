@@ -36,7 +36,7 @@ const fspiopToIsoTransferStateMap: GenericObject = {
   ABORTED: 'ABOR'
 }
 
-// Generate a unique ID
+// Generates a unique ID
 export const generateID = (idGenType: ID_GENERATOR_TYPE = ID_GENERATOR_TYPE.ulid, config: GenericObject = {}): string => {
   switch (idGenType) {
     case ID_GENERATOR_TYPE.ulid:
@@ -54,7 +54,7 @@ export const isEmptyObject = (data: unknown) => {
   return typeof data === 'object' && data !== null && Object.keys(data as object).length === 0;
 }
 
-// Safely set nested property in an object
+// Safely sets nested property in an object
 export const setProp = (obj: unknown, path: string, value: unknown) => {
   const pathParts = path.split('.');
   let current = obj as GenericObject;
@@ -68,7 +68,7 @@ export const setProp = (obj: unknown, path: string, value: unknown) => {
   current[pathParts[pathParts.length - 1] as string] = value;
 }
 
-// Safely get nested property from an object
+// Safely gets nested property from an object
 export const getProp = (obj: unknown, path: string): unknown  => {
   const pathParts = path.split('.');
   let current = obj;
@@ -82,7 +82,7 @@ export const getProp = (obj: unknown, path: string): unknown  => {
   return current;
 }
 
-// Safely check if nested property exists in an object
+// Safely checks if nested property exists in an object
 export const hasProp = (obj: unknown, path: string): boolean => {
   const pathParts = path.split('.');
   let current = obj;
@@ -97,7 +97,7 @@ export const hasProp = (obj: unknown, path: string): boolean => {
   return true;
 }
 
-// Merge deeply nested objects
+// Merges deeply nested objects
 export const deepMerge = (target: GenericObject, source: GenericObject): GenericObject => {
   for (const key in source) {
     if (source[key] instanceof Object && key in target) {
@@ -108,7 +108,7 @@ export const deepMerge = (target: GenericObject, source: GenericObject): Generic
   return target;
 }
 
-// Get the description for an error code
+// Gets the description for an error code
 export const getDescrForErrCode = (code: string | number): string => {
   try {
     const errorCode = Number.parseInt(code as string);
@@ -119,7 +119,7 @@ export const getDescrForErrCode = (code: string | number): string => {
   }
 }
 
-// Get the ILP packet condition from an ILP packet
+// Gets the ILP packet condition from an ILP packet
 export const getIlpPacketCondition = (inputIlpPacket: string): string => {
   const binaryPacket = Buffer.from(inputIlpPacket, 'base64');
   const decoded = ilpPacket.deserializeIlpPrepare(binaryPacket);
@@ -143,14 +143,14 @@ export const toFspiopTransferState = (isoState: string): string | undefined => {
   throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
 }
 
-// Validate the configuration options
+// Validates configuration options
 export const validateConfig = (config: ConfigOptions): void => {
   if (hasProp(config, 'logger') && !isContextLogger(config.logger)) {
     throw new Error('Invalid logger provided');
   }
 }
 
-// Unroll extensions array into an object
+// Unrolls extensions array into an object
 export const unrollExtensions = (extensions: Array<{ key: string, value: unknown }>): GenericObject => {
   const unrolled: GenericObject = {};
   for (const { key, value } of extensions) {
@@ -160,7 +160,7 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
 }
 
 // @todo: incomplete implementation. should handle complex mappings
-// Rollup unmapped properties into extensions array
+// Rolls up unmapped properties into extensions array
 export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: GenericObject): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingValues = Object.values(mapping);
