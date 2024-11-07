@@ -197,8 +197,14 @@ describe('Utils tests', () => {
   });
   describe('rollupUnmappedIntoExtensions', () => {
     it('should rollup unmapped properties into an extensions array', () => {
-      const source = { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4', key5: { key6: { key7: 'value7' } } };
-      const mapping = { key1: 'body.key1', key2: 'body.key2' };
+      const source = { 
+        body: { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4', key5: { key6: { key7: 'value7' } } },
+        headers: { header1: 'value1', header2: 'value2' },
+        params: { param1: 'value1', param2: 'value2' }
+      };
+      const mapping = {
+        body: { key1: 'body.key1', key2: 'body.key2' }
+      };
       const extensions = [
         { key: 'key3', value: 'value3' },
         { key: 'key4', value: 'value4' },

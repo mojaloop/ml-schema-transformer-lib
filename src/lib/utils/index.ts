@@ -164,12 +164,13 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
 export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
-  const mappingValues = extractValues(mappingObj);
-  const sourcePaths = getObjectPaths(source);
+  // we are only interested in body mappings and source body
+  const mappingValues = extractValues(mappingObj).filter(value => value.startsWith('body.')).map(value => value.replace('body.', ''));
+  const sourcePaths = getObjectPaths(source.body);
 
   for (const path of sourcePaths) {
     if (!mappingValues.includes(path)) {
-      const value = getProp(source, path);
+      const value = getProp(source.body, path);
       extensions.push({ key: path, value });
     }
   }
@@ -186,9 +187,8 @@ export const extractValues = (obj: GenericObject) => {
       current.forEach(item => recurse(item));
     } else if (typeof current === 'object' && current !== null) {
       Object.values(current).forEach(value => recurse(value));
-    } else if ((current as string).includes('.')) { // all fields in our mappings have dots
-      // remove the first part of the path e.g body, header, params before adding to values
-      values.push((current as string).split('.').slice(1).join('.'));
+    } else { 
+      values.push((current as string));
     }
   }
 
