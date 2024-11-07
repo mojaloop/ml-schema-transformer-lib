@@ -36,8 +36,7 @@ import {
   FspiopPostTransfersSource,
   IsoTarget,
   TransformFacadeOptions,
-  TypeGuards,
-  isContextLogger
+  TypeGuards
 } from '../types';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;

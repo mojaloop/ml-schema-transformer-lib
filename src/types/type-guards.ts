@@ -23,13 +23,9 @@
  ******/
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { ConfigOptions, FspiopPutQuotesSource, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
+import { FspiopPutQuotesSource, FspiopSource, IsoSource, FspiopPutPartiesSource, FspiopPutPartiesErrorSource } from '.';
 
-// export const isConfig = (config: ConfigOptions): config is ConfigOptions => {
-//   return 'logger' in config && isContextLogger(config.logger);
-// };
-
-export const isContextLogger = (logger: any): logger is ContextLogger => {
+export const isContextLogger = (logger: ContextLogger): logger is ContextLogger => {
   return (
     'info' in logger &&
     'error' in logger &&

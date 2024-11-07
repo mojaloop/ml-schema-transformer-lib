@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, isConfig, PartyIdParamsSource, isContextLogger } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, PartyIdParamsSource } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp, validateConfig } from '../lib/utils';
