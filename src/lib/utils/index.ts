@@ -165,7 +165,9 @@ export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: Tra
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
   // we are only interested in body mappings and source body
-  const mappingValues = extractValues(mappingObj).filter(value => value.startsWith('body.')).map(value => value.replace('body.', ''));
+  const mappingValues = extractValues(mappingObj)
+    .filter((value) => value.startsWith('body.'))
+    .map((value) => value.replace('body.', ''));
   const sourcePaths = getObjectPaths(source.body);
 
   for (const path of sourcePaths) {
