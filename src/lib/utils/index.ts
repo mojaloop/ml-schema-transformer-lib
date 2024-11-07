@@ -196,6 +196,7 @@ export const extractValues = (obj: GenericObject) => {
   return values;
 }
 
+// Gets all paths to leaf nodes in an object
 export const getObjectPaths = (obj: GenericObject, prefix = '') => {
   let paths: string[] = [];
 
