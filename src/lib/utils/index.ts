@@ -26,6 +26,7 @@ const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
 import ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
+import { TransformDefinition } from 'src/types/map-transform';
 
 // improve: use enums from cs-shared
 // We only cover the states that are externally visible
@@ -159,15 +160,68 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
   return unrolled;
 }
 
-// @todo: incomplete implementation. should handle complex mappings
 // Rolls up unmapped properties into extensions array
-export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: GenericObject): Array<{ key: string, value: unknown }> => {
+export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
-  const mappingValues = Object.values(mapping);
-  for (const [key, value] of Object.entries(source)) {
-    if (!mappingValues.includes(key)) {
-      extensions.push({ key, value });
+  const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
+  const mappingValues = extractValues(mappingObj);
+  const sourcePaths = getObjectPaths(source);
+
+  for (const path of sourcePaths) {
+    if (!mappingValues.includes(path)) {
+      const value = getProp(source, path);
+      extensions.push({ key: path, value });
     }
   }
+
   return extensions;
 }
+
+// Extracts all values from an object including nested values in arrays and objects
+export const extractValues = (obj: GenericObject) => {
+  const values: string[] = [];
+
+  function recurse(current: GenericObject | string | number | boolean | null) {
+    if (Array.isArray(current)) {
+      current.forEach(item => recurse(item));
+    } else if (typeof current === 'object' && current !== null) {
+      Object.values(current).forEach(value => recurse(value));
+    } else if ((current as string).includes('.')) { // all fields in our mappings have dots
+      // remove the first part of the path e.g body, header, params before adding to values
+      values.push((current as string).split('.').slice(1).join('.'));
+    }
+  }
+
+  recurse(obj);
+  return values;
+}
+
+export const getObjectPaths = (obj: GenericObject, prefix = '') => {
+  let paths: string[] = [];
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const path = prefix ? `${prefix}.${key}` : key;
+      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+        paths = paths.concat(getObjectPaths(obj[key], path));
+      } else {
+        paths.push(path);
+      }
+    }
+  }
+
+  return paths;
+}
+
+// Removes duplicate objects from an array based on a unique key
+export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string): GenericObject[] => {
+  const seen = new Set();
+  return arr.reduce((acc: GenericObject[], obj) => {
+    if (!seen.has(obj[uniqueKey])) {
+      seen.add(obj[uniqueKey]);
+      acc.push(obj);
+    }
+    return acc;
+  }, []);
+}
+

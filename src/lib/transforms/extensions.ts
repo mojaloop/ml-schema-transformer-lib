@@ -24,7 +24,8 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { GenericObject } from '../../types';
-import { deepMerge, unrollExtensions } from '../utils';
+import { deepMerge, unrollExtensions, rollupUnmappedIntoExtensions, setProp, deduplicateObjectsArray } from '../utils';
+import { TransformDefinition } from 'src/types/map-transform';
 
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
@@ -36,4 +37,25 @@ export const applyUnrollExtensions = (params: { source: GenericObject, target: G
   const unrolled = unrollExtensions(source.body.extensionList.extensions);
   logger.debug('Unrolled extensions', { source, unrolled });
   return deepMerge(target, unrolled);
+}
+
+// Rolls up unmapped properties from the source object into extensions and adds them to the target object's extensionList
+export const applyRollupUnmappedIntoExtensions = (params: { source: GenericObject, target: GenericObject, mapping: TransformDefinition, options: GenericObject, logger: ContextLogger }) => {
+  const { source, target, mapping, options, logger } = params;
+  if (!options.rollupUnmappedIntoExtensions) {
+    logger.debug('Skipping rollupUnmappedIntoExtensions', { source, target, mapping, options });
+    return target;
+  }
+  const extensions = rollupUnmappedIntoExtensions(source, mapping);
+  logger.debug('Rolled up extensions', { source, mapping, extensions });
+
+  if (extensions.length === 0) return target;
+
+  if (!target.body.extensionList?.extension) {
+    setProp(target, 'body.extensionList.extension', []);
+  }
+  target.body.extensionList.extension.push(...extensions);
+  target.body.extensionList.extensions = deduplicateObjectsArray(target.body.extensionList.extensions, 'key');
+
+  return target;
 }
