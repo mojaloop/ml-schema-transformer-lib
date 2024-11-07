@@ -24,7 +24,7 @@
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
-const ilpPacket = require('ilp-packet');
+import ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
 
 // improve: use enums from cs-shared
@@ -58,7 +58,6 @@ export const isEmptyObject = (data: unknown) => {
 export const setProp = (obj: unknown, path: string, value: unknown) => {
   const pathParts = path.split('.');
   let current = obj as GenericObject;
-
   for (let i = 0; i < pathParts.length - 1; i++) {
     const part = pathParts[i] as string;
     if (!current[part]) {
@@ -73,7 +72,6 @@ export const setProp = (obj: unknown, path: string, value: unknown) => {
 export const getProp = (obj: unknown, path: string): unknown  => {
   const pathParts = path.split('.');
   let current = obj;
-
   for (const part of pathParts) {
     if (typeof current === 'object' && current !== null && part in current) {
       current = (current as GenericObject)[part];
@@ -81,7 +79,6 @@ export const getProp = (obj: unknown, path: string): unknown  => {
       return undefined;
     }
   }
-
   return current;
 }
 
@@ -89,7 +86,6 @@ export const getProp = (obj: unknown, path: string): unknown  => {
 export const hasProp = (obj: unknown, path: string): boolean => {
   const pathParts = path.split('.');
   let current = obj;
-
   for (const part of pathParts) {
     if (typeof current === 'object' && current !== null && part in current) {
       current = (current as GenericObject)[part];
@@ -101,6 +97,18 @@ export const hasProp = (obj: unknown, path: string): boolean => {
   return true;
 }
 
+// Merge deeply nested objects
+export const deepMerge = (target: GenericObject, source: GenericObject): GenericObject => {
+  for (const key in source) {
+    if (source[key] instanceof Object && key in target) {
+      Object.assign(source[key], deepMerge(target[key], source[key]));
+    }
+  }
+  Object.assign(target || {}, source);
+  return target;
+}
+
+// Get the description for an error code
 export const getDescrForErrCode = (code: string | number): string => {
   try {
     const errorCode = Number.parseInt(code as string);
@@ -112,7 +120,7 @@ export const getDescrForErrCode = (code: string | number): string => {
 }
 
 // Get the ILP packet condition from an ILP packet
-export const getIlpPacketCondition = (inputIlpPacket: string): GenericObject => {
+export const getIlpPacketCondition = (inputIlpPacket: string): string => {
   const binaryPacket = Buffer.from(inputIlpPacket, 'base64');
   const decoded = ilpPacket.deserializeIlpPrepare(binaryPacket);
   return decoded?.executionCondition?.toString('base64url');
@@ -135,8 +143,31 @@ export const toFspiopTransferState = (isoState: string): string | undefined => {
   throw new Error(`toFspiopTransferState: Unknown ISO20022 transfer state: ${isoState}`);
 }
 
+// Validate the configuration options
 export const validateConfig = (config: ConfigOptions): void => {
   if (hasProp(config, 'logger') && !isContextLogger(config.logger)) {
     throw new Error('Invalid logger provided');
   }
+}
+
+// Unroll extensions array into an object
+export const unrollExtensions = (extensions: Array<{ key: string, value: unknown }>): GenericObject => {
+  const unrolled: GenericObject = {};
+  for (const { key, value } of extensions) {
+    setProp(unrolled, key, value);
+  }
+  return unrolled;
+}
+
+// @todo: incomplete implementation. should handle complex mappings
+// Rollup unmapped properties into extensions array
+export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: GenericObject): Array<{ key: string, value: unknown }> => {
+  const extensions = [];
+  const mappingValues = Object.values(mapping);
+  for (const [key, value] of Object.entries(source)) {
+    if (!mappingValues.includes(key)) {
+      extensions.push({ key, value });
+    }
+  }
+  return extensions;
 }

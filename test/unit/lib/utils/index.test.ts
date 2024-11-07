@@ -23,7 +23,21 @@
  ******/
 
 import { ilpCondition, ilpPacket } from 'test/fixtures';
-import { generateID, getDescrForErrCode, getIlpPacketCondition, getProp, isEmptyObject, isPersonPartyIdType, setProp, toFspiopTransferState, toIsoTransferState, validateConfig } from '../../../../src/lib/utils';
+import {
+  generateID,
+  getDescrForErrCode,
+  getIlpPacketCondition,
+  getProp,
+  hasProp,
+  isEmptyObject,
+  isPersonPartyIdType,
+  rollupUnmappedIntoExtensions,
+  setProp,
+  toFspiopTransferState,
+  toIsoTransferState,
+  unrollExtensions,
+  validateConfig,
+} from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
 
@@ -77,6 +91,16 @@ describe('Utils tests', () => {
       const obj = {};
       setProp(obj, 'nested.property', 'value');
       expect(obj).toEqual({ nested: { property: 'value' } });
+    });
+  });
+  describe('hasProp', () => {
+    it('should return true for an existing property', () => {
+      const obj = { nested: { property: 'value' } };
+      expect(hasProp(obj, 'nested.property')).toBe(true)
+    });
+    it('should return false for a non-existent property', () => {
+      const obj = { nested: { property: 'value' } };
+      expect(hasProp(obj, 'nested.nonexistent')).toBe(false);
     });
   });
   describe('getProp', () => {
@@ -153,5 +177,34 @@ describe('Utils tests', () => {
       const config = { logger: {} };
       expect(() => validateConfig(config as any)).toThrow('Invalid logger provided');
     });
-  })
+  });
+  describe('unrollExtensions', () => {
+    it('should unroll an array of extensions into an object', () => {
+      const extensions = [{ key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' }];
+      const expectedUnrolled = { key1: 'value1', key2: 'value2' };
+      const unrolled = unrollExtensions(extensions);
+      expect(unrolled).toEqual(expectedUnrolled);
+
+      const empty = unrollExtensions([]);
+      expect(empty).toEqual({});
+
+      const single = unrollExtensions([{ key: 'key', value: 'value' }]);
+      expect(single).toEqual({ key: 'value' });
+
+      const nested = unrollExtensions([{ key: 'nested.key', value: 'value' }]);
+      expect(nested).toEqual({ nested: { key: 'value' } });
+    });
+  });
+  describe('rollupUnmappedIntoExtensions', () => {
+    it('should rollup unmapped properties into an extensions array', () => {
+      const source = { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4' };
+      const mapping = { key1: 'key1', key2: 'key2' };
+      const extensions = [
+        { key: 'key3', value: 'value3' },
+        { key: 'key4', value: 'value4' }
+      ];
+      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      expect(rolled).toEqual(extensions);
+    });
+  });
 });

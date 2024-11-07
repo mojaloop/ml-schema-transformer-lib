@@ -35,25 +35,37 @@ import {
   FspiopSource,
   FspiopPostTransfersSource,
   IsoTarget,
-  TransformFacadeOptions,
-  TypeGuards
+  FspiopTransformFacadeOptions,
+  TypeGuards,
+  isContextLogger,
+  GenericObject
 } from '../types';
+import { applyUnrollExtensions } from 'src/lib/transforms/extensions';
 
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 let log: ContextLogger = defaultLogger;
 let isTestingMode: boolean | undefined = false;
 
-// Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
+const afterTransformSteps = [ applyUnrollExtensions ]
 
+const applyAfterTransformSteps = (source: GenericObject,  target: IsoTarget, options: FspiopTransformFacadeOptions): IsoTarget => {
+  for (const step of afterTransformSteps) {
+    target = step({ source, target, options, logger: log }) as IsoTarget;
+  }
+  return target;
+}
+
+
+// Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
 export const FspiopTransformFacade = {
   configure: (config: ConfigOptions) => {
     validateConfig(config);
-    if (config.logger) log = config.logger;
+    if (isContextLogger(config.logger)) log = config.logger;
     if (hasProp(config, 'isTestingMode')) isTestingMode = !!config.isTestingMode;
   },
   parties: {
-    put: async (source: FspiopPutPartiesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopPutPartiesSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.put.isSource(source)) {
         throw new Error('Invalid source object for put parties');
       }
@@ -64,13 +76,15 @@ export const FspiopTransformFacade = {
           source.params.IdPath += `/${source.params.SubId}`;
         }
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.put,
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    putError: async (source: FspiopPutPartiesErrorSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopPutPartiesErrorSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.putError.isSource(source)) {
         throw new Error('Invalid source object for put parties error');
       }
@@ -81,15 +95,17 @@ export const FspiopTransformFacade = {
           source.params.IdPath += `/${source.params.SubId}`;
         }
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || discovery_reverse.parties.putError,
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
   },
   quotes: {
-    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    post: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.post.isSource(source)) {
         throw new Error('Invalid source object for post quotes');
       }
@@ -113,9 +129,9 @@ export const FspiopTransformFacade = {
         setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
       }
 
-      return target;
+      return applyAfterTransformSteps(source, target, options);
     },
-    put: async (source: FspiopPutQuotesSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopPutQuotesSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.put.isSource(source)) {
         throw new Error('Invalid source object for put quotes');
       }
@@ -134,22 +150,23 @@ export const FspiopTransformFacade = {
         delete target.body.CdtTrfTxInf.ChrgsInf;
       }
 
-      return target;
-
+      return applyAfterTransformSteps(source, target, options);
     },
-    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put quotes error');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || quotes_reverse.putError,
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
   },
   transfers: {
-    post: async (source: FspiopPostTransfersSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    post: async (source: FspiopPostTransfersSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.post.isSource(source)) {
         throw new Error('Invalid source object for post transfers');
       }
@@ -158,115 +175,142 @@ export const FspiopTransformFacade = {
       }
       const defaultMapping = isTestingMode ? transfers_reverse.postTesting : transfers_reverse.post;
       const mapping = options.overrideMapping || defaultMapping;
-      return transformFn(source, {
+
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping,
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    patch: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch transfers');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.patch
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
         throw new Error('Invalid source object for put transfers');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.put
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put transfers error');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || transfers_reverse.putError
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
   },
   fxQuotes: {
-    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    post: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.post.isSource(source)) {
         throw new Error('Invalid source object for post fxQuotes');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.post
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.put.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes');
       }
-      return transformFn(source, {
+
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.put
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes error');
       }
-      return transformFn(source, {
+      
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxQuotes_reverse.putError
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+      
+      return applyAfterTransformSteps(source, target, options);
     },
   },
   fxTransfers: {
-    post: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    post: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.post.isSource(source)) {
         throw new Error('Invalid source object for post fxTransfers');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.post
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    patch: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    patch: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch fxTransfers');
       }
-      return transformFn(source, {
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.patch
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    put: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    put: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers');
       }
-      return transformFn(source, {
+
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.put
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
-    putError: async (source: FspiopSource, options: TransformFacadeOptions = {}): Promise<IsoTarget> => {
+    putError: async (source: FspiopSource, options: FspiopTransformFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers error');
       }
-      return transformFn(source, {
+
+      const target = await transformFn(source, {
         ...options,
         logger: log,
         mapping: options.overrideMapping || fxTransfers_reverse.putError
-      }) as Promise<IsoTarget>;
+      }) as IsoTarget;
+
+      return applyAfterTransformSteps(source, target, options);
     },
   },
 };

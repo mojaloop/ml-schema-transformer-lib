@@ -30,8 +30,12 @@ export interface ITransformer {
 }
 
 export type TransformFacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
+
+export type FspiopTransformFacadeOptions = TransformFacadeOptions & { unrollExtensions?: boolean };
 export type FspiopTransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<IsoTarget>;
+export type IsoTransformFacadeOptions = TransformFacadeOptions & { rollupUnmappedIntoExtensions?: boolean };
 export type IsoTransformFacadeFunction = (source: IsoSource, options: TransformFacadeOptions) => Promise<Partial<Target>>;
+
 export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
 

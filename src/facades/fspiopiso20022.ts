@@ -22,7 +22,7 @@
  --------------
  ******/
 
-import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, TransformFacadeOptions, TypeGuards, PartyIdParamsSource } from '../types';
+import { ConfigOptions, FspiopTarget, IsoSource, Target, FspiopPutQuotesTarget, FspiopPutPartiesTarget, FspiopPutPartiesErrorTarget, IsoTransformFacadeOptions, TypeGuards, PartyIdParamsSource, isContextLogger } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, setProp, validateConfig } from '../lib/utils';
@@ -35,10 +35,10 @@ let log = defaultLogger;
 export const FspiopIso20022TransformFacade = {
   configure: (config: ConfigOptions) => {
     validateConfig(config);
-    if (config.logger) log = config.logger;
+    if (isContextLogger(config.logger)) log = config.logger;
   },
   parties: {
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {
+    put: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {
       if (!TypeGuards.FSPIOPISO20022.parties.put.isSource(source)) {
         throw new Error('Invalid source object for put parties');
       }
@@ -60,7 +60,7 @@ export const FspiopIso20022TransformFacade = {
 
       return target;
     },
-    putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutPartiesErrorTarget> => {
+    putError: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopPutPartiesErrorTarget> => {
       if (!TypeGuards.FSPIOPISO20022.parties.putError.isSource(source)) {
         throw new Error('Invalid source object for put parties error');
       }
@@ -84,7 +84,7 @@ export const FspiopIso20022TransformFacade = {
     },
   },
   quotes: {
-    post: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    post: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.post.isSource(source)) {
         throw new Error('Invalid source object for post quotes');
       }
@@ -129,7 +129,7 @@ export const FspiopIso20022TransformFacade = {
 
       return target;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopPutQuotesTarget> => {
+    put: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopPutQuotesTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.put.isSource(source)) {
         throw new Error('Invalid source object for put quotes');
       }
@@ -139,7 +139,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || quotes.put
       }) as  Promise<Target>;
     },
-    putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    putError: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put quotes error');
       }
@@ -151,7 +151,7 @@ export const FspiopIso20022TransformFacade = {
     },
   },
   transfers: {
-    post: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    post: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.post.isSource(source)) {
         throw new Error('Invalid source object for post transfers');
       }
@@ -161,7 +161,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || transfers.post
       }) as Promise<FspiopTarget>;
     },
-    patch: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    patch: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch transfers');
       }
@@ -171,7 +171,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || transfers.patch
       }) as Promise<FspiopTarget>;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    put: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.put.isSource(source)) {
         throw new Error('Invalid source object for put transfers');
       }
@@ -181,7 +181,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || transfers.put
       }) as Promise<FspiopTarget>;
     },
-    putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    putError: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put transfers error');
       }
@@ -193,7 +193,7 @@ export const FspiopIso20022TransformFacade = {
     },
   },
   fxQuotes: {
-    post: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    post: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.post.isSource(source)) {
         throw new Error('Invalid source object for post fxQuotes');
       }
@@ -203,7 +203,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || fxQuotes.post
       }) as Promise<FspiopTarget>;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    put: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.put.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes');
       }
@@ -213,7 +213,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || fxQuotes.put
       }) as Promise<FspiopTarget>;
     },
-    putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    putError: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes error');
       }
@@ -225,7 +225,7 @@ export const FspiopIso20022TransformFacade = {
     },
   },
   fxTransfers: {
-    post: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    post: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.post.isSource(source)) {
         throw new Error('Invalid source object for post fxTransfers');
       }
@@ -235,7 +235,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || fxTransfers.post
       }) as Promise<FspiopTarget>;
     },
-    patch: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    patch: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch fxTransfers');
       }
@@ -245,7 +245,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || fxTransfers.patch
       }) as Promise<FspiopTarget>;
     },
-    put: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    put: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.put.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers');
       }
@@ -255,7 +255,7 @@ export const FspiopIso20022TransformFacade = {
         mapping: options.overrideMapping || fxTransfers.put
       }) as Promise<FspiopTarget>;
     },
-    putError: async (source: IsoSource, options: TransformFacadeOptions = {}): Promise<FspiopTarget> => {
+    putError: async (source: IsoSource, options: IsoTransformFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers error');
       }
