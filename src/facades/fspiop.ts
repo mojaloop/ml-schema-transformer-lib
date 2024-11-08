@@ -130,7 +130,7 @@ export const FspiopTransformFacade = {
         }
       }
  
- // apply additional transformation steps to target via pipeline     const pipelineOptions = createPipelineOptions(options);
+      // apply additional transformation steps to target via pipeline     const pipelineOptions = createPipelineOptions(options);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     put: async (source: FspiopPutQuotesSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
@@ -147,7 +147,7 @@ export const FspiopTransformFacade = {
         delete target.body.CdtTrfTxInf.ChrgsInf;
       }
  
- // apply additional transformation steps to target via pipeline     const pipelineOptions = createPipelineOptions(options);
+      // apply additional transformation steps to target via pipeline     const pipelineOptions = createPipelineOptions(options);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
