@@ -152,6 +152,7 @@ export const validateConfig = (config: ConfigOptions): void => {
 }
 
 // Unrolls extensions array into an object
+// e.g [ { key: 'key1', value: 'value1' }, { key: 'key2', value: 'value2' } ] => { key1: 'value1', key2: 'value2' }
 export const unrollExtensions = (extensions: Array<{ key: string, value: unknown }>): GenericObject => {
   const unrolled: GenericObject = {};
   for (const { key, value } of extensions) {
@@ -160,7 +161,8 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
   return unrolled;
 }
 
-// Rolls up unmapped properties into extensions array
+// Rolls up unmapped properties (i.e properties in source object not found in the mapping values - r.h.s) into extensions array
+// e.g { a: 1, b: 2 } => [ { key: 'a', value: 1 }, { key: 'b', value: 2 } ]
 export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
@@ -181,6 +183,7 @@ export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: Tra
 }
 
 // Extracts all values from an object including nested values in arrays and objects
+// e.g { a: { b: 1, c: { d: 2, e: [ 3, 4 ] } } } => ['1', '2', '3', '4']
 export const extractValues = (obj: GenericObject) => {
   const values: string[] = [];
 
@@ -199,6 +202,7 @@ export const extractValues = (obj: GenericObject) => {
 }
 
 // Gets all paths to leaf nodes in an object
+// e.g { a: { b: 1, c: { d: 2 } } } => ['a.b', 'a.c.d']
 export const getObjectPaths = (obj: GenericObject, prefix = '') => {
   let paths: string[] = [];
 
@@ -216,7 +220,8 @@ export const getObjectPaths = (obj: GenericObject, prefix = '') => {
   return paths;
 }
 
-// Removes duplicate objects from an array based on a unique key
+// Removes duplicates from an array of objects based on a unique key
+// e.g [ { id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }, { id: 1, name: 'Alice' } ] => [ { id: 1, name: 'Alice' }, { id: 2, name: 'Bob' } ]
 export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string): GenericObject[] => {
   const seen = new Set();
   return arr.reduce((acc: GenericObject[], obj) => {
@@ -227,4 +232,3 @@ export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string)
     return acc;
   }, []);
 }
-
