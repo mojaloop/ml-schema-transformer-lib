@@ -30,32 +30,36 @@ import { TransformDefinition } from '../../types/map-transform';
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
   const { source, target, options, logger } = params;
-  if (!options.unrollExtensions || !source.body.extensionList?.extensions) {
+  if (!options.unrollExtensions || !source.body.extensionList?.extension) {
     logger.debug('Skipping unrollExtensions', { source, target, options });
     return target;
   }
-  const unrolled = unrollExtensions(source.body.extensionList.extensions);
+  const unrolled = unrollExtensions(source.body.extensionList.extension);
   logger.debug('Unrolled extensions', { source, unrolled });
   return deepMerge(target, unrolled);
 }
 
 // Rolls up unmapped properties from the source object into extensions and adds them to the target object's extensionList
-export const applyRollupUnmappedIntoExtensions = (params: { source: GenericObject, target: GenericObject, mapping: TransformDefinition, options: GenericObject, logger: ContextLogger }) => {
+export const applyRollupUnmappedAsExtensions = (params: { source: GenericObject, target: GenericObject, mapping: TransformDefinition, options: GenericObject, logger: ContextLogger }) => {
   const { source, target, mapping, options, logger } = params;
   if (!options.rollupUnmappedIntoExtensions) {
     logger.debug('Skipping rollupUnmappedIntoExtensions', { source, target, mapping, options });
     return target;
   }
   const extensions = rollupUnmappedIntoExtensions(source, mapping);
-  logger.debug('Rolled up extensions', { source, mapping, extensions });
+  logger.debug('Rolled up unmapped properties into extensions', { source, mapping, extensions });
 
-  if (extensions.length === 0) return target;
+  if (extensions.length === 0) {
+    logger.debug('No unmapped properties to roll up', { source, mapping });
+    return target;
+  }
 
   if (!target.body.extensionList?.extension) {
     setProp(target, 'body.extensionList.extension', []);
   }
   target.body.extensionList.extension.push(...extensions);
-  target.body.extensionList.extensions = deduplicateObjectsArray(target.body.extensionList.extensions, 'key');
+  target.body.extensionList.extension = deduplicateObjectsArray(target.body.extensionList.extension, 'key');
+  logger.debug('Rolled up unmapped properties into extensions', { source, target, mapping, extensions });
 
   return target;
 }

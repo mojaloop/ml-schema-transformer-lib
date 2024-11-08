@@ -22,20 +22,19 @@
  --------------
  ******/
 
-import { applyUnrollExtensions } from '../../../../src/lib/transforms/extensions';
+import { applyUnrollExtensions, applyRollupUnmappedAsExtensions } from '../../../../src/lib/transforms/extensions';
 import { mockLogger } from '../../../fixtures';
 
 describe('Extensions', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
-
   describe('applyUnrollExtensions', () => {
     it('should return target without unrolling extensions if unrollExtensions is false', () => {
       const source = {
         body: {
           extensionList: {
-            extensions: [{ key: 'extensionKey', value: 'extensionValue' }]
+            extension: [{ key: 'extensionKey', value: 'extensionValue' }]
           }
         }
       };
@@ -49,7 +48,7 @@ describe('Extensions', () => {
       expect(result).toEqual(target);
       expect(mockLogger.debug).toHaveBeenCalledWith('Skipping unrollExtensions', { source, target, options });
     });
-    it('should return target without unrolling extensions if source.body.extensionList.extensions is falsy', () => {
+    it('should return target without unrolling extensions if source.body.extensionList.extension is falsy', () => {
       const source = {
         body: {
           extensionList: {}
@@ -69,7 +68,7 @@ describe('Extensions', () => {
       const source = {
         body: {
           extensionList: {
-            extensions: [{ key: 'extensionKey', value: 'extensionValue' }]
+            extension: [{ key: 'extensionKey', value: 'extensionValue' }]
           }
         }
       };
@@ -90,7 +89,7 @@ describe('Extensions', () => {
       const source = {
         body: {
           extensionList: {
-            extensions: [{ key: 'extensionKey', value: 'extensionValue' }]
+            extension: [{ key: 'extensionKey', value: 'extensionValue' }]
           }
         }
       };
@@ -112,7 +111,7 @@ describe('Extensions', () => {
       const source = {
         body: {
           extensionList: {
-            extensions: [{ key: 'nested.extensionKey', value: 'extensionValue' }]
+            extension: [{ key: 'nested.extensionKey', value: 'extensionValue' }]
           }
         }
       };
@@ -133,6 +132,148 @@ describe('Extensions', () => {
         }
       });
       expect(mockLogger.debug).toHaveBeenCalledWith('Unrolled extensions', { source, unrolled: { nested: { extensionKey: 'extensionValue' } } });
+    });
+  });
+  describe('applyRollupUnmappedAsExtensions', () => {
+    it('should return target without rolling up extensions if rollupUnmappedIntoExtensions is false', () => {
+      const source = {
+        body: {
+          targetKey: 'sourceValue'
+        }
+      };
+      const target = {
+        body: {
+          key1: 'value1'
+        }
+      };
+      const mapping = {
+        'body.sourceKey': 'body.targetKey'
+      };
+      const options = {
+        rollupUnmappedIntoExtensions: false
+      };
+      const result = applyRollupUnmappedAsExtensions({ source, target, mapping, options, logger: mockLogger });
+      expect(result).toEqual(target);
+      expect(mockLogger.debug).toHaveBeenCalledWith('Skipping rollupUnmappedIntoExtensions', { source, target, mapping, options });
+    });
+    it('should return target without rolling up extensions if extensions is empty', () => {
+      const source = {
+        body: {
+          targetKey: 'sourceValue'
+        }
+      };
+      const target = {
+        body: {
+          key1: 'value1'
+        }
+      };
+      const mapping = {
+        'body.sourceKey': 'body.targetKey'
+      };
+      const options = {
+        rollupUnmappedIntoExtensions: true
+      };
+      const result = applyRollupUnmappedAsExtensions({ source, target, mapping, options, logger: mockLogger });
+      expect(result).toEqual(target);
+      expect(mockLogger.debug).toHaveBeenCalledWith('No unmapped properties to roll up', { source, mapping });
+    });
+    it('should return target with rolled up extensions', () => {
+      const source = {
+        body: {
+          targetKey: 'targetValue',
+          unmappedKey1: 'unmappedValue1'
+        }
+      };
+      const target = {
+        body: {
+          sourceKey: 'sourceValue'
+        }
+      };
+      const mapping = {
+        'body.sourceKey': 'body.targetKey'
+      };
+      const expectedTarget = {
+        body: {
+          sourceKey: 'sourceValue',
+          extensionList: {
+            extension: [ { key: 'unmappedKey1', value: 'unmappedValue1' }]
+          }
+        }
+      };
+      const options = {
+        rollupUnmappedIntoExtensions: true
+      };
+      const result = applyRollupUnmappedAsExtensions({ source, target, mapping, options, logger: mockLogger });
+      expect(result).toEqual(expectedTarget);
+    });
+    it('should return target with rolled up extensions and merge them with existing extensions', () => {
+      const source = {
+        body: {
+          targetKey: 'targetValue',
+          unmappedKey1: 'unmappedValue1'
+        }
+      };
+      const target = {
+        body: {
+          sourceKey: 'sourceValue',
+          extensionList: {
+            extension: [ { key: 'unmappedKey2', value: 'unmappedValue2' }]
+          }
+        }
+      };
+      const mapping = {
+        'body.sourceKey': 'body.targetKey'
+      };
+      const expectedTarget = {
+        body: {
+          sourceKey: 'sourceValue',
+          extensionList: {
+            extension: [
+              { key: 'unmappedKey2', value: 'unmappedValue2' },
+              { key: 'unmappedKey1', value: 'unmappedValue1' }
+            ]
+          }
+        }
+      };
+      const options = {
+        rollupUnmappedIntoExtensions: true
+      };
+      const result = applyRollupUnmappedAsExtensions({ source, target, mapping, options, logger: mockLogger });
+      expect(result).toEqual(expectedTarget);
+    });
+    it('should return target with rolled up extensions and merge them with existing extensions with same key', () => {
+      const source = {
+        body: {
+          targetKey: 'targetValue',
+          unmappedKey1: 'unmappedValue1'
+        }
+      };
+      const target = {
+        body: {
+          sourceKey: 'sourceValue',
+          extensionList: {
+            extension: [ { key: 'unmappedKey1', value: 'existingValue' }]
+          }
+        }
+      };
+      const mapping = {
+        'body.sourceKey': 'body.targetKey'
+      };
+      const expectedTarget = {
+        body: {
+          sourceKey: 'sourceValue',
+          extensionList: {
+            extension: [
+              { key: 'unmappedKey1', value: 'existingValue' }
+            ]
+          }
+        }
+      };
+      const options = {
+        rollupUnmappedIntoExtensions: true
+      };
+      const result = applyRollupUnmappedAsExtensions({ source, target, mapping, options, logger: mockLogger });
+      expect(result).toEqual(expectedTarget);
     });
   });
 });

@@ -38,11 +38,11 @@ import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, hasProp, setProp, validateConfig } from '../lib/utils';
 import { runPipeline } from '../lib/transforms/pipeline';
-import { applyRollupUnmappedIntoExtensions } from '../lib/transforms/extensions';
+import { applyRollupUnmappedAsExtensions } from '../lib/transforms/extensions';
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 const Config: ConfigOptions = { logger: defaultLogger, rollupUnmappedIntoExtensions: false };
-const afterTransformSteps = [ applyRollupUnmappedIntoExtensions ];
+const afterTransformSteps = [ applyRollupUnmappedAsExtensions ];
 
 const createPipelineOptions = (options: IsoFacadeOptions) => {
   return {
