@@ -23,7 +23,7 @@
  ******/
 
 import { TransformFacades } from 'src';
-import { GenericObject, Source, FspiopTransformFacadeFunction } from 'src/types';
+import { GenericObject, Source, FspiopFacadeFunction } from 'src/types';
 import { expectedFspiopIso20022Targets, expectedFspiopTargets, fspiopIso20022Sources, fspiopSources } from '../fixtures';
 import { getProp } from 'src/lib/utils';
 import { logger as defaultLogger } from '../../src/lib';
@@ -41,7 +41,7 @@ describe('Performance Test', () => {
     logger: defaultLogger,
     isTestingMode: true
   });
-  const perfTest = async (transformFn: FspiopTransformFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
+  const perfTest = async (transformFn: FspiopFacadeFunction, source: Source, expectedTargetFn: (target: GenericObject) => unknown) => {
     let target;
     const startTime = performance.now();
 

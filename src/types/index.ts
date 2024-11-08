@@ -29,12 +29,12 @@ export interface ITransformer {
   transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State }): Promise<Partial<Target>>;
 }
 
-export type TransformFacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
+export type FacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
 
-export type FspiopTransformFacadeOptions = TransformFacadeOptions & { unrollExtensions?: boolean };
-export type FspiopTransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<IsoTarget>;
-export type IsoTransformFacadeOptions = TransformFacadeOptions & { rollupUnmappedIntoExtensions?: boolean };
-export type IsoTransformFacadeFunction = (source: IsoSource, options: TransformFacadeOptions) => Promise<Partial<Target>>;
+export type FspiopFacadeOptions = FacadeOptions & { unrollExtensions?: boolean };
+export type FspiopFacadeFunction = (source: Source, options: FacadeOptions) => Promise<IsoTarget>;
+export type IsoFacadeOptions = FacadeOptions & { rollupUnmappedIntoExtensions?: boolean };
+export type IsoFacadeFunction = (source: IsoSource, options: FacadeOptions) => Promise<Partial<Target>>;
 
 export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
@@ -51,6 +51,7 @@ export interface ICustomTransforms {
 export type ConfigOptions = {
   logger: ContextLogger;
   isTestingMode?: boolean;
+  extensions?: boolean;
 }
 
 export type Headers = {
