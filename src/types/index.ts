@@ -49,7 +49,7 @@ export interface ICustomTransforms {
 }
 
 export type ConfigOptions = {
-  logger: ContextLogger;
+  logger?: ContextLogger;
   isTestingMode?: boolean;
   unrollExtensions?: boolean;
   rollupUnmappedIntoExtensions?: boolean;
@@ -61,8 +61,8 @@ export type Headers = {
 }
 
 export type Params = {
-  Type: string;
-  ID: string;
+  Type?: string;
+  ID?: string;
   SubId?: string;
 }
 

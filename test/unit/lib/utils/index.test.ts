@@ -24,9 +24,13 @@
 
 import { ilpCondition, ilpPacket } from 'test/fixtures';
 import {
+  deduplicateObjectsArray,
+  deepMerge,
+  extractValues,
   generateID,
   getDescrForErrCode,
   getIlpPacketCondition,
+  getObjectPaths,
   getProp,
   hasProp,
   isEmptyObject,
@@ -93,16 +97,6 @@ describe('Utils tests', () => {
       expect(obj).toEqual({ nested: { property: 'value' } });
     });
   });
-  describe('hasProp', () => {
-    it('should return true for an existing property', () => {
-      const obj = { nested: { property: 'value' } };
-      expect(hasProp(obj, 'nested.property')).toBe(true)
-    });
-    it('should return false for a non-existent property', () => {
-      const obj = { nested: { property: 'value' } };
-      expect(hasProp(obj, 'nested.nonexistent')).toBe(false);
-    });
-  });
   describe('getProp', () => {
     it('should get a nested property from an object', () => {
       const obj = { nested: { property: 'value' } };
@@ -114,6 +108,36 @@ describe('Utils tests', () => {
       const value = getProp(obj, 'nested.nonexistent');
       expect(value).toBeUndefined();
     })
+  });
+  describe('hasProp', () => {
+    it('should return true for an existing property', () => {
+      const obj = { nested: { property: 'value' } };
+      expect(hasProp(obj, 'nested.property')).toBe(true)
+    });
+    it('should return false for a non-existent property', () => {
+      const obj = { nested: { property: 'value' } };
+      expect(hasProp(obj, 'nested.nonexistent')).toBe(false);
+    });
+  });
+  describe('deepMerge', () => {
+    it('should merge two objects deeply', () => {
+      const obj1 = { key1: 'value1', nested: { key2: 'value2' } };
+      const obj2 = { key1: 'value3', nested: { key2: 'value4' } };
+      const merged = deepMerge(obj1, obj2);
+      expect(merged).toEqual({ key1: 'value3', nested: { key2: 'value4' } });
+    });
+    it('should merge two objects with nested arrays', () => {
+      const obj1 = { key1: 'value1', nested: { key2: ['value2'] } };
+      const obj2 = { key1: 'value3', nested: { key2: ['value4'] } };
+      const merged = deepMerge(obj1, obj2);
+      expect(merged).toEqual({ key1: 'value3', nested: { key2: ['value4'] } });
+    });
+    it('should merge two objects with nested objects', () => {
+      const obj1 = { key1: 'value1', nested: { key2: { key3: 'value2' } } };
+      const obj2 = { key1: 'value3', nested: { key2: { key3: 'value4' } } };
+      const merged = deepMerge(obj1, obj2);
+      expect(merged).toEqual({ key1: 'value3', nested: { key2: { key3: 'value4' } } });
+    });
   });
   describe('getDescrForErrCode', () => {
     it('should return a description from an error code', () => {
@@ -173,7 +197,7 @@ describe('Utils tests', () => {
     });
   });
   describe('validateConfig', () => {
-    test('should throw if invalid logger is provided', () => {
+    it('should throw if invalid logger is provided', () => {
       const config = { logger: {} };
       expect(() => validateConfig(config as any)).toThrow('Invalid logger provided');
     });
@@ -212,6 +236,43 @@ describe('Utils tests', () => {
       ];
       const rolled = rollupUnmappedIntoExtensions(source, mapping);
       expect(rolled).toEqual(extensions);
+    });
+    it('should return an empty array if all properties are mapped', () => {
+      const source = { body: { key1: 'value1', key2: 'value2' } };
+      const mapping = {
+        body: { key1: 'body.key1', key2: 'body.key2' }
+      };
+      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      expect(rolled).toEqual([]);
+    });
+    it('should parse a JSON string mapping', () => {
+      const source = { body: { key1: 'value1', key2: 'value2' } };
+      const mapping = JSON.stringify({
+        body: { key1: 'body.key1', key2: 'body.key2' }
+      });
+      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      expect(rolled).toEqual([]);
+    });
+  });
+  describe('extractValues', () => {
+    it('should extract all values from an object', () => {
+      const obj = { a: { b: 1, c: { d: 2, e: [3, '4'] } } };
+      const values = extractValues(obj);
+      expect(values).toEqual([1, 2, 3, '4']);
+    });
+  });
+  describe('getObjectPaths', () => {
+    it('should get all paths to leaf nodes in an object', () => {
+      const obj = { a: { b: 1, c: { d: 2 } } };
+      const paths = getObjectPaths(obj);
+      expect(paths).toEqual(['a.b', 'a.c.d']);
+    });
+  });
+  describe('deduplicateObjectsArray', () => {
+    it('should deduplicate an array of objects', () => {
+      const arr = [{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'a' }];
+      const deduped = deduplicateObjectsArray(arr, 'key');
+      expect(deduped).toEqual([{ key: 'a' }, { key: 'b' }, { key: 'c' }]);
     });
   });
 });

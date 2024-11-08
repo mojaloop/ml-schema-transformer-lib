@@ -28,7 +28,7 @@ import { mockLogger } from 'test/fixtures';
 
 describe('Transformer tests', () => {
   describe('createTransformer', () => {
-    test('should create a new Transformer instance', async () => {
+    it('should create a new Transformer instance', async () => {
       const mapping = {
         partyType: 'partyIdInfo.partyIdType',
         partyIdentifier: 'partyIdInfo.partyIdentifier',
@@ -36,7 +36,7 @@ describe('Transformer tests', () => {
       const transformer = await createTransformer(mapping);
       expect(transformer).toBeInstanceOf(Transformer);
     });
-    test('should use custom transform functions if supplied', async () => {
+    it('should use custom transform functions if supplied', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -63,7 +63,7 @@ describe('Transformer tests', () => {
     })
   })
   describe('transformFn', () => {
-    test('should transform source payload using supplied mapping', async () => {
+    it('should transform source payload using supplied mapping', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -82,7 +82,7 @@ describe('Transformer tests', () => {
         partyIdentifier: source.body.partyIdInfo.partyIdentifier,
       });
     });
-    test('should throw an error if transformation fails', async () => {
+    it('should throw an error if transformation fails', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -97,7 +97,7 @@ describe('Transformer tests', () => {
   });
   describe('Transformer', () => {
     describe('Transformer', () => {
-      test('should transform source payload using supplied mapper', async () => {
+      it('should transform source payload using supplied mapper', async () => {
         const mockMapper = vi.fn();
         const mockOptions = { mapperOptions: {} as State }
         const transformer = new Transformer(mockMapper);

@@ -26,7 +26,7 @@ import { createTransformer } from 'src';
 import { Transformer } from 'src/lib';
 
 describe('createTransformer tests', () => {
-  test('should create and return a Transformer instance', async () => {
+  it('should create and return a Transformer instance', async () => {
     const jsonParseSpy = vi.spyOn(JSON, 'parse');
     const mapping = {};
     const transformer = await createTransformer(mapping);
@@ -34,7 +34,7 @@ describe('createTransformer tests', () => {
     expect(jsonParseSpy).not.toHaveBeenCalled();
     expect(transformer).toBeInstanceOf(Transformer);
   });
-  test('should parse JSON string mapping and return a Transformer instance', async () => {
+  it('should parse JSON string mapping and return a Transformer instance', async () => {
     const jsonParseSpy = vi.spyOn(JSON, 'parse');
     const mapping = '{}';
     const transformer = await createTransformer(mapping);

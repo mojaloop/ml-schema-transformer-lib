@@ -36,12 +36,14 @@ export const applyUnrollExtensions = (params: { source: GenericObject, target: G
   }
   const unrolled = unrollExtensions(source.body.extensionList.extension);
   logger.debug('Unrolled extensions', { source, unrolled });
-  return deepMerge(target, unrolled);
+  // we merged the unrolled extensions into the target body only
+  target.body = deepMerge(target.body, unrolled);
+  return target;
 }
 
 // Rolls up unmapped properties from the source object into extensions and adds them to the target object's extensionList
-export const applyRollupUnmappedAsExtensions = (params: { source: GenericObject, target: GenericObject, mapping: TransformDefinition, options: GenericObject, logger: ContextLogger }) => {
-  const { source, target, mapping, options, logger } = params;
+export const applyRollupUnmappedAsExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
+  const { source, target, options: { mapping },  options, logger } = params;
   if (!options.rollupUnmappedIntoExtensions) {
     logger.debug('Skipping rollupUnmappedIntoExtensions', { source, target, mapping, options });
     return target;

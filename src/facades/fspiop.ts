@@ -40,16 +40,19 @@ import {
 } from '../types';
 import { runPipeline } from '../lib/transforms/pipeline';
 import { applyUnrollExtensions } from '../lib/transforms/extensions';
+import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
+import { TransformDefinition } from '../types/map-transform';
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false }; 
 const afterTransformSteps = [ applyUnrollExtensions ];
 
-const createPipelineOptions = (options: FspiopFacadeOptions) => {
+const createPipelineOptions = (options: FspiopFacadeOptions, mapping: TransformDefinition) => {
   return {
     ...options,
+    mapping,
     pipelineSteps: afterTransformSteps,
-    logger: Config.logger,
+    logger: Config.logger as ContextLogger,
     unrollExtensions: hasProp(options, 'unrollExtensions')
       ? !!options.unrollExtensions
       : Config.unrollExtensions,
@@ -60,7 +63,7 @@ const createPipelineOptions = (options: FspiopFacadeOptions) => {
 export const FspiopTransformFacade = {
   configure: (config: ConfigOptions) => {
     validateConfig(config);
-    if (isContextLogger(config.logger)) Config.logger = config.logger;
+    if (config.logger && isContextLogger(config.logger)) Config.logger = config.logger;
     if (hasProp(config, 'isTestingMode')) Config.isTestingMode = !!config.isTestingMode;
     if (hasProp(config, 'unrollExtensions')) Config.unrollExtensions = !!config.unrollExtensions;
   },
@@ -76,13 +79,14 @@ export const FspiopTransformFacade = {
           source.params.IdPath += `/${source.params.SubId}`;
         }
       }
+      const mapping = options.overrideMapping || discovery_reverse.parties.put;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || discovery_reverse.parties.put,
+        logger: Config.logger as ContextLogger as ContextLogger,
+        mapping,
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopPutPartiesErrorSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
@@ -96,13 +100,14 @@ export const FspiopTransformFacade = {
           source.params.IdPath += `/${source.params.SubId}`;
         }
       }
+      const mapping = options.overrideMapping || discovery_reverse.parties.putError;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || discovery_reverse.parties.putError,
+        logger: Config.logger as ContextLogger,
+        mapping,
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
   },
@@ -111,10 +116,11 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.quotes.post.isSource(source)) {
         throw new Error('Invalid source object for post quotes');
       }
+      const mapping = options.overrideMapping || quotes_reverse.post;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || quotes_reverse.post
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       /**
        * Mutate the target object here if necessary e.g complex scenarios that cannot be mapped directly in the mappings,
@@ -131,7 +137,7 @@ export const FspiopTransformFacade = {
       }
  
       // apply additional transformation steps to target via pipeline     
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     put: async (source: FspiopPutQuotesSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
@@ -141,7 +147,7 @@ export const FspiopTransformFacade = {
       const mapping = options.overrideMapping || defaultMapping;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
+        logger: Config.logger as ContextLogger,
         mapping,
       }) as IsoTarget;
       if (!source.body.payeeFspFee && hasProp(target, 'body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id')) {
@@ -149,20 +155,21 @@ export const FspiopTransformFacade = {
       }
  
       // apply additional transformation steps to target via pipeline     
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put quotes error');
       }
+      const mapping = options.overrideMapping || quotes_reverse.putError;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || quotes_reverse.putError,
+        logger: Config.logger as ContextLogger,
+        mapping,
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
   },
@@ -178,50 +185,53 @@ export const FspiopTransformFacade = {
       const mapping = options.overrideMapping || defaultMapping;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
+        logger: Config.logger as ContextLogger,
         mapping,
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     patch: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch transfers');
       }
+      const mapping = options.overrideMapping || transfers_reverse.patch;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || transfers_reverse.patch
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
         throw new Error('Invalid source object for put transfers');
       }
+      const mapping = options.overrideMapping || transfers_reverse.put;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || transfers_reverse.put
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put transfers error');
       }
+      const mapping = options.overrideMapping || transfers_reverse.putError;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || transfers_reverse.putError
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
   },
@@ -230,39 +240,42 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.fxQuotes.post.isSource(source)) {
         throw new Error('Invalid source object for post fxQuotes');
       }
+      const mapping = options.overrideMapping || fxQuotes_reverse.post;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxQuotes_reverse.post
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.put.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes');
       }
+      const mapping = options.overrideMapping || fxQuotes_reverse.put;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxQuotes_reverse.put
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxQuotes error');
       }
+      const mapping = options.overrideMapping || fxQuotes_reverse.putError;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxQuotes_reverse.putError
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
   },
@@ -271,52 +284,56 @@ export const FspiopTransformFacade = {
       if (!TypeGuards.FSPIOP.fxTransfers.post.isSource(source)) {
         throw new Error('Invalid source object for post fxTransfers');
       }
+      const mapping = options.overrideMapping || fxTransfers_reverse.post;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxTransfers_reverse.post
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     patch: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.patch.isSource(source)) {
         throw new Error('Invalid source object for patch fxTransfers');
       }
+      const mapping = options.overrideMapping || fxTransfers_reverse.patch;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxTransfers_reverse.patch
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers');
       }
+      const mapping = options.overrideMapping || fxTransfers_reverse.put;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxTransfers_reverse.put
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.putError.isSource(source)) {
         throw new Error('Invalid source object for put fxTransfers error');
       }
+      const mapping = options.overrideMapping || fxTransfers_reverse.putError;
       const target = await transformFn(source, {
         ...options,
-        logger: Config.logger,
-        mapping: options.overrideMapping || fxTransfers_reverse.putError
+        logger: Config.logger as ContextLogger,
+        mapping
       });
       // apply additional transformation steps to target via pipeline
-      const pipelineOptions = createPipelineOptions(options);
+      const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
     },
   },

@@ -27,6 +27,7 @@ const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-e
 import ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
 import { TransformDefinition } from '../../types/map-transform';
+import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 
 // improve: use enums from cs-shared
 // We only cover the states that are externally visible
@@ -106,7 +107,7 @@ export const deepMerge = (target: GenericObject, source: GenericObject): Generic
       Object.assign(source[key], deepMerge(target[key], source[key]));
     }
   }
-  Object.assign(target || {}, source);
+  Object.assign(target, source);
   return target;
 }
 
@@ -147,7 +148,7 @@ export const toFspiopTransferState = (isoState: string): string | undefined => {
 
 // Validates configuration options
 export const validateConfig = (config: ConfigOptions): void => {
-  if (hasProp(config, 'logger') && !isContextLogger(config.logger)) {
+  if (hasProp(config, 'logger') && !isContextLogger(config.logger as ContextLogger)) {
     throw new Error('Invalid logger provided');
   }
 }
@@ -167,10 +168,12 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
 export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
-  // we are only interested in body mappings and source body
+  // we are only interested in body and $context mappings
   const mappingValues = extractValues(mappingObj)
-    .filter((value) => value.startsWith('body.'))
-    .map((value) => value.replace('body.', ''));
+    .filter((value) => value.startsWith('body.') || value.startsWith('$context.'))
+    .map((value) => value.replace('body.', ''))
+    .map((value) => value.replace(/\$context\.[a-zA-Z0-9]+./, ''));
+  // for the source, we are only interested in body
   const sourcePaths = getObjectPaths(source.body);
 
   for (const path of sourcePaths) {

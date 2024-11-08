@@ -26,11 +26,11 @@ import { GenericObject } from '../../types';
 
 export const runPipeline = (source: GenericObject, target: GenericObject, options: GenericObject): GenericObject => {
   if (!options.hasOwnProperty('pipelineSteps') || !Array.isArray(options.pipelineSteps)) {
-    throw new Error('applyAfterTransformSteps: options.pipelineSteps must be an array');
+    throw new Error('runPipeline: options.pipelineSteps must be an array');
   }
-  const { pipelineSteps: _, ...stepOptions } = options;
-  for (const step of options.pipelineSteps) {
-    target = step({ source, target, options: stepOptions, logger: options.logger });
+  const { pipelineSteps, logger, ...stepOptions } = options;
+  for (const step of pipelineSteps) {
+    target = step({ source, target, options: stepOptions, logger });
   }
   return target;
 };
