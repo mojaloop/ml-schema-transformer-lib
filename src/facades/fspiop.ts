@@ -39,7 +39,7 @@ import {
   isContextLogger
 } from '../types';
 import { applyAfterTransformSteps } from '../lib/transforms/apply';
-import { applyUnrollExtensions } from 'src/lib/transforms/extensions';
+import { applyUnrollExtensions } from '../lib/transforms/extensions';
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
 const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false }; 

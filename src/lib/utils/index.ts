@@ -26,7 +26,7 @@ const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
 import ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
-import { TransformDefinition } from 'src/types/map-transform';
+import { TransformDefinition } from '../../types/map-transform';
 
 // improve: use enums from cs-shared
 // We only cover the states that are externally visible

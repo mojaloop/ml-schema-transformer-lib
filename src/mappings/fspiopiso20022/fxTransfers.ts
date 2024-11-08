@@ -22,8 +22,6 @@
  --------------
  ******/
 
-import { TransformObject } from 'src/types/map-transform'
-
 // FSPIOP ISO20022 to FSPIOP mappings
 
 export const fxTransfers = {

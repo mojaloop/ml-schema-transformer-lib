@@ -1,4 +1,4 @@
-import { GenericObject } from 'src/types';
+import { GenericObject } from '../../types';
 
 export const applyAfterTransformSteps = (source: GenericObject,  target: GenericObject, options: GenericObject): GenericObject => {
   for (const step of options.afterTransformSteps) {
