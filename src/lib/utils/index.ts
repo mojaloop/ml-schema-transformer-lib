@@ -99,6 +99,7 @@ export const hasProp = (obj: unknown, path: string): boolean => {
 }
 
 // Merges deeply nested objects
+// e.g { a: { b: 1 } } and { a: { c: 2 } } => { a: { b: 1, c: 2 } }
 export const deepMerge = (target: GenericObject, source: GenericObject): GenericObject => {
   for (const key in source) {
     if (source[key] instanceof Object && key in target) {
