@@ -36,19 +36,31 @@ import {
 } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
-import { getProp, setProp, validateConfig } from '../lib/utils';
+import { getProp, hasProp, setProp, validateConfig } from '../lib/utils';
 import { applyAfterTransformSteps } from 'src/lib/transforms/apply';
 import { applyRollupUnmappedIntoExtensions } from '../lib/transforms/extensions';
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
-const Config: ConfigOptions = { logger: defaultLogger };
+const Config: ConfigOptions = { logger: defaultLogger, rollupUnmappedIntoExtensions: false };
 const afterTransformSteps = [ applyRollupUnmappedIntoExtensions ];
+
+const createPipelineOptions = (options: IsoFacadeOptions) => {
+  return {
+    ...options,
+    afterTransformSteps,
+    logger: Config.logger,
+    rollupUnmappedIntoExtensions: hasProp(options, 'rollupUnmappedIntoExtensions')
+      ? !!options.rollupUnmappedIntoExtensions
+      : Config.rollupUnmappedIntoExtensions,
+  };
+}
 
 // Facades for transforming FSPIOP ISO 20022 payloads to FSPIOP payloads
 export const FspiopIso20022TransformFacade = {
   configure: (config: ConfigOptions) => {
     validateConfig(config);
     if (isContextLogger(config.logger)) Config.logger = config.logger;
+    if (hasProp(config, 'rollupUnmappedIntoExtensions')) Config.rollupUnmappedIntoExtensions = !!config.rollupUnmappedIntoExtensions;
   },
   parties: {
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {
@@ -60,7 +72,6 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || discovery.parties.put,
       });
-
       // split up IdPath
       const IdPath = getProp(target, 'params.IdPath') as string;
       if (IdPath) {
@@ -70,8 +81,8 @@ export const FspiopIso20022TransformFacade = {
         if (SubId) setProp(target, 'params.SubId', SubId);
         delete (target.params as PartyIdParamsSource).IdPath;
       }
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopPutPartiesTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopPutPartiesTarget;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutPartiesErrorTarget> => {
       if (!TypeGuards.FSPIOPISO20022.parties.putError.isSource(source)) {
@@ -92,8 +103,8 @@ export const FspiopIso20022TransformFacade = {
         if (SubId) setProp(target, 'params.SubId', SubId);
         delete (target.params as PartyIdParamsSource).IdPath;
       }
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopPutPartiesErrorTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopPutPartiesErrorTarget;
     },
   },
   quotes: {
@@ -114,17 +125,14 @@ export const FspiopIso20022TransformFacade = {
        */
       if (!options.overrideMapping) {
         setProp(target, 'body.amountType', getProp(source, 'body.CdtTrfTxInf.ChrgBr') === 'DEBT' ? 'RECEIVE' : 'SEND');
-
         if (getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd') === 'REFD') {
           setProp(target, 'body.transactionType.refundInfo.reason', getProp(source, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf'));
         }
-
         if (getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
           setProp(target, 'body.transactionType.initiator', 'PAYEE');
         } else {
           setProp(target, 'body.transactionType.initiator', 'PAYER');
         }
-
         if (getProp(source, 'body.CdtTrfTxInf.PmtId.InstrId')) {
           if (getProp(source, 'body.CdtTrfTxInf.Cdr.Id.Pty')) {
             setProp(target, 'body.transactionType.initiatorType', 'CONSUMER');
@@ -139,8 +147,8 @@ export const FspiopIso20022TransformFacade = {
           }
         }
       }
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutQuotesTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.put.isSource(source)) {
@@ -151,8 +159,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || quotes.put
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopPutQuotesTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopPutQuotesTarget;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.putError.isSource(source)) {
@@ -163,8 +171,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || quotes.putError
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
   },
   transfers: {
@@ -177,8 +185,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || transfers.post
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     patch: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.patch.isSource(source)) {
@@ -189,8 +197,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || transfers.patch
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.put.isSource(source)) {
@@ -201,8 +209,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || transfers.put
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.putError.isSource(source)) {
@@ -213,8 +221,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || transfers.putError
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
   },
   fxQuotes: {
@@ -227,8 +235,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxQuotes.post
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.put.isSource(source)) {
@@ -239,8 +247,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxQuotes.put
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.putError.isSource(source)) {
@@ -251,8 +259,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxQuotes.putError
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
   },
   fxTransfers: {
@@ -265,8 +273,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxTransfers.post
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     patch: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.patch.isSource(source)) {
@@ -277,8 +285,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxTransfers.patch
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.put.isSource(source)) {
@@ -289,8 +297,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxTransfers.put
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.putError.isSource(source)) {
@@ -301,8 +309,8 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger,
         mapping: options.overrideMapping || fxTransfers.putError
       });
-
-      return applyAfterTransformSteps(source, target, { ...options, afterTransformSteps, logger: Config.logger }) as FspiopTarget;
+      const pipelineOptions = createPipelineOptions(options);
+      return applyAfterTransformSteps(source, target, pipelineOptions) as FspiopTarget;
     }
   },
 };

@@ -51,7 +51,8 @@ export interface ICustomTransforms {
 export type ConfigOptions = {
   logger: ContextLogger;
   isTestingMode?: boolean;
-  extensions?: boolean;
+  unrollExtensions?: boolean;
+  rollupUnmappedIntoExtensions?: boolean;
 }
 
 export type Headers = {
