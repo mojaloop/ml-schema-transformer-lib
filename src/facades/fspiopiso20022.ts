@@ -53,7 +53,7 @@ const createPipelineOptions = (options: IsoFacadeOptions) => {
       ? !!options.rollupUnmappedIntoExtensions
       : Config.rollupUnmappedIntoExtensions,
   };
-}
+};
 
 // Facades for transforming FSPIOP ISO 20022 payloads to FSPIOP payloads
 export const FspiopIso20022TransformFacade = {

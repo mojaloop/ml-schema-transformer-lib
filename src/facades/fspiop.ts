@@ -54,7 +54,7 @@ const createPipelineOptions = (options: FspiopFacadeOptions) => {
       ? !!options.unrollExtensions
       : Config.unrollExtensions,
   };
-}
+};
 
 // Facades for transforming FSPIOP payloads to FSPIOP ISO 20022 payloads
 export const FspiopTransformFacade = {
