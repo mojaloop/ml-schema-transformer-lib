@@ -22,7 +22,6 @@
  --------------
  ******/
 
-import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { getProp, hasProp, setProp, validateConfig } from '../lib/utils';
 import { FSPIO20022PMappings } from '../mappings';
