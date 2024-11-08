@@ -494,6 +494,15 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(target).toHaveProperty('body');
         expect(getProp(target, 'body.CdtTrfTxInf.deeply.nested.unmappedkey1')).toBe('unmappedvalue1');
       });
+      it('should skip unrolling if source does not have extensionList', async () => {
+        const source = { ...fspiopSources.quotes.post } as FspiopSource;
+        try {
+          const target = await FspiopTransformFacade.quotes.post(source, { unrollExtensions: true });
+          expect(target).toHaveProperty('body');
+        } catch (e) {
+          expect(e).toBeUndefined();
+        }
+      });
     });
   });
 });

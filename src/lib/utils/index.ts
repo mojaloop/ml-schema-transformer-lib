@@ -186,7 +186,7 @@ export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: Tra
   return extensions;
 }
 
-// Extracts all values from an object including nested values in arrays and objects
+// Extracts all leaf values from an object including values nested in arrays and objects
 // e.g { a: { b: 1, c: { d: 2, e: [ 3, 4 ] } } } => ['1', '2', '3', '4']
 export const extractValues = (obj: GenericObject) => {
   const values: string[] = [];
