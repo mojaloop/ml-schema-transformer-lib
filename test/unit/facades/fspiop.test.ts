@@ -490,7 +490,15 @@ describe('FSPIOPTransformFacade tests', () => {
   });
   describe('Extensions', () => {
     describe('Quotes extensions', () => {
-      it('should unroll extensions from source and merge with target', async () => {
+      it('should unroll extensions from source and merge with target with facade config', async () => {
+        const source = { ...fspiopSources.quotes.post } as FspiopSource;
+        source.body.extensionList = { extension: [{ key: 'CdtTrfTxInf.deeply.nested.unmappedkey1', value: 'unmappedvalue1' }] }
+        FspiopTransformFacade.configure({ unrollExtensions: true });
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(target).toHaveProperty('body');
+        expect(getProp(target, 'body.CdtTrfTxInf.deeply.nested.unmappedkey1')).toBe('unmappedvalue1');
+      });
+      it('should unroll extensions from source and merge with target with endpoint option', async () => {
         const source = { ...fspiopSources.quotes.post } as FspiopSource;
         source.body.extensionList = { extension: [{ key: 'CdtTrfTxInf.deeply.nested.unmappedkey1', value: 'unmappedvalue1' }] }
         const target = await FspiopTransformFacade.quotes.post(source, { unrollExtensions: true });
