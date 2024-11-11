@@ -104,8 +104,8 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 
 ### Extension List Support
 **MLST** supports rolling up and unrolling FSPIOP extension lists as follows:
-	- ***Extension list unrolling***: Converts extension lists from FSPIOP sources to properties in ISO 20022 targets.
-	- ***Extension list roll-up***: Converts unmapped properties in ISO sources to an extension list in FSPIOP targets.
+- ***Extension list unrolling***: Converts extension lists from FSPIOP sources to properties in ISO 20022 targets.
+- ***Extension list roll-up***: Converts unmapped properties in ISO sources to an extension list in FSPIOP targets.
 
 This feature can be enabled via facade configuration, for example:
 

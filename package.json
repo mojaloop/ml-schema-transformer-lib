@@ -82,7 +82,7 @@
     "vitest": "^2.1.4"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.24.4"
+    "@rollup/rollup-linux-x64-musl": "4.25.0"
   },
   "standard-version": {
     "scripts": {
