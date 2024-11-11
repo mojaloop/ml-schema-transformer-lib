@@ -110,18 +110,18 @@ Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/tr
 This feature can be enabled via facade configuration, for example:
 
 ```JavaScript
-FspiopTransformFacade.configure({ unrollExtensions: true })
-FspiopIso20022TransformFacade.configure({ rollUpUnmappedAsExtensions: true })
+TransformFacades.FSPIOP.configure({ unrollExtensions: true })
+TransformFacades.FSPIOPISO20022.configure({ rollUpUnmappedAsExtensions: true })
 ```
 
 Alternatively, the feature can be activated through specific endpoints, for example:
 
 ```JavaScript
-FspiopTransformFacade.quotes.post(source, { unrollExtensions: true })
-FspiopIso20022TransformFacade.quotes.post(source, { rollUpUnmappedAsExtensions: true })
+TransformFacades.FSPIOP.quotes.post(source, { unrollExtensions: true })
+TransformFacades.FSPIOPISO20022.quotes.post(source, { rollUpUnmappedAsExtensions: true })
 ```
 
-***Note***: `unrollExtensions` is supported only in `FspiopTransformFacade`, while `rollUpUnmappedAsExtensions` is supported only in `FspiopIso20022TransformFacade`.
+***Note***: `unrollExtensions` is supported only in `TransformFacades.FSPIOP`, while `rollUpUnmappedAsExtensions` is supported only in `TransformFacades.FSPIOPISO20022`.
 
 ### Environment Variables
 | Env Variable Name           | Default Value | Description                                          |
