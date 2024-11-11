@@ -24,6 +24,7 @@
 
 import { GenericObject } from '../../types';
 
+// Runs a pipeline of transformation steps on the source object and returns the target object
 export const runPipeline = (source: GenericObject, target: GenericObject, options: GenericObject): GenericObject => {
   if (!options.hasOwnProperty('pipelineSteps') || !Array.isArray(options.pipelineSteps)) {
     throw new Error('runPipeline: options.pipelineSteps must be an array');

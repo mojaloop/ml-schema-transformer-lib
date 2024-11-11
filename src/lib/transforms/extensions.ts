@@ -25,7 +25,6 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { GenericObject } from '../../types';
 import { deepMerge, unrollExtensions, rollupUnmappedIntoExtensions, setProp, deduplicateObjectsArray } from '../utils';
-import { TransformDefinition } from '../../types/map-transform';
 
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
@@ -36,7 +35,7 @@ export const applyUnrollExtensions = (params: { source: GenericObject, target: G
   }
   const unrolled = unrollExtensions(source.body.extensionList.extension);
   logger.debug('Unrolled extensions', { source, unrolled });
-  // we merged the unrolled extensions into the target body only
+  // we merge the unrolled extensions into the target body only
   target.body = deepMerge(target.body, unrolled);
   return target;
 }
