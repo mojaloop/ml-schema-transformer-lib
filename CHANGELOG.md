@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.4...v2.4.0) (2024-11-15)
+
+
+### Features
+
+* handle complex mapping in rollup ([81804fc](https://github.com/mojaloop/ml-schema-transformer-lib/commit/81804fc3e442ced01da88831a3fd351807f6821b))
+* roll and unroll extensions ([e18472b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e18472bb79fae7c40169d0ab2196f2fb017a16bf))
+
+
+### Bug Fixes
+
+* rollup bu fix ([ae0a3ff](https://github.com/mojaloop/ml-schema-transformer-lib/commit/ae0a3ffc712103d37b88f54def44cc946996f429))
+
+
+### Refactor
+
+* config ([626a173](https://github.com/mojaloop/ml-schema-transformer-lib/commit/626a173514a40fc441ebe387ebdaac44a9c72a08))
+* minor ([a0bba26](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a0bba263b9191c52cf724f55e37614acea3787fd))
+* paths ([5f4ced6](https://github.com/mojaloop/ml-schema-transformer-lib/commit/5f4ced6d67cf26cf5feb5bacf46104f0ac532d55))
+* pipeline ([6076a3a](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6076a3abf6080201b3edc2ef782992e83bf6516c))
+* pipeline ([70d1dfa](https://github.com/mojaloop/ml-schema-transformer-lib/commit/70d1dfa48fadd446625d3f98ff8972cbcd86f327))
+* pipeline ([82032ff](https://github.com/mojaloop/ml-schema-transformer-lib/commit/82032ffaa5528c869929b82706c7114e03bbfa39))
+
+
+### Test
+
+* coverage ([457ae4a](https://github.com/mojaloop/ml-schema-transformer-lib/commit/457ae4aaccec0966fd30686088690bd8568da693))
+* extensions ([9992446](https://github.com/mojaloop/ml-schema-transformer-lib/commit/999244649601053ac7a1262fdc103c12ffdbba78))
+* extensions ([03dd4ad](https://github.com/mojaloop/ml-schema-transformer-lib/commit/03dd4ade086914dceb8ae2395f9ab0f65e57f481))
+* extensions ([f0615aa](https://github.com/mojaloop/ml-schema-transformer-lib/commit/f0615aad4517a80c620f5250291dec6eac0cc9c9))
+* fix outstanding test coverage issues ([773a148](https://github.com/mojaloop/ml-schema-transformer-lib/commit/773a148267cbbd4adfd1f8cd3c26b92914b5f6d5))
+* fix outstanding test coverage issues ([357c4bf](https://github.com/mojaloop/ml-schema-transformer-lib/commit/357c4bf583b4d68e8b9dff8a4c861569a9fee804))
+
+
+### Documentation
+
+* comment ([b216e0a](https://github.com/mojaloop/ml-schema-transformer-lib/commit/b216e0a9589dffc92eb6f1b1578116975fb9fd45))
+* examples in comments ([a117c09](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a117c09d26166dbf0dfbadfa6814b76b6e3a4e5e))
+* examples in comments ([ec21047](https://github.com/mojaloop/ml-schema-transformer-lib/commit/ec21047d89f6de49fcefef4e53e3d56021ed02c8))
+* readme ([3b2b714](https://github.com/mojaloop/ml-schema-transformer-lib/commit/3b2b714f75b5212db28554d37a55e4553e3942d7))
+* update copyright ([46c55d5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/46c55d579988a30213a4faaf876857049be1f019))
+* update readme ([43de0f2](https://github.com/mojaloop/ml-schema-transformer-lib/commit/43de0f22c9e51eef37d4626e1f62ad47c1ff6937))
+* update README ([f10e69c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/f10e69cc369af169ce35d20ea6b8e3679b411635))
+
+
+### Chore
+
+* lint ([30c4457](https://github.com/mojaloop/ml-schema-transformer-lib/commit/30c44572ce53073f751db3fd78a4f5adaca39d5e))
+* linting ([78530d5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/78530d59662717cc39d66955b04697134dd6727f))
+* linting ([3997e44](https://github.com/mojaloop/ml-schema-transformer-lib/commit/3997e4418194f128078cf3bcfbca98fa16d33195))
+* linting ([b575e2f](https://github.com/mojaloop/ml-schema-transformer-lib/commit/b575e2fd94c2f4b342547b9744b3edf4928c75f6))
+* typos ([e4d6d17](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e4d6d17e917d5b7c485e439e39b341cd2e1c41e8))
+* update deps ([31e9465](https://github.com/mojaloop/ml-schema-transformer-lib/commit/31e9465e064552d07891bfdf1dbbbf9ea18f38ab))
+* update deps ([4ba2bf1](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4ba2bf1889075917c2c0262b9a42af2cb2121718))
+* update deps ([d6a000b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/d6a000b802c4c51b2ca7a9f8b36499b5bc9cad4a))
+
 ### [2.3.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.3...v2.3.4) (2024-10-31)
 
 
