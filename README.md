@@ -102,6 +102,27 @@ To provide custom transform functions (for both Facades and `createTransformer` 
 
 Replace `fn1` and `fn2` with the actual names of your functions. See `src/lib/transforms/index.ts` or [here](https://github.com/integreat-io/map-transform?tab=readme-ov-file#operations) for more on authoring and using custom transform functions in mappings.
 
+### Extension List Support
+**MLST** supports rolling up and unrolling FSPIOP extension lists as follows:
+- ***Extension list unrolling***: Converts extension lists from FSPIOP sources to properties in ISO 20022 targets.
+- ***Extension list roll-up***: Converts unmapped properties in ISO sources to an extension list in FSPIOP targets.
+
+This feature can be enabled via facade configuration, for example:
+
+```JavaScript
+TransformFacades.FSPIOP.configure({ unrollExtensions: true })
+TransformFacades.FSPIOPISO20022.configure({ rollUpUnmappedAsExtensions: true })
+```
+
+Alternatively, the feature can be activated through specific endpoints, for example:
+
+```JavaScript
+TransformFacades.FSPIOP.quotes.post(source, { unrollExtensions: true })
+TransformFacades.FSPIOPISO20022.quotes.post(source, { rollUpUnmappedAsExtensions: true })
+```
+
+***Note***: `unrollExtensions` is supported only in `TransformFacades.FSPIOP`, while `rollUpUnmappedAsExtensions` is supported only in `TransformFacades.FSPIOPISO20022`.
+
 ### Environment Variables
 | Env Variable Name           | Default Value | Description                                          |
 |-----------------------------|---------------|------------------------------------------------------|

@@ -25,29 +25,16 @@
  --------------
  ******/
 
-import { ITransformer, Source, Target, TransformFunctionOptions } from '../types';
-import { DataMapper, State } from '../types/map-transform';
-import { createTransformer } from './createTransformer';
+import { GenericObject } from '../../types';
 
-export const transformFn = async (source: Partial<Source>, options: TransformFunctionOptions): Promise<Partial<Target>> => {
-  const { mapping, mapTransformOptions, mapperOptions, logger } = options;
-  try {
-    const transformer = createTransformer(mapping, { mapTransformOptions });
-    return transformer.transform(source, { mapperOptions });
-  } catch (error) {
-    logger.error('Error transforming payload with supplied mapping', { error, source, mapping });
-    throw error;
+// Runs a pipeline of transformation steps on the source object and returns the target object
+export const runPipeline = (source: GenericObject, target: GenericObject, options: GenericObject): GenericObject => {
+  if (!options.hasOwnProperty('pipelineSteps') || !Array.isArray(options.pipelineSteps)) {
+    throw new Error('runPipeline: options.pipelineSteps must be an array');
   }
+  const { pipelineSteps, logger, ...stepOptions } = options;
+  for (const step of pipelineSteps) {
+    target = step({ source, target, options: stepOptions, logger });
+  }
+  return target;
 };
-
-export class Transformer implements ITransformer {
-  mapper: DataMapper;
-  
-  constructor(mapper: DataMapper) {
-    this.mapper = mapper;
-  }
-
-  async transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State } = {}): Promise<Partial<Target>> {
-    return this.mapper(source, mapperOptions) as Promise<Partial<Target>>;
-  }
-}

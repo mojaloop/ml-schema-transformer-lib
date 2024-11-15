@@ -1,10 +1,13 @@
 /*****
  License
  --------------
- Copyright © 2017 Bill & Melinda Gates Foundation
- The Mojaloop files are made available by the Bill & Melinda Gates Foundation under the Apache License, Version 2.0 (the "License") and you may not use these files except in compliance with the License. You may obtain a copy of the License at
- http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing, the Mojaloop files are distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Copyright © 2020-2024 Mojaloop Foundation
+ The Mojaloop files are made available by the Mojaloop Foundation under the Apache License, Version 2.0 (the "License") and you may not 
+ use these files except in compliance with the License.
+ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, the Mojaloop files are distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+ OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ 
  Contributors
  --------------
  This is the official list of the Mojaloop project contributors for this file.
@@ -17,7 +20,7 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
-
+ 
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -29,9 +32,13 @@ export interface ITransformer {
   transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State }): Promise<Partial<Target>>;
 }
 
-export type TransformFacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
-export type FspiopTransformFacadeFunction = (source: Source, options: TransformFacadeOptions) => Promise<IsoTarget>;
-export type IsoTransformFacadeFunction = (source: IsoSource, options: TransformFacadeOptions) => Promise<Partial<Target>>;
+export type FacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
+
+export type FspiopFacadeOptions = FacadeOptions & { unrollExtensions?: boolean };
+export type FspiopFacadeFunction = (source: Source, options: FacadeOptions) => Promise<IsoTarget>;
+export type IsoFacadeOptions = FacadeOptions & { rollupUnmappedIntoExtensions?: boolean };
+export type IsoFacadeFunction = (source: IsoSource, options: FacadeOptions) => Promise<Partial<Target>>;
+
 export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
 export type CreateTransformerOptions = { mapTransformOptions?: Options };
 
@@ -45,8 +52,10 @@ export interface ICustomTransforms {
 }
 
 export type ConfigOptions = {
-  logger: ContextLogger;
+  logger?: ContextLogger;
   isTestingMode?: boolean;
+  unrollExtensions?: boolean;
+  rollupUnmappedIntoExtensions?: boolean;
 }
 
 export type Headers = {
@@ -55,8 +64,8 @@ export type Headers = {
 }
 
 export type Params = {
-  Type: string;
-  ID: string;
+  Type?: string;
+  ID?: string;
   SubId?: string;
 }
 

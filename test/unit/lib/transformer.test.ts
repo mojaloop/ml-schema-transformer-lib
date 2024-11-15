@@ -1,10 +1,13 @@
 /*****
  License
  --------------
- Copyright © 2017 Bill & Melinda Gates Foundation
- The Mojaloop files are made available by the Bill & Melinda Gates Foundation under the Apache License, Version 2.0 (the "License") and you may not use these files except in compliance with the License. You may obtain a copy of the License at
- http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing, the Mojaloop files are distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ Copyright © 2020-2024 Mojaloop Foundation
+ The Mojaloop files are made available by the Mojaloop Foundation under the Apache License, Version 2.0 (the "License") and you may not 
+ use these files except in compliance with the License.
+ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, the Mojaloop files are distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+ OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ 
  Contributors
  --------------
  This is the official list of the Mojaloop project contributors for this file.
@@ -17,8 +20,8 @@
  optionally within square brackets <email>.
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
-
-  * Steven Oderayi <steven.oderayi@infitx.com>
+ 
+ * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
@@ -28,7 +31,7 @@ import { mockLogger } from 'test/fixtures';
 
 describe('Transformer tests', () => {
   describe('createTransformer', () => {
-    test('should create a new Transformer instance', async () => {
+    it('should create a new Transformer instance', async () => {
       const mapping = {
         partyType: 'partyIdInfo.partyIdType',
         partyIdentifier: 'partyIdInfo.partyIdentifier',
@@ -36,7 +39,7 @@ describe('Transformer tests', () => {
       const transformer = await createTransformer(mapping);
       expect(transformer).toBeInstanceOf(Transformer);
     });
-    test('should use custom transform functions if supplied', async () => {
+    it('should use custom transform functions if supplied', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -63,7 +66,7 @@ describe('Transformer tests', () => {
     })
   })
   describe('transformFn', () => {
-    test('should transform source payload using supplied mapping', async () => {
+    it('should transform source payload using supplied mapping', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -82,7 +85,7 @@ describe('Transformer tests', () => {
         partyIdentifier: source.body.partyIdInfo.partyIdentifier,
       });
     });
-    test('should throw an error if transformation fails', async () => {
+    it('should throw an error if transformation fails', async () => {
       const source = {
         body: {
           partyIdInfo: {
@@ -97,7 +100,7 @@ describe('Transformer tests', () => {
   });
   describe('Transformer', () => {
     describe('Transformer', () => {
-      test('should transform source payload using supplied mapper', async () => {
+      it('should transform source payload using supplied mapper', async () => {
         const mockMapper = vi.fn();
         const mockOptions = { mapperOptions: {} as State }
         const transformer = new Transformer(mockMapper);
