@@ -27,7 +27,7 @@
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
-import ilpPacket from 'ilp-packet';
+import * as ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
 import { TransformDefinition } from '../../types/map-transform';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
