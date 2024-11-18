@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.0-snapshot.1...v2.4.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* ilpPacket import ([6d95afc](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6d95afca94a6d668d9e4bcd5e36273e360d6e251))
+
+
+### Chore
+
+* version fix ([5567417](https://github.com/mojaloop/ml-schema-transformer-lib/commit/5567417376da0b9c053c02d4f388462b7f5d1518))
+
+## [2.4.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.4...v2.4.0) (2024-11-15)
+
+### [2.3.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.3...v2.3.4) (2024-10-31)
+
+
+### Documentation
+
+* fix markdown format ([06cb2cc](https://github.com/mojaloop/ml-schema-transformer-lib/commit/06cb2cc1fa0e0a7e07aa4c53a7b3d33259abfc97))
+
 ## [2.4.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.3.4...v2.4.0) (2024-11-15)
 
 
