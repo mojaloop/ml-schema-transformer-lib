@@ -56,7 +56,11 @@
     "ilp-packet": "2.2.0",
     "map-transform-cjs": "^0.2.0"
   },
-  "overrides": {},
+  "overrides": {
+    "typedoc-theme-hierarchy": {
+      "typedoc": "$typedoc"
+    }
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
