@@ -33,7 +33,15 @@ import { get } from 'http';
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
   const { source, target, options, logger } = params;
-  const extensionListProperty = getProp(options, 'applyUnrollExtensions.extensionListProperty') || 'body.extensionList';
+  let extensionListProperty; 
+  // determine the property path to the extension list
+  if (options.applyUnrollExtensions?.extensionListProperty) {
+    extensionListProperty = options.applyUnrollExtensions?.extensionListProperty;
+  } else if (source.body?.errorInformation) {
+    extensionListProperty = 'body.errorInformation.extensionList';
+  } else {
+    extensionListProperty = 'body.extensionList';
+  }
   const extension = getProp(source, extensionListProperty + '.extension');
   if (!options.unrollExtensions || !extension) {
     logger.debug('Skipping unrollExtensions', { source, target, options });
