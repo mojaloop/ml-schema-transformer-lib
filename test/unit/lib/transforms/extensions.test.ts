@@ -422,7 +422,7 @@ describe('Extensions', () => {
           const request = {
             ...fspiopSources.parties.put,
           };
-          (request.body as any).extensionList = {
+          (request.body.party.partyIdInfo as any).extensionList = {
             extension: [
               {
                 "key": "Assgnmt.MsgId",
