@@ -36,7 +36,7 @@ export type FacadeOptions = { overrideMapping?: TransformDefinition, mapTransfor
 
 export type FspiopFacadeOptions = FacadeOptions & { unrollExtensions?: boolean };
 export type FspiopFacadeFunction = (source: Source, options: FacadeOptions) => Promise<IsoTarget>;
-export type IsoFacadeOptions = FacadeOptions & { rollupUnmappedIntoExtensions?: boolean };
+export type IsoFacadeOptions = FacadeOptions & { rollUpUnmappedAsExtensions?: boolean };
 export type IsoFacadeFunction = (source: IsoSource, options: FacadeOptions) => Promise<Partial<Target>>;
 
 export type TransformFunctionOptions = { mapping: TransformDefinition, mapperOptions?: State, mapTransformOptions?: Options, logger: ContextLogger };
@@ -55,7 +55,7 @@ export type ConfigOptions = {
   logger?: ContextLogger;
   isTestingMode?: boolean;
   unrollExtensions?: boolean;
-  rollupUnmappedIntoExtensions?: boolean;
+  rollUpUnmappedAsExtensions?: boolean;
 }
 
 export type Headers = {

@@ -41,13 +41,13 @@ import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
 import { getProp, hasProp, setProp, validateConfig } from '../lib/utils';
 import { runPipeline } from '../lib/transforms/pipeline';
-import { applyRollupUnmappedAsExtensions } from '../lib/transforms/extensions';
+import { applyRollUpUnmappedAsExtensions } from '../lib/transforms/extensions';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { TransformDefinition } from '../types/map-transform';
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
-const Config: ConfigOptions = { logger: defaultLogger, rollupUnmappedIntoExtensions: false };
-const afterTransformSteps = [applyRollupUnmappedAsExtensions];
+const Config: ConfigOptions = { logger: defaultLogger, rollUpUnmappedAsExtensions: false };
+const afterTransformSteps = [applyRollUpUnmappedAsExtensions];
 
 const createPipelineOptions = (options: IsoFacadeOptions, mapping: TransformDefinition) => {
   return {
@@ -55,9 +55,9 @@ const createPipelineOptions = (options: IsoFacadeOptions, mapping: TransformDefi
     mapping,
     pipelineSteps: afterTransformSteps,
     logger: Config.logger as ContextLogger,
-    rollupUnmappedIntoExtensions: hasProp(options, 'rollupUnmappedIntoExtensions')
-      ? !!options.rollupUnmappedIntoExtensions
-      : Config.rollupUnmappedIntoExtensions,
+    rollUpUnmappedAsExtensions: hasProp(options, 'rollUpUnmappedAsExtensions')
+      ? !!options.rollUpUnmappedAsExtensions
+      : Config.rollUpUnmappedAsExtensions,
   };
 };
 
@@ -66,7 +66,7 @@ export const FspiopIso20022TransformFacade = {
   configure: (config: ConfigOptions) => {
     validateConfig(config);
     if (config.logger && isContextLogger(config.logger)) Config.logger = config.logger;
-    if (hasProp(config, 'rollupUnmappedIntoExtensions')) Config.rollupUnmappedIntoExtensions = !!config.rollupUnmappedIntoExtensions;
+    if (hasProp(config, 'rollUpUnmappedAsExtensions')) Config.rollUpUnmappedAsExtensions = !!config.rollUpUnmappedAsExtensions;
   },
   parties: {
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {

@@ -168,7 +168,7 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
 
 // Rolls up unmapped properties (i.e properties in source object not found in the mapping values - r.h.s) into extensions array
 // e.g { a: 1, b: 2 } => [ { key: 'a', value: 1 }, { key: 'b', value: 2 } ]
-export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
+export const rollUpUnmappedAsExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
   // we are only interested in body and $context mappings

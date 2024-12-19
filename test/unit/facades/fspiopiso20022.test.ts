@@ -301,20 +301,20 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       it('should roll up unmapped fields as extensions with facade option', async () => {
         const source = { ...fspiopIso20022Sources.quotes.post };
         setProp(source, 'body.CdtTrfTxInf.ExtraField1', 'ExtraValue1');
-        const target = await FspiopIso20022TransformFacade.quotes.post(source, { rollupUnmappedIntoExtensions: true });
+        const target = await FspiopIso20022TransformFacade.quotes.post(source, { rollUpUnmappedAsExtensions: true });
         expect(target).toHaveProperty('body');
         const ext = target.body.extensionList.extension.find((e: any) => e.key === 'CdtTrfTxInf.ExtraField1');
         expect(ext).toEqual({ key: 'CdtTrfTxInf.ExtraField1', value: 'ExtraValue1' });
       });
       it('should roll up unmapped fields as extensions with facade config', async () => {
-        FspiopIso20022TransformFacade.configure({ rollupUnmappedIntoExtensions: true });
+        FspiopIso20022TransformFacade.configure({ rollUpUnmappedAsExtensions: true });
         const source = { ...fspiopIso20022Sources.quotes.post };
         setProp(source, 'body.CdtTrfTxInf.ExtraField1', 'ExtraValue1');
-        const target = await FspiopIso20022TransformFacade.quotes.post(source, { rollupUnmappedIntoExtensions: true });
+        const target = await FspiopIso20022TransformFacade.quotes.post(source, { rollUpUnmappedAsExtensions: true });
         expect(target).toHaveProperty('body');
         const ext = target.body.extensionList.extension.find((e: any) => e.key === 'CdtTrfTxInf.ExtraField1');
         expect(ext).toEqual({ key: 'CdtTrfTxInf.ExtraField1', value: 'ExtraValue1' });
-        FspiopIso20022TransformFacade.configure({ rollupUnmappedIntoExtensions: false });
+        FspiopIso20022TransformFacade.configure({ rollUpUnmappedAsExtensions: false });
       });
     });
   });
