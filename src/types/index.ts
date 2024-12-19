@@ -116,6 +116,16 @@ export type IsoTarget = Pick<Target, 'body'>;
 export type GenericObject =  Record<string, any>;
 export type Primitive = string | number | boolean;
 
+// Pipeline types
+export type PipelineStep = ({ source, target, options, logger }: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => GenericObject;
+export type PipelineStepsConfig = { [key: string]: GenericObject };
+export type PipelineOptions = {
+  pipelineSteps: PipelineStep[];
+  logger: ContextLogger;
+  [key: string]: any;
+}
+
+
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };
 export type LogContext = Json | string | null;
 export const logLevelsMap = {

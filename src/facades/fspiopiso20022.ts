@@ -35,7 +35,7 @@ import {
   IsoFacadeOptions,
   TypeGuards,
   PartyIdParamsSource,
-  isContextLogger,
+  isContextLogger
 } from '../types';
 import { logger as defaultLogger, transformFn } from '../lib';
 import { FSPIO20022PMappings } from '../mappings';
@@ -47,7 +47,7 @@ import { TransformDefinition } from '../types/map-transform';
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
 const Config: ConfigOptions = { logger: defaultLogger, rollUpUnmappedAsExtensions: false };
-const afterTransformSteps = [applyRollUpUnmappedAsExtensions];
+const afterTransformSteps = [ applyRollUpUnmappedAsExtensions ];
 
 const createPipelineOptions = (options: IsoFacadeOptions, mapping: TransformDefinition) => {
   return {
