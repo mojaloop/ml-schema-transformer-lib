@@ -28,7 +28,7 @@
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
 import * as ilpPacket from 'ilp-packet';
-import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, isContextLogger } from '../../types';
+import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, Primitive, isContextLogger } from '../../types';
 import { TransformDefinition } from '../../types/map-transform';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 
@@ -168,11 +168,12 @@ export const unrollExtensions = (extensions: Array<{ key: string, value: unknown
 
 // Rolls up unmapped properties (i.e properties in source object not found in the mapping values - r.h.s) into extensions array
 // e.g { a: 1, b: 2 } => [ { key: 'a', value: 1 }, { key: 'b', value: 2 } ]
-export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
+export const rollUpUnmappedAsExtensions = (source: GenericObject, mapping: TransformDefinition): Array<{ key: string, value: unknown }> => {
   const extensions = [];
   const mappingObj = mapping = typeof mapping === 'string' ? JSON.parse(mapping) : mapping;
   // we are only interested in body and $context mappings
   const mappingValues = extractValues(mappingObj)
+    .map((value) => String(value))
     .filter((value) => value.startsWith('body.') || value.startsWith('$context.'))
     .map((value) => value.replace('body.', ''))
     .map((value) => value.replace(/\$context\.[a-zA-Z0-9]+./, ''));
@@ -190,17 +191,17 @@ export const rollupUnmappedIntoExtensions = (source: GenericObject, mapping: Tra
 }
 
 // Extracts all leaf values from an object including values nested in arrays and objects
-// e.g { a: { b: 1, c: { d: 2, e: [ 3, 4 ] } } } => ['1', '2', '3', '4']
+// e.g { a: { b: 1, c: { d: 2, e: [ 3, 4 ] } } } => [1, 2, 3, 4]
 export const extractValues = (obj: GenericObject) => {
-  const values: string[] = [];
+  const values: Primitive[] = [];
 
-  function recurse(current: GenericObject | string | number | boolean | null) {
+  function recurse(current: GenericObject | Primitive | null) {
     if (Array.isArray(current)) {
       current.forEach(item => recurse(item));
     } else if (typeof current === 'object' && current !== null) {
       Object.values(current).forEach(value => recurse(value));
     } else { 
-      values.push((current as string));
+      values.push((current as Primitive));
     }
   }
 

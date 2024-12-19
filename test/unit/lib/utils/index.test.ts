@@ -38,7 +38,7 @@ import {
   hasProp,
   isEmptyObject,
   isPersonPartyIdType,
-  rollupUnmappedIntoExtensions,
+  rollUpUnmappedAsExtensions,
   setProp,
   toFspiopTransferState,
   toIsoTransferState,
@@ -222,7 +222,7 @@ describe('Utils tests', () => {
       expect(nested).toEqual({ nested: { key: 'value' } });
     });
   });
-  describe('rollupUnmappedIntoExtensions', () => {
+  describe('rollUpUnmappedAsExtensions', () => {
     it('should rollup unmapped properties into an extensions array', () => {
       const source = { 
         body: { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4', key5: { key6: { key7: 'value7' } } },
@@ -237,7 +237,7 @@ describe('Utils tests', () => {
         { key: 'key4', value: 'value4' },
         { key: 'key5.key6.key7', value: 'value7' }
       ];
-      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      const rolled = rollUpUnmappedAsExtensions(source, mapping);
       expect(rolled).toEqual(extensions);
     });
     it('should return an empty array if all properties are mapped', () => {
@@ -245,7 +245,7 @@ describe('Utils tests', () => {
       const mapping = {
         body: { key1: 'body.key1', key2: 'body.key2' }
       };
-      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      const rolled = rollUpUnmappedAsExtensions(source, mapping);
       expect(rolled).toEqual([]);
     });
     it('should parse a JSON string mapping', () => {
@@ -253,7 +253,7 @@ describe('Utils tests', () => {
       const mapping = JSON.stringify({
         body: { key1: 'body.key1', key2: 'body.key2' }
       });
-      const rolled = rollupUnmappedIntoExtensions(source, mapping);
+      const rolled = rollUpUnmappedAsExtensions(source, mapping);
       expect(rolled).toEqual([]);
     });
   });

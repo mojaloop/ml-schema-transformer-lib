@@ -25,8 +25,9 @@
  --------------
  ******/
 
-import { applyUnrollExtensions, applyRollupUnmappedAsExtensions } from '../../../../src/lib/transforms/extensions';
-import { mockLogger } from '../../../fixtures';
+import { FspiopTransformFacade, FspiopIso20022TransformFacade } from 'src/facades';
+import { applyUnrollExtensions, applyRollUpUnmappedAsExtensions } from '../../../../src/lib/transforms/extensions';
+import { mockLogger, fspiopSources } from '../../../fixtures';
 
 describe('Extensions', () => {
   afterEach(() => {
@@ -153,8 +154,8 @@ describe('Extensions', () => {
       expect(mockLogger.debug).toHaveBeenCalledWith('Unrolled extensions', { source, unrolled: { nested: { extensionKey: 'extensionValue' } } });
     });
   });
-  describe('applyRollupUnmappedAsExtensions', () => {
-    it('should return target without rolling up extensions if rollupUnmappedIntoExtensions is false', () => {
+  describe('applyRollUpUnmappedAsExtensions', () => {
+    it('should return target without rolling up extensions if rollUpUnmappedAsExtensions is false', () => {
       const source = {
         body: {
           targetKey: 'sourceValue'
@@ -169,12 +170,12 @@ describe('Extensions', () => {
         'body.sourceKey': 'body.targetKey'
       };
       const options = {
-        rollupUnmappedIntoExtensions: false,
+        rollUpUnmappedAsExtensions: false,
         mapping
       };
-      const result = applyRollupUnmappedAsExtensions({ source, target, options, logger: mockLogger });
+      const result = applyRollUpUnmappedAsExtensions({ source, target, options, logger: mockLogger });
       expect(result).toEqual(target);
-      expect(mockLogger.debug).toHaveBeenCalledWith('Skipping rollupUnmappedIntoExtensions', { source, target, mapping, options });
+      expect(mockLogger.debug).toHaveBeenCalledWith('Skipping rollUpUnmappedAsExtensions', { source, target, mapping, options });
     });
     it('should return target without rolling up extensions if extensions is empty', () => {
       const source = {
@@ -191,10 +192,10 @@ describe('Extensions', () => {
         'body.sourceKey': 'body.targetKey'
       };
       const options = {
-        rollupUnmappedIntoExtensions: true,
+        rollUpUnmappedAsExtensions: true,
         mapping
       };
-      const result = applyRollupUnmappedAsExtensions({ source, target, options, logger: mockLogger });
+      const result = applyRollUpUnmappedAsExtensions({ source, target, options, logger: mockLogger });
       expect(result).toEqual(target);
       expect(mockLogger.debug).toHaveBeenCalledWith('No unmapped properties to roll up', { source, mapping });
     });
@@ -222,10 +223,10 @@ describe('Extensions', () => {
         }
       };
       const options = {
-        rollupUnmappedIntoExtensions: true,
+        rollUpUnmappedAsExtensions: true,
         mapping
       };
-      const result = applyRollupUnmappedAsExtensions({ source, target, options, logger: mockLogger });
+      const result = applyRollUpUnmappedAsExtensions({ source, target, options, logger: mockLogger });
       expect(result).toEqual(expectedTarget);
     });
     it('should return target with rolled up extensions and merge them with existing extensions', () => {
@@ -258,10 +259,10 @@ describe('Extensions', () => {
         }
       };
       const options = {
-        rollupUnmappedIntoExtensions: true,
+        rollUpUnmappedAsExtensions: true,
         mapping
       };
-      const result = applyRollupUnmappedAsExtensions({ source, target, options, logger: mockLogger });
+      const result = applyRollUpUnmappedAsExtensions({ source, target, options, logger: mockLogger });
       expect(result).toEqual(expectedTarget);
     });
     it('should return target with rolled up extensions and merge them with existing extensions with same key', () => {
@@ -293,11 +294,240 @@ describe('Extensions', () => {
         }
       };
       const options = {
-        rollupUnmappedIntoExtensions: true,
+        rollUpUnmappedAsExtensions: true,
         mapping
       };
-      const result = applyRollupUnmappedAsExtensions({ source, target, options, logger: mockLogger });
+      const result = applyRollUpUnmappedAsExtensions({ source, target, options, logger: mockLogger });
       expect(result).toEqual(expectedTarget);
+    });
+  });
+  describe('discovery extensions', () => {
+    describe('rollUpUnmappedAsExtensions', () => {
+      describe('put parties', () => {
+        it('should roll up unmapped as extensions', async () => {
+          const transformer = FspiopIso20022TransformFacade.parties.put;
+          const request = {
+            body: {
+              Assgnmt: {
+                MsgId: '01JFF7ZH1Z5J2A7RP7B2MC59HE',
+                CreDtTm: '2024-12-19T10:38:55.546Z',
+                Assgnr: {
+                  Agt: {
+                    FinInstnId: {
+                      Othr: {
+                        Id: 'dfsp1'
+                      }
+                    }
+                  }
+                },
+                Assgne: {
+                  Agt: {
+                    FinInstnId: {
+                      Othr: {
+                        Id: 'testingtoolkitdfsp'
+                      }
+                    }
+                  }
+                }
+              },
+              Rpt: {
+                OrgnlId: 'MSISDN/16135551002',
+                Vrfctn: true,
+                UpdtdPtyAndAcctId: {
+                  Agt: {
+                    FinInstnId: {
+                      LEI: '529900T8BM49AURSDO55',
+                      Othr: {
+                        Id: 'ttkpayeefsp'
+                      }
+                    }
+                  },
+                  Acct: {
+                    Ccy: 'XTS'
+                  },
+                  Pty: {
+                    PstlAdr: {
+                      StrtNm: '1',
+                      PstCd: 'XXXXXX',
+                      Ctry: 'ZM',
+                      AdrLine: 'Main road, Big Town'
+                    },
+                    CtryOfRes: 'ZM',
+                    Nm: 'Test Party',
+                    Id: {
+                      PrvtId: {
+                        Othr: {
+                          Id: '16135551002',
+                          SchmeNm: {
+                            Prtry: 'MSISDN'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          };
+          const source = {
+            body: request.body,
+          };
+          const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
+          expect(target.body.extensionList.extension.length).toEqual(9);
+          expect(target.body.extensionList.extension).toEqual([
+            {
+              "key": "Assgnmt.MsgId",
+              "value": "01JFF7ZH1Z5J2A7RP7B2MC59HE"
+            },
+            {
+              "key": "Assgnmt.CreDtTm",
+              "value": "2024-12-19T10:38:55.546Z"
+            },
+            {
+              "key": "Rpt.Vrfctn",
+              "value": true
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.LEI",
+              "value": "529900T8BM49AURSDO55"
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.StrtNm",
+              "value": "1"
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.PstCd",
+              "value": "XXXXXX"
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.Ctry",
+              "value": "ZM"
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.AdrLine",
+              "value": "Main road, Big Town"
+            },
+            {
+              "key": "Rpt.UpdtdPtyAndAcctId.Pty.CtryOfRes",
+              "value": "ZM"
+            }
+          ]);
+        });
+      });
+    });
+    describe('unrollExtensions', () => {
+      describe('put parties', () => {
+        it('should unroll extensions', async () => {
+          const transformer = FspiopTransformFacade.parties.put;
+          const request = {
+            ...fspiopSources.parties.put,
+          };
+          (request.body as any).extensionList = {
+            extension: [
+              {
+                "key": "Assgnmt.MsgId",
+                "value": "01JFF7ZH1Z5J2A7RP7B2MC59HE"
+              },
+              {
+                "key": "Assgnmt.CreDtTm",
+                "value": "2024-12-19T10:38:55.546Z"
+              },
+              {
+                "key": "Rpt.Vrfctn",
+                "value": true
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.LEI",
+                "value": "529900T8BM49AURSDO55"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.StrtNm",
+                "value": "1"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.PstCd",
+                "value": "XXXXXX"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.Ctry",
+                "value": "ZM"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.AdrLine",
+                "value": "Main road, Big Town"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.CtryOfRes",
+                "value": "ZM"
+              }
+            ]
+          }
+      
+          const source = request;
+          const target = await transformer(source, { unrollExtensions: true  });
+          expect(target.body).toEqual({
+            "Assgnmt": {
+              "MsgId": "01JFF7ZH1Z5J2A7RP7B2MC59HE",
+              "CreDtTm": "2024-12-19T10:38:55.546Z",
+              "Assgnr": {
+                "Agt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "source"
+                    }
+                  }
+                }
+              },
+              "Assgne": {
+                "Agt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "destination"
+                    }
+                  }
+                }
+              }
+            },
+            "Rpt": {
+              "Vrfctn": true,
+              "UpdtdPtyAndAcctId": {
+                "Agt": {
+                  "FinInstnId": {
+                    "LEI": "529900T8BM49AURSDO55",
+                    "Othr": {
+                      "Id": "FSPID"
+                    }
+                  }
+                },
+                "Pty": {
+                  "PstlAdr": {
+                    "StrtNm": "1",
+                    "PstCd": "XXXXXX",
+                    "Ctry": "ZM",
+                    "AdrLine": "Main road, Big Town"
+                  },
+                  "CtryOfRes": "ZM",
+                  "Id": {
+                    "PrvtId": {
+                      "Othr": {
+                        "SchmeNm": {
+                          "Prtry": "MSISDN"
+                        },
+                        "Id": "16135551212"
+                      }
+                    }
+                  },
+                  "Nm": "party-name"
+                },
+                "Acct": {
+                  "Ccy": "AED"
+                }
+              },
+              "OrgnlId": "MSISDN/16135551212/subId"
+            }
+          });
+        });
+      });
     });
   });
 });
