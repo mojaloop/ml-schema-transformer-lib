@@ -114,6 +114,7 @@ export type IsoTarget = Pick<Target, 'body'>;
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export type GenericObject =  Record<string, any>;
+export type Primitive = string | number | boolean;
 
 export type Json = string | number | boolean | Json[] | { [key: string]: Json };
 export type LogContext = Json | string | null;
