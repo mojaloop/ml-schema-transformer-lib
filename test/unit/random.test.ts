@@ -1,5 +1,5 @@
 import { createTransformer } from 'src';
-import { FspiopTransformFacade, FspiopIso20022TransformFacade } from '../../src/facades';
+import { FspiopTransformFacade } from '../../src/facades';
 
 describe('Random', () => {
   it.skip('should transform with alt and fixed value', async () => {
