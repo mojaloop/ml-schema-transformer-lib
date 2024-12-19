@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.1...v2.4.2) (2024-12-19)
+
+
+### Bug Fixes
+
+* rollup typo fix ([788d94d](https://github.com/mojaloop/ml-schema-transformer-lib/commit/788d94dfeee4d47233da9b2c12e48e9c245abbb7))
+
+
+### Test
+
+* update unit tests ([69603a4](https://github.com/mojaloop/ml-schema-transformer-lib/commit/69603a443a11c9ab38456b8ad62cd33e4ab7197c))
+
+
+### Chore
+
+* fix audit ([708d11e](https://github.com/mojaloop/ml-schema-transformer-lib/commit/708d11e09f27a27d9b3b37fd2d617c7546e87b3b))
+* fix peer dependencies conflict, audit ([c051596](https://github.com/mojaloop/ml-schema-transformer-lib/commit/c051596f14f8650bfb19bc7b7ccc1bdfe7abeea7))
+* linting ([eee22ee](https://github.com/mojaloop/ml-schema-transformer-lib/commit/eee22ee7b1b5932273e5491ac0822c79bd209271))
+* linting ([061d33c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/061d33c4aa9251c9c071470c767633d728f95e1c))
+* update deps ([6a64cf9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6a64cf91b396063e7d334bf51a3862b47a6415ee))
+
 ### [2.4.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.0-snapshot.1...v2.4.1) (2024-11-18)
 
 
