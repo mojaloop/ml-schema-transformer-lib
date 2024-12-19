@@ -153,6 +153,63 @@ describe('Extensions', () => {
       });
       expect(mockLogger.debug).toHaveBeenCalledWith('Unrolled extensions', { source, unrolled: { nested: { extensionKey: 'extensionValue' } } });
     });
+    it('should unroll extensions in errorInformation without specifying extension list path', () => {
+      const source = {
+        body: {
+          errorInformation: {
+            extensionList: {
+              extension: [{ key: 'extensionKey', value: 'extensionValue' }]
+            }
+          }
+        }
+      };
+      const target = {
+        body: {
+          targetKey: 'targetValue'
+        }
+      };
+      const options = {
+        unrollExtensions: true,
+      };
+      const result = applyUnrollExtensions({ source, target, options, logger: mockLogger });
+      expect(result).toEqual({
+        body: {
+          targetKey: 'targetValue',
+          extensionKey: 'extensionValue'
+        }
+      });
+      expect(mockLogger.debug).toHaveBeenCalledWith('Unrolled extensions', { source, unrolled: { extensionKey: 'extensionValue' } });
+    });
+    it('should unroll extensions from a different property path', () => {
+      const source = {
+        body: {
+          customProp: {
+            extensionList: {
+              extension: [{ key: 'extensionKey', value: 'extensionValue' }]
+            }
+          }
+        }
+      };
+      const target = {
+        body: {
+          targetKey: 'targetValue'
+        }
+      };
+      const options = {
+        unrollExtensions: true,
+        applyUnrollExtensions: {
+          extensionListProperty: 'body.customProp.extensionList'
+        }
+      };
+      const result = applyUnrollExtensions({ source, target, options, logger: mockLogger });
+      expect(result).toEqual({
+        body: {
+          targetKey: 'targetValue',
+          extensionKey: 'extensionValue'
+        }
+      });
+      expect(mockLogger.debug).toHaveBeenCalledWith('Unrolled extensions', { source, unrolled: { extensionKey: 'extensionValue' } });
+    });
   });
   describe('applyRollUpUnmappedAsExtensions', () => {
     it('should return target without rolling up extensions if rollUpUnmappedAsExtensions is false', () => {
