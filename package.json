@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/ml-schema-transformer-lib",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Shared component for ML schemas translation",
   "repository": {
     "type": "git",

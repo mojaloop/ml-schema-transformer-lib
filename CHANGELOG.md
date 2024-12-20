@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.0...v2.5.1) (2024-12-20)
+
+
+### Bug Fixes
+
+* **csi-1056:** handle reverse case for extensionlist custom location ([43f36f1](https://github.com/mojaloop/ml-schema-transformer-lib/commit/43f36f17a93bdf72689e3dd7986b5e1d56bfd09a))
+* handle custom extensionlist property for reverse case ([93d679b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/93d679ba61a2ca260803e93f292049feec586323))
+
+
+### Test
+
+* update tests ([b7ac042](https://github.com/mojaloop/ml-schema-transformer-lib/commit/b7ac042f61c873efac0bce37718562981d505de1))
+
+
+### Chore
+
+* update deps ([e27c08c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e27c08c8e4b41dcb8a46200836726a06f95687c5))
+
+
+### Documentation
+
+* minor ([13c7c27](https://github.com/mojaloop/ml-schema-transformer-lib/commit/13c7c274347942528d16cd9bf88df9bca8de2a5f))
+* update readme ([e2bb3a7](https://github.com/mojaloop/ml-schema-transformer-lib/commit/e2bb3a7f9ec3d8eb55b3a6e0f6cfa852958b0fd2))
+* update readme ([0049ea4](https://github.com/mojaloop/ml-schema-transformer-lib/commit/0049ea42ad9286fa648929884f8508659acd8f6d))
+
 ## [2.5.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.2...v2.5.0) (2024-12-20)
 
 
