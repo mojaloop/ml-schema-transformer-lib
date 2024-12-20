@@ -70,7 +70,7 @@ export const applyRollUpUnmappedAsExtensions = (params: { source: GenericObject,
     return target;
   }
 
-  // determine the property path to the extension list
+  // determine the property path for the extension list
   let extensionListProperty; 
   if (options.applyRollUpUnmappedAsExtensions?.extensionListProperty) {
     extensionListProperty = options.applyRollUpUnmappedAsExtensions?.extensionListProperty;
