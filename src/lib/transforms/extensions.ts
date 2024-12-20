@@ -27,18 +27,29 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { GenericObject } from '../../types';
-import { deepMerge, unrollExtensions, rollUpUnmappedAsExtensions, setProp, deduplicateObjectsArray } from '../utils';
+import { deepMerge, unrollExtensions, rollUpUnmappedAsExtensions, setProp, deduplicateObjectsArray, getProp } from '../utils';
 
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
   const { source, target, options, logger } = params;
-  if (!options.unrollExtensions || !source.body.extensionList?.extension) {
+  let extensionListProperty; 
+  // determine the property path to the extension list
+  if (options.applyUnrollExtensions?.extensionListProperty) {
+    extensionListProperty = options.applyUnrollExtensions?.extensionListProperty;
+  } else if (source.body?.errorInformation) {
+    extensionListProperty = 'body.errorInformation.extensionList';
+  } else {
+    extensionListProperty = 'body.extensionList';
+  }
+  const extension = getProp(source, `${extensionListProperty}.extension`);
+  if (!options.unrollExtensions || !extension) {
     logger.debug('Skipping unrollExtensions', { source, target, options });
     return target;
   }
-  const unrolled = unrollExtensions(source.body.extensionList.extension);
+  
+  const unrolled = unrollExtensions(extension as any);
   logger.debug('Unrolled extensions', { source, unrolled });
-  // we merge the unrolled extensions into the target body only
+  // we merge the unrolled extensions into the target's body only
   target.body = deepMerge(target.body, unrolled);
   return target;
 }

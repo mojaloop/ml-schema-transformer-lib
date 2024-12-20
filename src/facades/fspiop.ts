@@ -88,6 +88,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger as ContextLogger,
         mapping,
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.party.partyIdInfo.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
@@ -249,6 +254,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
@@ -263,6 +273,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
