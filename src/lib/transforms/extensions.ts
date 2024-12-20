@@ -42,7 +42,7 @@ export const applyUnrollExtensions = (params: { source: GenericObject, target: G
   } else {
     extensionListProperty = 'body.extensionList';
   }
-  const extension = getProp(source, extensionListProperty + '.extension');
+  const extension = getProp(source, `${extensionListProperty}.extension`);
   if (!options.unrollExtensions || !extension) {
     logger.debug('Skipping unrollExtensions', { source, target, options });
     return target;
