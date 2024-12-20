@@ -27,7 +27,7 @@
 
 import { FspiopTransformFacade, FspiopIso20022TransformFacade } from 'src/facades';
 import { applyUnrollExtensions, applyRollUpUnmappedAsExtensions } from '../../../../src/lib/transforms/extensions';
-import { mockLogger, fspiopSources } from '../../../fixtures';
+import { mockLogger, fspiopSources, fspiopIso20022Sources } from '../../../fixtures';
 
 describe('Extensions', () => {
   afterEach(() => {
@@ -430,8 +430,8 @@ describe('Extensions', () => {
             body: request.body,
           };
           const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
-          expect(target.body.extensionList.extension.length).toEqual(9);
-          expect(target.body.extensionList.extension).toEqual([
+          expect(target.body.party.partyIdInfo.extensionList.extension.length).toEqual(9);
+          expect(target.body.party.partyIdInfo.extensionList.extension).toEqual([
             {
               "key": "Assgnmt.MsgId",
               "value": "01JFF7ZH1Z5J2A7RP7B2MC59HE"
@@ -581,6 +581,245 @@ describe('Extensions', () => {
                 }
               },
               "OrgnlId": "MSISDN/16135551212/subId"
+            }
+          });
+        });
+      });
+    });
+  });
+  describe('fxQuotes extensions', () => {
+    describe('rollUpUnmappedAsExtensions', () => {
+      describe('post fxQuotes', () => {
+        it('should roll up unmapped as extensions', async () => {
+          const transformer = FspiopIso20022TransformFacade.fxQuotes.post;
+          const source = fspiopIso20022Sources.fxQuotes.post;
+          const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
+          expect(target.body.conversionTerms.extensionList.extension.length).toEqual(8);
+          expect(target.body.conversionTerms.extensionList.extension).toEqual([
+            {
+              "key": "GrpHdr.MsgId",
+              "value": "01J9TYRCYTN8WAKCN3EMAY1BAD"
+            },
+            {
+              "key": "GrpHdr.CreDtTm",
+              "value": "2024-10-10T10:14:27.034Z"
+            },
+            {
+              "key": "GrpHdr.NbOfTxs",
+              "value": "1"
+            },
+            {
+              "key": "GrpHdr.SttlmInf.SttlmMtd",
+              "value": "CLRG"
+            },
+            {
+              "key": "CdtTrfTxInf.UndrlygCstmrCdtTrf.Dbtr.Id.OrgId.Othr.Id",
+              "value": "initfsp"
+            },
+            {
+              "key": "CdtTrfTxInf.UndrlygCstmrCdtTrf.DbtrAgt.FinInstnId.Othr.Id",
+              "value": "initfsp"
+            },
+            {
+              "key": "CdtTrfTxInf.UndrlygCstmrCdtTrf.Cdtr.Id.OrgId.Othr.Id",
+              "value": "counterfsp"
+            },
+            {
+              "key": "CdtTrfTxInf.UndrlygCstmrCdtTrf.CdtrAgt.FinInstnId.Othr.Id",
+              "value": "counterfsp"
+            }
+          ]);
+        });
+      });
+    });
+    describe('unrollExtensions', () => {
+      describe('post fxQuotes', () => {
+        it('should unroll extensions', async () => {
+          const transformer = FspiopTransformFacade.fxQuotes.post;
+          const source = {...fspiopSources.fxQuotes.post};
+          (source.body.conversionTerms as any).extensionList = {
+            extension: [
+              {
+                "key": "Assgnmt.MsgIdExt",
+                "value": "Assgnmt.MsgId.ExtValue"
+              },
+              {
+                "key": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.AdrLineExt",
+                "value": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.AdrLine.ExtValue"
+              },
+            ]
+          }
+          const target = await transformer(source, { unrollExtensions: true  });
+          const expected = ((target: any) => ({
+            "GrpHdr": {
+              "MsgId": target.body.GrpHdr.MsgId,
+              "CreDtTm": target.body.GrpHdr.CreDtTm,
+              "NbOfTxs": "1",
+              "SttlmInf": {
+                "SttlmMtd": "CLRG"
+              },
+              "PmtInstrXpryDtTm": "2016-05-24T08:38:08.699-04:00"
+            },
+            "CdtTrfTxInf": {
+              "PmtId": {
+                "TxId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+                "InstrId": "b51ec534-ee48-4575-b6a9-ead2955b8069",
+                "EndToEndId": "b51ec534-ee48-4575-b6a9-ead2955b8069"
+              },
+              "Dbtr": {
+                "FinInstnId": {
+                  "Othr": {
+                    "Id": "initfsp"
+                  }
+                }
+              },
+              "UndrlygCstmrCdtTrf": {
+                "Dbtr": {
+                  "Id": {
+                    "OrgId": {
+                      "Othr": {
+                        "Id": "initfsp"
+                      }
+                    }
+                  }
+                },
+                "DbtrAgt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "initfsp"
+                    }
+                  }
+                },
+                "Cdtr": {
+                  "Id": {
+                    "OrgId": {
+                      "Othr": {
+                        "Id": "counterfsp"
+                      }
+                    }
+                  }
+                },
+                "CdtrAgt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "counterfsp"
+                    }
+                  }
+                },
+                "InstdAmt": {
+                  "Ccy": "XXX",
+                  "ActiveOrHistoricCurrencyAndAmount": "123.45"
+                }
+              },
+              "Cdtr": {
+                "FinInstnId": {
+                  "Othr": {
+                    "Id": "counterfsp"
+                  }
+                }
+              },
+              "IntrBkSttlmAmt": {
+                "Ccy": "XXY",
+                "ActiveCurrencyAndAmount": "23.55"
+              },
+              "InstrForCdtrAgt": {
+                "InstrInf": "RECEIVE"
+              }
+            },
+            "Assgnmt": {
+              "MsgIdExt": "Assgnmt.MsgId.ExtValue"
+            },
+            "Rpt": {
+              "UpdtdPtyAndAcctId": {
+                "Pty": {
+                  "PstlAdr": {
+                    "AdrLineExt": "Rpt.UpdtdPtyAndAcctId.Pty.PstlAdr.AdrLine.ExtValue"
+                  }
+                }
+              }
+            }
+          }))(target);
+          expect(target.body).toEqual(expected);
+        });
+      });
+    });
+  });
+  describe('erroInformation extensions', () => {
+    describe('rollUpUnmappedAsExtensions', () => {
+      describe('put parties error', () => {
+        it('should roll up unmapped as extensions', async () => {
+          const transformer = FspiopIso20022TransformFacade.parties.putError;
+          const source = fspiopIso20022Sources.parties.putError;
+          const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
+          expect(target.body.errorInformation.extensionList.extension.length).toEqual(3);
+          expect(target.body.errorInformation.extensionList.extension).toEqual([
+            {
+              "key": "Rpt.Vrfctn",
+              "value": false
+            },
+            {
+              "key": "Assgnmt.MsgId",
+              "value": "01J96K505K7NDQFSBG9P743BF3"
+            },
+            {
+              "key": "Assgnmt.CreDtTm",
+              "value": "2024-10-02T12:26:48.372Z"
+            }
+          ]);
+        });
+      });
+    });
+    describe('unrollExtensions', () => {
+      describe('put parties error', () => {
+        it('should unroll extensions', async () => {
+          const transformer = FspiopTransformFacade.parties.putError;
+          const source = {...fspiopSources.parties.putError};
+          (source.body.errorInformation as any).extensionList = {
+            extension: [
+              {
+                "key": "Rpt.Vrfctn",
+                "value": false
+              },
+              {
+                "key": "Assgnmt.MsgId",
+                "value": "01J96K505K7NDQFSBG9P743BF3"
+              },
+              {
+                "key": "Assgnmt.CreDtTm",
+                "value": "2024-10-02T12:26:48.372Z"
+              }
+            ]
+          }
+          const target = await transformer(source, { unrollExtensions: true  });
+          expect(target.body).toEqual({
+            "Rpt": {
+              "Vrfctn": false,
+              "Rsn": {
+                "Cd": "3100"
+              },
+              "OrgnlId": "MSISDN/16135551212/subId"
+            },
+            "Assgnmt": {
+              "MsgId": "01J96K505K7NDQFSBG9P743BF3",
+              "CreDtTm": "2024-10-02T12:26:48.372Z",
+              "Assgnr": {
+                "Agt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "source"
+                    }
+                  }
+                }
+              },
+              "Assgne": {
+                "Agt": {
+                  "FinInstnId": {
+                    "Othr": {
+                      "Id": "destination"
+                    }
+                  }
+                }
+              }
             }
           });
         });

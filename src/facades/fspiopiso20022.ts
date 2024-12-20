@@ -88,6 +88,11 @@ export const FspiopIso20022TransformFacade = {
         if (SubId) setProp(target, 'params.SubId', SubId);
         delete (target.params as PartyIdParamsSource).IdPath;
       }
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.party.partyIdInfo.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopPutPartiesTarget;
@@ -259,6 +264,11 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopTarget;
@@ -273,6 +283,11 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopTarget;

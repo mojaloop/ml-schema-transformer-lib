@@ -124,6 +124,7 @@ TransformFacades.FSPIOPISO20022.quotes.post(source, { rollUpUnmappedAsExtensions
 ***Note***: 
  - `unrollExtensions` is supported only in `TransformFacades.FSPIOP`, while `rollUpUnmappedAsExtensions` is supported only in `TransformFacades.FSPIOPISO20022`.
  - With the exception of `parties`, `fxQuotes` and `errorInformation` payloads/APIs, `unrollExtensions` unrolls only the top-level `body.extensionList` property. This is because without a mapping it is impossible to determine automatically how to apply multiple unrolled extension lists in different locations in an FSPIOP object to a target ISO object.
+ - `unrollExtensions` does not overwrite existing properties in the target object. If an unrolled extension property already exists in the target object, it will be skipped. 
 
 ### Environment Variables
 | Env Variable Name           | Default Value | Description                                          |
