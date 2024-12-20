@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.2...v2.5.0) (2024-12-20)
+
+
+### Features
+
+* **csi-1056:** custom extensionList location ([6730457](https://github.com/mojaloop/ml-schema-transformer-lib/commit/6730457af9fd222d289ee6eef71784e77b6fdf1c))
+* support errrInformation transform ([ea26226](https://github.com/mojaloop/ml-schema-transformer-lib/commit/ea262268f72ef87602f3a33e9106e9f5ef52f178))
+
+
+### Test
+
+* add more tests ([5bcf977](https://github.com/mojaloop/ml-schema-transformer-lib/commit/5bcf9777781d96db33835df45cbaf1c749804b81))
+* update test ([c576773](https://github.com/mojaloop/ml-schema-transformer-lib/commit/c5767737cbbb7fa05931348af1dde959bbedcae6))
+
+
+### Documentation
+
+* typo ([74eb0e2](https://github.com/mojaloop/ml-schema-transformer-lib/commit/74eb0e255a257bc5566acd81f46061b316e60c85))
+
+
+### Refactor
+
+* minor ([1a6333a](https://github.com/mojaloop/ml-schema-transformer-lib/commit/1a6333ab2b3ad9c2f83cdea83a1ec8f08d168161))
+* minor ([02ef88f](https://github.com/mojaloop/ml-schema-transformer-lib/commit/02ef88f7cc93926c10f4eac794b11d24faa2e029))
+
 ### [2.4.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.4.1...v2.4.2) (2024-12-19)
 
 
