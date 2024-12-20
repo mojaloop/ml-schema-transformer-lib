@@ -27,7 +27,7 @@
 
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { GenericObject } from '../../types';
-import { deepMerge, unrollExtensions, rollUpUnmappedAsExtensions, setProp, deduplicateObjectsArray, getProp } from '../utils';
+import { deepMerge, unrollExtensions, rollUpUnmappedAsExtensions, setProp, deduplicateObjectsArray, getProp, hasProp } from '../utils';
 
 // Unrolls extensions from the source object and merges them with the target object
 export const applyUnrollExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
@@ -57,6 +57,7 @@ export const applyUnrollExtensions = (params: { source: GenericObject, target: G
 // Rolls up unmapped properties from the source object into extensions and adds them to the target object's extensionList
 export const applyRollUpUnmappedAsExtensions = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
   const { source, target, options: { mapping },  options, logger } = params;
+  
   if (!options.rollUpUnmappedAsExtensions) {
     logger.debug('Skipping rollUpUnmappedAsExtensions', { source, target, mapping, options });
     return target;
@@ -69,11 +70,26 @@ export const applyRollUpUnmappedAsExtensions = (params: { source: GenericObject,
     return target;
   }
 
-  if (!target.body.extensionList?.extension) {
-    setProp(target, 'body.extensionList.extension', []);
+  // determine the property path to the extension list
+  let extensionListProperty; 
+  if (options.applyRollUpUnmappedAsExtensions?.extensionListProperty) {
+    extensionListProperty = options.applyRollUpUnmappedAsExtensions?.extensionListProperty;
+  } else if (target.body?.errorInformation) {
+    extensionListProperty = 'body.errorInformation.extensionList';
+  } else {
+    extensionListProperty = 'body.extensionList';
   }
-  target.body.extensionList.extension.push(...extensions);
-  target.body.extensionList.extension = deduplicateObjectsArray(target.body.extensionList.extension, 'key');
+  const extensionProperty = `${extensionListProperty}.extension`;
+
+  if (!hasProp(target, extensionProperty)) {
+    setProp(target, extensionProperty, []);
+  }
+  
+  let allExtensions = getProp(target, extensionProperty) as GenericObject[];
+  allExtensions.push(...extensions);
+  allExtensions = deduplicateObjectsArray(allExtensions, 'key');
+  setProp(target, extensionProperty, allExtensions);
+
   logger.debug('Rolled up unmapped properties into extensions', { source, target, mapping, extensions });
 
   return target;

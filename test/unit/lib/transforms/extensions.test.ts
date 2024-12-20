@@ -430,8 +430,8 @@ describe('Extensions', () => {
             body: request.body,
           };
           const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
-          expect(target.body.extensionList.extension.length).toEqual(9);
-          expect(target.body.extensionList.extension).toEqual([
+          expect(target.body.party.partyIdInfo.extensionList.extension.length).toEqual(9);
+          expect(target.body.party.partyIdInfo.extensionList.extension).toEqual([
             {
               "key": "Assgnmt.MsgId",
               "value": "01JFF7ZH1Z5J2A7RP7B2MC59HE"
