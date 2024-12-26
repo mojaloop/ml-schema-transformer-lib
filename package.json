@@ -62,8 +62,8 @@
     "@commitlint/config-conventional": "^19.6.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
-    "@typescript-eslint/eslint-plugin": "8.18.1",
-    "@typescript-eslint/parser": "8.18.1",
+    "@typescript-eslint/eslint-plugin": "8.18.2",
+    "@typescript-eslint/parser": "8.18.2",
     "@vitest/coverage-v8": "^2.1.8",
     "audit-ci": "^7.1.0",
     "eslint": "8.57.0",
@@ -71,18 +71,18 @@
     "eslint-plugin-import": "2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "npm-check-updates": "17.1.11",
+    "npm-check-updates": "17.1.12",
     "prettier": "3.4.2",
     "replace": "^1.2.2",
     "standard-version": "^9.5.0",
     "tsup": "^8.3.5",
-    "typedoc": "^0.27.5",
+    "typedoc": "^0.27.6",
     "typedoc-theme-hierarchy": "^5.0.4",
     "typescript": "5.7.2",
     "vitest": "^2.1.8"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.28.1"
+    "@rollup/rollup-linux-x64-musl": "4.29.1"
   },
   "standard-version": {
     "scripts": {
