@@ -30,6 +30,7 @@
     "node": ">=18.x"
   },
   "scripts": {
+    "_phase:build": "npm run build",
     "prepare": "husky || true",
     "prepublishOnly": "npm run build",
     "lint": "eslint ./src/**/*.ts ./test/**/*.ts",
