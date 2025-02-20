@@ -163,7 +163,11 @@ export const FspiopIso20022TransformFacade = {
           }
         }
       }
-
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopTarget;
@@ -178,6 +182,11 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopPutQuotesTarget;
     },
@@ -207,6 +216,11 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopTarget;
     },
@@ -234,6 +248,11 @@ export const FspiopIso20022TransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyRollUpUnmappedAsExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as FspiopTarget;

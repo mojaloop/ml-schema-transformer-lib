@@ -143,7 +143,11 @@ export const FspiopTransformFacade = {
           setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
         }
       }
- 
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline     
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
@@ -161,7 +165,11 @@ export const FspiopTransformFacade = {
       if (!source.body.payeeFspFee && hasProp(target, 'body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id')) {
         delete target.body.CdtTrfTxInf.ChrgsInf;
       }
- 
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline     
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
@@ -196,6 +204,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping,
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
@@ -224,6 +237,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = {
+        applyUnrollExtensions: { extensionListProperty: 'body.extensionList' }
+      };
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
       return runPipeline(source, target, pipelineOptions) as IsoTarget;
