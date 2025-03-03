@@ -1,5 +1,6 @@
 ## Add a comment indicating the reason for each rejected dependency upgrade added to this list, and what should be done to resolve it (i.e. handle it through a story, etc).
 reject: [
   "eslint", # typescript-eslint v7 only supports eslint v8
-  "ilp-packet" # peg this to same version as sdk-standard-components
+  "ilp-packet", # peg this to same version as sdk-standard-components
+  "typescript", # @typescript-eslint/parser only supports typescript 5.7. Need to wait for the new version of this component and then we can update typescript.
 ]
