@@ -909,12 +909,14 @@ export const fspiopIso20022Sources = {
           CreDtTm: '2024-10-07T11:00:34.493Z',
           NbOfTxs: '1',
           PmtInstrXpryDtTm: '2016-05-24T08:38:08.699-04:00',
-          PmtId: '12345678',
           SttlmInf: {
             SttlmMtd: 'CLRG'
           }
         },
         CdtTrfTxInf: {
+          PmtId: {
+            TxId: '12345678'
+          },
           Dbtr: {
             Id: {
               OrgId: {
