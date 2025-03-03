@@ -45,6 +45,7 @@ export const fxQuotes = {
   }`,
   put: `{
     "$noDefaults": "true",
+    "params.ID": "body.CdtTrfTxInf.PmtId.TxId",
     "body.condition": "body.CdtTrfTxInf.VrfctnOfTerms.Sh256Sgntr", 
     "body.conversionTerms.conversionId": "body.CdtTrfTxInf.PmtId.InstrId",
     "body.conversionTerms.determiningTransferId": "body.CdtTrfTxInf.PmtId.EndToEndId",
@@ -97,6 +98,7 @@ export const fxQuotes_reverse = {
     "body.GrpHdr.SttlmInf.SttlmMtd": { "$transform": "fixed", "value": "CLRG" },
     "body.GrpHdr.PmtInstrXpryDtTm": "body.conversionTerms.expiration",
     "body.CdtTrfTxInf.VrfctnOfTerms.Sh256Sgntr": "body.condition",
+    "body.CdtTrfTxInf.PmtId.TxId": "params.ID",
     "body.CdtTrfTxInf.PmtId.InstrId": "body.conversionTerms.conversionId",
     "body.CdtTrfTxInf.PmtId.EndToEndId": "body.conversionTerms.determiningTransferId",
     "body.CdtTrfTxInf.Dbtr.FinInstnId.Othr.Id": "body.conversionTerms.initiatingFsp",
