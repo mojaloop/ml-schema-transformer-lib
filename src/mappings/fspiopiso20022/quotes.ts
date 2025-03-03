@@ -54,7 +54,7 @@ export const quotes = {
   //       when CdtTrfTxInf.IntrBkSttlmAmt.ChrgsInf.Tp.Cd is "COMM"
   put: `{
     "$noDefaults": "true",
-    "params.ID": "body.GrpHdr.PmtId",
+    "params.ID": "body.CdtTrfTxInf.PmtId.TxId",
     "headers.fspiop-destination": "body.CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id",
     "headers.fspiop-source": "body.CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id",
     "body.expiration": "body.GrpHdr.PmtInstrXpryDtTm",
