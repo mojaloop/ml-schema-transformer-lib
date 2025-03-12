@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.8](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.7...v2.5.8) (2025-03-12)
+
+
+### Bug Fixes
+
+* update logger ([fd0e7e9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/fd0e7e984c2919e817e6859e4cc9f26644bd4b09))
+
 ### [2.5.7](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.6...v2.5.7) (2025-03-12)
 
 
