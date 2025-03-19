@@ -51,8 +51,8 @@
   },
   "dependencies": {
     "@mojaloop/central-services-error-handling": "13.0.7",
-    "@mojaloop/central-services-logger": "11.6.2",
-    "@mojaloop/central-services-shared": "18.22.3",
+    "@mojaloop/central-services-logger": "11.7.0",
+    "@mojaloop/central-services-shared": "18.23.0",
     "ilp-packet": "2.2.0",
     "map-transform-cjs": "0.2.0"
   },
@@ -80,13 +80,13 @@
     "@types/node": "22.13.10",
     "@typescript-eslint/eslint-plugin": "8.26.1",
     "@typescript-eslint/parser": "8.26.1",
-    "@vitest/coverage-v8": "3.0.8",
+    "@vitest/coverage-v8": "3.0.9",
     "audit-ci": "7.1.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-import": "2.31.0",
     "husky": "9.1.7",
-    "lint-staged": "15.4.3",
+    "lint-staged": "15.5.0",
     "npm-check-updates": "17.1.15",
     "prettier": "3.5.3",
     "replace": "1.2.2",
@@ -95,10 +95,10 @@
     "typedoc": "0.27.9",
     "typedoc-theme-hierarchy": "5.0.4",
     "typescript": "5.7.3",
-    "vitest": "3.0.8"
+    "vitest": "3.0.9"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.35.0"
+    "@rollup/rollup-linux-x64-musl": "4.36.0"
   },
   "standard-version": {
     "scripts": {
