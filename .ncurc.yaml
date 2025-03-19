@@ -3,4 +3,5 @@ reject: [
   "eslint", # typescript-eslint v7 only supports eslint v8
   "ilp-packet", # peg this to same version as sdk-standard-components
   "typescript", # @typescript-eslint/parser only supports typescript 5.7. Need to wait for the new version of this component and then we can update typescript.
+  "typedoc" # v0.28.0 conflicts with peer dependencies for typedoc-theme-hierarchy
 ]

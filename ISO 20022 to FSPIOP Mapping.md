@@ -92,8 +92,8 @@
 
 | Required by FSPIOP | Required by ISO 20022 | FSPIOP Field | ISO20022 Mapping |
 |--- |--- |--- |--- |
-| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Cd |
-|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Cd) |
+| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Prtry |
+|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Prtry) |
 
 ### **POST**/transfers : pacs.008.001.13 to FSPIOP
 
@@ -127,8 +127,8 @@
 
 | Required by FSPIOP | Required by ISO 20022 | FSPIOP Field | ISO20022 Mapping |
 |--- |--- |--- |--- |
-| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Cd |
-|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Cd) |
+| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Prtry |
+|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Prtry) |
 
 ### **POST**/fxquotes : pacs.091.001.01 to FSPIOP
 
@@ -165,8 +165,8 @@
 
 | Required by FSPIOP | Required by ISO 20022 | FSPIOP Field | ISO20022 Mapping |
 |--- |--- |--- |--- |
-| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Cd |
-|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Cd) |
+| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Prtry |
+|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Prtry) |
 
 ### **POST**/fxTransfers : pacs.009.001.12 to FSPIOP
 
@@ -195,8 +195,8 @@
 
 | Required by FSPIOP | Required by ISO 20022 | FSPIOP Field | ISO20022 Mapping |
 |--- |--- |--- |--- |
-| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Cd |
-|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Cd) |
+| TRUE |  | errorInformation.errorCode | TxInfAndSts.StsRsnInf.Rsn.Prtry |
+|  |  | errorInformation.errorDescription | getDescriptionfromCode(TxInfAndSts.StsRsnInf.Rsn.Prtry) |
 
 ### **PATCH**/fxTransfers/{ID} : pacs.002.001.15 to FSPIOP
 
