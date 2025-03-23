@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.8](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.7...v2.5.8) (2025-03-12)
+
+
+### Bug Fixes
+
+* update logger ([fd0e7e9](https://github.com/mojaloop/ml-schema-transformer-lib/commit/fd0e7e984c2919e817e6859e4cc9f26644bd4b09))
+
+### [2.5.7](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.6...v2.5.7) (2025-03-12)
+
+
+### Chore
+
+* dependencies ([5a9233e](https://github.com/mojaloop/ml-schema-transformer-lib/commit/5a9233ef0dea411fd34735ae08d05d226c503c1c))
+
+### [2.5.6](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.5...v2.5.6) (2025-03-03)
+
+
+### Bug Fixes
+
+* mapping ([743b98b](https://github.com/mojaloop/ml-schema-transformer-lib/commit/743b98b5399470dc118f2b8b0ddcfca37b0d92eb))
+* unit tests ([390d003](https://github.com/mojaloop/ml-schema-transformer-lib/commit/390d00307c8b725f12a0204cf2e9dad3dfabfaae))
+
+### [2.5.5](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.4...v2.5.5) (2025-03-03)
+
+
+### Bug Fixes
+
+* determiningTransferId ([ae5b6f1](https://github.com/mojaloop/ml-schema-transformer-lib/commit/ae5b6f19000c4e273fb4ec0f8881002f65c9a83e))
+* tests ([0383135](https://github.com/mojaloop/ml-schema-transformer-lib/commit/03831358b4cbc4394a1281ee9ecc8df194d4509f))
+
+
+### Chore
+
+* added code owner ([4d75f07](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4d75f07de9f8264fa7e3afad2c040ef9ce57e81d))
+* deps ([8296954](https://github.com/mojaloop/ml-schema-transformer-lib/commit/82969546432172c14b10fd4f5504514675fa45b7))
+
+### [2.5.4](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.3...v2.5.4) (2025-02-21)
+
+
+### Chore
+
+* maintenance updates ([3a94ba5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/3a94ba53e1aaba281f984eb2d2e39f631edf4247))
+
+### [2.5.3](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.2...v2.5.3) (2025-02-20)
+
+
+### Chore
+
+* chore: maintenance updates ([a556e28](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a556e2865f3a6da7b4648dab3dfd147d77db606f))
+
+### [2.5.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.1...v2.5.2) (2025-01-28)
+
+
+### Chore
+
+* maintenance updates ([16c2106](https://github.com/mojaloop/ml-schema-transformer-lib/commit/16c210607ddb44a2f13d37e0ea3e82ca908c54e1))
+
 ### [2.5.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.0...v2.5.1) (2024-12-20)
 
 
