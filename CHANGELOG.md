@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.8...v2.6.0) (2025-03-24)
+
+
+### Features
+
+* add build phase script to package.json ([a19faf7](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a19faf7634d33b2f1eba40827f32b52bc1edd5d0))
+
+
+### Bug Fixes
+
+* downgrade typedoc to version 0.27.9 and update related dependencies ([4257e38](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4257e38a3df2942e7807b3094f9b71eebebb6d23))
+* quote put test ([967e4a3](https://github.com/mojaloop/ml-schema-transformer-lib/commit/967e4a3f632b5376ffb00d1d8130eaceb440fd95))
+* update package dependencies to latest versions ([f71d8e1](https://github.com/mojaloop/ml-schema-transformer-lib/commit/f71d8e1d570cd7339d965d52aeb94484023e5e04))
+* update package dependencies to latest versions ([298621e](https://github.com/mojaloop/ml-schema-transformer-lib/commit/298621e9357e3431045ee13a2a99f2326ef503d2))
+
+
+### Chore
+
+* deps ([aeccf1e](https://github.com/mojaloop/ml-schema-transformer-lib/commit/aeccf1e0e40198ca34e2de2ec3d4b02175361435))
+* deps ([3da0eef](https://github.com/mojaloop/ml-schema-transformer-lib/commit/3da0eefb501a9997ada6fbe80380730d4d5667a9))
+* monorepo ([b2b6e55](https://github.com/mojaloop/ml-schema-transformer-lib/commit/b2b6e55f0318e3e71cb89eb5ff6ef7e4be76fb87))
+
 ### [2.5.8](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.7...v2.5.8) (2025-03-12)
 
 

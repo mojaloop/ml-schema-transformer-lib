@@ -127,7 +127,7 @@ export const quotes_reverse = {
     "body.CdtTrfTxInf.InstdAmt.ActiveOrHistoricCurrencyAndAmount": "body.payeeReceiveAmount.amount",
     "body.CdtTrfTxInf.ChrgsInf.Amt.Ccy": "body.payeeFspFee.currency",
     "body.CdtTrfTxInf.ChrgsInf.Amt.ActiveOrHistoricCurrencyAndAmount": "body.payeeFspFee.amount",
-    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.CdtrAgt", { "$transform": "fixed", "value": "Testing" } ] },
+    "body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id": { "$alt": [ "$context.isoPostQuote.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id", { "$transform": "fixed", "value": "Testing" } ] },
     "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"
   }`,
   put: `{
