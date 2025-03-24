@@ -104,6 +104,6 @@ export const fxTransfers_reverse = {
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
     "body.TxInfAndSts.StsRsnInf.Rsn.Prtry": "body.errorInformation.errorCode",
-    "body.TxInfAndSts.StsRsnInf.AddtlInf": "body.errorInformation.errorDescription"
+    "body.TxInfAndSts.StsRsnInf.AddtlInf": [ "body.errorInformation.errorDescription", { "$transform": "toIsoErrorDescription" } ]
   }`
 }

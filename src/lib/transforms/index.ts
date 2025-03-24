@@ -67,6 +67,12 @@ export const CustomTransforms: ICustomTransforms = {
     return toIsoTransferState(data as string);
   },
 
+  toIsoErrorDescription: (options: Options) => () => (data: unknown, state: State) => {
+    // In ISO20022, error descriptions are limited to 105 characters
+    const dataStr = data as string;
+    return dataStr.length > 105 ? dataStr.substring(0, 105) : dataStr;
+  },
+
   supportedCurrenciesToString: (options: Options) => () => (data: unknown, state: State) => {
     return data && Array.isArray(data) && data.length > 0 ? data[0] : data;
   },
