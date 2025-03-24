@@ -83,3 +83,5 @@ devspace*
 test/reports
 
 .DS_Store
+
+.rush
