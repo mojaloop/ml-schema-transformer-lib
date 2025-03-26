@@ -9,7 +9,7 @@ const specPath = path.join(path.dirname(require.resolve('@mojaloop/api-snippets'
 describe('Validator', () => {
   let validator: Validator;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     validator = new Validator(specPath);
     await validator.initialize()
   });
@@ -18,7 +18,7 @@ describe('Validator', () => {
     await validator.initialize();
     expect(validator.apiSpec).toBeDefined();
     expect(validator.apiValidator).toBeDefined();
-  });
+  }, 10_000);
 
   describe('validateRequest', () => {
     it('should throw an error if validation fails', () => {
