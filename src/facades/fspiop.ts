@@ -46,9 +46,9 @@ import { runPipeline } from '../lib/transforms/pipeline';
 import { applyUnrollExtensions } from '../lib/transforms/extensions';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { TransformDefinition } from '../types/map-transform';
-const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
 
-const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false }; 
+const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
+const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false, validateTarget: false }; 
 const afterTransformSteps = [ applyUnrollExtensions ];
 
 const createPipelineOptions = (options: FspiopFacadeOptions, mapping: TransformDefinition) => {
@@ -57,9 +57,8 @@ const createPipelineOptions = (options: FspiopFacadeOptions, mapping: TransformD
     mapping,
     pipelineSteps: afterTransformSteps,
     logger: Config.logger as ContextLogger,
-    unrollExtensions: hasProp(options, 'unrollExtensions')
-      ? !!options.unrollExtensions
-      : Config.unrollExtensions,
+    unrollExtensions: hasProp(options, 'unrollExtensions') ? !!options.unrollExtensions : Config.unrollExtensions,
+    validateTarget: hasProp(options, 'validateTarget') ? !!options.validateTarget : Config.validateTarget,
   };
 };
 
@@ -70,6 +69,7 @@ export const FspiopTransformFacade = {
     if (config.logger && isContextLogger(config.logger)) Config.logger = config.logger;
     if (hasProp(config, 'isTestingMode')) Config.isTestingMode = !!config.isTestingMode;
     if (hasProp(config, 'unrollExtensions')) Config.unrollExtensions = !!config.unrollExtensions;
+    if (hasProp(config, 'validateTarget')) Config.validateTarget = !!config.validateTarget;
   },
   parties: {
     put: async (source: FspiopPutPartiesSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {

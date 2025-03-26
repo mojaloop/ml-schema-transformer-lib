@@ -45,9 +45,9 @@ import { runPipeline } from '../lib/transforms/pipeline';
 import { applyRollUpUnmappedAsExtensions } from '../lib/transforms/extensions';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { TransformDefinition } from '../types/map-transform';
-const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 
-const Config: ConfigOptions = { logger: defaultLogger, rollUpUnmappedAsExtensions: false };
+const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
+const Config: ConfigOptions = { logger: defaultLogger, rollUpUnmappedAsExtensions: false, validateTarget: false };
 const afterTransformSteps = [ applyRollUpUnmappedAsExtensions ];
 
 const createPipelineOptions = (options: IsoFacadeOptions, mapping: TransformDefinition) => {
@@ -68,6 +68,7 @@ export const FspiopIso20022TransformFacade = {
     validateConfig(config);
     if (config.logger && isContextLogger(config.logger)) Config.logger = config.logger;
     if (hasProp(config, 'rollUpUnmappedAsExtensions')) Config.rollUpUnmappedAsExtensions = !!config.rollUpUnmappedAsExtensions;
+    if (hasProp(config, 'validateTarget')) Config.validateTarget = !!config.validateTarget;
   },
   parties: {
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutPartiesTarget> => {

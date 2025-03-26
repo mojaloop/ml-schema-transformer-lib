@@ -29,11 +29,24 @@
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { AsyncTransformer, Options, State, TransformDefinition, Transformer } from './map-transform';
 
+export enum HTTP_METHOD {
+  GET = 'GET',
+  PUT = 'PUT',
+  POST = 'POST',
+  DELETE = 'DELETE',
+  PATCH = 'PATCH'
+}
+
+export enum API_NAME {
+  FSPIOP = 'fspiop',
+  ISO20022 = 'iso'
+}
+
 export interface ITransformer {
   transform(source: Partial<Source>, { mapperOptions }: { mapperOptions?: State }): Promise<Partial<Target>>;
 }
 
-export type FacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State };
+export type FacadeOptions = { overrideMapping?: TransformDefinition, mapTransformOptions?: Options, mapperOptions?: State, validateTarget?: boolean };
 
 export type FspiopFacadeOptions = FacadeOptions & { unrollExtensions?: boolean };
 export type FspiopFacadeFunction = (source: Source, options: FacadeOptions) => Promise<IsoTarget>;
@@ -57,6 +70,7 @@ export type ConfigOptions = {
   isTestingMode?: boolean;
   unrollExtensions?: boolean;
   rollUpUnmappedAsExtensions?: boolean;
+  validateTarget?: boolean;
 }
 
 export type Headers = {

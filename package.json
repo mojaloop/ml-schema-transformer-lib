@@ -56,7 +56,9 @@
     "@mojaloop/central-services-logger": "11.7.0",
     "@mojaloop/central-services-shared": "18.23.0",
     "ilp-packet": "2.2.0",
-    "map-transform-cjs": "0.2.0"
+    "js-yaml": "4.1.0",
+    "map-transform-cjs": "0.2.0",
+    "swagger-parser": "10.0.3"
   },
   "overrides": {
     "esbuild": "0.25.0",
