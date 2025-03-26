@@ -1,6 +1,6 @@
 import path from 'path';
 import * as fs from 'fs';
-import * as yaml from 'js-yaml';
+// import * as yaml from 'js-yaml';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { API_NAME, GenericObject } from 'src/types';
 
@@ -36,7 +36,6 @@ export const validate = (data: GenericObject, spec: { name: string, version: str
     apiSpec = fs.readFileSync(apiSpecPath, 'utf8');
     specsCache[apiSpecPath] = apiSpec;
   }
-
 
 
   return { errors };

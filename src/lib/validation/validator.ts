@@ -58,7 +58,8 @@ export class Validator {
     return true;
   }
 
-  validateBody(body: GenericObject, path: string, method: HTTP_METHOD) {
+  validateBody(partialRequest: { body: GenericObject, path: string, method: HTTP_METHOD }) {
+    const { body, path, method } = partialRequest;
     const validation = this.apiValidator.validateRequest({ path, method, body, headers: {} });
 
     if (validation.errors) {
@@ -71,7 +72,8 @@ export class Validator {
     return true;
   }
 
-  validateHeaders(headers: GenericObject, path: string, method: HTTP_METHOD) {
+  validateHeaders(partialRequest: { headers: GenericObject, path: string, method: HTTP_METHOD }) {
+    const { headers, path, method } = partialRequest;
     const validation = this.apiValidator.validateRequest({ path, method, headers, body: {} });
 
     if (validation.errors) {
