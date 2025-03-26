@@ -53,8 +53,8 @@
   "dependencies": {
     "@mojaloop/api-snippets": "17.10.1",
     "@mojaloop/central-services-error-handling": "13.0.7",
-    "@mojaloop/central-services-logger": "11.7.0",
-    "@mojaloop/central-services-shared": "18.23.0",
+    "@mojaloop/central-services-logger": "11.8.0",
+    "@mojaloop/central-services-shared": "18.23.1",
     "ilp-packet": "2.2.0",
     "js-yaml": "4.1.0",
     "map-transform-cjs": "0.2.0",
@@ -97,7 +97,7 @@
     "standard-version": "9.5.0",
     "tsup": "8.4.0",
     "typedoc": "0.27.9",
-    "typedoc-theme-hierarchy": "5.0.4",
+    "typedoc-theme-hierarchy": "5.0.5",
     "typescript": "5.7.3",
     "vitest": "3.0.9"
   },
