@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { API_NAME, HTTP_METHOD } from 'src/types';
-import { getApiSpecPath, validateTarget, applyTargetValidation } from '../../../../src/lib/validation';
+import { getApiSpecPath, validateBody, applyTargetValidation } from '../../../../src/lib/validation';
 import { expectedFspiopTargets, mockLogger } from 'test/fixtures';
 
 describe('Validation Tests', () => {
@@ -25,18 +25,18 @@ describe('Validation Tests', () => {
     });
   });
 
-  describe('validateTarget', () => {
-    it('should return true for a valid target object', async () => {
+  describe('validateBody', () => {
+    it('should return true for a valid payload', async () => {
       const target = expectedFspiopTargets.transfers.post;
       const spec = { name: API_NAME.FSPIOP, version: '2.0', path: '/transfers', method: HTTP_METHOD.POST };
-      const result = await validateTarget(target, spec);
+      const result = await validateBody(target.body, spec);
       expect(result).toBe(true);
     });
 
-    it('should throw an error for an invalid target object', async () => {
+    it('should throw an error for an invalid payload', async () => {
       const target = { body: {} }
       const spec = { name: API_NAME.FSPIOP, version: '2.0', path: '/transfers', method: HTTP_METHOD.POST };
-      await expect(validateTarget(target, spec)).rejects.toThrowError();
+      await expect(validateBody(target, spec)).rejects.toThrowError();
     });
   });
 

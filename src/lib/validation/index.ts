@@ -55,7 +55,7 @@ export const getApiSpecPath = (apiName: API_NAME, version: string): string => {
 /**
  * Returns true or throws if the target object fails validation against the API spec
  */
-export const validateTarget = async (target: GenericObject, spec: { name: API_NAME, version: string, path: string, method: HTTP_METHOD }): Promise<boolean> => {
+export const validateBody = async (body: GenericObject, spec: { name: API_NAME, version: string, path: string, method: HTTP_METHOD }): Promise<boolean> => {
   const apiSpecPath = getApiSpecPath(spec.name, spec.version);
 
   let validator: Validator = validatorsCache.get(apiSpecPath) as Validator;
@@ -65,7 +65,7 @@ export const validateTarget = async (target: GenericObject, spec: { name: API_NA
     validatorsCache.set(apiSpecPath, validator);
   }
 
-  return validator.validateBody({ body: target.body, path: spec.path, method: spec.method }) as boolean;
+  return validator.validateBody({ body, path: spec.path, method: spec.method }) as boolean;
 }
  
 export const applyTargetValidation = async (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
@@ -82,7 +82,7 @@ export const applyTargetValidation = async (params: { source: GenericObject, tar
     throw new Error('Missing or invalid targetSpec in applyTargetValidation options');
   }
 
-  await validateTarget(target, targetSpec);
+  await validateBody(target.body, targetSpec);
 
   return target;
 }
