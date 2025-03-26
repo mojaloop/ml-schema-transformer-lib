@@ -27,11 +27,12 @@
  ******/
 
 import path from 'path';
+import NodeCache from 'node-cache';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { API_NAME, GenericObject, HTTP_METHOD } from 'src/types';
 import { Validator } from './validator';
 
-const validatorsCache: GenericObject = {};
+const validatorsCache = new NodeCache();
 
 export const getApiSpecPath = (apiName: API_NAME, version: string): string => {
   let specFile: string;
@@ -54,19 +55,20 @@ export const getApiSpecPath = (apiName: API_NAME, version: string): string => {
 /**
  * Returns true or throws if the target object fails validation against the API spec
  */
-export const validateTarget = (target: GenericObject, spec: { name: API_NAME, version: string, path: string, method: HTTP_METHOD }): boolean => {
+export const validateTarget = async (target: GenericObject, spec: { name: API_NAME, version: string, path: string, method: HTTP_METHOD }): Promise<boolean> => {
   const apiSpecPath = getApiSpecPath(spec.name, spec.version);
 
-  let validator: Validator = validatorsCache[apiSpecPath];
+  let validator: Validator = validatorsCache.get(apiSpecPath) as Validator;
   if (!validator) {
     validator = new Validator(apiSpecPath);
-    validatorsCache[apiSpecPath] = validator;
+    await validator.initialize();
+    validatorsCache.set(apiSpecPath, validator);
   }
 
-  return validator.validateBody({ body: target, path: spec.path, method: spec.method }) as boolean;
+  return validator.validateBody({ body: target.body, path: spec.path, method: spec.method }) as boolean;
 }
-
-export const applyTargetValidation = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
+ 
+export const applyTargetValidation = async (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
   const { target, options, logger } = params;
 
   if (!options.validateTarget) {
@@ -80,7 +82,7 @@ export const applyTargetValidation = (params: { source: GenericObject, target: G
     throw new Error('Missing or invalid targetSpec in applyTargetValidation options');
   }
 
-  validateTarget(target, targetSpec);
+  await validateTarget(target, targetSpec);
 
   return target;
 }

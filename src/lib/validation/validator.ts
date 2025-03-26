@@ -55,7 +55,7 @@ export class Validator {
   validateRequest(request: { path: string, method: HTTP_METHOD, headers: GenericObject, body: GenericObject, query: GenericObject }, returnErrors: boolean = false): boolean | ErrorObject[] {
     const validation = this.apiValidator.validateRequest(request);
 
-    if (validation.errors) {
+    if (validation.errors && validation.errors.length > 0) {
       if (returnErrors) return validation.errors;
       throw new Error(`Validation errors: ${JSON.stringify(validation.errors)}`);
     }
@@ -69,7 +69,7 @@ export class Validator {
 
     if (validation.errors) {
       const bodyErrors = validation.errors.filter((error: any) => error.instancePath === '/requestBody');
-      if (bodyErrors) {
+      if (bodyErrors && bodyErrors.length > 0) {
         if (returnErrors) return bodyErrors;
         throw new Error(`Validation errors: ${JSON.stringify(bodyErrors)}`);
       }
@@ -84,7 +84,7 @@ export class Validator {
 
     if (validation.errors) {
       const headersErrors = validation.errors.filter((error: any) => error.instancePath === '/header');
-      if (headersErrors) {
+      if (headersErrors && headersErrors.length > 0) {
         if (returnErrors) return headersErrors;
         throw new Error(`Validation errors: ${JSON.stringify(headersErrors)}`);
       }

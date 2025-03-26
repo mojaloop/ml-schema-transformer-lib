@@ -46,10 +46,11 @@ import { runPipeline } from '../lib/transforms/pipeline';
 import { applyRollUpUnmappedAsExtensions } from '../lib/transforms/extensions';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { TransformDefinition } from '../types/map-transform';
+import { applyTargetValidation } from '../lib/validation';
 
 const { discovery, quotes, fxQuotes, transfers, fxTransfers } = FSPIO20022PMappings;
 const Config: ConfigOptions = { logger: defaultLogger, rollUpUnmappedAsExtensions: false, validateTarget: false };
-const afterTransformSteps = [ applyRollUpUnmappedAsExtensions ];
+const afterTransformSteps = [ applyRollUpUnmappedAsExtensions, applyTargetValidation ];
 const FSPIOPVersion = '2.0';
 
 const targetValidationConfig = (params: { path: string, method: string }) => ({
@@ -103,7 +104,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopPutPartiesTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopPutPartiesTarget>;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutPartiesErrorTarget> => {
       if (!TypeGuards.FSPIOPISO20022.parties.putError.isSource(source)) {
@@ -130,7 +131,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopPutPartiesErrorTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopPutPartiesErrorTarget>;
     },
   },
   quotes: {
@@ -179,7 +180,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopPutQuotesTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.put.isSource(source)) {
@@ -195,7 +196,7 @@ export const FspiopIso20022TransformFacade = {
       const stepsConfig = targetValidationConfig({ path: '/quotes/{ID}', method: 'put' });
       options = { ...options, ...stepsConfig };
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopPutQuotesTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopPutQuotesTarget>;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.quotes.putError.isSource(source)) {
@@ -212,7 +213,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
   },
   transfers: {
@@ -231,7 +232,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     patch: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.patch.isSource(source)) {
@@ -248,7 +249,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.put.isSource(source)) {
@@ -265,7 +266,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.transfers.putError.isSource(source)) {
@@ -282,7 +283,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
   },
   fxQuotes: {
@@ -304,7 +305,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.put.isSource(source)) {
@@ -324,7 +325,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxQuotes.putError.isSource(source)) {
@@ -341,7 +342,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
   },
   fxTransfers: {
@@ -359,7 +360,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     patch: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.patch.isSource(source)) {
@@ -376,7 +377,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     put: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.put.isSource(source)) {
@@ -392,7 +393,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     },
     putError: async (source: IsoSource, options: IsoFacadeOptions = {}): Promise<FspiopTarget> => {
       if (!TypeGuards.FSPIOPISO20022.fxTransfers.putError.isSource(source)) {
@@ -409,7 +410,7 @@ export const FspiopIso20022TransformFacade = {
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as FspiopTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<FspiopTarget>;
     }
   },
 };
