@@ -61,7 +61,7 @@ describe('Validation Tests', () => {
       await expect(applyTargetValidation(params)).rejects.toThrowError('Missing or invalid targetSpec in applyTargetValidation options');
       expect(params.logger.error).toHaveBeenCalledWith('Missing or invalid targetSpec in applyTargetValidation options', expect.any(Object));
     });
-    it.only('should apply target validation successfully', async () => {
+    it('should apply target validation successfully', async () => {
       const params = {
         source: {},
         target: expectedFspiopTargets.transfers.post,
