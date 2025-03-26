@@ -54,7 +54,7 @@ const FSPIOPVersion = '2.0';
 
 const targetValidationConfig = (params: { path: string, method: string }) => ({
   applyTargetValidation: { targetSpec: { name: API_NAME.FSPIOP, version: FSPIOPVersion, path: params.path, method: params.method } }
-})
+});
 
 const createPipelineOptions = (options: IsoFacadeOptions, mapping: TransformDefinition) => {
   return {

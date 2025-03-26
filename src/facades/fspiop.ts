@@ -55,7 +55,7 @@ const afterTransformSteps = [ applyUnrollExtensions ];
 
 const targetValidationConfig = (params: { path: string, method: string }) => ({
   applyTargetValidation: { targetSpec: { name: API_NAME.ISO20022, version: ISO20022Version, path: params.path, method: params.method } }
-})
+});
 const createPipelineOptions = (options: FspiopFacadeOptions, mapping: TransformDefinition) => {
   return {
     ...options,
