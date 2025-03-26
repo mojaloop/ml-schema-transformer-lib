@@ -1,12 +1,12 @@
 import path from 'path';
-import * as fs from 'fs';
-// import * as yaml from 'js-yaml';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { API_NAME, GenericObject } from 'src/types';
+import { API_NAME, GenericObject, HTTP_METHOD } from 'src/types';
+import { Validator } from './validator';
 
 const specsCache: GenericObject = {};
+const validatorsCache: GenericObject = {};
 
-export const getApiSpecPath = (apiName: string, version: string): string => {
+export const getApiSpecPath = (apiName: API_NAME, version: string): string => {
   let specFile: string;
 
   switch (apiName) {
@@ -24,22 +24,19 @@ export const getApiSpecPath = (apiName: string, version: string): string => {
   return specPath;
 }
 
-export const validate = (data: GenericObject, spec: { name: string, version: string, path: string }): { errors: string[] } => {
-  const errors: string[] = [];
+/**
+ * Returns true or throws if the target object fails validation against the API spec
+ */
+export const validateTarget = (target: GenericObject, spec: { name: API_NAME, version: string, path: string, method: HTTP_METHOD }): boolean => {
   const apiSpecPath = getApiSpecPath(spec.name, spec.version);
-  
-  let apiSpec = specsCache[apiSpecPath];
-  
-  if (!apiSpec) {
-    // Do we need this yaml loader?
-    // apiSpec = yaml.load(fs.readFileSync(apiSpecPath, 'utf8'));
-    apiSpec = fs.readFileSync(apiSpecPath, 'utf8');
-    specsCache[apiSpecPath] = apiSpec;
+
+  let validator: Validator = validatorsCache[apiSpecPath];
+  if (!validator) {
+    validator = new Validator(apiSpecPath);
+    validatorsCache[apiSpecPath] = validator;
   }
 
-
-  return { errors };
-
+  return validator.validateBody({ body: target, path: spec.path, method: spec.method }) as boolean;
 }
 
 export const applyTargetValidation = (params: { source: GenericObject, target: GenericObject, options: GenericObject, logger: ContextLogger }) => {
@@ -56,11 +53,7 @@ export const applyTargetValidation = (params: { source: GenericObject, target: G
     throw new Error('Missing or invalid targetSpec in applyTargetValidation options');
   }
 
-  const validationResult = validate(target, targetSpec);
-  if (validationResult.errors.length > 0) {
-    logger.error('Target validation failed', { target, validationResult });
-    throw new Error('Target validation failed');
-  }
+  validateTarget(target, targetSpec);
 
   return target;
 }

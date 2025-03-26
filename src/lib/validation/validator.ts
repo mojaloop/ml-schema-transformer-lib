@@ -30,6 +30,7 @@
 import SwaggerParser from "@apidevtools/swagger-parser";
 import { OpenAPIValidator, Document } from "openapi-backend";
 import { GenericObject, HTTP_METHOD } from 'src/types';
+import { ErrorObject } from "ajv";
 
 export class Validator {
   apiDoc: string;
@@ -37,6 +38,9 @@ export class Validator {
   apiValidator: OpenAPIValidator;
   ajvOpts: any = { allErrors: true, coerceTypes: true, strict: false }
 
+  /**
+   * @param apiDoc - The path to the OpenAPI document or the document itself
+   */
   constructor(apiDoc: string) {
     this.apiDoc = apiDoc;
     this.apiSpec = {} as Document;
@@ -48,23 +52,25 @@ export class Validator {
     this.apiValidator = new OpenAPIValidator({ definition: this.apiSpec, ajvOpts: this.ajvOpts });
   }
 
-  validateRequest(request: { path: string, method: HTTP_METHOD, body: GenericObject, headers: GenericObject }) {
+  validateRequest(request: { path: string, method: HTTP_METHOD, headers: GenericObject, body: GenericObject, query: GenericObject }, returnErrors: boolean = false): boolean | ErrorObject[] {
     const validation = this.apiValidator.validateRequest(request);
 
     if (validation.errors) {
+      if (returnErrors) return validation.errors;
       throw new Error(`Validation errors: ${JSON.stringify(validation.errors)}`);
     }
 
     return true;
   }
 
-  validateBody(partialRequest: { body: GenericObject, path: string, method: HTTP_METHOD }) {
+  validateBody(partialRequest: { body: GenericObject, path: string, method: HTTP_METHOD }, returnErrors: boolean = false): boolean | ErrorObject[] {
     const { body, path, method } = partialRequest;
     const validation = this.apiValidator.validateRequest({ path, method, body, headers: {} });
 
     if (validation.errors) {
       const bodyErrors = validation.errors.filter((error: any) => error.instancePath === '/requestBody');
       if (bodyErrors) {
+        if (returnErrors) return bodyErrors;
         throw new Error(`Validation errors: ${JSON.stringify(bodyErrors)}`);
       }
     }
@@ -72,13 +78,14 @@ export class Validator {
     return true;
   }
 
-  validateHeaders(partialRequest: { headers: GenericObject, path: string, method: HTTP_METHOD }) {
+  validateHeaders(partialRequest: { headers: GenericObject, path: string, method: HTTP_METHOD }, returnErrors: boolean = false): boolean | ErrorObject[] {
     const { headers, path, method } = partialRequest;
     const validation = this.apiValidator.validateRequest({ path, method, headers, body: {} });
 
     if (validation.errors) {
       const headersErrors = validation.errors.filter((error: any) => error.instancePath === '/header');
       if (headersErrors) {
+        if (returnErrors) return headersErrors;
         throw new Error(`Validation errors: ${JSON.stringify(headersErrors)}`);
       }
     }
