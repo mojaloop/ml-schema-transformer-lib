@@ -58,6 +58,7 @@
     "ilp-packet": "2.2.0",
     "js-yaml": "4.1.0",
     "map-transform-cjs": "0.2.0",
+    "openapi-backend": "5.11.1",
     "swagger-parser": "10.0.3"
   },
   "overrides": {
