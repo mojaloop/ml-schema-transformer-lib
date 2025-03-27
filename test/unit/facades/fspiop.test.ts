@@ -309,6 +309,18 @@ describe('FSPIOPTransformFacade tests', () => {
       it('should transform POST transfers payload from FSPIOP to FSPIOP ISO 20022', async () => {
         await testCase(fspiopSources.transfers.post, FspiopTransformFacade.transfers.post, expected('transfers.post'))();
       });
+      it('should activate target validation if set in options', async () => {
+        const source = { ...fspiopSources.transfers.post } as unknown as  FspiopPostTransfersSource;
+        // We expect validation of ISO targets to fail because we do not currently produce valid ISO 20022 messages
+        await expect(FspiopTransformFacade.transfers.post(source, { validateTarget: true })).rejects.toThrow();
+      }, 10_000);
+      it('should activate target validation via global configure function', async () => {
+        FspiopTransformFacade.configure({ validateTarget: true });
+        const source = { ...fspiopSources.transfers.post } as unknown as  FspiopPostTransfersSource;
+        // We expect validation of ISO targets to fail because we do not currently produce valid ISO 20022 messages
+        await expect(FspiopTransformFacade.transfers.post(source)).rejects.toThrow();
+        FspiopTransformFacade.configure({ validateTarget: false });
+      }, 10_000);
     });
     describe('POST /transfers testing mode false', () => {
       it('should throw error if no context is provided', async () => {

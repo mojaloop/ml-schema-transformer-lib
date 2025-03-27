@@ -40,26 +40,31 @@ import {
   IsoTarget,
   FspiopFacadeOptions,
   TypeGuards,
-  isContextLogger
+  isContextLogger,
+  API_NAME
 } from '../types';
 import { runPipeline } from '../lib/transforms/pipeline';
 import { applyUnrollExtensions } from '../lib/transforms/extensions';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
 import { TransformDefinition } from '../types/map-transform';
+import { applyTargetValidation } from '../lib/validation';
+
+const ISO20022Version = '2.0';
 const { discovery_reverse, quotes_reverse, transfers_reverse, fxQuotes_reverse } = FSPIO20022PMappings;
+const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false, validateTarget: false }; 
+const afterTransformSteps = [ applyUnrollExtensions, applyTargetValidation ];
 
-const Config: ConfigOptions = { logger: defaultLogger, isTestingMode: false, unrollExtensions: false }; 
-const afterTransformSteps = [ applyUnrollExtensions ];
-
+const targetValidationConfig = (params: { path: string, method: string }) => ({
+  applyTargetValidation: { targetSpec: { name: API_NAME.ISO20022, version: ISO20022Version, path: params.path, method: params.method } }
+});
 const createPipelineOptions = (options: FspiopFacadeOptions, mapping: TransformDefinition) => {
   return {
     ...options,
     mapping,
     pipelineSteps: afterTransformSteps,
     logger: Config.logger as ContextLogger,
-    unrollExtensions: hasProp(options, 'unrollExtensions')
-      ? !!options.unrollExtensions
-      : Config.unrollExtensions,
+    unrollExtensions: hasProp(options, 'unrollExtensions') ? !!options.unrollExtensions : Config.unrollExtensions,
+    validateTarget: hasProp(options, 'validateTarget') ? !!options.validateTarget : Config.validateTarget,
   };
 };
 
@@ -70,6 +75,7 @@ export const FspiopTransformFacade = {
     if (config.logger && isContextLogger(config.logger)) Config.logger = config.logger;
     if (hasProp(config, 'isTestingMode')) Config.isTestingMode = !!config.isTestingMode;
     if (hasProp(config, 'unrollExtensions')) Config.unrollExtensions = !!config.unrollExtensions;
+    if (hasProp(config, 'validateTarget')) Config.validateTarget = !!config.validateTarget;
   },
   parties: {
     put: async (source: FspiopPutPartiesSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
@@ -91,12 +97,13 @@ export const FspiopTransformFacade = {
       });
       // step-specific configuration
       const stepsConfig = {
-        applyUnrollExtensions: { extensionListProperty: 'body.party.partyIdInfo.extensionList' }
+        applyUnrollExtensions: { extensionListProperty: 'body.party.partyIdInfo.extensionList' },
+        ...targetValidationConfig({ path: '/parties/{Type}/{ID}/{SubId}', method: 'put' })
       };
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopPutPartiesErrorSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.parties.putError.isSource(source)) {
@@ -115,9 +122,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping,
       });
+      const stepsConfig = targetValidationConfig({ path: '/parties/{Type}/{ID}/{SubId}/error', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
   },
   quotes: {
@@ -144,10 +153,11 @@ export const FspiopTransformFacade = {
           setProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf', getProp(source, 'body.transactionType.refundInfo.reason'));
         }
       }
- 
+      const stepsConfig = targetValidationConfig({ path: '/quotes', method: 'post' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline     
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     put: async (source: FspiopPutQuotesSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.put.isSource(source)) throw new Error('Invalid source object for put quotes');
@@ -162,10 +172,11 @@ export const FspiopTransformFacade = {
       if (!source.body.payeeFspFee && hasProp(target, 'body.CdtTrfTxInf.ChrgsInf.Agt.FinInstnId.Othr.Id')) {
         delete target.body.CdtTrfTxInf.ChrgsInf;
       }
- 
+      const stepsConfig = targetValidationConfig({ path: '/quotes/{ID}', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline     
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.quotes.putError.isSource(source)) {
@@ -177,9 +188,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping,
       });
+      const stepsConfig = targetValidationConfig({ path: '/quotes/{ID}/error', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
   },
   transfers: {
@@ -197,9 +210,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping,
       });
+      const stepsConfig = targetValidationConfig({ path: '/transfers/{ID}', method: 'post' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.patch.isSource(source)) {
@@ -211,9 +226,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/transfers/{ID}', method: 'patch' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.put.isSource(source)) {
@@ -225,9 +242,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/transfers/{ID}', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.transfers.putError.isSource(source)) {
@@ -239,9 +258,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/transfers/{ID}/error', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
   },
   fxQuotes: {
@@ -257,12 +278,13 @@ export const FspiopTransformFacade = {
       });
       // step-specific configuration
       const stepsConfig = {
-        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' },
+        ...targetValidationConfig({ path: '/fxQuotes/{ID}', method: 'post' })
       };
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.put.isSource(source)) {
@@ -276,12 +298,13 @@ export const FspiopTransformFacade = {
       });
       // step-specific configuration
       const stepsConfig = {
-        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' }
+        applyUnrollExtensions: { extensionListProperty: 'body.conversionTerms.extensionList' },
+        ...targetValidationConfig({ path: '/fxQuotes/{ID}', method: 'put' })
       };
       options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxQuotes.putError.isSource(source)) {
@@ -293,9 +316,12 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      // step-specific configuration
+      const stepsConfig = targetValidationConfig({ path: '/fxQuotes/{ID}/error', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
   },
   fxTransfers: {
@@ -309,9 +335,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/fxTransfers/{ID}', method: 'post' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     patch: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.patch.isSource(source)) {
@@ -323,9 +351,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/fxTransfers/{ID}', method: 'patch' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     put: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.put.isSource(source)) {
@@ -337,9 +367,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/fxTransfers/{ID}', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
     putError: async (source: FspiopSource, options: FspiopFacadeOptions = {}): Promise<IsoTarget> => {
       if (!TypeGuards.FSPIOP.fxTransfers.putError.isSource(source)) {
@@ -351,9 +383,11 @@ export const FspiopTransformFacade = {
         logger: Config.logger as ContextLogger,
         mapping
       });
+      const stepsConfig = targetValidationConfig({ path: '/fxTransfers/{ID}/error', method: 'put' });
+      options = { ...options, ...stepsConfig };
       // apply additional transformation steps to target via pipeline
       const pipelineOptions = createPipelineOptions(options, mapping);
-      return runPipeline(source, target, pipelineOptions) as IsoTarget;
+      return runPipeline(source, target, pipelineOptions) as Promise<IsoTarget>;
     },
   },
 };

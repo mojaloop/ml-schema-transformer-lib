@@ -31,15 +31,15 @@ import { runPipeline } from '../../../../src/lib/transforms/pipeline';
 
 describe('Pipeline', () => {
   describe('runPipeline', () => {
-    it('should throw an error if options.pipelineSteps is not an array', () => {
+    it('should throw an error if options.pipelineSteps is not an array', async () => {
       const source = {};
       const target = {};
       const options = {
         pipelineSteps: 'notAnArray'
-      };
-      expect(() => runPipeline(source, target, options)).toThrowError('runPipeline: options.pipelineSteps must be an array');
+      } as any;
+      await expect(runPipeline(source, target, options)).rejects.toThrowError('runPipeline: options.pipelineSteps must be an array');
     });
-    it('should run each step in the pipeline', () => {
+    it('should run each step in the pipeline', async () => {
       const source = {};
       const target = {};
       const options = {
@@ -50,12 +50,12 @@ describe('Pipeline', () => {
         ],
         logger: mockLogger
       };
-      runPipeline(source, target, options);
+      await runPipeline(source, target, options);
       for (const step of options.pipelineSteps) {
         expect(step).toHaveBeenCalledWith({ source, target, options: {}, logger: expect.any(Object) });
       }
     });
-    it('should return the result of the last step', () => {
+    it('should return the result of the last step', async () => {
       const source = {};
       const target = {};
       const options = {
@@ -63,9 +63,10 @@ describe('Pipeline', () => {
           vi.fn().mockReturnValue({}),
           vi.fn().mockReturnValue({}),
           vi.fn().mockReturnValue({ finalResult: 'finalResult' })
-        ]
+        ],
+        logger: mockLogger
       };
-      const result = runPipeline(source, target, options);
+      const result = await runPipeline(source, target, options);
       expect(result).toEqual({ finalResult: 'finalResult' });
     });
   });

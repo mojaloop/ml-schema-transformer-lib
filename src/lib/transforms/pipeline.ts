@@ -29,13 +29,13 @@
 import { GenericObject, PipelineOptions } from '../../types';
 
 // Runs a pipeline of transformation steps on the source object and returns the target object
-export const runPipeline = (source: GenericObject, target: GenericObject, options: PipelineOptions): GenericObject => {
+export const runPipeline = async (source: GenericObject, target: GenericObject, options: PipelineOptions): Promise<GenericObject> => {
   if (!options.hasOwnProperty('pipelineSteps') || !Array.isArray(options.pipelineSteps)) {
     throw new Error('runPipeline: options.pipelineSteps must be an array');
   }
   const { pipelineSteps, logger, ...stepOptions } = options;
   for (const step of pipelineSteps) {
-    target = step({ source, target, options: stepOptions, logger });
+    target = await step({ source, target, options: stepOptions, logger });
   }
   return target;
 };
