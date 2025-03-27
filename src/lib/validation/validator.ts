@@ -29,7 +29,7 @@
 
 import SwaggerParser from "@apidevtools/swagger-parser";
 import { OpenAPIValidator, Document } from "openapi-backend";
-import { GenericObject, HTTP_METHOD } from 'src/types';
+import { GenericObject, HTTP_METHOD } from '../../types';
 import { ErrorObject } from "ajv";
 
 export class Validator {

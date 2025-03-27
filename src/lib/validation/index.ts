@@ -29,7 +29,7 @@
 import path from 'path';
 import NodeCache from 'node-cache';
 import { ContextLogger } from '@mojaloop/central-services-logger/src/contextLogger';
-import { API_NAME, GenericObject, HTTP_METHOD } from 'src/types';
+import { API_NAME, GenericObject, HTTP_METHOD } from '../../types';
 import { Validator } from './validator';
 
 const validatorsCache = new NodeCache();
