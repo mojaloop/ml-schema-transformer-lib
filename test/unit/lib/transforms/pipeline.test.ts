@@ -31,13 +31,13 @@ import { runPipeline } from '../../../../src/lib/transforms/pipeline';
 
 describe('Pipeline', () => {
   describe('runPipeline', () => {
-    it('should throw an error if options.pipelineSteps is not an array', () => {
+    it('should throw an error if options.pipelineSteps is not an array', async () => {
       const source = {};
       const target = {};
       const options = {
         pipelineSteps: 'notAnArray'
       } as any;
-      expect(runPipeline(source, target, options)).rejects.toThrowError('runPipeline: options.pipelineSteps must be an array');
+      await expect(runPipeline(source, target, options)).rejects.toThrowError('runPipeline: options.pipelineSteps must be an array');
     });
     it('should run each step in the pipeline', async () => {
       const source = {};
