@@ -212,7 +212,7 @@ export const fspiopSources = {
       body: {
         errorInformation: {
           errorCode: '3100',
-          errorDescription: 'string',
+          errorDescription: 'Client Validation Error',
           extensionList: {
             extension: [
               {
@@ -979,8 +979,9 @@ export const fspiopIso20022Sources = {
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1145,8 +1146,9 @@ export const fspiopIso20022Sources = {
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1249,8 +1251,9 @@ export const fspiopIso20022Sources = {
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1373,8 +1376,9 @@ export const fspiopIso20022Sources = {
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1624,8 +1628,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1728,8 +1733,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -1905,8 +1911,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }
@@ -2029,8 +2036,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         TxInfAndSts: {
           StsRsnInf: {
             Rsn: {
-              Cd: '3100'
-            }
+              Prtry: '3100'
+            },
+            AddtlInf: 'Client Validation Error'
           }
         }
       }

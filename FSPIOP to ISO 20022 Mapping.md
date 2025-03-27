@@ -113,7 +113,7 @@
 |--- |--- |--- |--- |
 |  | TRUE | GrpHdr.MsgId | generateID() |
 |  | TRUE | GrpHdr.CreDtTm | datetimeNow() |
-| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Cd | errorInformation.errorCode |
+| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Prtry | errorInformation.errorCode |
 
 ### **POST**/transfers : FSPIOP to pacs.008.001.13
 
@@ -159,7 +159,7 @@
 |--- |--- |--- |--- |
 |  | TRUE | GrpHdr.MsgId | generateID() |
 |  | TRUE | GrpHdr.CreDtTm | datetimeNow() |
-| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Cd | errorInformation.errorCode |
+| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Prtry | errorInformation.errorCode |
 
 ### **POST**/fxquotes : FSPIOP to pacs.091.001.01
 
@@ -211,7 +211,7 @@
 |--- |--- |--- |--- |
 |  | TRUE | GrpHdr.MsgId | generateID() |
 |  | TRUE | GrpHdr.CreDtTm | datetimeNow() |
-| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Cd | errorInformation.errorCode |
+| TRUE |  | TxInfAndSts.StsRsnInf.Rsn.Prtry | errorInformation.errorCode |
 
 ### **POST**/fxTransfers : FSPIOP to pacs.009.001.12
 
@@ -252,7 +252,7 @@
 |--- |--- |--- |--- |
 |  | TRUE | GrpHdr.MsgId | generateID() |
 |  | TRUE | GrpHdr.CreDtTm | datetimeNow() |
-|  |  | TxInfAndSts.StsRsnInf.Rsn.Cd | errorInformation.errorCode |
+|  |  | TxInfAndSts.StsRsnInf.Rsn.Prtry | errorInformation.errorCode |
 
 ### **PATCH**/fxTransfers/{ID} : FSPIOP to pacs.002.001.15
 
