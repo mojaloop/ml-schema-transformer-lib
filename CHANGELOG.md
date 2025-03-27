@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.0-snapshot.5...v2.7.0) (2025-03-27)
+
+
+### Features
+
+* **csi-1248:** add api validation ([bb36a42](https://github.com/mojaloop/ml-schema-transformer-lib/commit/bb36a4210545be0732b37c57452afba020479642))
+
+
+### Chore
+
+* pr reviews changes ([28f804d](https://github.com/mojaloop/ml-schema-transformer-lib/commit/28f804d753b082225d94d8b7efd4786c55017e55))
+* pr reviews changes ([32bf35a](https://github.com/mojaloop/ml-schema-transformer-lib/commit/32bf35a10fa3284b8fcde210b2c65ca20b81da2a))
+
 ## [2.6.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.5.8...v2.6.0) (2025-03-24)
 
 
