@@ -159,3 +159,11 @@ export const logLevelValues = Object.values(logLevelsMap);
 export type LogLevel = (typeof logLevelValues)[number];
 export * from './type-guards';
 
+export type Request = {
+  path: string;
+  method: HTTP_METHOD;
+  headers: GenericObject;
+  body: GenericObject;
+  query: GenericObject;
+}
+
