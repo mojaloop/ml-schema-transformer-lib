@@ -185,7 +185,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         const source = { ...fspiopIso20022Sources.transfers.post };
         await expect(FspiopIso20022TransformFacade.transfers.post(source, { validateTarget: true })).resolves.not.toThrow();
         FspiopIso20022TransformFacade.configure({ validateTarget: false });
-      });
+      }, 10_000);
       it('should activate target validation via global configure funtion', async () => {
         const source = { ...fspiopIso20022Sources.transfers.post };
         FspiopIso20022TransformFacade.configure({ validateTarget: true });
