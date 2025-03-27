@@ -79,5 +79,11 @@ describe('Transforms tests', () => {
       const result = (CustomTransforms.toArray as Function)({} as Options)()(data, state as State);
       expect(result).toEqual(undefined);
     });
+    it('should truncate error description to 105 characters', async () => {
+      const data = 'a'.repeat(200);
+      const state = {};
+      const result = (CustomTransforms.toIsoErrorDescription as Function)({} as Options)()(data, state as State);
+      expect(result).toEqual('a'.repeat(105));
+    });
   });
 });

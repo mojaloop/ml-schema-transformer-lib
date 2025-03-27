@@ -69,8 +69,8 @@ export const quotes = {
   }`,
   putError: `{
     "$noDefaults": "true",
-    "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Cd",
-    "body.errorInformation.errorDescription": ["body.TxInfAndSts.StsRsnInf.Rsn.Cd", { "$transform": "fspiopErrorDescrForCode" }]
+    "body.errorInformation.errorCode": "body.TxInfAndSts.StsRsnInf.Rsn.Prtry",
+    "body.errorInformation.errorDescription": "body.TxInfAndSts.StsRsnInf.AddtlInf"
   }`
 }
 
@@ -156,6 +156,7 @@ export const quotes_reverse = {
     "$noDefaults": "true",
     "body.GrpHdr.MsgId": { "$transform": "generateID" },
     "body.GrpHdr.CreDtTm": { "$transform": "datetimeNow" },
-    "body.TxInfAndSts.StsRsnInf.Rsn.Cd": "body.errorInformation.errorCode"
+    "body.TxInfAndSts.StsRsnInf.Rsn.Prtry": "body.errorInformation.errorCode",
+    "body.TxInfAndSts.StsRsnInf.AddtlInf": [ "body.errorInformation.errorDescription", { "$transform": "toIsoErrorDescription" } ]
   }`
 }
