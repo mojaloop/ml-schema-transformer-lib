@@ -27,9 +27,9 @@
  --------------
  ******/
 
-import SwaggerParser from "@apidevtools/swagger-parser";
-import { OpenAPIValidator, Document } from "openapi-backend";
-import { ErrorObject, Options } from "ajv";
+import SwaggerParser from '@apidevtools/swagger-parser';
+import { OpenAPIValidator, Document } from 'openapi-backend';
+import { ErrorObject, Options } from 'ajv';
 import stringify from 'fast-safe-stringify';
 import { Request } from '../../types';
 
