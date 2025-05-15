@@ -14,11 +14,11 @@ FROM node:${NODE_VERSION} as builder
 WORKDIR /opt/app
 
 ## Copy basic files for installing dependencies
-COPY tsconfig.json package*.json ./
+COPY tsconfig.json package*.json tsup.config.ts ./
 COPY src ./src
 
 RUN npm ci
-
+RUN ls -la /opt/app/src  # Debug (can remove later)
 ## Build the app
 RUN npm run build
 
