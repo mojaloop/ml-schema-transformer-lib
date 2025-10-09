@@ -32,7 +32,7 @@ import { expectedFspiopIso20022Targets, expectedFspiopTargets, fspiopIso20022Sou
 import { getProp } from 'src/lib/utils';
 import { logger as defaultLogger } from '../../src/lib';
 
-const PERF_THRESHOLD_MS = 3000;
+const PERF_THRESHOLD_MS = 2000;
 
 const expected = (prop: string) => {
   return (target: GenericObject) => {
