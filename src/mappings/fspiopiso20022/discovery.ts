@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -37,6 +37,7 @@ export const discovery = {
       "params.IdPath": "body.Rpt.OrgnlId",
       "body.party.partyIdInfo.partyIdType": { "$alt": [ "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry", "body.Rpt.UpdtdPtyAndAcctId.Pty.PrvtId.Othr.Id" ] },
       "body.party.partyIdInfo.partyIdentifier": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id"] },
+      "body.party.partyIdInfo.partySubIdOrType": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Issr", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Issr"] },
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
       "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
       "body.party.supportedCurrencies": ["body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy", { "$transform": "toArray" }]
@@ -67,7 +68,9 @@ export const discovery_reverse = {
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isNotPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.SchmeNm.Prtry": ["body.party.partyIdInfo.partyIdType", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isNotPersonParty" }],
+      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Issr": ["body.party.partyIdInfo.partySubIdOrType", { "$filter": "isNotPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
+      "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Issr": ["body.party.partyIdInfo.partySubIdOrType", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id": "body.party.partyIdInfo.fspId",
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm": "body.party.name",
       "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy": ["body.party.supportedCurrencies", { "$transform": "supportedCurrenciesToString" }]
