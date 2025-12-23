@@ -1423,6 +1423,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                     SchmeNm: {
                       Prtry: 'MSISDN'
                     },
+                    Issr: 'PARTY-SUBID-OR-TYPE',
                     Id: '16135551212'
                   }
                 }

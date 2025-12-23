@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -520,7 +520,7 @@ describe('Extensions', () => {
               }
             ]
           }
-      
+
           const source = request;
           const target = await transformer(source, { unrollExtensions: true  });
           expect(target.body).toEqual({
@@ -571,6 +571,7 @@ describe('Extensions', () => {
                         "SchmeNm": {
                           "Prtry": "MSISDN"
                         },
+                        "Issr": "PARTY-SUBID-OR-TYPE",
                         "Id": "16135551212"
                       }
                     }
