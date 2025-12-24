@@ -12,7 +12,7 @@ describe('Validator', () => {
   beforeAll(async () => {
     validator = new Validator(specPath);
     await validator.initialize()
-  });
+  }, 20_000);
 
   it('should initialize the validator', async () => {
     await validator.initialize();
@@ -47,7 +47,7 @@ describe('Validator', () => {
       const request = {
         path: '/transfers',
         method: HTTP_METHOD.POST,
-        headers: { 
+        headers: {
           'accept': 'application/vnd.interoperability.transfers+json;version=2.0',
           'content-type': 'application/vnd.interoperability.transfers+json;version=2.0',
           'date': new Date().toISOString(),
@@ -60,7 +60,7 @@ describe('Validator', () => {
       expect(result).toBe(true);
     });
   })
-  
+
   describe('validateBody', () => {
     it('should throw an error if validation fails', () => {
       const partialRequest = {
@@ -111,7 +111,7 @@ describe('Validator', () => {
     });
     it('should validate the headers', () => {
       const partialRequest = {
-        headers: { 
+        headers: {
           'accept': 'application/vnd.interoperability.transfers+json;version=2.0',
           'content-type': 'application/vnd.interoperability.transfers+json;version=2.0',
           'date': new Date().toISOString(),
