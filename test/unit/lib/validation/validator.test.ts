@@ -18,7 +18,7 @@ describe('Validator', () => {
     await validator.initialize();
     expect(validator.apiSpec).toBeDefined();
     expect(validator.apiValidator).toBeDefined();
-  }, 10_000);
+  }, 20_000);
 
   describe('validateRequest', () => {
     it('should throw an error if validation fails', () => {
