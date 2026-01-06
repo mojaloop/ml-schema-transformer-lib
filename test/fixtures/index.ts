@@ -1423,7 +1423,6 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                     SchmeNm: {
                       Prtry: 'MSISDN'
                     },
-                    Issr: 'PARTY-SUBID-OR-TYPE',
                     Id: '16135551212'
                   }
                 }
@@ -1434,6 +1433,9 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
               FinInstnId: {
                 Othr: {
                   Id: 'FSPID'
+                },
+                ClrSysMmbId: {
+                  MmbId: 'PARTY-SUBID-OR-TYPE'
                 }
               }
             },

@@ -554,6 +554,9 @@ describe('Extensions', () => {
                     "LEI": "529900T8BM49AURSDO55",
                     "Othr": {
                       "Id": "FSPID"
+                    },
+                    "ClrSysMmbId": {
+                      "MmbId": "PARTY-SUBID-OR-TYPE"
                     }
                   }
                 },
@@ -571,7 +574,6 @@ describe('Extensions', () => {
                         "SchmeNm": {
                           "Prtry": "MSISDN"
                         },
-                        "Issr": "PARTY-SUBID-OR-TYPE",
                         "Id": "16135551212"
                       }
                     }
