@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.12](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.11...v2.7.12) (2026-01-06)
+
+
+### Bug Fixes
+
+* subid mapping ([001ab07](https://github.com/mojaloop/ml-schema-transformer-lib/commit/001ab07cafcc72fd0cd7db6720ffe08015ecca8f))
+
 ### [2.7.11](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.10...v2.7.11) (2026-01-04)
 
 
