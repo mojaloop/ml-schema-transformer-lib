@@ -90,7 +90,9 @@ export const transfers_reverse = {
       "body.CdtTrfTxInf.Cdtr": "$context.isoPostQuoteResponse.CdtTrfTxInf.Cdtr",
       "body.CdtTrfTxInf.Dbtr": "$context.isoPostQuoteResponse.CdtTrfTxInf.Dbtr",
       "body.CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id": "body.payeeFsp",
+      "body.CdtTrfTxInf.CdtrAgt.FinInstnId.ClrSysMmbId.MmbId": "$context.isoPostQuoteResponse.CdtTrfTxInf.CdtrAgt.FinInstnId.ClrSysMmbId.MmbId",
       "body.CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id": "body.payerFsp",
+      "body.CdtTrfTxInf.DbtrAgt.FinInstnId.ClrSysMmbId.MmbId": "$context.isoPostQuoteResponse.CdtTrfTxInf.DbtrAgt.FinInstnId.ClrSysMmbId.MmbId",
       "body.CdtTrfTxInf.IntrBkSttlmAmt.Ccy": "body.amount.currency",
       "body.CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount": "body.amount.amount",
       "body.CdtTrfTxInf.VrfctnOfTerms.IlpV4PrepPacket": "body.ilpPacket"

@@ -389,7 +389,7 @@ describe('Extensions', () => {
                 }
               },
               Rpt: {
-                OrgnlId: 'MSISDN/16135551002',
+                OrgnlId: '01KE9MJ8HBEVJEHJB6Y77VNWGT',
                 Vrfctn: true,
                 UpdtdPtyAndAcctId: {
                   Agt: {
@@ -431,7 +431,7 @@ describe('Extensions', () => {
             body: request.body,
           };
           const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
-          expect(target.body.party.partyIdInfo.extensionList.extension.length).toEqual(9);
+          expect(target.body.party.partyIdInfo.extensionList.extension.length).toEqual(10);
           expect(target.body.party.partyIdInfo.extensionList.extension).toEqual([
             {
               "key": "Assgnmt.MsgId",
@@ -440,6 +440,10 @@ describe('Extensions', () => {
             {
               "key": "Assgnmt.CreDtTm",
               "value": "2024-12-19T10:38:55.546Z"
+            },
+            {
+              "key": "Rpt.OrgnlId",
+              "value": "01KE9MJ8HBEVJEHJB6Y77VNWGT",
             },
             {
               "key": "Rpt.Vrfctn",
@@ -485,6 +489,10 @@ describe('Extensions', () => {
               {
                 "key": "Assgnmt.MsgId",
                 "value": "01JFF7ZH1Z5J2A7RP7B2MC59HE"
+              },
+              {
+                "key": "Rpt.OrgnlId",
+                "value": "01KE9MPVZ83JKQ0JFKWY7NHKQ0"
               },
               {
                 "key": "Assgnmt.CreDtTm",
@@ -584,7 +592,7 @@ describe('Extensions', () => {
                   "Ccy": "AED"
                 }
               },
-              "OrgnlId": "MSISDN/16135551212/subId"
+              "OrgnlId": "01KE9MPVZ83JKQ0JFKWY7NHKQ0"
             }
           });
         });
@@ -755,8 +763,12 @@ describe('Extensions', () => {
           const transformer = FspiopIso20022TransformFacade.parties.putError;
           const source = fspiopIso20022Sources.parties.putError;
           const target = await transformer(source, { rollUpUnmappedAsExtensions: true  });
-          expect(target.body.errorInformation.extensionList.extension.length).toEqual(3);
+          expect(target.body.errorInformation.extensionList.extension.length).toEqual(4);
           expect(target.body.errorInformation.extensionList.extension).toEqual([
+            {
+              "key": "Rpt.OrgnlId",
+              "value": "01KE9MJ8HBEVJEHJB6Y77VNWGT",
+            },
             {
               "key": "Rpt.Vrfctn",
               "value": false
@@ -789,6 +801,10 @@ describe('Extensions', () => {
                 "value": "01J96K505K7NDQFSBG9P743BF3"
               },
               {
+                "key": "Rpt.OrgnlId",
+                "value": "01KE9MJ8HBEVJEHJB6Y77VNWGT"
+              },
+              {
                 "key": "Assgnmt.CreDtTm",
                 "value": "2024-10-02T12:26:48.372Z"
               }
@@ -801,7 +817,7 @@ describe('Extensions', () => {
               "Rsn": {
                 "Cd": "3100"
               },
-              "OrgnlId": "MSISDN/16135551212/subId"
+              "OrgnlId": "01KE9MJ8HBEVJEHJB6Y77VNWGT"
             },
             "Assgnmt": {
               "MsgId": "01J96K505K7NDQFSBG9P743BF3",
