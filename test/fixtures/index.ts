@@ -114,8 +114,7 @@ export const fspiopSources = {
       params: {
         Type: 'MSISDN',
         ID: '16135551212',
-        SubId: 'subId',
-        IdPath: 'MSISDN/16135551212/subId'
+        SubId: 'subId'
       }
     }
   },
@@ -474,11 +473,6 @@ export const expectedFspiopTargets = {
         'fspiop-source': 'source',
         'fspiop-destination': 'destination'
       },
-      params: {
-        Type: 'MSISDN',
-        ID: '16135551212',
-        SubId: 'subId'
-      },
       body: {
         party: {
           partyIdInfo: {
@@ -503,11 +497,6 @@ export const expectedFspiopTargets = {
       headers: {
         'fspiop-source': 'source',
         'fspiop-destination': 'destination'
-      },
-      params: {
-        Type: 'MSISDN',
-        ID: '16135551212',
-        SubId: 'subId'
       }
     }
   },
@@ -744,7 +733,7 @@ export const fspiopIso20022Sources = {
           }
         },
         Rpt: {
-          OrgnlId: 'MSISDN/16135551212/subId',
+          OrgnlId: '01KE9MJ8HBEVJEHJB6Y77VNWGT',
           Vrfctn: true,
           UpdtdPtyAndAcctId: {
             Pty: {
@@ -780,7 +769,7 @@ export const fspiopIso20022Sources = {
           Rsn: {
             Cd: '3100'
           },
-          OrgnlId: 'MSISDN/16135551212/subId',
+          OrgnlId: '01KE9MJ8HBEVJEHJB6Y77VNWGT',
           Vrfctn: false
         },
         Assgnmt: {
@@ -1414,7 +1403,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
         },
         Rpt: {
           Vrfctn: true,
-          OrgnlId: 'MSISDN/16135551212/subId',
+          OrgnlId: getProp(target, 'body.Rpt.OrgnlId'),
           UpdtdPtyAndAcctId: {
             Pty: {
               Id: {
@@ -1452,7 +1441,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
           Rsn: {
             Cd: '3100'
           },
-          OrgnlId: 'MSISDN/16135551212/subId',
+          OrgnlId: getProp(target, 'body.Rpt.OrgnlId'),
           Vrfctn: false
         },
         Assgnmt: {

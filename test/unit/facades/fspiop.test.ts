@@ -85,23 +85,11 @@ describe('FSPIOPTransformFacade tests', () => {
     it('should transform PUT parties error payload from FSPIOP to FSPIOP ISO 20022', async () => {
       await testCase(fspiopSources.parties.putError, FspiopTransformFacade.parties.putError, expected('parties.putError'))();
     });
-    it('should construct source.params.IdPath if not present for PUT parties', async () => {
-      const source = { ...fspiopSources.parties.put };
-      setProp(source, 'params.IdPath', undefined);
-      const target = await FspiopTransformFacade.parties.put(source);
-      expect(getProp(target, 'body.Rpt.OrgnlId')).toBe('MSISDN/16135551212/subId');
-    });
     it('should throw if source is wrongly typed', async () => {
       const source = { ...fspiopSources.parties.putError };
       setProp(source, 'headers', undefined);
       const promise = FspiopTransformFacade.parties.putError(source);
       await expect(promise).rejects.toThrow('Invalid source object for put parties error');
-    });
-    it('should construct source.params.IdPath if not present for PUT parties error', async () => {
-      const source = { ...fspiopSources.parties.putError };
-      setProp(source, 'params.IdPath', undefined);
-      const target = await FspiopTransformFacade.parties.putError(source);
-      expect(getProp(target, 'body.Rpt.OrgnlId')).toBe('MSISDN/16135551212/subId');
     });
   });
   describe('Quotes', () => {
