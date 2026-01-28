@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.13...v2.8.0) (2026-01-28)
+
+
+### Features
+
+* map complex name to iso20022 Pty.Nm ([#68](https://github.com/mojaloop/ml-schema-transformer-lib/issues/68)) ([920ad66](https://github.com/mojaloop/ml-schema-transformer-lib/commit/920ad660df38745f6c587c2aba74ee732a6b7f9b))
+
 ### [2.7.13](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.12...v2.7.13) (2026-01-07)
 
 
