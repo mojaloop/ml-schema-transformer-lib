@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -84,6 +84,102 @@ describe('Transforms tests', () => {
       const state = {};
       const result = (CustomTransforms.toIsoErrorDescription as Function)({} as Options)()(data, state as State);
       expect(result).toEqual('a'.repeat(105));
+    });
+  });
+  describe('Name parsing functions', () => {
+    describe('getFirstFromDelimitedName', () => {
+      it('should return the first name from delimited string', async () => {
+        const data = 'Henrik;Johannes;Karlsson';
+        const state = {};
+        const result = (CustomTransforms.getFirstFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Henrik');
+      });
+      it('should return the only name if no delimiter', async () => {
+        const data = 'Henrik';
+        const state = {};
+        const result = (CustomTransforms.getFirstFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Henrik');
+      });
+    });
+
+    describe('getMiddleFromDelimitedName', () => {
+      it('should return the second name from delimited string', async () => {
+        const data = 'Henrik;Johannes;Karlsson';
+        const state = {};
+        const result = (CustomTransforms.getMiddleFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Johannes');
+      });
+      it('should return undefined if no second name exists', async () => {
+        const data = 'Henrik';
+        const state = {};
+        const result = (CustomTransforms.getMiddleFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBeUndefined();
+      });
+    });
+
+    describe('getLastFromDelimitedName', () => {
+      it('should return the third name from delimited string', async () => {
+        const data = 'Henrik;Johannes;Karlsson';
+        const state = {};
+        const result = (CustomTransforms.getLastFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Karlsson');
+      });
+      it('should return undefined if no third name exists', async () => {
+        const data = 'Henrik;Johannes';
+        const state = {};
+        const result = (CustomTransforms.getLastFromDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBeUndefined();
+      });
+    });
+
+    describe('makeDelimitedName', () => {
+      it('should create delimited name from all three parts', async () => {
+        const data = {
+          firstName: 'Henrik',
+          middleName: 'Johannes',
+          lastName: 'Karlsson'
+        };
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Henrik;Johannes;Karlsson');
+      });
+      it('should create delimited name without middle name', async () => {
+        const data = {
+          firstName: 'Henrik',
+          lastName: 'Karlsson'
+        };
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Henrik;;Karlsson');
+      });
+      it('should create delimited name with only first name', async () => {
+        const data = {
+          firstName: 'Henrik'
+        };
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('Henrik;;');
+      });
+      it('should handle undefined data gracefully', async () => {
+        const data = undefined;
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
+
+      it('should handle null data gracefully', async () => {
+        const data = null;
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
+
+      it('should handle empty object', async () => {
+        const data = {};
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
     });
   });
 });

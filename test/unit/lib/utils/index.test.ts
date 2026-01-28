@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -45,6 +45,11 @@ import {
   toIsoTransferState,
   unrollExtensions,
   validateConfig,
+  getFirstFromDelimitedName,
+  getMiddleFromDelimitedName,
+  getLastFromDelimitedName,
+  makeDelimitedName,
+  replaceDelimiterWithSpaces
 } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
@@ -225,7 +230,7 @@ describe('Utils tests', () => {
   });
   describe('rollUpUnmappedAsExtensions', () => {
     it('should rollup unmapped properties into an extensions array', () => {
-      const source = { 
+      const source = {
         body: { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4', key5: { key6: { key7: 'value7' } } },
         headers: { header1: 'value1', header2: 'value2' },
         params: { param1: 'value1', param2: 'value2' }
@@ -277,6 +282,78 @@ describe('Utils tests', () => {
       const arr = [{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'a' }];
       const deduped = deduplicateObjectsArray(arr, 'key');
       expect(deduped).toEqual([{ key: 'a' }, { key: 'b' }, { key: 'c' }]);
+    });
+  });
+  describe('Delimited name functions', () => {
+    it('should get the first part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const first = getFirstFromDelimitedName(name);
+      expect(first).toBe('First');
+    });
+    it('should get the second part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const second = getMiddleFromDelimitedName(name);
+      expect(second).toBe('Middle');
+    });
+    it('should get the third part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const third = getLastFromDelimitedName(name);
+      expect(third).toBe('Last');
+    });
+    it('should return undefined for missing parts', () => {
+      const name = 'First';
+      expect(getMiddleFromDelimitedName(name)).toBeUndefined();
+      expect(getLastFromDelimitedName(name)).toBeUndefined();
+    });
+    it('should make a delimited name from parts', () => {
+      const name = makeDelimitedName('First', 'Middle', 'Last');
+      expect(name).toBe('First;Middle;Last');
+    });
+    it('should make a delimited name with missing parts', () => {
+      const name1 = makeDelimitedName('First');
+      expect(name1).toBe('First;;');
+
+      const name2 = makeDelimitedName('First', 'Middle');
+      expect(name2).toBe('First;Middle;');
+    });
+    it('should handle empty strings in delimited names', () => {
+      const name = makeDelimitedName('First', '', 'Last');
+      expect(name).toBe('First;;Last');
+
+      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
+    });
+    it('should handle empty complexName to and from', () => {
+      const name = makeDelimitedName('', '', '');
+      expect(name).toBe('');
+
+      expect(getFirstFromDelimitedName(name)).toBe(undefined);
+      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
+      expect(getLastFromDelimitedName(name)).toBe(undefined);
+    });
+    it('should replace delimiters with spaces in a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const replaced = replaceDelimiterWithSpaces(name);
+      expect(replaced).toBe('First Middle Last');
+    });
+
+    it('should handle empty string in replaceDelimiterWithSpaces', () => {
+      const replaced = replaceDelimiterWithSpaces('');
+      expect(replaced).toBe('');
+    });
+
+    it('should handle single name without delimiters', () => {
+      const replaced = replaceDelimiterWithSpaces('First');
+      expect(replaced).toBe('First');
+    });
+
+    it('should handle multiple consecutive delimiters', () => {
+      const replaced = replaceDelimiterWithSpaces('First;;Last');
+      expect(replaced).toBe('First Last');
+    });
+
+    it('should preserve spaces in name parts', () => {
+      const replaced = replaceDelimiterWithSpaces('First Name;Middle Name;Last Name');
+      expect(replaced).toBe('First Name Middle Name Last Name');
     });
   });
 });

@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -201,7 +201,7 @@ export const extractValues = (obj: GenericObject) => {
       current.forEach(item => recurse(item));
     } else if (typeof current === 'object' && current !== null) {
       Object.values(current).forEach(value => recurse(value));
-    } else { 
+    } else {
       values.push((current as Primitive));
     }
   }
@@ -240,4 +240,41 @@ export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string)
     }
     return acc;
   }, []);
+}
+
+// Extracts the first value from a semicolon-delimited string
+// e.g 'First;Middle;Last' => 'First'
+export const getFirstFromDelimitedName = (name: string): string | undefined => {
+  if (!name) return undefined;
+  const parts = name.split(';');
+  return parts[0]?.trim() || undefined;
+}
+
+// Extracts the second value from a semicolon-delimited string
+// e.g 'First;Middle;Last' => 'Middle'
+export const getMiddleFromDelimitedName = (name: string): string | undefined => {
+  if (!name) return undefined;
+  const parts = name.split(';');
+  return parts[1]?.trim() || undefined;
+}
+
+// Extracts the third value from a semicolon-delimited string
+// e.g 'First;Middle;Last' => 'Last'
+export const getLastFromDelimitedName = (name: string): string | undefined => {
+  if (!name) return undefined;
+  const parts = name.split(';');
+  return parts[2]?.trim() || undefined;
+}
+
+// Creates a semicolon-delimited string from three values
+// e.g ('First', 'Middle', 'Last') => 'First;Middle;Last'
+export const makeDelimitedName = (first?: string, second?: string, third?: string): string => {
+  if (!first && !second && !third) return '';
+  const parts = [first, second, third];
+  return parts.join(';');
+}
+// Replaces semicolon delimiters with spaces in a string
+// e.g 'First;Middle;Last' => 'First Middle Last'
+export const replaceDelimiterWithSpaces = (value: string): string | undefined => {
+  return value?.split(';').map(part => part.trim()).filter(part => part).join(' ');
 }

@@ -132,6 +132,12 @@ export const fspiopSources = {
             partyIdentifier: '4567890',
             dateOfBirth: '1980-01-01'
           },
+          personalInfo: {
+            complexName: {
+              firstName: 'Jane',
+              lastName: 'Doe'
+            }
+          },
           supportedCurrencies: ['XTS', 'XDT']
         },
         payer: {
@@ -141,6 +147,11 @@ export const fspiopSources = {
             partyIdentifier: '987654321',
             fspId: 'dfsp2',
             dateOfBirth: '1970-01-01'
+          },
+          personalInfo: {
+            complexName: {
+              firstName: 'John',
+            }
           },
           supportedCurrencies: ['XXX', 'XXY']
         },
@@ -480,7 +491,14 @@ export const expectedFspiopTargets = {
             partyIdentifier: '16135551212',
             fspId: 'FSPID'
           },
-          name: 'party-name',
+          name: 'Henrik Johannes Karlsson',
+          personalInfo: {
+            complexName: {
+              firstName: 'Henrik',
+              lastName: 'Karlsson',
+              middleName: 'Johannes',
+            },
+          },
           supportedCurrencies: [
             'AED'
           ]
@@ -512,7 +530,13 @@ export const expectedFspiopTargets = {
             partyIdentifier: '4567890',
             fspId: '4321'
           },
-          name: 'Payee Name',
+          name: 'Jane Doe',
+          personalInfo: {
+            complexName: {
+              firstName: 'Jane',
+              lastName: 'Doe'
+            }
+          },
           supportedCurrencies: [
             'XTS'
           ]
@@ -522,7 +546,13 @@ export const expectedFspiopTargets = {
             partyIdentifier: '987654321',
             fspId: 'dfsp2'
           },
-          name: 'Payer Name',
+          name: 'John Middle',
+          personalInfo: {
+            complexName: {
+              firstName: 'John',
+              middleName: 'Middle'
+            }
+          },
           supportedCurrencies: [
             'XXX',
             'XXY'
@@ -747,7 +777,7 @@ export const fspiopIso20022Sources = {
                   }
                 }
               },
-              Nm: 'party-name'
+              Nm: 'Henrik;Johannes;Karlsson'
             },
             Agt: {
               FinInstnId: {
@@ -822,7 +852,7 @@ export const fspiopIso20022Sources = {
                 }
               }
             },
-            Name: 'Payee Name'
+            Name: 'Jane;;Doe'
           },
           CdtrAgt: {
             FinInstnId: {
@@ -850,7 +880,7 @@ export const fspiopIso20022Sources = {
                 }
               }
             },
-            Name: 'Payer Name'
+            Name: 'John;Middle;'
           },
           DbtrAcct: {
             Ccy: [
@@ -1416,7 +1446,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                   }
                 }
               },
-              Nm: 'party-name'
+              Nm: 'Henrik;Johannes;Karlsson'
             },
             Agt: {
               FinInstnId: {
@@ -1497,7 +1527,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                 }
               }
             },
-            Name: 'Payee Name'
+            Name: 'Jane;;Doe'
           },
           CdtrAcct: {
             Ccy: 'XTS'
@@ -1513,7 +1543,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                 }
               }
             },
-            Name: 'Payer Name'
+            Name: 'John;;'
           },
           DbtrAcct: {
             Ccy: 'XXX'

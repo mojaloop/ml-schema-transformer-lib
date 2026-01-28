@@ -586,7 +586,7 @@ describe('Extensions', () => {
                       }
                     }
                   },
-                  "Nm": "party-name"
+                  "Nm": "Henrik;Johannes;Karlsson"
                 },
                 "Acct": {
                   "Ccy": "AED"
