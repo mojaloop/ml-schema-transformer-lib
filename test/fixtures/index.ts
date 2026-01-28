@@ -483,9 +483,9 @@ export const expectedFspiopTargets = {
           name: 'Henrik;Johannes;Karlsson',
           personalInfo: {
             complexName: {
-              firstName: "Henrik",
-              lastName: "Karlsson",
-              middleName: "Johannes",
+              firstName: 'Henrik',
+              lastName: 'Karlsson',
+              middleName: 'Johannes',
             },
           },
           supportedCurrencies: [
