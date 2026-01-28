@@ -530,7 +530,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '4567890',
             fspId: '4321'
           },
-          name: "Jane;;Doe",
+          name: 'Jane;;Doe',
           personalInfo: {
             complexName: {
               firstName: 'Jane',
@@ -546,7 +546,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '987654321',
             fspId: 'dfsp2'
           },
-          name: "John;;",
+          name: 'John;;',
           personalInfo: {
             complexName: {
               firstName: 'John'
