@@ -38,10 +38,10 @@ export const discovery = {
       "body.party.partyIdInfo.partyIdentifier": { "$alt": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Id.OrgId.Othr.Id", "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id"] },
       "body.party.partyIdInfo.partySubIdOrType": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.ClrSysMmbId.MmbId",
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
-      "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
+      "body.party.name": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "replaceDelimiterWithSpaces" }],
       "body.party.personalInfo.complexName.firstName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getFirstFromDelimitedName" }],
-      "body.party.personalInfo.complexName.middleName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getSecondFromDelimitedName" }],
-      "body.party.personalInfo.complexName.lastName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getThirdFromDelimitedName" }],
+      "body.party.personalInfo.complexName.middleName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getMiddleFromDelimitedName" }],
+      "body.party.personalInfo.complexName.lastName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getLastFromDelimitedName" }],
       "body.party.supportedCurrencies": ["body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy", { "$transform": "toArray" }]
     }`,
     putError: `{

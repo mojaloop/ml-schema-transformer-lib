@@ -26,7 +26,6 @@
  --------------
  ******/
 
-import { get } from 'http';
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
 import {
@@ -38,9 +37,10 @@ import {
   toFspiopTransferState,
   toIsoTransferState,
   getFirstFromDelimitedName,
-  getSecondFromDelimitedName,
-  getThirdFromDelimitedName,
-  makeDelimitedName
+  getMiddleFromDelimitedName,
+  getLastFromDelimitedName,
+  makeDelimitedName,
+  replaceDelimiterWithSpaces
 } from '../utils';
 
 export const CustomTransforms: ICustomTransforms = {
@@ -102,16 +102,20 @@ export const CustomTransforms: ICustomTransforms = {
     return getFirstFromDelimitedName(data as string);
   },
 
-  getSecondFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
-    return getSecondFromDelimitedName(data as string);
+  getMiddleFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getMiddleFromDelimitedName(data as string);
   },
 
-  getThirdFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
-    return getThirdFromDelimitedName(data as string);
+  getLastFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getLastFromDelimitedName(data as string);
   },
 
   makeDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
     const nameParts = data as { firstName?: string; middleName?: string; lastName?: string };
     return makeDelimitedName(nameParts?.firstName, nameParts?.middleName, nameParts?.lastName);
   },
+
+  replaceDelimiterWithSpaces: (options: Options) => () => (data: unknown, state: State) => {
+    return replaceDelimiterWithSpaces(data as string);
+  }
 }

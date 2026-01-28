@@ -102,32 +102,32 @@ describe('Transforms tests', () => {
       });
     });
 
-    describe('getSecondFromDelimitedName', () => {
+    describe('getMiddleFromDelimitedName', () => {
       it('should return the second name from delimited string', async () => {
         const data = 'Henrik;Johannes;Karlsson';
         const state = {};
-        const result = (CustomTransforms.getSecondFromDelimitedName as Function)({} as Options)()(data, state as State);
+        const result = (CustomTransforms.getMiddleFromDelimitedName as Function)({} as Options)()(data, state as State);
         expect(result).toBe('Johannes');
       });
       it('should return undefined if no second name exists', async () => {
         const data = 'Henrik';
         const state = {};
-        const result = (CustomTransforms.getSecondFromDelimitedName as Function)({} as Options)()(data, state as State);
+        const result = (CustomTransforms.getMiddleFromDelimitedName as Function)({} as Options)()(data, state as State);
         expect(result).toBeUndefined();
       });
     });
 
-    describe('getThirdFromDelimitedName', () => {
+    describe('getLastFromDelimitedName', () => {
       it('should return the third name from delimited string', async () => {
         const data = 'Henrik;Johannes;Karlsson';
         const state = {};
-        const result = (CustomTransforms.getThirdFromDelimitedName as Function)({} as Options)()(data, state as State);
+        const result = (CustomTransforms.getLastFromDelimitedName as Function)({} as Options)()(data, state as State);
         expect(result).toBe('Karlsson');
       });
       it('should return undefined if no third name exists', async () => {
         const data = 'Henrik;Johannes';
         const state = {};
-        const result = (CustomTransforms.getThirdFromDelimitedName as Function)({} as Options)()(data, state as State);
+        const result = (CustomTransforms.getLastFromDelimitedName as Function)({} as Options)()(data, state as State);
         expect(result).toBeUndefined();
       });
     });

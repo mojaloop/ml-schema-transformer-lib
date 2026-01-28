@@ -46,8 +46,8 @@ import {
   unrollExtensions,
   validateConfig,
   getFirstFromDelimitedName,
-  getSecondFromDelimitedName,
-  getThirdFromDelimitedName,
+  getMiddleFromDelimitedName,
+  getLastFromDelimitedName,
   makeDelimitedName
 } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
@@ -291,18 +291,18 @@ describe('Utils tests', () => {
     });
     it('should get the second part from a delimited name', () => {
       const name = 'First;Middle;Last';
-      const second = getSecondFromDelimitedName(name);
+      const second = getMiddleFromDelimitedName(name);
       expect(second).toBe('Middle');
     });
     it('should get the third part from a delimited name', () => {
       const name = 'First;Middle;Last';
-      const third = getThirdFromDelimitedName(name);
+      const third = getLastFromDelimitedName(name);
       expect(third).toBe('Last');
     });
     it('should return undefined for missing parts', () => {
       const name = 'First';
-      expect(getSecondFromDelimitedName(name)).toBeUndefined();
-      expect(getThirdFromDelimitedName(name)).toBeUndefined();
+      expect(getMiddleFromDelimitedName(name)).toBeUndefined();
+      expect(getLastFromDelimitedName(name)).toBeUndefined();
     });
     it('should make a delimited name from parts', () => {
       const name = makeDelimitedName('First', 'Middle', 'Last');
@@ -319,7 +319,15 @@ describe('Utils tests', () => {
       const name = makeDelimitedName('First', '', 'Last');
       expect(name).toBe('First;;Last');
 
-      expect(getSecondFromDelimitedName(name)).toBe(undefined);
+      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
+    });
+    it('should handle empty complexName to and from', () => {
+      const name = makeDelimitedName('', '', '');
+      expect(name).toBe('');
+
+      expect(getFirstFromDelimitedName(name)).toBe(undefined);
+      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
+      expect(getLastFromDelimitedName(name)).toBe(undefined);
     });
   });
 });

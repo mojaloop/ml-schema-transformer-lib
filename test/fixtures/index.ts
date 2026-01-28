@@ -491,7 +491,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '16135551212',
             fspId: 'FSPID'
           },
-          name: 'Henrik;Johannes;Karlsson',
+          name: 'Henrik Johannes Karlsson',
           personalInfo: {
             complexName: {
               firstName: 'Henrik',
@@ -530,7 +530,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '4567890',
             fspId: '4321'
           },
-          name: 'Jane;;Doe',
+          name: 'Jane Doe',
           personalInfo: {
             complexName: {
               firstName: 'Jane',
@@ -546,10 +546,11 @@ export const expectedFspiopTargets = {
             partyIdentifier: '987654321',
             fspId: 'dfsp2'
           },
-          name: 'John;;',
+          name: 'John Middle',
           personalInfo: {
             complexName: {
-              firstName: 'John'
+              firstName: 'John',
+              middleName: 'Middle'
             }
           },
           supportedCurrencies: [
@@ -879,7 +880,7 @@ export const fspiopIso20022Sources = {
                 }
               }
             },
-            Name: 'John;;'
+            Name: 'John;Middle;'
           },
           DbtrAcct: {
             Ccy: [
