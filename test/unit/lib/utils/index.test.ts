@@ -48,7 +48,8 @@ import {
   getFirstFromDelimitedName,
   getMiddleFromDelimitedName,
   getLastFromDelimitedName,
-  makeDelimitedName
+  makeDelimitedName,
+  replaceDelimiterWithSpaces
 } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
@@ -328,6 +329,31 @@ describe('Utils tests', () => {
       expect(getFirstFromDelimitedName(name)).toBe(undefined);
       expect(getMiddleFromDelimitedName(name)).toBe(undefined);
       expect(getLastFromDelimitedName(name)).toBe(undefined);
+    });
+    it('should replace delimiters with spaces in a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const replaced = replaceDelimiterWithSpaces(name);
+      expect(replaced).toBe('First Middle Last');
+    });
+
+    it('should handle empty string in replaceDelimiterWithSpaces', () => {
+      const replaced = replaceDelimiterWithSpaces('');
+      expect(replaced).toBe('');
+    });
+
+    it('should handle single name without delimiters', () => {
+      const replaced = replaceDelimiterWithSpaces('First');
+      expect(replaced).toBe('First');
+    });
+
+    it('should handle multiple consecutive delimiters', () => {
+      const replaced = replaceDelimiterWithSpaces('First;;Last');
+      expect(replaced).toBe('First Last');
+    });
+
+    it('should preserve spaces in name parts', () => {
+      const replaced = replaceDelimiterWithSpaces('First Name;Middle Name;Last Name');
+      expect(replaced).toBe('First Name Middle Name Last Name');
     });
   });
 });

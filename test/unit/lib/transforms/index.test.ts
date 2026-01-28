@@ -160,6 +160,26 @@ describe('Transforms tests', () => {
         const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
         expect(result).toBe('Henrik;;');
       });
+      it('should handle undefined data gracefully', async () => {
+        const data = undefined;
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
+
+      it('should handle null data gracefully', async () => {
+        const data = null;
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
+
+      it('should handle empty object', async () => {
+        const data = {};
+        const state = {};
+        const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
+        expect(result).toBe('');
+      });
     });
   });
 });

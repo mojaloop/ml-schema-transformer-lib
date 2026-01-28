@@ -261,7 +261,6 @@ export const getMiddleFromDelimitedName = (name: string): string | undefined => 
 // Extracts the third value from a semicolon-delimited string
 // e.g 'First;Middle;Last' => 'Last'
 export const getLastFromDelimitedName = (name: string): string | undefined => {
-  if (!name) return undefined;
   const parts = name.split(';');
   return parts[2]?.trim() || undefined;
 }
@@ -276,6 +275,5 @@ export const makeDelimitedName = (first?: string, second?: string, third?: strin
 // Replaces semicolon delimiters with spaces in a string
 // e.g 'First;Middle;Last' => 'First Middle Last'
 export const replaceDelimiterWithSpaces = (value: string): string | undefined => {
-  if (!value) return undefined;
-  return value.split(';').map(part => part.trim()).filter(part => part).join(' ');
+  return value?.split(';').map(part => part.trim()).filter(part => part).join(' ');
 }
