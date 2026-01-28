@@ -21,14 +21,27 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
 
+import { get } from 'http';
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
-import { generateID as genID, getDescrForErrCode, getIlpPacketCondition, isEmptyObject, isPersonPartyIdType, toFspiopTransferState, toIsoTransferState } from '../utils';
+import {
+  generateID as genID,
+  getDescrForErrCode,
+  getIlpPacketCondition,
+  isEmptyObject,
+  isPersonPartyIdType,
+  toFspiopTransferState,
+  toIsoTransferState,
+  getFirstFromDelimitedName,
+  getSecondFromDelimitedName,
+  getThirdFromDelimitedName,
+  makeDelimitedName
+} from '../utils';
 
 export const CustomTransforms: ICustomTransforms = {
   generateID: (options: Options) => () => (data: unknown, state: State) => {
@@ -83,5 +96,22 @@ export const CustomTransforms: ICustomTransforms = {
     }
 
     return undefined;
-  }
+  },
+
+  getFirstFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getFirstFromDelimitedName(data as string);
+  },
+
+  getSecondFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getSecondFromDelimitedName(data as string);
+  },
+
+  getThirdFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getThirdFromDelimitedName(data as string);
+  },
+
+  makeDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    const nameParts = data as { firstName?: string; middleName?: string; lastName?: string };
+    return makeDelimitedName(nameParts.firstName, nameParts.middleName, nameParts.lastName);
+  },
 }

@@ -39,6 +39,9 @@ export const discovery = {
       "body.party.partyIdInfo.partySubIdOrType": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.ClrSysMmbId.MmbId",
       "body.party.partyIdInfo.fspId": "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id",
       "body.party.name": "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm",
+      "body.party.personalInfo.complexName.firstName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getFirstFromDelimitedName" }],
+      "body.party.personalInfo.complexName.middleName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getSecondFromDelimitedName" }],
+      "body.party.personalInfo.complexName.lastName": ["body.Rpt.UpdtdPtyAndAcctId.Pty.Nm", { "$transform": "getThirdFromDelimitedName" }],
       "body.party.supportedCurrencies": ["body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy", { "$transform": "toArray" }]
     }`,
     putError: `{
@@ -69,7 +72,7 @@ export const discovery_reverse = {
       "body.Rpt.UpdtdPtyAndAcctId.Pty.Id.PrvtId.Othr.Id": ["body.party.partyIdInfo.partyIdentifier", { "$filter": "isPersonParty" }],
       "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.ClrSysMmbId.MmbId": "body.party.partyIdInfo.partySubIdOrType",
       "body.Rpt.UpdtdPtyAndAcctId.Agt.FinInstnId.Othr.Id": "body.party.partyIdInfo.fspId",
-      "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm": "body.party.name",
+      "body.Rpt.UpdtdPtyAndAcctId.Pty.Nm": ["body.party.personalInfo.complexName", { "$transform": "makeDelimitedName" }],
       "body.Rpt.UpdtdPtyAndAcctId.Acct.Ccy": ["body.party.supportedCurrencies", { "$transform": "supportedCurrenciesToString" }]
     }`,
     putError: `{

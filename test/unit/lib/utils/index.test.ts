@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -45,6 +45,10 @@ import {
   toIsoTransferState,
   unrollExtensions,
   validateConfig,
+  getFirstFromDelimitedName,
+  getSecondFromDelimitedName,
+  getThirdFromDelimitedName,
+  makeDelimitedName
 } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
@@ -225,7 +229,7 @@ describe('Utils tests', () => {
   });
   describe('rollUpUnmappedAsExtensions', () => {
     it('should rollup unmapped properties into an extensions array', () => {
-      const source = { 
+      const source = {
         body: { key1: 'value1', key2: 'value2', key3: 'value3', key4: 'value4', key5: { key6: { key7: 'value7' } } },
         headers: { header1: 'value1', header2: 'value2' },
         params: { param1: 'value1', param2: 'value2' }
@@ -277,6 +281,45 @@ describe('Utils tests', () => {
       const arr = [{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'a' }];
       const deduped = deduplicateObjectsArray(arr, 'key');
       expect(deduped).toEqual([{ key: 'a' }, { key: 'b' }, { key: 'c' }]);
+    });
+  });
+  describe('Delimited name functions', () => {
+    it('should get the first part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const first = getFirstFromDelimitedName(name);
+      expect(first).toBe('First');
+    });
+    it('should get the second part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const second = getSecondFromDelimitedName(name);
+      expect(second).toBe('Middle');
+    });
+    it('should get the third part from a delimited name', () => {
+      const name = 'First;Middle;Last';
+      const third = getThirdFromDelimitedName(name);
+      expect(third).toBe('Last');
+    });
+    it('should return undefined for missing parts', () => {
+      const name = 'First';
+      expect(getSecondFromDelimitedName(name)).toBeUndefined();
+      expect(getThirdFromDelimitedName(name)).toBeUndefined();
+    });
+    it('should make a delimited name from parts', () => {
+      const name = makeDelimitedName('First', 'Middle', 'Last');
+      expect(name).toBe('First;Middle;Last');
+    });
+    it('should make a delimited name with missing parts', () => {
+      const name1 = makeDelimitedName('First');
+      expect(name1).toBe('First;;');
+
+      const name2 = makeDelimitedName('First', 'Middle');
+      expect(name2).toBe('First;Middle;');
+    });
+    it('should handle empty strings in delimited names', () => {
+      const name = makeDelimitedName('First', '', 'Last');
+      expect(name).toBe('First;;Last');
+
+      expect(getSecondFromDelimitedName(name)).toBe(undefined);
     });
   });
 });

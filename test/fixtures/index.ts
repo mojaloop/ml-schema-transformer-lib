@@ -480,7 +480,14 @@ export const expectedFspiopTargets = {
             partyIdentifier: '16135551212',
             fspId: 'FSPID'
           },
-          name: 'party-name',
+          name: 'Henrik;Johannes;Karlsson',
+          personalInfo: {
+            complexName: {
+              firstName: "Henrik",
+              lastName: "Karlsson",
+              middleName: "Johannes",
+            },
+          },
           supportedCurrencies: [
             'AED'
           ]
@@ -747,7 +754,7 @@ export const fspiopIso20022Sources = {
                   }
                 }
               },
-              Nm: 'party-name'
+              Nm: 'Henrik;Johannes;Karlsson'
             },
             Agt: {
               FinInstnId: {
@@ -1416,7 +1423,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                   }
                 }
               },
-              Nm: 'party-name'
+              Nm: 'Henrik;Johannes;Karlsson'
             },
             Agt: {
               FinInstnId: {
