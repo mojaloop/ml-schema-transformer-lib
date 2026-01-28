@@ -112,6 +112,6 @@ export const CustomTransforms: ICustomTransforms = {
 
   makeDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
     const nameParts = data as { firstName?: string; middleName?: string; lastName?: string };
-    return makeDelimitedName(nameParts.firstName, nameParts.middleName, nameParts.lastName);
+    return makeDelimitedName(nameParts?.firstName, nameParts?.middleName, nameParts?.lastName);
   },
 }
