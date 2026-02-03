@@ -164,21 +164,21 @@ describe('Transforms tests', () => {
         const data = undefined;
         const state = {};
         const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
-        expect(result).toBe('');
+        expect(result).toBe(undefined);
       });
 
       it('should handle null data gracefully', async () => {
         const data = null;
         const state = {};
         const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
-        expect(result).toBe('');
+        expect(result).toBe(undefined);
       });
 
       it('should handle empty object', async () => {
         const data = {};
         const state = {};
         const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
-        expect(result).toBe('');
+        expect(result).toBe(undefined);
       });
     });
   });

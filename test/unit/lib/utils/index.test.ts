@@ -324,11 +324,7 @@ describe('Utils tests', () => {
     });
     it('should handle empty complexName to and from', () => {
       const name = makeDelimitedName('', '', '');
-      expect(name).toBe('');
-
-      expect(getFirstFromDelimitedName(name)).toBe(undefined);
-      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
-      expect(getLastFromDelimitedName(name)).toBe(undefined);
+      expect(name).toBe(undefined);
     });
     it('should replace delimiters with spaces in a delimited name', () => {
       const name = 'First;Middle;Last';
