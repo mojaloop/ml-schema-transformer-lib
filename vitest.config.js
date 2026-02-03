@@ -10,7 +10,6 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    testTimeout: 12000,
     coverage: {
       provider: 'v8', // or 'istanbul' ( requires @vitest/coverage-istanbul )
       include: ['src/**/*.ts'],
