@@ -111,7 +111,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBeUndefined();
-        expect(getProp(target, 'body.party.personalInfo.name')).toBeUndefined();
+        expect(getProp(target, 'body.party.name')).toBeUndefined();
       });
 
       it('should map delimited name to complexName fields (undefined value)', async () => {
@@ -121,7 +121,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBeUndefined();
-        expect(getProp(target, 'body.party.personalInfo.name')).toBeUndefined();
+        expect(getProp(target, 'body.party.name')).toBeUndefined();
       });
 
       it('should map delimited name to complexName fields (extra delimiters)', async () => {
@@ -131,7 +131,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.personalInfo.name')).toBeUndefined();
+        expect(getProp(target, 'body.party.name')).toBeUndefined();
       });
     });
     describe('PUT /parties/{ID}/error', () => {
