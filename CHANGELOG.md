@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.8.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.8.0...v2.8.1) (2026-02-03)
+
+
+### Bug Fixes
+
+* ensure names map to undefined when nullish/empty/undefined ([#69](https://github.com/mojaloop/ml-schema-transformer-lib/issues/69)) ([667408c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/667408c113f6cd80949174966b761efa7848220e))
+
 ## [2.8.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.7.13...v2.8.0) (2026-01-28)
 
 
