@@ -244,7 +244,7 @@ export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string)
 
 // Extracts the first value from a semicolon-delimited string
 // e.g 'First;Middle;Last' => 'First'
-export const getFirstFromDelimitedName = (name: string): string | undefined => {
+export const getFirstFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
   return parts[0]?.trim() || undefined;
@@ -252,7 +252,7 @@ export const getFirstFromDelimitedName = (name: string): string | undefined => {
 
 // Extracts the second value from a semicolon-delimited string
 // e.g 'First;Middle;Last' => 'Middle'
-export const getMiddleFromDelimitedName = (name: string): string | undefined => {
+export const getMiddleFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
   return parts[1]?.trim() || undefined;
@@ -260,7 +260,7 @@ export const getMiddleFromDelimitedName = (name: string): string | undefined => 
 
 // Extracts the third value from a semicolon-delimited string
 // e.g 'First;Middle;Last' => 'Last'
-export const getLastFromDelimitedName = (name: string): string | undefined => {
+export const getLastFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
   return parts[2]?.trim() || undefined;
@@ -268,13 +268,15 @@ export const getLastFromDelimitedName = (name: string): string | undefined => {
 
 // Creates a semicolon-delimited string from three values
 // e.g ('First', 'Middle', 'Last') => 'First;Middle;Last'
-export const makeDelimitedName = (first?: string, second?: string, third?: string): string => {
-  if (!first && !second && !third) return '';
+export const makeDelimitedName = (first?: string, second?: string, third?: string): string | undefined => {
+  if (!first && !second && !third) return undefined;
   const parts = [first, second, third];
   return parts.join(';');
 }
 // Replaces semicolon delimiters with spaces in a string
 // e.g 'First;Middle;Last' => 'First Middle Last'
-export const replaceDelimiterWithSpaces = (value: string): string | undefined => {
-  return value?.split(';').map(part => part.trim()).filter(part => part).join(' ');
+export const replaceDelimiterWithSpaces = (value: string | undefined): string | undefined => {
+  if (!value || value.replace(/;/g, '').trim() === '') return undefined;
+  const parts = value.split(';').map(part => part.trim()).filter(part => part).slice(0, 3);
+  return parts.length > 0 ? parts.join(' ') : undefined;
 }

@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -91,6 +91,82 @@ describe('FSPIOPTransformFacade tests', () => {
       const promise = FspiopTransformFacade.parties.putError(source);
       await expect(promise).rejects.toThrow('Invalid source object for put parties error');
     });
+    describe('ComplexName mapping', () => {
+      it('should handle all name parts present', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {
+          complexName: {
+            firstName: 'Alice',
+            middleName: 'B.',
+            lastName: 'Carroll'
+          }
+        };
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBe('Alice;B.;Carroll');
+      });
+
+      it('should handle missing middleName', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {
+          complexName: {
+            firstName: 'Alice',
+            lastName: 'Carroll'
+          }
+        };
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBe('Alice;;Carroll');
+      });
+
+      it('should handle only firstName present', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {
+          complexName: {
+            firstName: 'Alice'
+          }
+        };
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBe('Alice;;');
+      });
+
+      it('should handle empty complexName object', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {
+          complexName: {}
+        };
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBeUndefined();
+      });
+
+      it('should handle missing complexName', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {};
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBeUndefined();
+      });
+
+      it('should handle missing personalInfo', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        delete source.body.party.personalInfo;
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBeUndefined();
+      });
+
+      it('should handle null complexName', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = {
+          complexName: null
+        };
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBeUndefined();
+      });
+
+      it('should handle null personalInfo', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.parties.put));
+        source.body.party.personalInfo = null;
+        const target = await FspiopTransformFacade.parties.put(source);
+        expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBeUndefined();
+      });
+    });
   });
   describe('Quotes', () => {
     describe('POST /quotes', () => {
@@ -125,6 +201,108 @@ describe('FSPIOPTransformFacade tests', () => {
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.Cd')).toBe('REFD');
         expect(getProp(target, 'body.CdtTrfTxInf.InstrForCdtrAgt.InstrInf')).toBe('Refund reason');
       });
+      it('should map complexName fields to delimited name in ISO 20022 target', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = {
+          complexName: {
+            firstName: 'John',
+            middleName: 'H.',
+            lastName: 'Doe'
+          }
+        };
+        source.body.payee.personalInfo = {
+          complexName: {
+            firstName: 'Jane',
+            middleName: 'Q.',
+            lastName: 'Public'
+          }
+        };
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBe('John;H.;Doe');
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBe('Jane;Q.;Public');
+      });
+
+      it('should handle missing middleName in complexName for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = {
+          complexName: {
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        };
+        source.body.payee.personalInfo = {
+          complexName: {
+            firstName: 'Jane',
+            lastName: 'Public'
+          }
+        };
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBe('John;;Doe');
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBe('Jane;;Public');
+      });
+
+      it('should handle only firstName present in complexName for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = {
+          complexName: {
+            firstName: 'John'
+          }
+        };
+        source.body.payee.personalInfo = {
+          complexName: {
+            firstName: 'Jane'
+          }
+        };
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBe('John;;');
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBe('Jane;;');
+      });
+
+      it('should handle empty complexName object for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = { complexName: {} };
+        source.body.payee.personalInfo = { complexName: {} };
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBeUndefined();
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBeUndefined();
+      });
+
+      it('should handle missing complexName for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = {};
+        source.body.payee.personalInfo = {};
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBeUndefined();
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBeUndefined();
+      });
+
+      it('should handle missing personalInfo for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        delete source.body.payer.personalInfo;
+        delete source.body.payee.personalInfo;
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBeUndefined();
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBeUndefined();
+      });
+
+      it('should handle null complexName for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = { complexName: null };
+        source.body.payee.personalInfo = { complexName: null };
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBeUndefined();
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBeUndefined();
+      });
+
+      it('should handle null personalInfo for post quotes', async () => {
+        const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
+        source.body.payer.personalInfo = null;
+        source.body.payee.personalInfo = null;
+        const target = await FspiopTransformFacade.quotes.post(source);
+        expect(getProp(target, 'body.CdtTrfTxInf.Dbtr.Name')).toBeUndefined();
+        expect(getProp(target, 'body.CdtTrfTxInf.Cdtr.Name')).toBeUndefined();
+      });
+
     });
     describe('PUT /quotes/{ID}', () => {
       it('should throw if source is wrongly typed', async () => {

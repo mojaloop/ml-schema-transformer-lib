@@ -324,11 +324,7 @@ describe('Utils tests', () => {
     });
     it('should handle empty complexName to and from', () => {
       const name = makeDelimitedName('', '', '');
-      expect(name).toBe('');
-
-      expect(getFirstFromDelimitedName(name)).toBe(undefined);
-      expect(getMiddleFromDelimitedName(name)).toBe(undefined);
-      expect(getLastFromDelimitedName(name)).toBe(undefined);
+      expect(name).toBe(undefined);
     });
     it('should replace delimiters with spaces in a delimited name', () => {
       const name = 'First;Middle;Last';
@@ -338,7 +334,7 @@ describe('Utils tests', () => {
 
     it('should handle empty string in replaceDelimiterWithSpaces', () => {
       const replaced = replaceDelimiterWithSpaces('');
-      expect(replaced).toBe('');
+      expect(replaced).toBe(undefined);
     });
 
     it('should handle single name without delimiters', () => {
@@ -354,6 +350,61 @@ describe('Utils tests', () => {
     it('should preserve spaces in name parts', () => {
       const replaced = replaceDelimiterWithSpaces('First Name;Middle Name;Last Name');
       expect(replaced).toBe('First Name Middle Name Last Name');
+    });
+
+    it('should return undefined if value is only delimiters or empty after trimming', () => {
+      expect(replaceDelimiterWithSpaces(undefined)).toBeUndefined();
+      expect(replaceDelimiterWithSpaces(';;;')).toBeUndefined();
+      expect(replaceDelimiterWithSpaces(' ; ; ; ')).toBeUndefined();
+      expect(replaceDelimiterWithSpaces('')).toBeUndefined();
+      expect(replaceDelimiterWithSpaces('   ')).toBeUndefined();
+    });
+
+    it('should handle undefined input for getFirstFromDelimitedName', () => {
+      expect(getFirstFromDelimitedName(undefined)).toBeUndefined();
+    });
+
+    it('should handle undefined input for getMiddleFromDelimitedName', () => {
+      expect(getMiddleFromDelimitedName(undefined)).toBeUndefined();
+    });
+
+    it('should handle undefined input for getLastFromDelimitedName', () => {
+      expect(getLastFromDelimitedName(undefined)).toBeUndefined();
+    });
+
+    it('should handle empty string input for getFirstFromDelimitedName', () => {
+      expect(getFirstFromDelimitedName('')).toBeUndefined();
+      expect(getFirstFromDelimitedName(';;;')).toBeUndefined();
+    });
+
+    it('should handle empty string input for getMiddleFromDelimitedName', () => {
+      expect(getMiddleFromDelimitedName('')).toBeUndefined();
+      expect(getMiddleFromDelimitedName(';;;')).toBeUndefined();
+    });
+
+    it('should handle empty string input for getLastFromDelimitedName', () => {
+      expect(getLastFromDelimitedName('')).toBeUndefined();
+      expect(getLastFromDelimitedName(';;;')).toBeUndefined();
+    });
+
+    it('should trim whitespace and ignore empty parts in getFirstFromDelimitedName', () => {
+      expect(getFirstFromDelimitedName('  First ; ; Last ')).toBe('First');
+    });
+
+    it('should trim whitespace and ignore empty parts in getMiddleFromDelimitedName', () => {
+      expect(getMiddleFromDelimitedName('First;  Middle ;  Last')).toBe('Middle');
+    });
+
+    it('should trim whitespace and ignore empty parts in getLastFromDelimitedName', () => {
+      expect(getLastFromDelimitedName('First;Middle; Last ')).toBe('Last');
+    });
+
+    it('should return undefined for getMiddleFromDelimitedName if only one part', () => {
+      expect(getMiddleFromDelimitedName('Only')).toBeUndefined();
+    });
+
+    it('should return undefined for getLastFromDelimitedName if only two parts', () => {
+      expect(getLastFromDelimitedName('First;Second')).toBeUndefined();
     });
   });
 });
