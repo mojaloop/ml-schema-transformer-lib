@@ -131,7 +131,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.name')).toBe('First Middle Last')
+        expect(getProp(target, 'body.party.name')).toBe('First Middle Last');
       });
     });
     describe('PUT /parties/{ID}/error', () => {
