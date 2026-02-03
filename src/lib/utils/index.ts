@@ -275,6 +275,8 @@ export const makeDelimitedName = (first?: string, second?: string, third?: strin
 }
 // Replaces semicolon delimiters with spaces in a string
 // e.g 'First;Middle;Last' => 'First Middle Last'
-export const replaceDelimiterWithSpaces = (value: string): string | undefined => {
-  return value?.split(';').map(part => part.trim()).filter(part => part).join(' ');
+export const replaceDelimiterWithSpaces = (value: string | undefined): string | undefined => {
+  if (!value || value.replace(/;/g, '').trim() === '') return undefined;
+  const parts = value.split(';').map(part => part.trim()).filter(part => part);
+  return parts.length > 0 ? parts.join(' ') : undefined;
 }
