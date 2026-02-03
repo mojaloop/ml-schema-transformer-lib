@@ -277,6 +277,6 @@ export const makeDelimitedName = (first?: string, second?: string, third?: strin
 // e.g 'First;Middle;Last' => 'First Middle Last'
 export const replaceDelimiterWithSpaces = (value: string | undefined): string | undefined => {
   if (!value || value.replace(/;/g, '').trim() === '') return undefined;
-  const parts = value.split(';').map(part => part.trim()).filter(part => part);
+  const parts = value.split(';').map(part => part.trim()).filter(part => part).slice(0, 3);
   return parts.length > 0 ? parts.join(' ') : undefined;
 }
