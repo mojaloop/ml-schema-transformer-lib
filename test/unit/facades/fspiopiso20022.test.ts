@@ -81,7 +81,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.name')).toBe('First Middle Last')
+        expect(getProp(target, 'body.party.name')).toBe('First Middle Last');
       });
 
       it('should map delimited name to complexName fields (missing middleName)', async () => {
@@ -101,7 +101,7 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBeUndefined();
-        expect(getProp(target, 'body.party.name')).toBe('First')
+        expect(getProp(target, 'body.party.name')).toBe('First');
       });
 
       it('should map delimited name to complexName fields (null value)', async () => {

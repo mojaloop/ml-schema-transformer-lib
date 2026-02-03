@@ -250,7 +250,7 @@ describe('FSPIOPTransformFacade tests', () => {
         };
         source.body.payee.personalInfo = {
           complexName: {
-        firstName: 'Jane'
+            firstName: 'Jane'
           }
         };
         const target = await FspiopTransformFacade.quotes.post(source);
