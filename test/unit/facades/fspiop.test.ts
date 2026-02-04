@@ -126,6 +126,7 @@ describe('FSPIOPTransformFacade tests', () => {
           firstName: 'Alice'
           }
         };
+        source.body.party.name = 'Display Name';
         const target = await FspiopTransformFacade.parties.put(source);
         expect(getProp(target, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm')).toBe('Alice;;;Display Name');
       });
