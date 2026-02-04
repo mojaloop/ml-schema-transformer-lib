@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.8.1...v2.9.0) (2026-02-04)
+
+
+### Features
+
+* support display name in transform ([#71](https://github.com/mojaloop/ml-schema-transformer-lib/issues/71)) ([c6629da](https://github.com/mojaloop/ml-schema-transformer-lib/commit/c6629da0643b9df08778c94c22c85aee50a6ca4a))
+
 ### [2.8.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.8.0...v2.8.1) (2026-02-03)
 
 
