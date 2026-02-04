@@ -259,9 +259,9 @@ describe('Transforms tests', () => {
               firstName: 'Henrik',
               middleName: 'Johannes',
               lastName: 'Karlsson'
-            },
-            name: undefined
-          }
+            }
+          },
+          name: undefined
         };
         const state = {};
         const result = (CustomTransforms.makeDelimitedName as Function)({} as Options)()(data, state as State);
