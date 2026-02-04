@@ -26,6 +26,9 @@
  --------------
  ******/
 
+import {
+    v2_0 as fspiopAPI,
+} from '@mojaloop/api-snippets'
 import { ICustomTransforms } from '../../types';
 import { Options, State } from '../../types/map-transform';
 import {
@@ -40,7 +43,7 @@ import {
   getMiddleFromDelimitedName,
   getLastFromDelimitedName,
   makeDelimitedName,
-  replaceDelimiterWithSpaces
+  getDisplayNameFromDelimitedName
 } from '../utils';
 
 export const CustomTransforms: ICustomTransforms = {
@@ -110,12 +113,12 @@ export const CustomTransforms: ICustomTransforms = {
     return getLastFromDelimitedName(data as string);
   },
 
-  makeDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
-    const nameParts = data as { firstName?: string; middleName?: string; lastName?: string };
-    return makeDelimitedName(nameParts?.firstName, nameParts?.middleName, nameParts?.lastName);
+  getDisplayNameFromDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    return getDisplayNameFromDelimitedName(data as string);
   },
 
-  replaceDelimiterWithSpaces: (options: Options) => () => (data: unknown, state: State) => {
-    return replaceDelimiterWithSpaces(data as string);
+  makeDelimitedName: (options: Options) => () => (data: unknown, state: State) => {
+    const party = data as fspiopAPI.Types.Party;
+    return makeDelimitedName(party);
   }
 }

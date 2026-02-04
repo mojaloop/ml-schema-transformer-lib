@@ -76,22 +76,22 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
       it('should map delimited name to complexName fields (all present)', async () => {
         const source = { ...fspiopIso20022Sources.parties.put };
         // Set delimited name in ISO source
-        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;Middle;Last');
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;Middle;Last;DisplayName');
         const target = await FspiopIso20022TransformFacade.parties.put(source);
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.name')).toBe('First Middle Last');
+        expect(getProp(target, 'body.party.name')).toBe('DisplayName');
       });
 
       it('should map delimited name to complexName fields (missing middleName)', async () => {
         const source = { ...fspiopIso20022Sources.parties.put };
-        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;;Last');
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;;Last;DisplayName');
         const target = await FspiopIso20022TransformFacade.parties.put(source);
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.name')).toBe('First Last');
+        expect(getProp(target, 'body.party.name')).toBe('DisplayName');
       });
 
       it('should map delimited name to complexName fields (only firstName present)', async () => {
@@ -101,7 +101,17 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBeUndefined();
-        expect(getProp(target, 'body.party.name')).toBe('First');
+        expect(getProp(target, 'body.party.name')).toBeUndefined();
+      });
+
+      it('should map delimited name with displayName only', async () => {
+        const source = { ...fspiopIso20022Sources.parties.put };
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', ';;;DisplayName');
+        const target = await FspiopIso20022TransformFacade.parties.put(source);
+        expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBeUndefined();
+        expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBeUndefined();
+        expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBeUndefined();
+        expect(getProp(target, 'body.party.name')).toBe('DisplayName');
       });
 
       it('should map delimited name to complexName fields (null value)', async () => {
@@ -126,12 +136,32 @@ describe('FSPIOPISO20022TransformFacade tests', () => {
 
       it('should map delimited name to complexName fields (extra delimiters)', async () => {
         const source = { ...fspiopIso20022Sources.parties.put };
-        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;Middle;Last;Extra');
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;Middle;Last;DisplayName;Extra');
         const target = await FspiopIso20022TransformFacade.parties.put(source);
         expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
         expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
         expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
-        expect(getProp(target, 'body.party.name')).toBe('First Middle Last');
+        expect(getProp(target, 'body.party.name')).toBe('DisplayName');
+      });
+
+      it('should map delimited name with empty displayName', async () => {
+        const source = { ...fspiopIso20022Sources.parties.put };
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', 'First;Middle;Last;');
+        const target = await FspiopIso20022TransformFacade.parties.put(source);
+        expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
+        expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
+        expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
+        expect(getProp(target, 'body.party.name')).toBeUndefined();
+      });
+
+      it('should map delimited name with whitespace handling', async () => {
+        const source = { ...fspiopIso20022Sources.parties.put };
+        setProp(source, 'body.Rpt.UpdtdPtyAndAcctId.Pty.Nm', ' First ; Middle ; Last ; Display Name ');
+        const target = await FspiopIso20022TransformFacade.parties.put(source);
+        expect(getProp(target, 'body.party.personalInfo.complexName.firstName')).toBe('First');
+        expect(getProp(target, 'body.party.personalInfo.complexName.middleName')).toBe('Middle');
+        expect(getProp(target, 'body.party.personalInfo.complexName.lastName')).toBe('Last');
+        expect(getProp(target, 'body.party.name')).toBe('Display Name');
       });
     });
     describe('PUT /parties/{ID}/error', () => {

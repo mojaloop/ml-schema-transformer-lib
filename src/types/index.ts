@@ -21,7 +21,7 @@
 
  * Mojaloop Foundation
  - Name Surname <name.surname@mojaloop.io>
- 
+
  * Steven Oderayi <steven.oderayi@infitx.com>
  --------------
  ******/
@@ -166,4 +166,3 @@ export type Request = {
   body: GenericObject;
   query: GenericObject;
 }
-
