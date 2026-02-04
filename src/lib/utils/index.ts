@@ -28,6 +28,9 @@
 
 const idGenerator = require('@mojaloop/central-services-shared').Util.id;
 const { CreateFSPIOPErrorFromErrorCode } = require('@mojaloop/central-services-error-handling')
+import {
+    v2_0 as fspiopAPI,
+} from '@mojaloop/api-snippets'
 import * as ilpPacket from 'ilp-packet';
 import { ConfigOptions, GenericObject, ID_GENERATOR_TYPE, Primitive, isContextLogger } from '../../types';
 import { TransformDefinition } from '../../types/map-transform';
@@ -243,7 +246,7 @@ export const deduplicateObjectsArray = (arr: GenericObject[], uniqueKey: string)
 }
 
 // Extracts the first value from a semicolon-delimited string
-// e.g 'First;Middle;Last' => 'First'
+// e.g 'First;Middle;Last;DisplayName' => 'First'
 export const getFirstFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
@@ -251,7 +254,7 @@ export const getFirstFromDelimitedName = (name: string | undefined): string | un
 }
 
 // Extracts the second value from a semicolon-delimited string
-// e.g 'First;Middle;Last' => 'Middle'
+// e.g 'First;Middle;Last;DisplayName' => 'Middle'
 export const getMiddleFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
@@ -259,24 +262,29 @@ export const getMiddleFromDelimitedName = (name: string | undefined): string | u
 }
 
 // Extracts the third value from a semicolon-delimited string
-// e.g 'First;Middle;Last' => 'Last'
+// e.g 'First;Middle;Last;DisplayName' => 'Last'
 export const getLastFromDelimitedName = (name: string | undefined): string | undefined => {
   if (!name) return undefined;
   const parts = name.split(';');
   return parts[2]?.trim() || undefined;
 }
 
-// Creates a semicolon-delimited string from three values
-// e.g ('First', 'Middle', 'Last') => 'First;Middle;Last'
-export const makeDelimitedName = (first?: string, second?: string, third?: string): string | undefined => {
-  if (!first && !second && !third) return undefined;
-  const parts = [first, second, third];
-  return parts.join(';');
+// Extracts the fourth value from a semicolon-delimited string
+// e.g 'First;Middle;Last;DisplayName' => 'DisplayName'
+export const getDisplayNameFromDelimitedName = (name: string | undefined): string | undefined => {
+  if (!name) return undefined;
+  const parts = name.split(';');
+  return parts[3]?.trim() || undefined;
 }
-// Replaces semicolon delimiters with spaces in a string
-// e.g 'First;Middle;Last' => 'First Middle Last'
-export const replaceDelimiterWithSpaces = (value: string | undefined): string | undefined => {
-  if (!value || value.replace(/;/g, '').trim() === '') return undefined;
-  const parts = value.split(';').map(part => part.trim()).filter(part => part).slice(0, 3);
-  return parts.length > 0 ? parts.join(' ') : undefined;
+
+// Creates a semicolon-delimited name string from a Party object
+// e.g a Party with first, middle, last, and display names => 'First;Middle;Last;DisplayName'
+export const makeDelimitedName = (party: fspiopAPI.Types.Party): string | undefined => {
+  const first = party?.personalInfo?.complexName?.firstName || undefined;
+  const second = party?.personalInfo?.complexName?.middleName || undefined;
+  const third = party?.personalInfo?.complexName?.lastName || undefined;
+  const displayName = party?.name || undefined;
+  if (!first && !second && !third && !displayName) return undefined;
+  const parts = [first, second, third, displayName];
+  return parts.join(';');
 }

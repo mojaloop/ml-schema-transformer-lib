@@ -49,7 +49,7 @@ export const fspiopSources = {
             }
           },
           merchantClassificationCode: '8',
-          name: 'party-name',
+          name: 'Display Name',
           personalInfo: {
             complexName: {
               firstName: 'Henrik',
@@ -491,7 +491,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '16135551212',
             fspId: 'FSPID'
           },
-          name: 'Henrik Johannes Karlsson',
+          name: 'Display Name',
           personalInfo: {
             complexName: {
               firstName: 'Henrik',
@@ -530,7 +530,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '4567890',
             fspId: '4321'
           },
-          name: 'Jane Doe',
+          name: 'Display Name',
           personalInfo: {
             complexName: {
               firstName: 'Jane',
@@ -546,7 +546,7 @@ export const expectedFspiopTargets = {
             partyIdentifier: '987654321',
             fspId: 'dfsp2'
           },
-          name: 'John Middle',
+          name: 'Display Name',
           personalInfo: {
             complexName: {
               firstName: 'John',
@@ -777,7 +777,7 @@ export const fspiopIso20022Sources = {
                   }
                 }
               },
-              Nm: 'Henrik;Johannes;Karlsson'
+              Nm: 'Henrik;Johannes;Karlsson;Display Name'
             },
             Agt: {
               FinInstnId: {
@@ -852,7 +852,7 @@ export const fspiopIso20022Sources = {
                 }
               }
             },
-            Name: 'Jane;;Doe'
+            Nm: 'Jane;;Doe;Display Name'
           },
           CdtrAgt: {
             FinInstnId: {
@@ -880,7 +880,7 @@ export const fspiopIso20022Sources = {
                 }
               }
             },
-            Name: 'John;Middle;'
+            Nm: 'John;Middle;;Display Name'
           },
           DbtrAcct: {
             Ccy: [
@@ -1446,7 +1446,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                   }
                 }
               },
-              Nm: 'Henrik;Johannes;Karlsson'
+              Nm: 'Henrik;Johannes;Karlsson;Display Name'
             },
             Agt: {
               FinInstnId: {
@@ -1527,7 +1527,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                 }
               }
             },
-            Name: 'Jane;;Doe'
+            Nm: 'Jane;;Doe;Payee Name'
           },
           CdtrAcct: {
             Ccy: 'XTS'
@@ -1543,7 +1543,7 @@ export const expectedFspiopIso20022Targets = (target: GenericObject) => ({
                 }
               }
             },
-            Name: 'John;;'
+            Nm: 'John;;;Payer Name'
           },
           DbtrAcct: {
             Ccy: 'XXX'

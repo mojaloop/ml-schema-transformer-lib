@@ -56,12 +56,18 @@
 | TRUE |  | payee.partyIdInfo.partyIdType | if(CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtry)payee.partyIdInfo.partyIdType = CdtTrfTxInf.Cdtr.Id.OrgId.Othr.SchmeNm.Prtryelsepayee.partyIdInfo.partyIdType = CdtTrfTxInf.Cdtr.Id.PrvtId.Othr.SchmeNm.Prtry |
 | TRUE |  | payee.partyIdInfo.partyIdentifier | if(CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Id)payee.partyIdInfo.partyIdentifier = CdtTrfTxInf.Cdtr.Id.OrgId.Othr.Idelsepayee.partyIdInfo.partyIdentifier = CdtTrfTxInf.Cdtr.Id.PrvtId.Othr.Id |
 | TRUE |  | payee.partyIdInfo.fspId | CdtTrfTxInf.CdtrAgt.FinInstnId.Othr.Id |
-| TRUE |  | payee.name | CdtTrfTxInf.Cdtr.Name |
+| TRUE |  | payee.name | CdtTrfTxInf.Cdtr.Nm |
+|  |  | payee.personalInfo.complexName.firstName | getFirstFromDelimitedName(CdtTrfTxInf.Cdtr.Nm) |
+|  |  | payee.personalInfo.complexName.middleName | getMiddleFromDelimitedName(CdtTrfTxInf.Cdtr.Nm) |
+|  |  | payee.personalInfo.complexName.lastName | getLastFromDelimitedName(CdtTrfTxInf.Cdtr.Nm) |
 | TRUE |  | payee.supportedCurrencies | CdtTrfTxInf.CdtrAcct.Ccy |
 | TRUE |  | payer.partyIdInfo.partyIdType | if(CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtry)payer.partyIdInfo.partyIdType = CdtTrfTxInf.Dbtr.Id.OrgId.Othr.SchmeNm.Prtryelsepayer.partyIdInfo.partyIdType = CdtTrfTxInf.Dbtr.Id.PrvtId.Othr.SchmeNm.Prtry |
 | TRUE |  | payer.partyIdInfo.partyIdentifier | if(CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Id)payer.partyIdInfo.partyIdentifier = CdtTrfTxInf.Dbtr.Id.OrgId.Othr.Idelsepayer.partyIdInfo.partyIdentifier = CdtTrfTxInf.Dbtr.Id.PrvtId.Othr.Id |
 | TRUE |  | payer.partyIdInfo.fspId | CdtTrfTxInf.DbtrAgt.FinInstnId.Othr.Id |
-| TRUE |  | payer.name | CdtTrfTxInf.Dbtr.Name |
+| TRUE |  | payer.name | getDisplayName(CdtTrfTxInf.Dbtr.Nm) |
+|  |  | payer.personalInfo.complexName.firstName | getFirstFromDelimitedName(CdtTrfTxInf.Dbtr.Nm) |
+|  |  | payer.personalInfo.complexName.middleName | getMiddleFromDelimitedName(CdtTrfTxInf.Dbtr.Nm) |
+|  |  | payer.personalInfo.complexName.lastName | getLastFromDelimitedName(CdtTrfTxInf.Dbtr.Nm) |
 | TRUE |  | payer.supportedCurrencies | CdtTrfTxInf.DbtrAcct.Ccy |
 | TRUE |  | amount.currency | CdtTrfTxInf.IntrBkSttlmAmt.Ccy |
 | TRUE |  | amount.amount | CdtTrfTxInf.IntrBkSttlmAmt.ActiveCurrencyAndAmount |

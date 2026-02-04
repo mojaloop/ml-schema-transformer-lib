@@ -48,8 +48,8 @@ import {
   getFirstFromDelimitedName,
   getMiddleFromDelimitedName,
   getLastFromDelimitedName,
+  getDisplayNameFromDelimitedName,
   makeDelimitedName,
-  replaceDelimiterWithSpaces
 } from '../../../../src/lib/utils';
 import { ID_GENERATOR_TYPE } from 'src/types';
 
@@ -286,78 +286,108 @@ describe('Utils tests', () => {
   });
   describe('Delimited name functions', () => {
     it('should get the first part from a delimited name', () => {
-      const name = 'First;Middle;Last';
+      const name = 'First;Middle;Last;DisplayName';
       const first = getFirstFromDelimitedName(name);
       expect(first).toBe('First');
     });
     it('should get the second part from a delimited name', () => {
-      const name = 'First;Middle;Last';
+      const name = 'First;Middle;Last;DisplayName';
       const second = getMiddleFromDelimitedName(name);
       expect(second).toBe('Middle');
     });
     it('should get the third part from a delimited name', () => {
-      const name = 'First;Middle;Last';
+      const name = 'First;Middle;Last;DisplayName';
       const third = getLastFromDelimitedName(name);
       expect(third).toBe('Last');
+    });
+    it('should get the fourth part (display name) from a delimited name', () => {
+      const name = 'First;Middle;Last;DisplayName';
+      const displayName = getDisplayNameFromDelimitedName(name);
+      expect(displayName).toBe('DisplayName');
     });
     it('should return undefined for missing parts', () => {
       const name = 'First';
       expect(getMiddleFromDelimitedName(name)).toBeUndefined();
       expect(getLastFromDelimitedName(name)).toBeUndefined();
+      expect(getDisplayNameFromDelimitedName(name)).toBeUndefined();
     });
-    it('should make a delimited name from parts', () => {
-      const name = makeDelimitedName('First', 'Middle', 'Last');
-      expect(name).toBe('First;Middle;Last');
-    });
-    it('should make a delimited name with missing parts', () => {
-      const name1 = makeDelimitedName('First');
-      expect(name1).toBe('First;;');
 
-      const name2 = makeDelimitedName('First', 'Middle');
-      expect(name2).toBe('First;Middle;');
+    it('should make a delimited name from a party object', () => {
+      const party = {
+        personalInfo: {
+          complexName: {
+            firstName: 'First',
+            middleName: 'Middle',
+            lastName: 'Last'
+          }
+        },
+        name: 'DisplayName'
+      } as any;
+      const name = makeDelimitedName(party);
+      expect(name).toBe('First;Middle;Last;DisplayName');
     });
+
+    it('should make a delimited name with missing parts', () => {
+      const party1 = {
+        personalInfo: {
+          complexName: {
+            firstName: 'First'
+          }
+        }
+      } as any;
+      const name1 = makeDelimitedName(party1);
+      expect(name1).toBe('First;;;');
+
+      const party2 = {
+        personalInfo: {
+          complexName: {
+            firstName: 'First',
+            middleName: 'Middle'
+          }
+        }
+      } as any;
+      const name2 = makeDelimitedName(party2);
+      expect(name2).toBe('First;Middle;;');
+
+      const party3 = {
+        personalInfo: {
+          complexName: {
+            firstName: 'First',
+            middleName: 'Middle',
+            lastName: 'Last'
+          }
+        }
+      } as any;
+      const name3 = makeDelimitedName(party3);
+      expect(name3).toBe('First;Middle;Last;');
+
+      const party4 = {
+        name: 'DisplayName'
+      } as any;
+      const name4 = makeDelimitedName(party4);
+      expect(name4).toBe(';;;DisplayName');
+    });
+
     it('should handle empty strings in delimited names', () => {
-      const name = makeDelimitedName('First', '', 'Last');
-      expect(name).toBe('First;;Last');
+      const party = {
+        personalInfo: {
+          complexName: {
+            firstName: 'First',
+            lastName: 'Last'
+          }
+        },
+      name: 'DisplayName'
+      } as any;
+      const name = makeDelimitedName(party);
+      expect(name).toBe('First;;Last;DisplayName');
 
       expect(getMiddleFromDelimitedName(name)).toBe(undefined);
     });
-    it('should handle empty complexName to and from', () => {
-      const name = makeDelimitedName('', '', '');
+
+    it('should return undefined when all parts are missing', () => {
+      const party = {} as any;
+      const name = makeDelimitedName(party);
       expect(name).toBe(undefined);
-    });
-    it('should replace delimiters with spaces in a delimited name', () => {
-      const name = 'First;Middle;Last';
-      const replaced = replaceDelimiterWithSpaces(name);
-      expect(replaced).toBe('First Middle Last');
-    });
-
-    it('should handle empty string in replaceDelimiterWithSpaces', () => {
-      const replaced = replaceDelimiterWithSpaces('');
-      expect(replaced).toBe(undefined);
-    });
-
-    it('should handle single name without delimiters', () => {
-      const replaced = replaceDelimiterWithSpaces('First');
-      expect(replaced).toBe('First');
-    });
-
-    it('should handle multiple consecutive delimiters', () => {
-      const replaced = replaceDelimiterWithSpaces('First;;Last');
-      expect(replaced).toBe('First Last');
-    });
-
-    it('should preserve spaces in name parts', () => {
-      const replaced = replaceDelimiterWithSpaces('First Name;Middle Name;Last Name');
-      expect(replaced).toBe('First Name Middle Name Last Name');
-    });
-
-    it('should return undefined if value is only delimiters or empty after trimming', () => {
-      expect(replaceDelimiterWithSpaces(undefined)).toBeUndefined();
-      expect(replaceDelimiterWithSpaces(';;;')).toBeUndefined();
-      expect(replaceDelimiterWithSpaces(' ; ; ; ')).toBeUndefined();
-      expect(replaceDelimiterWithSpaces('')).toBeUndefined();
-      expect(replaceDelimiterWithSpaces('   ')).toBeUndefined();
     });
 
     it('should handle undefined input for getFirstFromDelimitedName', () => {
@@ -370,6 +400,10 @@ describe('Utils tests', () => {
 
     it('should handle undefined input for getLastFromDelimitedName', () => {
       expect(getLastFromDelimitedName(undefined)).toBeUndefined();
+    });
+
+    it('should handle undefined input for getDisplayNameFromDelimitedName', () => {
+      expect(getDisplayNameFromDelimitedName(undefined)).toBeUndefined();
     });
 
     it('should handle empty string input for getFirstFromDelimitedName', () => {
@@ -387,16 +421,25 @@ describe('Utils tests', () => {
       expect(getLastFromDelimitedName(';;;')).toBeUndefined();
     });
 
+    it('should handle empty string input for getDisplayNameFromDelimitedName', () => {
+      expect(getDisplayNameFromDelimitedName('')).toBeUndefined();
+      expect(getDisplayNameFromDelimitedName(';;;')).toBeUndefined();
+    });
+
     it('should trim whitespace and ignore empty parts in getFirstFromDelimitedName', () => {
-      expect(getFirstFromDelimitedName('  First ; ; Last ')).toBe('First');
+      expect(getFirstFromDelimitedName('  First ; ; Last ; DisplayName ')).toBe('First');
     });
 
     it('should trim whitespace and ignore empty parts in getMiddleFromDelimitedName', () => {
-      expect(getMiddleFromDelimitedName('First;  Middle ;  Last')).toBe('Middle');
+      expect(getMiddleFromDelimitedName('First;  Middle ;  Last; DisplayName')).toBe('Middle');
     });
 
     it('should trim whitespace and ignore empty parts in getLastFromDelimitedName', () => {
-      expect(getLastFromDelimitedName('First;Middle; Last ')).toBe('Last');
+      expect(getLastFromDelimitedName('First;Middle; Last ; DisplayName')).toBe('Last');
+    });
+
+    it('should trim whitespace and ignore empty parts in getDisplayNameFromDelimitedName', () => {
+      expect(getDisplayNameFromDelimitedName('First;Middle;Last;  DisplayName ')).toBe('DisplayName');
     });
 
     it('should return undefined for getMiddleFromDelimitedName if only one part', () => {
@@ -405,6 +448,10 @@ describe('Utils tests', () => {
 
     it('should return undefined for getLastFromDelimitedName if only two parts', () => {
       expect(getLastFromDelimitedName('First;Second')).toBeUndefined();
+    });
+
+    it('should return undefined for getDisplayNameFromDelimitedName if only three parts', () => {
+      expect(getDisplayNameFromDelimitedName('First;Second;Third')).toBeUndefined();
     });
   });
 });
