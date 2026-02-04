@@ -355,13 +355,15 @@ describe('FSPIOPTransformFacade tests', () => {
       it('should handle only firstName present in complexName for post quotes', async () => {
         const source = JSON.parse(JSON.stringify(fspiopSources.quotes.post));
         source.body.payer = {
+          name: undefined,
           personalInfo: {
-        complexName: {
-          firstName: 'John'
-        }
+            complexName: {
+              firstName: 'John'
+            }
           }
         };
         source.body.payee = {
+          name: undefined,
           personalInfo: {
             complexName: {
               firstName: 'Jane'
