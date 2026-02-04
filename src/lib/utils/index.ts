@@ -277,8 +277,8 @@ export const getDisplayNameFromDelimitedName = (name: string | undefined): strin
   return parts[3]?.trim() || undefined;
 }
 
-// Creates a semicolon-delimited string from four values
-// e.g ('First', 'Middle', 'Last', 'DisplayName') => 'First;Middle;Last;DisplayName'
+// Creates a semicolon-delimited name string from a Party object
+// e.g a Party with first, middle, last, and display names => 'First;Middle;Last;DisplayName'
 export const makeDelimitedName = (party: fspiopAPI.Types.Party): string | undefined => {
   const first = party?.personalInfo?.complexName?.firstName || undefined;
   const second = party?.personalInfo?.complexName?.middleName || undefined;
