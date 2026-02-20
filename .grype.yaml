@@ -1,9 +1,8 @@
 disabled: false
-
 ignore:
   - vulnerability: GHSA-5j98-mcp5-4vw2
     include-aliases: true
-    reason: "glob upgraded to 10.5.0 in package.json, but Node.js 22.20.0-alpine3.22 is still using glob 10.4.5"
+    reason: glob upgraded to 10.5.0 in package.json, but Node.js 22.20.0-alpine3.22 is still using glob 10.4.5
   - vulnerability: CVE-2025-9230
   - vulnerability: CVE-2025-9232
   - vulnerability: CVE-2025-9231
@@ -31,14 +30,31 @@ ignore:
   - vulnerability: CVE-2025-68160
   - vulnerability: CVE-2025-69418
   - vulnerability: GHSA-3966-f6p6-2qr9
-
-# Set output format defaults
+  - vulnerability: GHSA-73rr-hh4g-fpgx
+    include-aliases: true
+    reason: >-
+      Base image npm package: diff - bundled in Node.js base image, not fixable via application dependencies as of
+      2026-02-20 (low severity)
+  - vulnerability: GHSA-3ppc-4f35-3m26
+    include-aliases: true
+    reason: >-
+      Base image npm package: minimatch - bundled in Node.js base image, not fixable via application dependencies as of
+      2026-02-20 (high severity)
+  - vulnerability: GHSA-83g3-92jg-28cx
+    include-aliases: true
+    reason: >-
+      Base image npm package: tar - bundled in Node.js base image, not fixable via application dependencies as of
+      2026-02-20 (high severity)
+  - vulnerability: GHSA-jmr7-xgp7-cmfj
+    include-aliases: true
+    reason: "Unfixable npm transitive vulnerability: fast-xml-parser (high severity) as of 2026-02-20"
+  - vulnerability: GHSA-2g4f-4pwh-qvx6
+    include-aliases: true
+    reason: "Unfixable npm transitive vulnerability: unknown (unknown severity) as of 2026-02-20"
 output:
-  - "table"
-  - "json"
-
-# Modify your CircleCI job to check critical count
+  - table
+  - json
 search:
-  scope: "squashed"
+  scope: squashed
 quiet: false
 check-for-app-update: false
