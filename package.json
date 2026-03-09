@@ -47,23 +47,23 @@
     "warn-pre-commit": "echo \"pre commit tasks running. build and test\"",
     "audit:fix": "npm audit fix",
     "audit:check": "npx audit-ci --config ./audit-ci.jsonc",
-    "dep:check": "npx --no-install ncu -e 2",
-    "dep:update": "npx --no-install ncu -u",
+    "dep:check": "npx ncu -e 2 --target @minor-infitx",
+    "dep:update": "npx ncu -u --target @minor-infitx",
     "release": "npx standard-version --no-verify --releaseCommitMessageFormat 'ci(release): {{currentTag}} [skip ci]'",
     "snapshot": "npx standard-version --no-verify --skip.changelog --prerelease snapshot --releaseCommitMessageFormat 'ci(snapshot): {{currentTag}}'"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "12.1.0",
-    "@mojaloop/api-snippets": "18.3.0",
-    "@mojaloop/central-services-error-handling": "13.1.5",
-    "@mojaloop/central-services-logger": "11.11.0-infitx.2",
-    "@mojaloop/central-services-shared": "18.36.0-infitx.6",
-    "ajv": "8.17.1",
+    "@mojaloop/api-snippets": "18.3.2",
+    "@mojaloop/central-services-error-handling": "13.1.6",
+    "@mojaloop/central-services-logger": "11.11.0-infitx.3",
+    "@mojaloop/central-services-shared": "18.36.0-infitx.7",
+    "ajv": "8.18.0",
     "fast-safe-stringify": "2.1.1",
     "ilp-packet": "2.2.0",
     "map-transform-cjs": "0.2.0",
     "node-cache": "5.1.2",
-    "openapi-backend": "5.15.0",
+    "openapi-backend": "5.16.1",
     "swagger-parser": "10.0.3"
   },
   "overrides": {
@@ -94,20 +94,20 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "20.4.1",
-    "@commitlint/config-conventional": "20.4.1",
+    "@commitlint/cli": "20.4.3",
+    "@commitlint/config-conventional": "20.4.3",
     "@types/jest": "30.0.0",
-    "@types/node": "25.2.0",
-    "@typescript-eslint/eslint-plugin": "8.54.0",
-    "@typescript-eslint/parser": "8.54.0",
+    "@types/node": "25.3.5",
+    "@typescript-eslint/eslint-plugin": "8.56.1",
+    "@typescript-eslint/parser": "8.56.1",
     "@vitest/coverage-v8": "4.0.18",
     "audit-ci": "7.1.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
     "husky": "9.1.7",
-    "lint-staged": "16.2.7",
-    "npm-check-updates": "19.3.2",
+    "lint-staged": "16.3.2",
+    "npm-check-updates": "19.6.3",
     "prettier": "3.8.1",
     "replace": "1.2.2",
     "standard-version": "9.5.0",
@@ -118,7 +118,7 @@
     "vitest": "4.0.18"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.57.1"
+    "@rollup/rollup-linux-x64-musl": "4.59.0"
   },
   "standard-version": {
     "scripts": {
