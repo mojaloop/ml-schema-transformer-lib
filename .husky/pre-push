@@ -3,3 +3,4 @@ npm run dep:check
 npm run audit:check
 npm run build
 npm run test:unit
+npm run license:check
