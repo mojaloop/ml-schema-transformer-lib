@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.9.0...v2.10.0) (2026-06-15)
+
+
+### Features
+
+* change old replace ([4c930a5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4c930a50867c7a43abf77463eb5feb6bb755927f))
+* upgrade dependencies ([00dcf69](https://github.com/mojaloop/ml-schema-transformer-lib/commit/00dcf6918d3cb375ae8ba2001c8c3376f84b661f))
+* upgrade dependencies ([78d8a6c](https://github.com/mojaloop/ml-schema-transformer-lib/commit/78d8a6c0391c5edd145ab715bab9dc13bbc3e126))
+* upgrade dependencies ([9d7e0b5](https://github.com/mojaloop/ml-schema-transformer-lib/commit/9d7e0b5fd170c96a98dd564f0d6190844b1f9d40))
+
+
+### Bug Fixes
+
+* **security:** update dependencies and overrides to resolve CI failures ([cec59b7](https://github.com/mojaloop/ml-schema-transformer-lib/commit/cec59b756d8c9e95aa4ab40e7d338f8649e44a3c))
+
+
+### Chore
+
+* remove Dockerfile from library repo ([#4384](https://github.com/mojaloop/ml-schema-transformer-lib/issues/4384)) ([4ea1d30](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4ea1d306ced10200521aa8cf19a7836bcab5ffc8))
+
 ## [2.9.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.8.1...v2.9.0) (2026-02-04)
 
 
