@@ -55,28 +55,28 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "12.1.0",
-    "@mojaloop/api-snippets": "18.3.2",
+    "@mojaloop/api-snippets": "18.4.0",
     "@mojaloop/central-services-error-handling": "13.1.6",
-    "@mojaloop/central-services-logger": "11.10.4",
+    "@mojaloop/central-services-logger": "11.10.5",
     "@mojaloop/central-services-shared": "18.37.0",
     "ajv": "8.20.0",
     "fast-safe-stringify": "2.1.1",
-    "ilp-packet": "2.2.0",
+    "ilp-packet": "3.1.3",
     "map-transform-cjs": "0.2.0",
     "node-cache": "5.1.2",
-    "openapi-backend": "5.17.0",
+    "openapi-backend": "5.18.0",
     "swagger-parser": "10.0.3"
   },
   "overrides": {
     "@grpc/grpc-js": "1.14.4",
     "@mojaloop/central-services-shared": {
       "@mojaloop/central-services-error-handling": "13.1.6",
-      "@mojaloop/central-services-logger": "11.10.4"
+      "@mojaloop/central-services-logger": "11.10.5"
     },
     "brace-expansion": "2.0.3",
     "convict": "6.2.5",
     "esbuild": "0.28.1",
-    "fast-xml-parser": "5.7.0",
+    "fast-xml-parser": "5.9.3",
     "form-data": "4.0.6",
     "immutable": "5.1.5",
     "js-yaml": "4.2.0",
@@ -86,12 +86,12 @@
     "minimatch": "10.2.5",
     "on-headers": "1.1.0",
     "path-to-regexp": "0.1.13",
-    "protobufjs": "8.6.0",
+    "protobufjs": "8.6.6",
     "qs": "6.15.2",
     "readdirp": {
       "picomatch": "2.3.2"
     },
-    "undici": "7.24.6",
+    "undici": "7.28.0",
     "validator": "13.15.22",
     "yaml": "2.8.3",
     "shins": {
@@ -113,31 +113,32 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "21.0.2",
-    "@commitlint/config-conventional": "21.0.2",
-    "@mojaloop/license-scanner-tool": "^1.1.0",
+    "@commitlint/cli": "21.2.0",
+    "@commitlint/config-conventional": "21.2.0",
+    "@mojaloop/license-scanner-tool": "^1.1.1",
     "@types/jest": "30.0.0",
-    "@types/node": "25.9.3",
-    "@typescript-eslint/eslint-plugin": "8.61.1",
-    "@typescript-eslint/parser": "8.61.1",
-    "@vitest/coverage-v8": "4.1.9",
+    "@types/node": "24.13.2",
+    "@typescript-eslint/eslint-plugin": "8.63.0",
+    "@typescript-eslint/parser": "8.63.0",
+    "@vitest/coverage-v8": "4.1.10",
     "audit-ci": "7.1.0",
-    "eslint": "8.57.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "10.6.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-import": "2.32.0",
+    "globals": "17.7.0",
     "husky": "9.1.7",
-    "lint-staged": "17.0.7",
-    "npm-check-updates": "22.2.3",
-    "prettier": "3.8.4",
+    "lint-staged": "17.0.8",
+    "npm-check-updates": "22.2.9",
+    "prettier": "3.9.4",
     "standard-version": "9.5.0",
     "tsup": "^8.5.1",
-    "typedoc": "0.28.0",
+    "typedoc": "0.28.20",
     "typedoc-theme-hierarchy": "6.0.0",
-    "typescript": "5.7.3",
-    "vitest": "4.1.9"
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-musl": "4.62.0"
+    "@rollup/rollup-linux-x64-musl": "4.62.2"
   },
   "standard-version": {
     "scripts": {

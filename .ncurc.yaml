@@ -1,7 +1,4 @@
-## Add a comment indicating the reason for each rejected dependency upgrade added to this list, and what should be done to resolve it (i.e. handle it through a story, etc).
+## Add a comment indicating the reason for each rejected dependency upgrade added to this list, and what should be done to resolve it.
 reject: [
-  "eslint", # typescript-eslint v7 only supports eslint v8
-  "ilp-packet", # peg this to same version as sdk-standard-components
-  "typescript", # @typescript-eslint/parser only supports typescript 5.7. Need to wait for the new version of this component and then we can update typescript.
-  "typedoc", # "typedoc-theme-hierarchy" requires typedoc@"^0.26.0 || ^0.27.0"
+  "@types/node", # must stay on the 24.x line: its major must match the .nvmrc runtime major (24.18.0); higher majors only weaken type checking (tsc would accept newer-Node-only APIs that crash at runtime)
 ]

@@ -1,5 +1,9 @@
 {
   "exceptions": {
+    "oer-utils@5.1.2": {
+      "reason": "Apache-2.0 per bundled LICENSE file (Copyright 2016 JS Foundation / Ripple, Inc.); empty license field in upstream package.json. Transitive via ilp-packet@3.1.3. Added 2026-07-07.",
+      "expires": "2026-12-31"
+    },
     "seq-queue@0.0.5": {
       "reason": "MIT per bundled LICENSE file (The MIT License, Netease/pomelo); empty license field in package.json. Transitive via @mojaloop/central-services-shared -> mysql2.",
       "expires": "2027-01-01"
