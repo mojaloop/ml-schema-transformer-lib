@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.10.0...v2.10.1) (2026-07-09)
+
+
+### Chore
+
+* bump orb to 2.1.3, node to 24.18.0, update deps and fix vulnerabilities [mojaloop/[#4479](https://github.com/mojaloop/ml-schema-transformer-lib/issues/4479)] ([4f87bd2](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4f87bd2e6a03c2ff6c4cade20fddd4ce1d7d6d4d))
+
 ## [2.10.0](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.9.0...v2.10.0) (2026-06-15)
 
 
