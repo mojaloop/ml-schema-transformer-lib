@@ -1,4 +1,8 @@
 ## Add a comment indicating the reason for each rejected dependency upgrade added to this list, and what should be done to resolve it.
 reject: [
+  # TypeScript 7.x deferred: @typescript-eslint/parser 8.x peers typescript ">=4.8.4 <6.1.0",
+  # so 7.0.x fails npm ERESOLVE. Hold on the 6.0.x line until typescript-eslint supports 7.
+  # Reproduced 2026-08-27 [mojaloop/#4479].
+  "typescript",
   "@types/node", # must stay on the 24.x line: its major must match the .nvmrc runtime major (24.18.0); higher majors only weaken type checking (tsc would accept newer-Node-only APIs that crash at runtime)
 ]
