@@ -127,7 +127,7 @@
     "eslint-config-prettier": "10.1.8",
     "globals": "17.11.0",
     "husky": "9.1.7",
-    "lint-staged": "17.3.0",
+    "lint-staged": "17.4.1",
     "npm-check-updates": "23.1.0",
     "prettier": "3.9.6",
     "standard-version": "9.5.0",
