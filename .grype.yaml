@@ -1,8 +1,19 @@
 disabled: false
 
 ignore:
-
-
+  # Both advisories below have NO patched release published, so they cannot be
+  # fixed from this repo's package.json. Everything else is patched with a real
+  # npm override. Mirrors the audit-ci.jsonc allowlist.
+  # braces: advisory covers "<= 3.0.3" and 3.0.3 is the newest version published.
+  # Dev-tooling only (micromatch -> fast-glob -> globby, @typescript-eslint).
+  - vulnerability: GHSA-vfj7-8cjw-p6xm
+    include-aliases: true
+    reason: 'braces: no patched release exists (<= 3.0.3 affected, 3.0.3 is latest); dev tooling only'
+  # sprintf-js: advisory covers "<= 1.1.3" and 1.1.3 is the newest version published.
+  # Reached only via argparse 1.x under js-yaml 3.x, which is dev tooling only.
+  - vulnerability: GHSA-hp3w-g68c-fv3c
+    include-aliases: true
+    reason: 'sprintf-js: no patched release exists (<= 1.1.3 affected, 1.1.3 is latest); dev tooling only'
 # Set output format defaults
 output:
   - "table"
