@@ -5,22 +5,17 @@
   "allowlist": [
     // NOTE: Please add as much information as possible to any items added to the allowList
     //
-    // Both entries below are advisories with NO patched release published. Everything
-    // else is fixed with a real override in package.json rather than suppressed here.
+    // Only one advisory in this tree has no fix in any version. Everything else is patched
+    // with a real npm override in package.json rather than suppressed here.
     //
     // GHSA-vfj7-8cjw-p6xm - braces: stack-exhaustion DoS through deeply nested patterns.
-    // Advisory covers "<= 3.0.3" and 3.0.3 is the latest version published, so there is
-    // nothing to upgrade to. Dev-tooling only, never on a runtime path:
-    // micromatch -> fast-glob -> globby and @typescript-eslint/typescript-estree.
-    // Remove once braces 3.0.4 or later ships.
-    "GHSA-vfj7-8cjw-p6xm",
-    // GHSA-hp3w-g68c-fv3c - sprintf-js: DoS through unbounded precision specifiers.
-    // Advisory covers "<= 1.1.3" and 1.1.3 is the latest version published. Reached only
-    // via argparse 1.x, a dependency of js-yaml 3.x, which is required by dev tooling
-    // only. Not reachable at runtime. argparse 2.x dropped sprintf-js entirely, but
-    // js-yaml 3.x pins argparse ^1.0.7, so this waits upstream.
-    // Remove once sprintf-js 1.1.4 or later ships.
-    "GHSA-hp3w-g68c-fv3c"
+    // No patched release exists in any major: the advisory covers "<= 3.0.3" and 3.0.3 is
+    // the newest version published. The only path is @mojaloop/api-snippets ->
+    // ts-auto-mock@3.7.4 -> micromatch@4.0.8 -> braces, and both ts-auto-mock and
+    // micromatch are already at their latest versions (ts-auto-mock pins micromatch
+    // exactly), so no parent bump removes it either. Dev/test-mock tooling, never on a
+    // runtime path. Remove once braces 3.0.4 ships.
+    "GHSA-vfj7-8cjw-p6xm"
   ],
   "moderate": true
 }
