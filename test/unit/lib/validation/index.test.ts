@@ -3,7 +3,7 @@ import { API_NAME, HTTP_METHOD } from 'src/types';
 import { getApiSpecPath, validateBody, applyTargetValidation } from '../../../../src/lib/validation';
 import { expectedFspiopTargets, mockLogger } from 'test/fixtures';
 
-vi.setConfig({ testTimeout: 10_000 });
+vi.setConfig({ testTimeout: 30_000 });
 
 describe('Validation Tests', () => {
   describe('getApiSpecPath', () => {

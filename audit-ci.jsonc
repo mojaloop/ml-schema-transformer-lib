@@ -2,7 +2,20 @@
   "$schema": "https://github.com/IBM/audit-ci/raw/main/docs/schema.json",
   // audit-ci supports reading JSON, JSONC, and JSON5 config files.
   // Only use one of ["low": true, "moderate": true, "high": true, "critical": true]
-  "moderate": true,
-  "allowlist": [ // NOTE: Please add as much information as possible to any items added to the allowList
-  ]
+  "allowlist": [
+    // NOTE: Please add as much information as possible to any items added to the allowList
+    //
+    // Only one advisory in this tree has no fix in any version. Everything else is patched
+    // with a real npm override in package.json rather than suppressed here.
+    //
+    // GHSA-vfj7-8cjw-p6xm - braces: stack-exhaustion DoS through deeply nested patterns.
+    // No patched release exists in any major: the advisory covers "<= 3.0.3" and 3.0.3 is
+    // the newest version published. The only path is @mojaloop/api-snippets ->
+    // ts-auto-mock@3.7.4 -> micromatch@4.0.8 -> braces, and both ts-auto-mock and
+    // micromatch are already at their latest versions (ts-auto-mock pins micromatch
+    // exactly), so no parent bump removes it either. Dev/test-mock tooling, never on a
+    // runtime path. Remove once braces 3.0.4 ships.
+    "GHSA-vfj7-8cjw-p6xm"
+  ],
+  "moderate": true
 }

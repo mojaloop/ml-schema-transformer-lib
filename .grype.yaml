@@ -1,7 +1,14 @@
 disabled: false
 
 ignore:
-
+  # The CI grype job fails on any Critical, High or Medium match, so the one entry below is
+  # required. braces has no patched release in any major (<= 3.0.3 affected, 3.0.3 is the
+  # newest published) and its only path, ts-auto-mock -> micromatch, is already at latest.
+  # Mirrors the audit-ci.jsonc allowlist. Remove when braces 3.0.4 ships.
+  # sprintf-js used to be listed here: it left the tree when argparse 1 was bumped to 2.
+  - vulnerability: GHSA-vfj7-8cjw-p6xm
+    include-aliases: true
+    reason: 'braces: no patched release exists (<= 3.0.3 affected, 3.0.3 is latest); only path ts-auto-mock -> micromatch, both at latest'
 
 # Set output format defaults
 output:
