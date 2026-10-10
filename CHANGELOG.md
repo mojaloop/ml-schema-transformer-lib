@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.2](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.10.1...v2.10.2) (2026-10-10)
+
+
+### Bug Fixes
+
+* bump the stale security overrides instead of allowlisting 23 advisories ([4e83adb](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4e83adbb790bb4ec99927727a3e5d88fdbbd0de2))
+* raise the yaml and immutable overrides to satisfy their consumers ([a958786](https://github.com/mojaloop/ml-schema-transformer-lib/commit/a9587862d52fce84f86de4ff8a57cddfb6a648c2))
+* scope js-yaml, refresh stale overrides and take 16 dependency updates ([ff299d2](https://github.com/mojaloop/ml-schema-transformer-lib/commit/ff299d2ae7eb57d43690bb92828216b747dd0978))
+* **security:** bump argparse 1 -> 2 under js-yaml 3 to remove sprintf-js ([983a3dc](https://github.com/mojaloop/ml-schema-transformer-lib/commit/983a3dcac540ced13e49627e7c0ed838adca5004))
+* **test:** make vitest actually load its config and honour the timeout ([277fa67](https://github.com/mojaloop/ml-schema-transformer-lib/commit/277fa67017f2877b5ae373a2a4c1feb06ee121d9))
+
+
+### Test
+
+* raise the in-file 10 s timeouts that were overriding the 30 s setting ([60c6d96](https://github.com/mojaloop/ml-schema-transformer-lib/commit/60c6d96ee5a120efe3d2d66e26082034882911c8))
+* raise the vitest timeout to 30 s ([bfe1024](https://github.com/mojaloop/ml-schema-transformer-lib/commit/bfe1024e06c432c2db2545b8acfec84353f2a662))
+
+
+### Chore
+
+* update dependencies and apply security patches ([1d912c4](https://github.com/mojaloop/ml-schema-transformer-lib/commit/1d912c4cfbac37ebce319a7c578f1f9d9ad9f9a6))
+* update dependencies and apply security patches ([4412c02](https://github.com/mojaloop/ml-schema-transformer-lib/commit/4412c023c1ebfd3a968921430594b676b50371f6))
+
 ### [2.10.1](https://github.com/mojaloop/ml-schema-transformer-lib/compare/v2.10.0...v2.10.1) (2026-07-09)
 
 
