@@ -897,6 +897,47 @@ describe('FSPIOPTransformFacade tests', () => {
       });
     });
   });
+  describe('GrpHdr.NbOfTxs type (ISO 20022 Max15NumericText)', () => {
+    // ISO 20022 defines NbOfTxs as Max15NumericText, so it must be serialised as "1", not 1.
+    // Some DFSPs bind the field strictly and reject the whole message otherwise (ml-api-adapter#693).
+    const expectNbOfTxsIsString = (target: GenericObject) => {
+      const nbOfTxs = getProp(target, 'body.GrpHdr.NbOfTxs');
+      expect(nbOfTxs).toBe('1');
+      expect(typeof nbOfTxs).toBe('string');
+      const json = JSON.stringify(getProp(target, 'body.GrpHdr'));
+      expect(json).toContain('"NbOfTxs":"1"');
+      expect(json).not.toContain('"NbOfTxs":1');
+    };
+
+    const cases: Array<[string, () => Promise<GenericObject>]> = [
+      ['quotes.post', () => FspiopTransformFacade.quotes.post(fspiopSources.quotes.post as FspiopSource)],
+      ['quotes.put', () => FspiopTransformFacade.quotes.put(fspiopSources.quotes.put as FspiopSource)],
+      ['fxQuotes.post', () => FspiopTransformFacade.fxQuotes.post(fspiopSources.fxQuotes.post as FspiopSource)],
+      ['fxQuotes.put', () => FspiopTransformFacade.fxQuotes.put(fspiopSources.fxQuotes.put as FspiopSource)],
+      ['transfers.post', () => FspiopTransformFacade.transfers.post(fspiopSources.transfers.post as unknown as FspiopPostTransfersSource)],
+      ['fxTransfers.post', () => FspiopTransformFacade.fxTransfers.post(fspiopSources.fxTransfers.post as FspiopSource)],
+    ];
+
+    it.each(cases)('%s serialises NbOfTxs as a string, not a JSON number', async (_name, fn) => {
+      expectNbOfTxsIsString(await fn());
+    });
+
+    // quotes.put and transfers.post use different mappings outside testing mode, so cover those too.
+    const nonTestingModeCases: Array<[string, () => Promise<GenericObject>]> = [
+      ['quotes.put', () => FspiopTransformFacade.quotes.put({ ...fspiopSources.quotes.put, $context: { isoPostQuote: {} } } as FspiopSource)],
+      ['transfers.post', () => FspiopTransformFacade.transfers.post({ ...fspiopSources.transfers.post, $context: { isoPostQuoteResponse: {} } } as unknown as FspiopPostTransfersSource)],
+    ];
+
+    it.each(nonTestingModeCases)('%s serialises NbOfTxs as a string outside testing mode', async (_name, fn) => {
+      FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: false });
+      try {
+        expectNbOfTxsIsString(await fn());
+      } finally {
+        FspiopTransformFacade.configure({ logger: mockLogger, isTestingMode: true });
+      }
+    });
+  });
+
   describe('Extensions', () => {
     describe('Quotes extensions', () => {
       it('should unroll extensions from source and merge with target with facade config', async () => {
